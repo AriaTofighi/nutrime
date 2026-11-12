@@ -8,6 +8,7 @@ export default function Auth() {
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [invitationCode, setInvitationCode] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | undefined>(store.status.error);
   const [server, setServer] = useState<{ status: string; registration: string } | null | undefined>();
@@ -21,7 +22,9 @@ export default function Auth() {
     setBusy(true);
     setError(undefined);
     try {
-      const res = mode === "login" ? await api.login(email, password) : await api.register(email, password);
+      const res = mode === "login" ? await api.login(email, password) : await api.register(email, password, invitationCode.trim());
+      setPassword("");
+      setInvitationCode("");
       await store.signIn(res);
     } catch (err) {
       setError((err as Error).message);
@@ -57,6 +60,14 @@ export default function Auth() {
               required
             />
           </label>
+          {mode === "register" && (
+            <label className="field">
+              <span>Invitation code</span>
+              <input className="input-lg" value={invitationCode} onChange={(e) => setInvitationCode(e.target.value)}
+                autoComplete="off" autoCapitalize="none" spellCheck={false} maxLength={100} required />
+              <span className="hint">Ask the server owner for a code. Use the email address they invited.</span>
+            </label>
+          )}
           {error && <p className="hint danger">{error}</p>}
           <button className="btn btn-primary btn-lg btn-block" disabled={busy}>
             {busy && <LoaderCircle size={17} className="spin" />}
@@ -65,8 +76,8 @@ export default function Auth() {
         </form>
         {mode === "login" && registrationOpen && (
           <p className="auth-switch">
-            New here?{" "}
-            <button className="link" onClick={() => setMode("register")}>
+            Have an invitation?{" "}
+            <button className="link" onClick={() => { setMode("register"); setError(undefined); }}>
               Create an account
             </button>
           </p>
@@ -74,7 +85,7 @@ export default function Auth() {
         {mode === "register" && (
           <p className="auth-switch">
             Already have an account?{" "}
-            <button className="link" onClick={() => setMode("login")}>
+            <button className="link" onClick={() => { setMode("login"); setInvitationCode(""); setError(undefined); }}>
               Sign in
             </button>
           </p>

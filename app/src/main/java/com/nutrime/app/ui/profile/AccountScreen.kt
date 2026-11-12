@@ -59,6 +59,7 @@ fun AccountScreen(nav: NavController) {
     val scope = rememberCoroutineScope()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var invitationCode by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
     var register by remember { mutableStateOf(false) }
     var busy by remember { mutableStateOf(false) }
@@ -74,9 +75,10 @@ fun AccountScreen(nav: NavController) {
         message = null
         val url = BuildConfig.SYNC_SERVER_URL
         try {
-            val r = if (register) c.syncClient.register(url, email.trim(), password) else c.syncClient.login(url, email.trim(), password)
+            val r = if (register) c.syncClient.register(url, email.trim(), password, invitationCode) else c.syncClient.login(url, email.trim(), password)
             c.settings.setLogin(url, r.email, r.token, r.userId)
             password = ""
+            invitationCode = ""
             message = c.sync.syncNow() ?: "Signed in and synced"
         } catch (e: Exception) {
             message = e.message ?: "Could not reach the server"
@@ -123,7 +125,11 @@ fun AccountScreen(nav: NavController) {
                     Text(if (register) "Create your account" else "Welcome back", style = NutriTheme.type.pageTitle, color = colors.text)
                 }
                 NCard {
-                    Segmented(listOf(false to "Sign in", true to "Create account"), register, { register = it }, fill = true)
+                    Segmented(listOf(false to "Sign in", true to "Create account"), register, {
+                        register = it
+                        invitationCode = ""
+                        message = null
+                    }, fill = true)
                     Spacer(Modifier.height(Space.S4))
                     Column(verticalArrangement = Arrangement.spacedBy(Space.S3)) {
                         NTextField(email, { email = it }, Modifier.fillMaxWidth(), label = "Email", keyboardType = KeyboardType.Email)
@@ -132,10 +138,14 @@ fun AccountScreen(nav: NavController) {
                             visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
                             trailing = { NIconButton(if (showPassword) Lucide.EyeOff else Lucide.Eye, if (showPassword) "Hide password" else "Show password", { showPassword = !showPassword }, size = 32.dp) },
                         )
+                        if (register) {
+                            NTextField(invitationCode, { invitationCode = it.take(100) }, Modifier.fillMaxWidth(), label = "Invitation code", keyboardType = KeyboardType.Password)
+                            Text("Ask the server owner for a code. Use the email address they invited.", style = NutriTheme.type.small, color = colors.textSecondary)
+                        }
                         NButton(
                             if (register) "Create account" else "Sign in", { auth() },
                             kind = ButtonKind.Primary, size = ButtonSize.Lg, fill = true, loading = busy,
-                            enabled = email.isNotBlank() && password.length >= 8,
+                            enabled = email.isNotBlank() && password.length >= 8 && (!register || invitationCode.isNotBlank()),
                         )
                     }
                 }

@@ -56,6 +56,15 @@ tasks.test {
 
 application { mainClass.set("com.nutrime.server.ApplicationKt") }
 
+// Trusted server-side bootstrap/recovery; prints one code to the operator, never to server logs.
+tasks.register<JavaExec>("createInvite") {
+    group = "application"
+    description = "Creates a single-use invitation for -PinviteEmail=... (optional -PinviteDays=7)."
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("com.nutrime.server.ApplicationKt")
+    args("invite", providers.gradleProperty("inviteEmail").get(), providers.gradleProperty("inviteDays").getOrElse("7"))
+}
+
 // Runs the assistant with the real model on evals/cases.json (see AssistantEval.kt). It calls the Gemini API,
 // so it is never part of `test`; run it only when asked: GEMINI_API_KEY=... ./gradlew evalAssistant
 tasks.register<JavaExec>("evalAssistant") {

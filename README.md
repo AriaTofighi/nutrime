@@ -5,6 +5,7 @@ micronutrients** against targets personalized to your body and goals. It has an 
 app, and a small server that you host yourself for sync and an optional AI assistant.
 
 - **Offline first**: the Android app works without a network, with 13,600+ foods bundled.
+- **Invitation-only accounts**: the server owner creates single-use codes for friends. Existing accounts keep working.
 - **Self-hosted**: your diary syncs only to the server you run. There is no third-party account.
 - **One codebase for the logic**: nutrient targets, the learned daily burn, goals, search ranking and
   insights live in shared Kotlin code, with checked TypeScript copies for the web.
@@ -67,7 +68,10 @@ cp .env.example .env     # set POSTGRES_PASSWORD and JWT_SECRET (openssl rand -h
 docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
 ```
 
-Open http://localhost:8080 and create an account. To deploy on a server with HTTPS (for example with
+Create an invitation in the API container with
+`docker compose exec api /app/bin/nutrime-server invite owner@example.com 7`, then open
+http://localhost:8080 and create an account with that code. Set `ADMIN_EMAILS` in `.env` to your owner
+account email to manage invitations from **Profile → Invitations**. To deploy on a server with HTTPS (for example with
 Coolify), see [`server/README.md`](server/README.md).
 
 Optional server settings: `USDA_API_KEY` for online USDA search (otherwise the limited `DEMO_KEY` is
@@ -143,7 +147,9 @@ python3 tools/gen_design_tokens.py --check # generated design files are up to da
 python3 tools/update_food_db.py --check    # curated foods are valid and foods.db is current
 ```
 
-Set `SYNC_TEST_URL=http://<server>:8080` to also run the end-to-end sync test against a live server.
+For the optional live sync test, set `SYNC_TEST_URL=http://<server>:8080`, `SYNC_TEST_EMAIL` and a fresh
+matching `SYNC_TEST_INVITATION_CODE`. Each run consumes its code; use an isolated development server.
+Do not put a real code in shell history or public logs.
 
 ## Design system
 

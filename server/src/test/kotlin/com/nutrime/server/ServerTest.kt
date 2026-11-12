@@ -24,6 +24,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class ServerTest {
+    private lateinit var db: org.jetbrains.exposed.sql.Database
     private fun config(allowRegistration: Boolean = true) = Config(
         port = 0,
         databaseUrl = "jdbc:h2:mem:${UUID.randomUUID()};MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
@@ -34,7 +35,7 @@ class ServerTest {
     )
 
     private fun run(cfg: Config = config(), block: suspend ApplicationTestBuilder.() -> Unit) = testApplication {
-        val db = connectDatabase(cfg)
+        db = connectDatabase(cfg)
         application { module(cfg, db) }
         block()
     }
@@ -54,15 +55,16 @@ class ServerTest {
     @Test
     fun registerLoginAndSync() = run {
         val c = jsonClient()
+        val registration = invitedAuthRequest(db, "Me@Example.com", "password123")
         val reg = c.post("/api/auth/register") {
-            contentType(ContentType.Application.Json); setBody(AuthRequest("Me@Example.com", "password123"))
+            contentType(ContentType.Application.Json); setBody(registration)
         }
         assertEquals(HttpStatusCode.Created, reg.status)
 
         val dup = c.post("/api/auth/register") {
-            contentType(ContentType.Application.Json); setBody(AuthRequest("me@example.com", "password123"))
+            contentType(ContentType.Application.Json); setBody(registration)
         }
-        assertEquals(HttpStatusCode.Conflict, dup.status)
+        assertEquals(HttpStatusCode.Forbidden, dup.status) // A used code cannot register again.
 
         val bad = c.post("/api/auth/login") {
             contentType(ContentType.Application.Json); setBody(AuthRequest("me@example.com", "wrongpassword"))
@@ -116,7 +118,7 @@ class ServerTest {
     fun usersAreIsolated() = run {
         val c = jsonClient()
         suspend fun reg(email: String) = c.post("/api/auth/register") {
-            contentType(ContentType.Application.Json); setBody(AuthRequest(email, "password123"))
+            contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, email, "password123"))
         }.body<AuthResponse>()
         val a = reg("a@example.com")
         val b = reg("b@example.com")
@@ -134,7 +136,7 @@ class ServerTest {
     fun registrationCanBeDisabled() = run(config(allowRegistration = false)) {
         val c = jsonClient()
         val r = c.post("/api/auth/register") {
-            contentType(ContentType.Application.Json); setBody(AuthRequest("me@example.com", "password123"))
+            contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, "me@example.com", "password123"))
         }
         assertEquals(HttpStatusCode.Forbidden, r.status)
     }
@@ -143,7 +145,7 @@ class ServerTest {
     fun foodCandidatesRankBrandedFoodsAndKeepOthersCustomFoodsPrivate() = run(config().copy(adminEmails = setOf("admin@example.com"))) {
         val c = jsonClient()
         suspend fun register(email: String) = c.post("/api/auth/register") {
-            contentType(ContentType.Application.Json); setBody(AuthRequest(email, "password123"))
+            contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, email, "password123"))
         }.body<AuthResponse>()
         fun food(id: String, kind: String, name: String, kcal: Double, protein: Double, barcode: String? = null) = SyncChange(
             collection = "foods", id = id, updatedAt = 1, deleted = false,
@@ -190,7 +192,7 @@ class ServerTest {
     fun syncsDaysAndSavedMeals() = run {
         val c = jsonClient()
         val auth = c.post("/api/auth/register") {
-            contentType(ContentType.Application.Json); setBody(AuthRequest("days@example.com", "password123"))
+            contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, "days@example.com", "password123"))
         }.body<AuthResponse>()
         val day = SyncChange(
             collection = "days", id = "2026-11-10", updatedAt = 5, deleted = false,

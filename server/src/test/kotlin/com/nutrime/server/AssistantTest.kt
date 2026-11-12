@@ -84,7 +84,7 @@ class AssistantTest {
             application { module(cfg, db, llm) }
             val c = createClient { install(ContentNegotiation) { json() } }
             val auth = c.post("/api/auth/register") {
-                contentType(ContentType.Application.Json); setBody(AuthRequest("me@example.com", "password123"))
+                contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, "me@example.com", "password123"))
             }.body<AuthResponse>()
             out = events(c.post("/api/ai/chat") {
                 bearerAuth(auth.token); contentType(ContentType.Application.Json)
@@ -122,7 +122,7 @@ class AssistantTest {
             application { module(cfg, db, llm) }
             val c = createClient { install(ContentNegotiation) { json() } }
             val auth = c.post("/api/auth/register") {
-                contentType(ContentType.Application.Json); setBody(AuthRequest("me@example.com", "password123"))
+                contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, "me@example.com", "password123"))
             }.body<AuthResponse>()
 
             val status = c.get("/api/ai/status") { bearerAuth(auth.token) }.body<JsonObject>()
@@ -191,7 +191,7 @@ class AssistantTest {
             application { module(cfg, db) }
             val c = createClient { install(ContentNegotiation) { json() } }
             val auth = c.post("/api/auth/register") {
-                contentType(ContentType.Application.Json); setBody(AuthRequest("me@example.com", "password123"))
+                contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, "me@example.com", "password123"))
             }.body<AuthResponse>()
             val r = c.post("/api/ai/chat") {
                 bearerAuth(auth.token); contentType(ContentType.Application.Json); setBody(buildJsonObject { put("text", "hi") })

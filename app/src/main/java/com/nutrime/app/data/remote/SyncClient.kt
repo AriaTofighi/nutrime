@@ -7,7 +7,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 
 @Serializable
-data class AuthRequest(val email: String, val password: String)
+data class AuthRequest(val email: String, val password: String, val invitationCode: String = "")
 
 @Serializable
 data class AuthResponse(val token: String, val userId: String, val email: String)
@@ -43,8 +43,8 @@ class SyncClient {
         post(baseUrl, "api/auth/login", Http.json.encodeToString(AuthRequest.serializer(), AuthRequest(email, password)), null)
             .let { Http.json.decodeFromString(AuthResponse.serializer(), it) }
 
-    suspend fun register(baseUrl: String, email: String, password: String): AuthResponse =
-        post(baseUrl, "api/auth/register", Http.json.encodeToString(AuthRequest.serializer(), AuthRequest(email, password)), null)
+    suspend fun register(baseUrl: String, email: String, password: String, invitationCode: String): AuthResponse =
+        post(baseUrl, "api/auth/register", Http.json.encodeToString(AuthRequest.serializer(), AuthRequest(email, password, invitationCode.trim())), null)
             .let { Http.json.decodeFromString(AuthResponse.serializer(), it) }
 
     suspend fun sync(baseUrl: String, token: String, request: SyncRequest): SyncResponse =

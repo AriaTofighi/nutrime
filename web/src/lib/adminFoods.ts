@@ -49,7 +49,7 @@ export function useAdminAccess(token?: string) {
     const controller = new AbortController();
     void adminGet<{ admin: boolean }>("status", token, controller.signal).then(
       ({ admin }) => { if (!controller.signal.aborted) setResult({ token, allowed: admin }); },
-      () => { if (!controller.signal.aborted) setResult({ token, allowed: false, error: "Could not check database access. Please try again." }); },
+      () => { if (!controller.signal.aborted) setResult({ token, allowed: false, error: "Could not check administrator access. Please try again." }); },
     );
     return () => controller.abort();
   }, [token, attempt]);

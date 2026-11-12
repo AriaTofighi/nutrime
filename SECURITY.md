@@ -13,5 +13,9 @@ release branches.
 
 - Set a long random `JWT_SECRET` and `POSTGRES_PASSWORD`. Never commit `.env`.
 - Serve the stack over HTTPS.
-- After you create your accounts, set `ALLOW_REGISTRATION=false`.
-- Keep `ADMIN_EMAILS` empty unless you need the read-only food database panel.
+- Registration always requires a single-use invitation bound to the invited email. Share codes privately.
+- Set `ALLOW_REGISTRATION=false` to pause all new accounts, including valid invitations.
+- Set `ADMIN_EMAILS` only to trusted owner accounts. These accounts can create and revoke invitations
+  and access the food database and assistant traces. Keep it empty to disable these admin APIs.
+- Deploy invitation support on the server before distributing the first public APK.
+- The server URL in an APK is public information. Access control depends on accounts and invitations.

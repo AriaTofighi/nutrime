@@ -214,6 +214,7 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
           <SettingsRow icon={<Info size={17} />} label="About & data sources" onClick={() => setAbout(true)} />
           {admin && <SettingsRow icon={<Database size={17} />} label="Food database" value="Admin" href="#/database" />}
           {admin && <SettingsRow icon={<ActivityIcon size={17} />} label="Assistant traces" value="Admin" href="#/traces" />}
+          {admin && <SettingsRow icon={<CircleUserRound size={17} />} label="Invitations" value="Admin" href="#/invitations" />}
         </section>
       </div>
 

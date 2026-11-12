@@ -101,6 +101,6 @@ fun connectDatabase(config: Config): Database {
         initializationFailTimeout = 60_000
     }
     val db = Database.connect(HikariDataSource(hikari))
-    transaction(db) { SchemaUtils.create(Users, Records, AiConversations, AiMessages, AiProposals, AiProposalUndo, CatalogFoods, CatalogQueries, ProviderBudgets) }
+    transaction(db) { SchemaUtils.create(Users, Invitations, Records, AiConversations, AiMessages, AiProposals, AiProposalUndo, CatalogFoods, CatalogQueries, ProviderBudgets) }
     return db
 }

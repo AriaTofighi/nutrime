@@ -78,7 +78,7 @@ private fun runCase(key: String, case: EvalCase): List<String> {
         application { module(cfg, db, null) }
         val c = createClient { install(ContentNegotiation) { json() } }
         val auth = c.post("/api/auth/register") {
-            contentType(ContentType.Application.Json); setBody(AuthRequest("eval@example.com", "password123"))
+            contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, "eval@example.com", "password123"))
         }.body<AuthResponse>()
         val sse = c.post("/api/ai/chat") {
             bearerAuth(auth.token); contentType(ContentType.Application.Json)

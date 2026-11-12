@@ -123,6 +123,9 @@ android {
             it.systemProperty("robolectric.graphicsMode", "NATIVE")
             it.systemProperty("screenshotDir", rootProject.layout.buildDirectory.dir("screenshots").get().asFile.path)
             System.getenv("SYNC_TEST_URL")?.let { url -> it.environment("SYNC_TEST_URL", url) }
+            listOf("SYNC_TEST_EMAIL", "SYNC_TEST_INVITATION_CODE").forEach { name ->
+                System.getenv(name)?.let { value -> it.environment(name, value) }
+            }
             it.maxHeapSize = "3g"
             it.dependsOn(downloadRobolectricRuntimes)
             it.systemProperty("robolectric.offline", "true")

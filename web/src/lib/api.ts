@@ -51,7 +51,8 @@ async function post<T>(path: string, body: unknown, token?: string): Promise<T> 
 }
 
 export const login = (email: string, password: string) => post<AuthResponse>("auth/login", { email, password });
-export const register = (email: string, password: string) => post<AuthResponse>("auth/register", { email, password });
+export const register = (email: string, password: string, invitationCode: string) =>
+  post<AuthResponse>("auth/register", { email, password, invitationCode });
 export const sync = (token: string, since: number, changes: SyncChange[]) =>
   post<SyncResponse>("sync", { since, changes }, token);
 

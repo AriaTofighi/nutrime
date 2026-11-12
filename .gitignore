@@ -11,3 +11,12 @@ captures/
 .env
 .robolectric/
 __pycache__/
+
+# Local secrets and private history backups. Keep only documented example environment files.
+.env.*
+!.env.example
+*.p12
+*.pfx
+*.pem
+*-keystore.base64.txt
+*.bundle

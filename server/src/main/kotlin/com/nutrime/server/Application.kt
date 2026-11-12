@@ -45,7 +45,7 @@ import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 
-@Serializable data class AuthRequest(val email: String, val password: String)
+@Serializable data class AuthRequest(val email: String, val password: String, val invitationCode: String = "")
 @Serializable data class AuthResponse(val token: String, val userId: String, val email: String)
 @Serializable data class ErrorResponse(val error: String)
 @Serializable data class SyncChange(
@@ -67,8 +67,17 @@ const val MAX_RECORD_BYTES = 256 * 1024
 
 private val json = Json { ignoreUnknownKeys = true; explicitNulls = false; encodeDefaults = true }
 
-fun main() {
+fun main(args: Array<String>) {
     val config = Config.fromEnv()
+    if (args.isNotEmpty()) {
+        require(args[0] == "invite" && args.size in 2..3) { "Usage: nutrime-server invite EMAIL [DAYS]" }
+        val days = args.getOrNull(2)?.toIntOrNull() ?: if (args.size == 2) 7 else error("DAYS must be an integer")
+        val invite = InvitationStore(connectDatabase(config)).create(args[1], days)
+        println("Invitation for ${invite.invitation.email}; expires ${Date(invite.invitation.expiresAt)}")
+        println("Share this code privately. It is shown only once:")
+        println(invite.code)
+        return
+    }
     val db = connectDatabase(config)
     embeddedServer(Netty, port = config.port, host = "0.0.0.0") { module(config, db) }.start(wait = true)
 }
@@ -91,6 +100,7 @@ class RateLimiter(private val max: Int, private val windowMs: Long) {
 fun Application.module(config: Config, db: Database, llm: LlmClient? = null) {
     val catalog = FoodCatalog(config, db)
     val assistant = Assistant(config, db, llm, catalog)
+    val invitations = InvitationStore(db)
     val algorithm = Algorithm.HMAC256(config.jwtSecret)
     val issuer = "nutrime"
     val limiter = RateLimiter(max = 20, windowMs = TimeUnit.MINUTES.toMillis(5))
@@ -130,8 +140,7 @@ fun Application.module(config: Config, db: Database, llm: LlmClient? = null) {
     }
 
     fun validate(req: AuthRequest): Pair<String, String> {
-        val email = req.email.trim().lowercase()
-        if (!Regex("^[^@\\s]+@[^@\\s]+$").matches(email) || email.length > 320) throw ApiException(HttpStatusCode.BadRequest, "Invalid email address")
+        val email = normalizedEmail(req.email)
         if (req.password.length < 8) throw ApiException(HttpStatusCode.BadRequest, "Password must be at least 8 characters")
         if (req.password.length > 72) throw ApiException(HttpStatusCode.BadRequest, "Password must be at most 72 characters")
         return email to req.password
@@ -139,15 +148,22 @@ fun Application.module(config: Config, db: Database, llm: LlmClient? = null) {
 
     routing {
         get("/") { call.respond(mapOf("name" to "nutrime-server", "status" to "ok")) }
-        get("/api/health") { call.respond(mapOf("status" to "ok", "registration" to config.allowRegistration.toString())) }
+        get("/api/health") {
+            call.respond(mapOf("status" to "ok", "registration" to config.allowRegistration.toString(), "invitationRequired" to "true"))
+        }
 
         post("/api/auth/register") {
             call.checkRate()
-            val (email, password) = validate(call.receive<AuthRequest>())
+            val request = call.receive<AuthRequest>()
+            val (email, password) = validate(request)
             if (!config.allowRegistration) throw ApiException(HttpStatusCode.Forbidden, "Registration is disabled on this server")
+            if (!Regex("[A-Za-z0-9_-]{43}").matches(request.invitationCode.trim())) {
+                throw ApiException(HttpStatusCode.Forbidden, InvitationStore.INVALID_INVITATION)
+            }
             val id = UUID.randomUUID().toString()
             val hash = BCrypt.withDefaults().hashToString(12, password.toCharArray())
             transaction(db) {
+                invitations.consume(request.invitationCode, email)
                 if (Users.selectAll().where { Users.email eq email }.any()) throw ApiException(HttpStatusCode.Conflict, "An account with this email already exists")
                 Users.insert {
                     it[Users.id] = id
@@ -177,6 +193,7 @@ fun Application.module(config: Config, db: Database, llm: LlmClient? = null) {
             }
             foodRoutes(catalog)
             AdminFoods(config, db).routes(this)
+            InvitationRoutes(config, db).routes(this)
             assistant.routes(this)
             FoodCandidates(config, db).routes(this)
         }

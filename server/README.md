@@ -6,7 +6,7 @@ A small Kotlin/Ktor API with PostgreSQL that stores your NutriMe data and syncs 
 - Generic, local-first sync: the app pushes changed records and pulls everything newer than its cursor.
   Conflicts resolve last-writer-wins by modification time.
 - Each user's data is isolated
-- Auth endpoints are rate-limited, and registration can be turned off
+- Auth endpoints are rate-limited; registration always requires a single-use, email-bound invitation
 - An optional AI assistant (Gemini) that works with each user's synced data, see [AI assistant](#ai-assistant)
 
 ## Deploy on Coolify
@@ -21,7 +21,8 @@ container forwards `/api` to `api` over the private compose network, so only `we
 3. Under **Environment Variables**, add:
    - `POSTGRES_PASSWORD`: a long random password
    - `JWT_SECRET`: a long random string, e.g. the output of `openssl rand -hex 32` (at least 32 characters)
-   - `ALLOW_REGISTRATION`: `true` for now
+   - `ALLOW_REGISTRATION`: `true` to accept invitations, or `false` to block all new accounts
+   - `ADMIN_EMAILS`: the email address of your existing owner account (or the first account you will invite)
    - `USDA_API_KEY` (optional): free key from https://fdc.nal.usda.gov/api-key-signup for online USDA
      search (web app and assistant). It stays on the server; without it the heavily rate-limited `DEMO_KEY` is used.
    - `GEMINI_API_KEY` (optional): turns on the AI assistant. Get one at https://aistudio.google.com/apikey.
@@ -29,13 +30,51 @@ container forwards `/api` to `api` over the private compose network, so only `we
    Leave `api` and `db` without a domain. Coolify obtains the HTTPS certificate automatically.
 5. **Deploy**. Then open `https://nutrime.yourdomain.com/api/health`; it should return `{"status":"ok",...}`,
    and `https://nutrime.yourdomain.com` shows the web app's sign-in page.
-6. Create an account on the web app, or in the Android app under **Profile → Sync & account**. The Android
+6. If this is a new server, create the first invitation from its API container console:
+   `/app/bin/nutrime-server invite owner@example.com 7`. Use the same address as `ADMIN_EMAILS`.
+   Copy the code privately and enter it when you create your account on the web app or in Android
+   under **Profile → Sync & account**. Existing accounts do not need invitations. The Android
    app talks to the server it was built for: build it with `NUTRIME_SERVER_URL=https://nutrime.yourdomain.com`
    (see the main [README](../README.md#android-app)).
-7. **Lock it down**: set `ALLOW_REGISTRATION=false` and redeploy. Existing accounts keep working.
+7. Sign in as the owner and open **Profile → Invitations** to invite friends. No account can be
+   created without a matching, unexpired code. Set `ALLOW_REGISTRATION=false` and redeploy if you
+   also want to pause valid invitations. Existing accounts keep working.
 
 Data lives in the `nutrime-db` volume. Back it up with Coolify's scheduled database backups, or with
 `docker exec <db-container> pg_dump -U nutrime nutrime > backup.sql`.
+
+## Invitations
+
+Registration requires an invitation on every server. `ALLOW_REGISTRATION=true` never enables open
+registration. Existing accounts and login tokens are retained; this change adds only an `invitations`
+table. Deploy the updated server and web app before the first public APK release. Older Android
+versions can still sign in, but cannot create accounts because they have no invitation field.
+
+Set `ADMIN_EMAILS` to the email of your trusted owner account, then redeploy. In the web app, open
+**Profile → Invitations**, enter a friend's email, and choose an expiry (1, 7 or 30 days). Copy the code
+when it appears and send it privately to that friend. They must register with that email. Codes are
+shown once, stored as SHA-256 hashes, expire, and can be used only once. Recent invitations can be
+revoked before use. No email is sent automatically. Revocation does not disable an existing account.
+Treat the code as a password; do not put it in a URL, source file, issue, screenshot or server log.
+
+For the first account, or if you cannot access the admin page, use the trusted **API container console**:
+
+```sh
+/app/bin/nutrime-server invite owner@example.com 7
+```
+
+This writes an invitation to the server database and shows its code in that console only. It does not
+create the account or grant admin rights. For a local development database, with its environment
+variables already set, use `./gradlew createInvite -PinviteEmail=owner@example.com -PinviteDays=7`.
+Do not run this command in public CI logs. Never publish a real code in an example.
+
+Admin APIs (all require a signed-in account in `ADMIN_EMAILS`):
+
+| Method | Path | Body | Response |
+| --- | --- | --- | --- |
+| GET | `/api/admin/invitations` | – | Latest 200 invitations, without codes or hashes |
+| POST | `/api/admin/invitations` | `{email, days:7}` | `{invitation, code}`; code shown once |
+| POST | `/api/admin/invitations/{id}/revoke` | `{}` | `{status:"ok"}` |
 
 ## Configuration
 
@@ -44,14 +83,14 @@ Data lives in the `nutrime-db` volume. Back it up with Coolify's scheduled datab
 | `JWT_SECRET` | required | Signs login tokens. Changing it signs everyone out. |
 | `DATABASE_URL` | `jdbc:postgresql://localhost:5432/nutrime` | JDBC URL |
 | `DATABASE_USER` / `DATABASE_PASSWORD` | – | DB credentials |
-| `ALLOW_REGISTRATION` | `true` | Set to `false` to block new sign-ups |
+| `ALLOW_REGISTRATION` | `true` | Accept valid invitations; `false` blocks all new accounts, including invitations |
 | `PORT` | `8080` | HTTP port |
 | `USDA_API_KEY` | `DEMO_KEY` | USDA FoodData Central key for the shared food catalog (Android, web and assistant) |
 | `GEMINI_API_KEY` | – | Gemini API key. The assistant is off without it |
 | `GEMINI_MODEL` | `gemini-3.8-flash` | Gemini model id |
 | `GEMINI_THINKING_LEVEL` | model default | Optional `minimal`, `low`, `medium` or `high`; lower is faster and cheaper |
 | `AI_DAILY_MESSAGES` | `150` | Assistant messages each user can send per 24 hours |
-| `ADMIN_EMAILS` | (none) | Comma-separated admin emails; admins can list candidates for the curated food database at `GET /api/foods/candidates` (see `data/foods/README.md`) |
+| `ADMIN_EMAILS` | (none) | Comma-separated owner/admin account emails; admins can manage invitations and list candidates for the curated food database at `GET /api/foods/candidates` (see `data/foods/README.md`) |
 | `FOODS_DB_PATH` | `/app/foods.db` | The bundled USDA food database (copied into the image from the Android app) |
 
 ## Run locally
@@ -71,8 +110,8 @@ To run without Docker: `./gradlew run` with `DATABASE_URL`, `DATABASE_USER`, `DA
 
 | Method | Path | Body | Response |
 | --- | --- | --- | --- |
-| GET | `/api/health` | – | `{status, registration}` |
-| POST | `/api/auth/register` | `{email, password}` | `{token, userId, email}` |
+| GET | `/api/health` | – | `{status, registration, invitationRequired}` |
+| POST | `/api/auth/register` | `{email, password, invitationCode}` | `{token, userId, email}` |
 | POST | `/api/auth/login` | `{email, password}` | `{token, userId, email}` |
 | POST | `/api/sync` (Bearer token) | `{since, changes:[{collection,id,updatedAt,deleted,data}]}` | `{cursor, changes:[...], hasMore}` |
 

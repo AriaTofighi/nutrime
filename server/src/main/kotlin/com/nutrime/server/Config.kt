@@ -6,6 +6,7 @@ data class Config(
     val databaseUser: String?,
     val databasePassword: String?,
     val jwtSecret: String,
+    /** Accept valid invitations. False pauses all new accounts; open registration is never allowed. */
     val allowRegistration: Boolean,
     val tokenDays: Long = 365,
     /** Gemini API key for the AI assistant; the assistant is off without one. */

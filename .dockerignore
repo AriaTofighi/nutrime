@@ -4,3 +4,12 @@
 **/dist
 **/.gradle
 web/public/foods.json
+**/.env
+**/.env.*
+!**/.env.example
+**/*.jks
+**/*.keystore
+**/*.p12
+**/*.pfx
+**/*-keystore.base64.txt
+**/*.bundle

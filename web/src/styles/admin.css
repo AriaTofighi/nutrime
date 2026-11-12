@@ -1,3 +1,17 @@
+/* ---------- admin: invitations ---------- */
+.invitation-history { margin-top: var(--space-6); }
+.invitation-list { list-style: none; padding: 0; }
+.invitation-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+.invitation-list li > div { min-width: 0; }
+.invitation-email { overflow-wrap: anywhere; }
+
 /* ---------- admin: assistant traces ---------- */
 .trace-layout {
   display: grid;

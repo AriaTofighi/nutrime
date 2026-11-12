@@ -110,8 +110,10 @@ class AppIntegrationTest {
         val url = System.getenv("SYNC_TEST_URL")
         assumeTrue("SYNC_TEST_URL not set", !url.isNullOrBlank())
         val client = SyncClient()
-        val email = "test-${UUID.randomUUID()}@example.com"
-        val auth = client.register(url!!, email, "password123")
+        val invite = System.getenv("SYNC_TEST_INVITATION_CODE")
+        val invitedEmail = System.getenv("SYNC_TEST_EMAIL")
+        assumeTrue("Set SYNC_TEST_EMAIL and a matching single-use SYNC_TEST_INVITATION_CODE", !invite.isNullOrBlank() && !invitedEmail.isNullOrBlank())
+        val auth = client.register(url!!, invitedEmail!!, "password123", invite!!)
 
         fun device(): Triple<AppDatabase, SettingsStore, SyncManager> {
             val db = memDb()

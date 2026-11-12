@@ -16,6 +16,6 @@ class AdminAccess(private val config: Config, private val db: Database) {
     }
 
     fun requireAdmin(userId: String) {
-        if (!isAdmin(userId)) throw ApiException(HttpStatusCode.Forbidden, "Only admins can view this page")
+        if (!isAdmin(userId)) throw ApiException(HttpStatusCode.Forbidden, "Administrator access is required")
     }
 }

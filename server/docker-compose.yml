@@ -30,6 +30,7 @@ services:
       DATABASE_USER: nutrime
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
       JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET to a long random string}
+      # Registration always requires a single-use invitation; false also blocks valid codes.
       ALLOW_REGISTRATION: ${ALLOW_REGISTRATION:-true}
       PORT: 8080
       # AI assistant (optional): off unless GEMINI_API_KEY is set.
