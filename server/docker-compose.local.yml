@@ -1,0 +1,7 @@
+# Local overlay: publishes the web app (and the API under /api) on http://localhost:8080.
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
+# The Android emulator reaches it at http://10.0.2.2:8080, the app's default server URL.
+services:
+  web:
+    ports:
+      - "8080:80"

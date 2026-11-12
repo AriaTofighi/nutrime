@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED from design/tokens.json by tools/gen_design_tokens.py. Do not edit by hand. -->
+<resources>
+    <color name="bg">#F6F6F4</color>
+    <color name="brand">#21976B</color>
+    <color name="on_brand">#FFFFFF</color>
+</resources>

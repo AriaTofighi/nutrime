@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NutriMe</string>
+    <string name="widget_today">Calories today</string>
+    <string name="widget_today_description">Calories left today, your macros, and a button to add food.</string>
+</resources>

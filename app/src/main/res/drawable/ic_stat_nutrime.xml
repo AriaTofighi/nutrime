@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notification icon: the Lucide "apple" outline used in the app, white for the status bar. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M 12 6.528 V 3 a 1 1 0 0 1 1 -1 h 0"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M 18.237 21 A 15 15 0 0 0 22 11 a 6 6 0 0 0 -10 -4.472 A 6 6 0 0 0 2 11 a 15.1 15.1 0 0 0 3.763 10 3 3 0 0 0 3.648 0.648 5.5 5.5 0 0 1 5.178 0 A 3 3 0 0 0 18.237 21"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

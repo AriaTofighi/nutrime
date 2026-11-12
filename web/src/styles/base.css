@@ -1,0 +1,114 @@
+/* Base element styles and utilities. Only design tokens from theme/tokens.css are used in these files, no raw colors. */
+
+* {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: 1.5;
+  letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv11", "ss01", "ss03";
+  transition: background var(--duration) var(--ease-out);
+}
+body.modal-open {
+  overflow: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+button {
+  cursor: pointer;
+}
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus);
+}
+::selection {
+  background: var(--accent-soft);
+}
+
+/* ---------- utilities ---------- */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum", "cv11";
+}
+.dim {
+  color: var(--text-tertiary);
+}
+.danger {
+  color: var(--danger) !important;
+}
+.strong {
+  font-weight: var(--weight-semibold);
+}
+.grow {
+  flex: 1;
+}
+.center {
+  display: flex;
+  justify-content: center;
+}
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.show-sm {
+  display: none;
+}
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex: none;
+}
+.eyebrow {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-tertiary);
+}
+.hint {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.hint.center {
+  padding: var(--space-4);
+}
+.link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--accent);
+  font-weight: var(--weight-medium);
+}
+.link:hover {
+  text-decoration: underline;
+}

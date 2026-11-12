@@ -1,0 +1,1017 @@
+{
+  "about": "Prepared foods people log often, under the names they search for. Each is tied to one USDA food or a recipe of USDA foods; see README.md.",
+  "foods": [
+    {
+      "key": "rice-basmati-cooked",
+      "name": "Basmati rice, white, cooked, unsalted",
+      "category": "Grains and pasta",
+      "aliases": [
+        "basmati",
+        "basmati rice",
+        "rice basmati"
+      ],
+      "from": {
+        "fdc": 169757
+      },
+      "basis": "USDA SR Legacy 169757: \"Rice, white, long-grain, regular, unenriched, cooked without salt\". Basmati and jasmine are long-grain white rices; USDA has no variety-specific analysis, so this uses USDA long-grain white rice (unenriched, as most imported basmati/jasmine is).",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 158
+        }
+      ]
+    },
+    {
+      "key": "rice-basmati-cooked-salted",
+      "name": "Basmati rice, white, cooked in salted water",
+      "category": "Grains and pasta",
+      "aliases": [
+        "basmati",
+        "basmati rice",
+        "salted"
+      ],
+      "from": {
+        "fdc": 168935
+      },
+      "basis": "USDA SR Legacy 168935: \"Rice, white, long-grain, regular, cooked, unenriched, with salt\". Basmati and jasmine are long-grain white rices; USDA has no variety-specific analysis, so this uses USDA long-grain white rice (unenriched, as most imported basmati/jasmine is).",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 158
+        }
+      ]
+    },
+    {
+      "key": "rice-jasmine-cooked",
+      "name": "Jasmine rice, white, cooked, unsalted",
+      "category": "Grains and pasta",
+      "aliases": [
+        "jasmine",
+        "jasmine rice",
+        "thai rice"
+      ],
+      "from": {
+        "fdc": 169757
+      },
+      "basis": "USDA SR Legacy 169757: \"Rice, white, long-grain, regular, unenriched, cooked without salt\". Basmati and jasmine are long-grain white rices; USDA has no variety-specific analysis, so this uses USDA long-grain white rice (unenriched, as most imported basmati/jasmine is).",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 158
+        }
+      ]
+    },
+    {
+      "key": "rice-jasmine-cooked-salted",
+      "name": "Jasmine rice, white, cooked in salted water",
+      "category": "Grains and pasta",
+      "aliases": [
+        "jasmine",
+        "jasmine rice",
+        "salted"
+      ],
+      "from": {
+        "fdc": 168935
+      },
+      "basis": "USDA SR Legacy 168935: \"Rice, white, long-grain, regular, cooked, unenriched, with salt\". Basmati and jasmine are long-grain white rices; USDA has no variety-specific analysis, so this uses USDA long-grain white rice (unenriched, as most imported basmati/jasmine is).",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 158
+        }
+      ]
+    },
+    {
+      "key": "rice-white-cooked",
+      "name": "White rice, long-grain, cooked, unsalted",
+      "category": "Grains and pasta",
+      "aliases": [
+        "white rice",
+        "steamed rice",
+        "plain rice"
+      ],
+      "from": {
+        "fdc": 169757
+      },
+      "basis": "USDA SR Legacy 169757: \"Rice, white, long-grain, regular, unenriched, cooked without salt\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 158
+        }
+      ]
+    },
+    {
+      "key": "rice-brown-cooked",
+      "name": "Brown rice, cooked",
+      "category": "Grains and pasta",
+      "aliases": [
+        "brown rice"
+      ],
+      "from": {
+        "fdc": 2708414
+      },
+      "basis": "USDA FNDDS 2021-2023 2708414: \"Rice, brown, cooked, no added fat\"."
+    },
+    {
+      "key": "quinoa-cooked",
+      "name": "Quinoa, cooked",
+      "category": "Grains and pasta",
+      "aliases": [
+        "quinoa"
+      ],
+      "from": {
+        "fdc": 168917
+      },
+      "basis": "USDA SR Legacy 168917: \"Quinoa, cooked\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 185
+        }
+      ]
+    },
+    {
+      "key": "pasta-cooked",
+      "name": "Pasta, cooked, unsalted",
+      "category": "Grains and pasta",
+      "aliases": [
+        "pasta",
+        "spaghetti",
+        "penne",
+        "noodles",
+        "macaroni"
+      ],
+      "from": {
+        "fdc": 169737
+      },
+      "basis": "USDA SR Legacy 169737: \"Pasta, cooked, enriched, without added salt\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 140
+        }
+      ]
+    },
+    {
+      "key": "pasta-cooked-salted",
+      "name": "Pasta, cooked in salted water",
+      "category": "Grains and pasta",
+      "aliases": [
+        "pasta",
+        "spaghetti",
+        "penne",
+        "salted"
+      ],
+      "from": {
+        "fdc": 169751
+      },
+      "basis": "USDA SR Legacy 169751: \"Pasta, cooked, enriched, with added salt\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 140
+        }
+      ]
+    },
+    {
+      "key": "pasta-whole-wheat-cooked",
+      "name": "Whole wheat pasta, cooked",
+      "category": "Grains and pasta",
+      "aliases": [
+        "whole wheat pasta",
+        "whole grain pasta",
+        "spaghetti"
+      ],
+      "from": {
+        "fdc": 2708358
+      },
+      "basis": "USDA FNDDS 2021-2023 2708358: \"Pasta, whole grain, cooked\"."
+    },
+    {
+      "key": "couscous-cooked",
+      "name": "Couscous, cooked",
+      "category": "Grains and pasta",
+      "aliases": [
+        "couscous"
+      ],
+      "from": {
+        "fdc": 169700
+      },
+      "basis": "USDA SR Legacy 169700: \"Couscous, cooked\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 157
+        }
+      ]
+    },
+    {
+      "key": "oatmeal-water",
+      "name": "Oatmeal, made with water",
+      "category": "Grains and pasta",
+      "aliases": [
+        "oatmeal",
+        "oats",
+        "porridge",
+        "rolled oats cooked"
+      ],
+      "from": {
+        "fdc": 2708381
+      },
+      "basis": "USDA FNDDS 2021-2023 2708381: \"Oatmeal, regular or quick, made with water, no added fat\"."
+    },
+    {
+      "key": "oats-rolled-dry",
+      "name": "Rolled oats, dry",
+      "category": "Grains and pasta",
+      "aliases": [
+        "oats",
+        "rolled oats",
+        "old fashioned oats",
+        "oatmeal dry"
+      ],
+      "from": {
+        "fdc": 2346396
+      },
+      "basis": "USDA Foundation Foods 2346396: \"Oats, whole grain, rolled, old fashioned\".",
+      "servings": [
+        {
+          "label": "1/2 cup",
+          "g": 40
+        },
+        {
+          "label": "1 cup",
+          "g": 80
+        }
+      ]
+    },
+    {
+      "key": "tortilla-flour",
+      "name": "Flour tortilla",
+      "category": "Grains and pasta",
+      "aliases": [
+        "tortilla",
+        "wrap"
+      ],
+      "from": {
+        "fdc": 2707824
+      },
+      "basis": "USDA FNDDS 2021-2023 2707824: \"Tortilla, flour\"."
+    },
+    {
+      "key": "bread-whole-wheat",
+      "name": "Whole wheat bread",
+      "category": "Grains and pasta",
+      "aliases": [
+        "bread",
+        "toast",
+        "whole wheat toast"
+      ],
+      "from": {
+        "fdc": 2707709
+      },
+      "basis": "USDA FNDDS 2021-2023 2707709: \"Bread, whole wheat\"."
+    },
+    {
+      "key": "bagel-plain",
+      "name": "Bagel, plain",
+      "category": "Grains and pasta",
+      "aliases": [
+        "bagel"
+      ],
+      "from": {
+        "fdc": 174899
+      },
+      "basis": "USDA SR Legacy 174899: \"Bagels, plain, enriched, with calcium propionate (includes onion, poppy, sesame)\"."
+    },
+    {
+      "key": "chicken-breast-raw",
+      "name": "Chicken breast, boneless, skinless, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken breast",
+        "chicken",
+        "raw chicken breast"
+      ],
+      "from": {
+        "fdc": 171077
+      },
+      "basis": "USDA SR Legacy 171077: \"Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw\". Weigh raw: about 100 g raw cooks down to about 75 g.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "chicken-breast-grilled",
+      "name": "Chicken breast, grilled, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "grilled chicken",
+        "chicken breast",
+        "chicken"
+      ],
+      "from": {
+        "fdc": 171534
+      },
+      "basis": "USDA SR Legacy 171534: \"Chicken, broiler or fryers, breast, skinless, boneless, meat only, cooked, grilled\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        },
+        {
+          "label": "1 cup, diced",
+          "g": 140
+        }
+      ]
+    },
+    {
+      "key": "chicken-breast-baked",
+      "name": "Chicken breast, baked or roasted, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "baked chicken",
+        "roasted chicken",
+        "chicken breast",
+        "chicken"
+      ],
+      "from": {
+        "fdc": 171477
+      },
+      "basis": "USDA SR Legacy 171477: \"Chicken, broilers or fryers, breast, meat only, cooked, roasted\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "chicken-thigh-baked",
+      "name": "Chicken thigh, baked, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken thigh",
+        "chicken"
+      ],
+      "from": {
+        "fdc": 2706030
+      },
+      "basis": "USDA FNDDS 2021-2023 2706030: \"Chicken thigh, baked, broiled, or roasted, skin not eaten, from raw\"."
+    },
+    {
+      "key": "ground-beef-90-cooked",
+      "name": "Ground beef 90% lean, cooked (pan-browned)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground beef",
+        "lean ground beef",
+        "90/10",
+        "mince"
+      ],
+      "from": {
+        "fdc": 171794
+      },
+      "basis": "USDA SR Legacy 171794: \"Beef, ground, 90% lean meat / 10% fat, crumbles, cooked, pan-browned\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "ground-beef-85-cooked",
+      "name": "Ground beef 85% lean, cooked (pan-browned)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground beef",
+        "85/15",
+        "mince"
+      ],
+      "from": {
+        "fdc": 174034
+      },
+      "basis": "USDA SR Legacy 174034: \"Beef, ground, 85% lean meat / 15% fat, crumbles, cooked, pan-browned\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "ground-turkey-cooked",
+      "name": "Ground turkey, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground turkey",
+        "turkey mince"
+      ],
+      "from": {
+        "fdc": 171506
+      },
+      "basis": "USDA SR Legacy 171506: \"Turkey, Ground, cooked\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "salmon-baked",
+      "name": "Salmon (Atlantic, farmed), baked, no added fat",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "salmon",
+        "baked salmon",
+        "grilled salmon"
+      ],
+      "from": {
+        "fdc": 175168
+      },
+      "basis": "USDA SR Legacy 175168: \"Fish, salmon, Atlantic, farmed, cooked, dry heat\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "cod-baked",
+      "name": "Cod, baked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "cod",
+        "white fish"
+      ],
+      "from": {
+        "fdc": 171956
+      },
+      "basis": "USDA SR Legacy 171956: \"Fish, cod, Atlantic, cooked, dry heat\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "tilapia-baked",
+      "name": "Tilapia, baked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "tilapia",
+        "white fish"
+      ],
+      "from": {
+        "fdc": 175177
+      },
+      "basis": "USDA SR Legacy 175177: \"Fish, tilapia, cooked, dry heat\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "shrimp-cooked",
+      "name": "Shrimp, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "shrimp",
+        "prawns"
+      ],
+      "from": {
+        "fdc": 175180
+      },
+      "basis": "USDA SR Legacy 175180: \"Crustaceans, shrimp, cooked\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "tuna-canned-water",
+      "name": "Tuna, light, canned in water, drained",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "tuna",
+        "canned tuna"
+      ],
+      "from": {
+        "fdc": 334194
+      },
+      "basis": "USDA Foundation Foods 334194: \"Fish, tuna, light, canned in water, drained solids\"."
+    },
+    {
+      "key": "egg-boiled",
+      "name": "Egg, hard-boiled",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "egg",
+        "boiled egg",
+        "hard boiled egg"
+      ],
+      "from": {
+        "fdc": 173424
+      },
+      "basis": "USDA SR Legacy 173424: \"Egg, whole, cooked, hard-boiled\".",
+      "servings": [
+        {
+          "label": "1 large egg",
+          "g": 50
+        }
+      ]
+    },
+    {
+      "key": "egg-scrambled-butter",
+      "name": "Scrambled eggs, made with butter",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "scrambled eggs",
+        "eggs"
+      ],
+      "from": {
+        "fdc": 2707201
+      },
+      "basis": "USDA FNDDS 2021-2023 2707201: \"Egg omelet or scrambled egg, made with butter\".",
+      "servings": [
+        {
+          "label": "1 large egg",
+          "g": 61
+        }
+      ]
+    },
+    {
+      "key": "egg-fried-oil",
+      "name": "Fried egg, cooked in oil",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "fried egg",
+        "egg"
+      ],
+      "from": {
+        "fdc": 2707158
+      },
+      "basis": "USDA FNDDS 2021-2023 2707158: \"Egg, whole, fried with oil\".",
+      "servings": [
+        {
+          "label": "1 large egg",
+          "g": 46
+        }
+      ]
+    },
+    {
+      "key": "egg-white-cooked",
+      "name": "Egg whites, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "egg whites",
+        "egg white"
+      ],
+      "from": {
+        "fdc": 2707170
+      },
+      "basis": "USDA FNDDS 2021-2023 2707170: \"Egg, white, cooked, no added fat\".",
+      "servings": [
+        {
+          "label": "1 large egg white",
+          "g": 33
+        }
+      ]
+    },
+    {
+      "key": "tofu-firm",
+      "name": "Tofu, firm",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "tofu"
+      ],
+      "from": {
+        "fdc": 172475
+      },
+      "basis": "USDA SR Legacy 172475: \"Tofu, raw, firm, prepared with calcium sulfate\".",
+      "servings": [
+        {
+          "label": "1/2 cup",
+          "g": 126
+        },
+        {
+          "label": "1/4 block",
+          "g": 81
+        }
+      ]
+    },
+    {
+      "key": "potato-boiled",
+      "name": "Potato, boiled in skin, unsalted",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "potato",
+        "boiled potato",
+        "potatoes"
+      ],
+      "from": {
+        "fdc": 170438
+      },
+      "basis": "USDA SR Legacy 170438: \"Potatoes, boiled, cooked in skin, flesh, without salt\".",
+      "servings": [
+        {
+          "label": "1 medium",
+          "g": 136
+        },
+        {
+          "label": "1 cup, diced",
+          "g": 156
+        }
+      ]
+    },
+    {
+      "key": "potato-baked",
+      "name": "Potato, baked, with skin",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "baked potato",
+        "potato",
+        "potatoes"
+      ],
+      "from": {
+        "fdc": 2709524
+      },
+      "basis": "USDA FNDDS 2021-2023 2709524: \"Potato, baked, peel eaten\"."
+    },
+    {
+      "key": "potato-yukon-gold-raw",
+      "name": "Yukon gold potatoes, raw",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "yukon gold",
+        "yukon gold potato",
+        "yukon gold potatoes",
+        "yukon potatoes",
+        "gold potatoes",
+        "yellow potatoes"
+      ],
+      "from": {
+        "fdc": 2346403
+      },
+      "basis": "USDA Foundation 2346403: \"Potatoes, gold, without skin, raw\" (lab analysis of the gold variety; USDA has no with-skin analysis for it). Servings are USDA SR Legacy 170026 (\"Potatoes, flesh and skin, raw\") portion weights.",
+      "servings": [
+        {
+          "label": "1 small",
+          "g": 170
+        },
+        {
+          "label": "1 medium",
+          "g": 213
+        },
+        {
+          "label": "1 large",
+          "g": 369
+        },
+        {
+          "label": "1 cup, diced",
+          "g": 150
+        }
+      ]
+    },
+    {
+      "key": "potato-russet-raw",
+      "name": "Russet potatoes, raw",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "russet potato",
+        "russet potatoes",
+        "idaho potatoes",
+        "baking potatoes"
+      ],
+      "from": {
+        "fdc": 2346401
+      },
+      "basis": "USDA Foundation 2346401: \"Potatoes, russet, without skin, raw\" (lab analysis of the russet variety; USDA has no with-skin analysis for it). Servings are USDA SR Legacy 170026 (\"Potatoes, flesh and skin, raw\") portion weights.",
+      "servings": [
+        {
+          "label": "1 small",
+          "g": 170
+        },
+        {
+          "label": "1 medium",
+          "g": 213
+        },
+        {
+          "label": "1 large",
+          "g": 369
+        },
+        {
+          "label": "1 cup, diced",
+          "g": 150
+        }
+      ]
+    },
+    {
+      "key": "potato-red-raw",
+      "name": "Red potatoes, raw",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "red potato",
+        "red potatoes",
+        "red skin potatoes"
+      ],
+      "from": {
+        "fdc": 2346402
+      },
+      "basis": "USDA Foundation 2346402: \"Potatoes, red, without skin, raw\" (lab analysis of the red variety; USDA has no with-skin analysis for it). Servings are USDA SR Legacy 170026 (\"Potatoes, flesh and skin, raw\") portion weights.",
+      "servings": [
+        {
+          "label": "1 small",
+          "g": 170
+        },
+        {
+          "label": "1 medium",
+          "g": 213
+        },
+        {
+          "label": "1 large",
+          "g": 369
+        },
+        {
+          "label": "1 cup, diced",
+          "g": 150
+        }
+      ]
+    },
+    {
+      "key": "potato-roasted-oil",
+      "name": "Roasted potatoes, with oil",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "roasted potatoes",
+        "air fryer potatoes",
+        "potatoes"
+      ],
+      "from": {
+        "fdc": 2709406
+      },
+      "basis": "USDA FNDDS 2021-2023 2709406: \"Potato, roasted, from fresh, peel eaten, made with oil\"."
+    },
+    {
+      "key": "potato-mashed",
+      "name": "Mashed potatoes, homemade",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "mashed potatoes"
+      ],
+      "from": {
+        "fdc": 2709499
+      },
+      "basis": "USDA FNDDS 2021-2023 2709499: \"Potato, mashed, from fresh, NFS\"."
+    },
+    {
+      "key": "sweet-potato-baked",
+      "name": "Sweet potato, baked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "sweet potato",
+        "yam"
+      ],
+      "from": {
+        "fdc": 168483
+      },
+      "basis": "USDA SR Legacy 168483: \"Sweet potato, cooked, baked in skin, flesh, without salt\".",
+      "servings": [
+        {
+          "label": "1 medium",
+          "g": 114
+        }
+      ]
+    },
+    {
+      "key": "broccoli-steamed",
+      "name": "Broccoli, steamed or boiled",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "broccoli"
+      ],
+      "from": {
+        "fdc": 2709645
+      },
+      "basis": "USDA FNDDS 2021-2023 2709645: \"Broccoli, fresh, cooked, no added fat\"."
+    },
+    {
+      "key": "green-beans-cooked",
+      "name": "Green beans, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "green beans"
+      ],
+      "from": {
+        "fdc": 2709852
+      },
+      "basis": "USDA FNDDS 2021-2023 2709852: \"Green beans, fresh, cooked, no added fat\"."
+    },
+    {
+      "key": "peas-carrots-frozen-cooked",
+      "name": "Peas and carrots, frozen, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "peas and carrots"
+      ],
+      "from": {
+        "fdc": 2709685
+      },
+      "basis": "USDA FNDDS 2021-2023 2709685: \"Peas and carrots, frozen, cooked, no added fat\"."
+    },
+    {
+      "key": "mixed-vegetables-cooked",
+      "name": "Mixed vegetables, frozen, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "mixed vegetables",
+        "frozen vegetables"
+      ],
+      "from": {
+        "fdc": 2710013
+      },
+      "basis": "USDA FNDDS 2021-2023 2710013: \"Classic mixed vegetables, frozen, cooked, no added fat\"."
+    },
+    {
+      "key": "spinach-cooked",
+      "name": "Spinach, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "spinach",
+        "sauteed spinach"
+      ],
+      "from": {
+        "fdc": 2709615
+      },
+      "basis": "USDA FNDDS 2021-2023 2709615: \"Spinach, fresh, cooked, no added fat\"."
+    },
+    {
+      "key": "cauliflower-cooked",
+      "name": "Cauliflower, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "cauliflower"
+      ],
+      "from": {
+        "fdc": 2709897
+      },
+      "basis": "USDA FNDDS 2021-2023 2709897: \"Cauliflower, fresh, cooked, no added fat\"."
+    },
+    {
+      "key": "asparagus-cooked",
+      "name": "Asparagus, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "asparagus"
+      ],
+      "from": {
+        "fdc": 2709834
+      },
+      "basis": "USDA FNDDS 2021-2023 2709834: \"Asparagus, fresh, cooked, no added fat\"."
+    },
+    {
+      "key": "brussels-sprouts-roasted",
+      "name": "Brussels sprouts, roasted with oil",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "brussels sprouts"
+      ],
+      "from": {
+        "fdc": 2709884
+      },
+      "basis": "USDA FNDDS 2021-2023 2709884: \"Brussels sprouts, fresh, cooked, fat added\"."
+    },
+    {
+      "key": "corn-cooked",
+      "name": "Sweet corn, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "corn",
+        "corn on the cob"
+      ],
+      "from": {
+        "fdc": 169999
+      },
+      "basis": "USDA SR Legacy 169999: \"Corn, sweet, yellow, cooked, boiled, drained, without salt\".",
+      "servings": [
+        {
+          "label": "1 cup kernels",
+          "g": 164
+        }
+      ]
+    },
+    {
+      "key": "lentils-cooked",
+      "name": "Lentils, cooked",
+      "category": "Beans and legumes",
+      "aliases": [
+        "lentils",
+        "dal"
+      ],
+      "from": {
+        "fdc": 172421
+      },
+      "basis": "USDA SR Legacy 172421: \"Lentils, mature seeds, cooked, boiled, without salt\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 198
+        }
+      ]
+    },
+    {
+      "key": "black-beans-cooked",
+      "name": "Black beans, cooked",
+      "category": "Beans and legumes",
+      "aliases": [
+        "black beans",
+        "beans"
+      ],
+      "from": {
+        "fdc": 173735
+      },
+      "basis": "USDA SR Legacy 173735: \"Beans, black, mature seeds, cooked, boiled, without salt\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 172
+        }
+      ]
+    },
+    {
+      "key": "chickpeas-cooked",
+      "name": "Chickpeas, cooked",
+      "category": "Beans and legumes",
+      "aliases": [
+        "chickpeas",
+        "garbanzo beans"
+      ],
+      "from": {
+        "fdc": 173757
+      },
+      "basis": "USDA SR Legacy 173757: \"Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 164
+        }
+      ]
+    },
+    {
+      "key": "hummus",
+      "name": "Hummus",
+      "category": "Beans and legumes",
+      "aliases": [
+        "hummus"
+      ],
+      "from": {
+        "fdc": 2707402
+      },
+      "basis": "USDA FNDDS 2021-2023 2707402: \"Hummus, plain\"."
+    },
+    {
+      "key": "overnight-oats-greek-yogurt",
+      "name": "Overnight oats with milk and Greek yogurt",
+      "category": "Grains and pasta",
+      "aliases": [
+        "overnight oats",
+        "oats"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 2346396,
+            "g": 40
+          },
+          {
+            "fdc": 2705386,
+            "g": 122
+          },
+          {
+            "fdc": 2705424,
+            "g": 113
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 jar (1/2 cup oats, 1/2 cup 2% milk, 1/2 cup nonfat Greek yogurt)",
+          "g": 275
+        }
+      ],
+      "basis": "Recipe: USDA Foundation Foods 2346396: \"Oats, whole grain, rolled, old fashioned\" 40 g; USDA FNDDS 2021-2023 2705386: \"Milk, reduced fat (2%)\" 122 g; USDA FNDDS 2021-2023 2705424: \"Yogurt, Greek, nonfat milk, plain\" 113 g. No cooking, so no weight change."
+    }
+  ]
+}

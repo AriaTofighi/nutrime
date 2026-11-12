@@ -1,0 +1,8 @@
+<resources>
+    <!-- Window background before Compose draws: the light/dark bg design token, so launch has no flash. -->
+    <style name="Theme.NutriMe" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

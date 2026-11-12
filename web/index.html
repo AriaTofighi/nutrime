@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="NutriMe: track calories, macros and 40+ micronutrients." />
+    <meta name="theme-color" content="#f6f6f4" />
+    <script>
+      // Apply the saved theme before first paint (see src/theme/theme.ts).
+      try {
+        var t = JSON.parse(localStorage.getItem("nutrime.theme") || "{}");
+        var m = t.mode || "system";
+        document.documentElement.dataset.theme = m === "system" ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : m;
+        document.documentElement.dataset.accent = t.accent || "emerald";
+      } catch (e) {}
+    </script>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>NutriMe</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

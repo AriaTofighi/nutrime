@@ -1,0 +1,68 @@
+{
+  "cases": [
+    {
+      "name": "Copy another app's diary (text)",
+      "message": "Log these for today please:\nFarmers Market, Yukon Gold Potatoes - 520 g - 362 kcal\nChicken Breast, Boneless, Skinless, Raw - 520 g - 624 kcal\nBasmati Rice, Cooked in Salted Water - 350 g - 402.5 kcal\nGreat Value, Peas and Carrots - 200 g - 105.88 kcal\nAvocado Oil - 2 tbsp (14 g each) - 240.9 kcal\nKirkland Signature, Greek Yogurt, Plain, Fat Free - 2.5 x 1/2 cup (115 g) - 175 kcal\nOptimum Nutrition, Gold Standard, 100% Whey, Vanilla Ice Cream - 1 scoop (31 g) - 130 kcal\nBanana, Fresh - 1 extra large (152 g) - 133.76 kcal\nKirkland Signature, Whole Strawberries - 125 g - 44.64 kcal\nKirkland, Organic Coconut Water - 1 x 11.10 fl oz (330 mL) - 50 kcal",
+      "localTime": "15:35",
+      "expect": {
+        "maxCards": 1,
+        "noEstimates": true,
+        "items": [
+          { "name": "potatoes", "kcal": 362 },
+          { "name": "chicken breast", "kcal": 624 },
+          { "name": "rice", "kcal": 402.5 },
+          { "name": "peas carrots", "kcal": 105.88 },
+          { "name": "avocado oil", "kcal": 240.9 },
+          { "name": "yogurt", "kcal": 175 },
+          { "name": "whey", "kcal": 130 },
+          { "name": "banana", "kcal": 133.76 },
+          { "name": "strawberries", "kcal": 44.64 },
+          { "name": "coconut water", "kcal": 50 }
+        ]
+      }
+    },
+    {
+      "name": "Simple meal by description",
+      "message": "I had 2 eggs and a slice of whole wheat toast for breakfast",
+      "localTime": "09:10",
+      "expect": {
+        "maxCards": 1,
+        "noEstimates": true,
+        "items": [
+          { "name": "egg" },
+          { "name": "bread" }
+        ]
+      }
+    },
+    {
+      "name": "Learned daily burn",
+      "message": "What is my real daily burn?",
+      "localTime": "20:10",
+      "expect": { "maxCards": 0 }
+    },
+    {
+      "name": "Top sources of sodium",
+      "message": "Where does my sodium come from this month?",
+      "localTime": "18:30",
+      "expect": { "maxCards": 0 }
+    },
+    {
+      "name": "Goal weight and rate",
+      "message": "Set my goal to 70 kg at 0.4 kg a week",
+      "localTime": "08:15",
+      "expect": { "maxCards": 1 }
+    },
+    {
+      "name": "Why did my target change",
+      "message": "Why did my calorie target change this week?",
+      "localTime": "07:40",
+      "expect": { "maxCards": 0 }
+    },
+    {
+      "name": "Weekly review",
+      "message": "Review my last 7 days: calories against my target, my trend weight and daily burn, my three weakest nutrients and where they come from, and one suggestion for next week.",
+      "localTime": "19:00",
+      "expect": { "maxCards": 0 }
+    }
+  ]
+}

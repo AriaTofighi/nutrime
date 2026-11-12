@@ -1,0 +1,64 @@
+# Deploy on Coolify: New Resource -> Docker Compose, point it at this repo with
+# base directory "/server". Set JWT_SECRET and POSTGRES_PASSWORD in Coolify's
+# environment variables (and GEMINI_API_KEY for the AI assistant), and assign your domain to the "web" service (port 80).
+#
+# One domain serves everything: the web app at /, and the sync API at /api/*
+# (the web container's nginx forwards /api to the api service on the private
+# compose network, so the api service needs no domain of its own).
+services:
+  web:
+    build:
+      # The web image ships the Android app's bundled food database, so it builds from the repo root.
+      context: ..
+      dockerfile: web/Dockerfile
+    restart: unless-stopped
+    environment:
+      NUTRIME_API_URL: http://api:8080
+    expose:
+      - "80"
+    depends_on:
+      - api
+
+  api:
+    build:
+      # Builds from the repo root: the server uses the nutrition code in shared/ and the app's food database.
+      context: ..
+      dockerfile: server/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/nutrime
+      DATABASE_USER: nutrime
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET to a long random string}
+      ALLOW_REGISTRATION: ${ALLOW_REGISTRATION:-true}
+      PORT: 8080
+      # AI assistant (optional): off unless GEMINI_API_KEY is set.
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.8-flash}
+      GEMINI_THINKING_LEVEL: ${GEMINI_THINKING_LEVEL:-}
+      ADMIN_EMAILS: ${ADMIN_EMAILS:-}
+      AI_DAILY_MESSAGES: ${AI_DAILY_MESSAGES:-150}
+      USDA_API_KEY: ${USDA_API_KEY:-DEMO_KEY}
+    expose:
+      - "8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nutrime
+      POSTGRES_USER: nutrime
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    volumes:
+      - nutrime-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nutrime -d nutrime"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  nutrime-db:

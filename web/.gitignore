@@ -1,0 +1,4 @@
+node_modules
+dist
+public/foods.json
+public/foods-search.json
