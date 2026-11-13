@@ -1,6 +1,7 @@
 package com.nutrime.server
 
 import com.nutrime.server.food.CatalogFoods
+import com.nutrime.server.food.CatalogImports
 import com.nutrime.server.food.CatalogQueries
 import com.nutrime.server.food.ProviderBudgets
 import com.zaxxer.hikari.HikariConfig
@@ -101,6 +102,22 @@ fun connectDatabase(config: Config): Database {
         initializationFailTimeout = 60_000
     }
     val db = Database.connect(HikariDataSource(hikari))
-    transaction(db) { SchemaUtils.create(Users, Invitations, Records, AiConversations, AiMessages, AiProposals, AiProposalUndo, CatalogFoods, CatalogQueries, ProviderBudgets) }
+    transaction(db) { SchemaUtils.create(Users, Invitations, Records, AiConversations, AiMessages, AiProposals, AiProposalUndo, CatalogFoods, CatalogQueries, ProviderBudgets, CatalogImports) }
+    createCatalogSearchIndex(db)
     return db
+}
+
+/**
+ * On PostgreSQL, a trigram index lets the catalog's `search_text LIKE '%word%'` use an index, so search
+ * stays fast with hundreds of thousands of imported foods. pg_trgm is a trusted extension (PostgreSQL 13+),
+ * so the database owner can create it. Without it (or on H2 in tests) search still works, only slower.
+ */
+private fun createCatalogSearchIndex(db: Database) {
+    if (db.vendor != "postgresql") return
+    runCatching {
+        transaction(db) {
+            exec("CREATE EXTENSION IF NOT EXISTS pg_trgm")
+            exec("CREATE INDEX IF NOT EXISTS catalog_foods_search_trgm ON catalog_foods USING gin (search_text gin_trgm_ops)")
+        }
+    }.onFailure { org.slf4j.LoggerFactory.getLogger("Db").warn("Catalog search index not created ({}); search works without it", it.javaClass.simpleName) }
 }

@@ -38,3 +38,8 @@ python3 tools/update_food_db.py --fndds path/to/fndds_csv_dir
 ```
 
 3. Bump `BundledFoodDb.ASSET_VERSION`.
+
+## USDA Branded Foods (server catalog, not foods.db)
+
+`import_usda_branded.py` prepares the FDC Branded Foods CSV download for the server's PostgreSQL catalog. It
+does not change `foods.db`. See "USDA Branded Foods (bulk import)" in `server/README.md` for the commands.

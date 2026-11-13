@@ -16,7 +16,7 @@ data class FoodResults(val foods: List<Food> = emptyList(), val errors: List<Str
                        val retryAfterSeconds: Int? = null)
 
 /** The single provider gateway, shared by the API and the assistant. */
-class FoodCatalog(config: Config, db: Database) {
+class FoodCatalog(config: Config, private val db: Database) {
     private val store = CatalogStore(db)
     private val budget = ProviderBudget(db, config.usdaApiKey == "DEMO_KEY")
     private val providers = FoodProviders(config.usdaApiKey, budget)
@@ -35,7 +35,22 @@ class FoodCatalog(config: Config, db: Database) {
         combine(usda.await(), off.await())
     }
 
+    /** Whether USDA Branded Foods were imported in bulk (checked at most once a minute). */
+    @Volatile private var brandedChecked = 0L
+    @Volatile private var brandedImported = false
+    private fun brandedImported(): Boolean {
+        val now = System.currentTimeMillis()
+        if (now - brandedChecked > 60_000) {
+            brandedImported = runCatching { BrandedImport.release(db) != null }.getOrDefault(false)
+            brandedChecked = now
+        }
+        return brandedImported
+    }
+
     private suspend fun sourceSearch(source: String, query: String): FoodResults = withContext(Dispatchers.IO) {
+        // With USDA Branded Foods imported, USDA searches use the stored catalog only; the live API is left
+        // for single foods that are not stored ([get]). Open Food Facts stays live for "More results".
+        if (source == "usda" && brandedImported()) return@withContext FoodResults(store.search(query, 60, source))
         val saved = store.search(query, 30, source)
         if (!online || saved.size >= 10) return@withContext FoodResults(saved)
         fetch("$source:search:$query", source, if (source == "off") "off-search" else "usda", saved) {

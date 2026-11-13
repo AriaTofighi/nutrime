@@ -69,6 +69,15 @@ private val json = Json { ignoreUnknownKeys = true; explicitNulls = false; encod
 
 fun main(args: Array<String>) {
     val config = Config.fromEnv()
+    if (args.firstOrNull() == "import-branded") {
+        // Operator command: load USDA Branded Foods prepared by tools/import_usda_branded.py (see server/README.md).
+        require(args.size == 2) { "Usage: nutrime-server import-branded FILE.jsonl.gz" }
+        val file = java.io.File(args[1])
+        require(file.isFile) { "File not found: ${args[1]}" }
+        val result = com.nutrime.server.food.BrandedImport.run(connectDatabase(config), file)
+        println("USDA Branded release ${result.release ?: "unknown"}: ${result.imported} foods imported, ${result.skipped} skipped")
+        return
+    }
     if (args.isNotEmpty()) {
         require(args[0] == "invite" && args.size in 2..3) { "Usage: nutrime-server invite EMAIL [DAYS]" }
         val days = args.getOrNull(2)?.toIntOrNull() ?: if (args.size == 2) 7 else error("DAYS must be an integer")

@@ -53,12 +53,19 @@ class CatalogStore(private val db: Database) {
         CatalogFoods.selectAll().where { CatalogFoods.barcode eq code.trimStart('0') }.limit(1).singleOrNull()?.food()
     }
 
+    /**
+     * Saved foods whose name and brand contain every word (words of 3+ letters, which the PostgreSQL
+     * trigram index can serve, when the query has any). Shorter names first, so plain products are kept
+     * when many match; the caller ranks them with the shared search ranking.
+     */
     fun search(query: String, limit: Int, provider: String? = null): List<Food> = transaction(db) {
-        val words = normalize(query).split(' ').filter { it.isNotEmpty() }.take(12)
+        val all = normalize(query).split(' ').filter { it.isNotEmpty() }.take(12)
+        val words = all.filter { it.length >= 3 }.ifEmpty { all }
         if (words.isEmpty()) return@transaction emptyList()
         val condition = words.map { word -> CatalogFoods.searchText like "%$word%" }.compoundAnd()
         CatalogFoods.selectAll().where { if (provider == null) condition else condition and (CatalogFoods.provider eq provider) }
-            .orderBy(CatalogFoods.fetchedAt, SortOrder.DESC).limit(limit).map { it.food() }
+            .orderBy(CatalogFoods.searchText.charLength() to SortOrder.ASC, CatalogFoods.fetchedAt to SortOrder.DESC)
+            .limit(limit).map { it.food() }
     }
 
     /** Row locks and a lease also coalesce concurrent queries from separate server processes. */

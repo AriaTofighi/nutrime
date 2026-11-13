@@ -216,6 +216,44 @@ See [Open Food Facts API limits](https://openfoodfacts.github.io/openfoodfacts-s
 [search API](https://openfoodfacts.github.io/search-a-licious/users/ref-openapi/), and
 [USDA API limits](https://fdc.nal.usda.gov/api-guide/).
 
+## USDA Branded Foods (bulk import)
+
+USDA FoodData Central "Branded Foods" is a public-domain (CC0 1.0) bulk download of manufacturer label data.
+Imported into the catalog, it gives search one row per branded product without a live USDA call per query.
+Do not copy data or product lists from proprietary databases. The import is an operator task: run it only
+when you decide to, and back up PostgreSQL first.
+
+1. Download the **Branded Foods, CSV** file from https://fdc.nal.usda.gov/download-datasets (do not commit it).
+2. Prepare it on any machine with Python 3 (from the repository root). First look at the counts and the size:
+
+   ```bash
+   python3 tools/import_usda_branded.py FoodData_Central_branded_food_csv_<date>.zip --stats
+   # Optional filters: --country "United States"   --min-brand-foods 20
+   python3 tools/import_usda_branded.py FoodData_Central_branded_food_csv_<date>.zip --out branded.jsonl.gz
+   ```
+
+   The tool keeps one product per GTIN (the newest), drops discontinued products, applies the same nutrient
+   rules as the live USDA parser (energy missing, negative or above 900 kcal per 100 g is rejected), and
+   merges products with the same brand, name and energy within 5%.
+3. Copy the file into the running `api` container and import it (Coolify: the api service's terminal, or
+   `docker cp` on the host). The command uses the container's `DATABASE_URL`:
+
+   ```bash
+   docker cp branded.jsonl.gz <api-container>:/tmp/branded.jsonl.gz
+   docker exec <api-container> /app/bin/nutrime-server import-branded /tmp/branded.jsonl.gz
+   docker exec <api-container> rm /tmp/branded.jsonl.gz
+   ```
+
+Foods keep the ids `usda:<fdcId>`, so diary entries and `GET /api/foods/item` keep working. The import is
+repeatable for each USDA release: rows are upserted by id, older foods stay, and the release date is saved in
+`catalog_imports`. Names are cleaned with the shared `FoodNames` cleaner. After an import, USDA searches use
+the stored catalog only; the live USDA API is still used for a single food id that is not stored (with the
+provider budget). Open Food Facts stays live for barcode misses and for "More results".
+
+On PostgreSQL the server creates a `pg_trgm` trigram index on `catalog_foods.search_text` at startup, so
+`LIKE '%word%'` search stays fast. If the extension cannot be created, the server logs a warning and search
+works without the index.
+
 ## Food database admin panel
 
 Set `ADMIN_EMAILS` to the comma-separated email addresses of existing NutriMe accounts, then redeploy.
