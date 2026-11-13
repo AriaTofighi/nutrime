@@ -20,11 +20,11 @@ import java.util.zip.GZIPInputStream
 
 /** Bulk imports into the catalog: which release of which source, when, and how many foods. */
 object CatalogImports : Table("catalog_imports") {
-    val source = varchar("source", 32)
+    val sourceName = varchar("source", 32)
     val release = varchar("release", 32)
     val foods = integer("foods")
     val importedAt = long("imported_at")
-    override val primaryKey = PrimaryKey(source)
+    override val primaryKey = PrimaryKey(sourceName)
 }
 
 /** One line of tools/import_usda_branded.py's output. */
@@ -56,7 +56,7 @@ object BrandedImport {
     const val SOURCE = "usda-branded"
 
     fun release(db: Database): String? = transaction(db) {
-        CatalogImports.selectAll().where { CatalogImports.source eq SOURCE }.singleOrNull()?.get(CatalogImports.release)
+        CatalogImports.selectAll().where { CatalogImports.sourceName eq SOURCE }.singleOrNull()?.get(CatalogImports.release)
     }
 
     fun run(db: Database, file: File, log: (String) -> Unit = ::println): ImportResult {
@@ -87,7 +87,7 @@ object BrandedImport {
         val release = header?.release
         transaction(db) {
             CatalogImports.upsert {
-                it[source] = SOURCE
+                it[sourceName] = SOURCE
                 it[CatalogImports.release] = release ?: "unknown"
                 it[foods] = imported
                 it[importedAt] = System.currentTimeMillis()
