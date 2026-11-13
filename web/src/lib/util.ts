@@ -32,6 +32,18 @@ export function fmtQty(q: number): string {
   return String(Math.round(q * 100) / 100);
 }
 
+/**
+ * A logged weight as the user typed it: up to 2 decimals, trailing zeros removed (185.4, 72.45, 80).
+ * Rounding to 2 decimals first keeps a lb -> kg -> lb round trip equal to the typed value. Same as the app.
+ */
+export function fmtWeight(v: number): string {
+  if (!Number.isFinite(v)) return "";
+  return String(Math.round(v * 100) / 100);
+}
+
+/** A calculated weight (trend, goal, change): always one decimal ("72.0"). */
+export const fmtWeight1 = (v: number): string => v.toFixed(1);
+
 /** Meal the app suggests for the current time of day. */
 export function defaultMealForNow(): number {
   const h = new Date().getHours();

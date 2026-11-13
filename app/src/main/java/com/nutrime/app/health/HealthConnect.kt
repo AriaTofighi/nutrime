@@ -81,7 +81,7 @@ object HealthConnect {
                 val r = recs.minBy { it.time }
                 val id = "hc:" + r.metadata.id
                 if (date.toString() in ownDates || id in known) null
-                else WeightEntity(id = id, date = date.toString(), weightKg = Math.round(r.weight.inKilograms * 100) / 100.0, updatedAt = System.currentTimeMillis())
+                else WeightEntity(id = id, date = date.toString(), weightKg = r.weight.inKilograms, updatedAt = System.currentTimeMillis())
             }
     }
 

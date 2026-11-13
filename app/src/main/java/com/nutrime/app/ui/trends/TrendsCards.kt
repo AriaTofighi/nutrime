@@ -54,7 +54,8 @@ import com.nutrime.app.ui.components.SheetLine
 import com.nutrime.app.ui.components.SplitBar
 import com.nutrime.app.ui.components.StatusPill
 import com.nutrime.app.ui.components.Tone
-import com.nutrime.app.ui.components.fmtAmount
+import com.nutrime.app.ui.components.LinkedSheetLine
+import com.nutrime.app.ui.components.fmtWeight1
 import com.nutrime.app.ui.theme.DesignTokens.Space
 import com.nutrime.app.ui.theme.Lucide
 import com.nutrime.app.ui.theme.NutriTheme
@@ -172,13 +173,10 @@ private fun BalanceSheet(p: Period, est: BurnEstimate?, onOpenBurn: () -> Unit, 
     val rate = if (p.profile.imperial) "%.1f lb".format(abs(kgPerWeek) * LB_PER_KG) else "%.2f kg".format(abs(kgPerWeek))
     DetailSheet(rangeName(p.range), "Daily average over ${p.counted.size} day${if (p.counted.size == 1) "" else "s"}", onDismiss) {
         SheetLine("Eaten", "%,.0f kcal".format(avg))
-        Row(Modifier.fillMaxWidth().clickable(onClickLabel = "Daily burn details") { onDismiss(); onOpenBurn() }, verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f)) {
-                SheetLine("Daily burn", "%,.0f kcal".format(burn))
-                Text(burnSource(p.profile, est), style = NutriTheme.type.caption, color = colors.textTertiary)
-            }
-            Icon(Lucide.ChevronRight, null, tint = colors.textTertiary, modifier = Modifier.size(16.dp))
-        }
+        LinkedSheetLine(
+            "Daily burn", "%,.0f kcal".format(burn), burnSource(p.profile, est).replaceFirstChar { it.uppercase() },
+            onClickLabel = "Daily burn details",
+        ) { onDismiss(); onOpenBurn() }
         SheetLine(if (balance < 0) "Deficit" else "Surplus", "%,.0f kcal".format(abs(balance)), strong = true)
         Text(
             if (abs(kgPerWeek) < 0.02) "At this rate, your weight stays about the same."
@@ -351,10 +349,10 @@ internal fun WeightCard(p: Period, weights: List<WeightEntity>, est: BurnEstimat
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.clearAndSetSemantics {
-                contentDescription = "Trend weight ${fmtAmount(conv(est.trendKg))} $unit" + (change?.let { ", ${signed(it, unit)} in this period" } ?: "")
+                contentDescription = "Trend weight ${fmtWeight1(conv(est.trendKg))} $unit" + (change?.let { ", ${signed(it, unit)} in this period" } ?: "")
             },
         ) {
-            Text(fmtAmount(conv(est.trendKg)), style = NutriTheme.type.pageTitle.copy(fontFeatureSettings = "tnum"), color = colors.text)
+            Text(fmtWeight1(conv(est.trendKg)), style = NutriTheme.type.pageTitle.copy(fontFeatureSettings = "tnum"), color = colors.text)
             Text(" $unit", style = NutriTheme.type.small, color = colors.textSecondary)
             Spacer(Modifier.weight(1f))
             if (change != null) StatusPill(signed(change, unit))
@@ -366,8 +364,8 @@ internal fun WeightCard(p: Period, weights: List<WeightEntity>, est: BurnEstimat
             Text(
                 when {
                     Goal.reached(est.trendKg, goal) -> "At your goal weight"
-                    date != null -> "Goal ${fmtAmount(conv(goal))} $unit around ${date.format(DateTimeFormatter.ofPattern("MMM d"))} at your current rate"
-                    else -> "Goal ${fmtAmount(conv(goal))} $unit"
+                    date != null -> "Goal ${fmtWeight1(conv(goal))} $unit around ${date.format(DateTimeFormatter.ofPattern("MMM d"))} at your current rate"
+                    else -> "Goal ${fmtWeight1(conv(goal))} $unit"
                 },
                 style = NutriTheme.type.small, color = colors.textSecondary, modifier = Modifier.padding(top = 2.dp),
             )

@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -327,6 +328,26 @@ fun SheetLine(label: String, value: String, strong: Boolean = false, color: Colo
         if (color != null) { Dot(color); Spacer(Modifier.width(Space.S2)) }
         Text(label, style = if (strong) NutriTheme.type.bodyMedium else NutriTheme.type.body, color = if (strong) c.text else c.textSecondary, modifier = Modifier.weight(1f))
         Text(value, style = NutriTheme.type.numeric.copy(fontWeight = if (strong) NutriTheme.type.numeric.fontWeight else NutriTheme.type.body.fontWeight), color = c.text)
+    }
+}
+
+/**
+ * A [SheetLine] that opens more detail: the value stays aligned with the rows above and below, and a second line
+ * holds the caption with a chevron at its right end. The whole block is one touch target (48 dp or more).
+ */
+@Composable
+fun LinkedSheetLine(label: String, value: String, caption: String, strong: Boolean = false, onClickLabel: String? = null, onClick: () -> Unit) {
+    val c = NutriTheme.colors
+    Column(
+        Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(onClickLabel = onClickLabel, onClick = onClick).padding(vertical = 2.dp),
+        verticalArrangement = Arrangement.Center,
+    ) {
+        SheetLine(label, value, strong = strong)
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(caption, style = NutriTheme.type.caption, color = c.textTertiary, modifier = Modifier.weight(1f))
+            Spacer(Modifier.width(Space.S2))
+            Icon(Lucide.ChevronRight, null, tint = c.textTertiary, modifier = Modifier.size(14.dp))
+        }
     }
 }
 

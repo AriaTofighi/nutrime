@@ -44,6 +44,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,6 +54,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -60,7 +63,9 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
@@ -267,7 +272,11 @@ fun Dot(color: Color, size: Dp = 8.dp) = Box(Modifier.size(size).clip(CircleShap
 // Inputs
 // ---------------------------------------------------------------------------------------------
 
-/** Text input with an optional label above and unit suffix inside (`.field` + `.input`). */
+/**
+ * Text input with an optional label above and unit suffix inside (`.field` + `.input`).
+ * [selectAllOnFocus] selects the whole text the first time the field gets focus, so typing replaces a
+ * prefilled value; [focusRequester] lets the caller focus the field when a dialog opens.
+ */
 @Composable
 fun NTextField(
     value: String,
@@ -285,6 +294,8 @@ fun NTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     large: Boolean = false,
     textStyle: TextStyle = type.body,
+    selectAllOnFocus: Boolean = false,
+    focusRequester: FocusRequester? = null,
 ) {
     val source = remember { MutableInteractionSource() }
     val focused by source.collectIsFocusedAsState()
@@ -294,44 +305,75 @@ fun NTextField(
         focused -> colors.accent
         else -> colors.borderStrong
     }
+    val decoration: @Composable (@Composable () -> Unit) -> Unit = { inner ->
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .height(if (large) Control.HeightLg + 4.dp else Control.HeightLg)
+                .clip(shape)
+                .background(colors.surface)
+                .border(if (focused) 1.5.dp else 1.dp, borderColor, shape)
+                .padding(start = if (leading != null) 10.dp else 12.dp, end = if (trailing != null) 2.dp else 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (leading != null) {
+                Icon(leading, null, tint = colors.textTertiary, modifier = Modifier.size(16.dp))
+                Spacer(Modifier.width(8.dp))
+            }
+            Box(Modifier.weight(1f)) {
+                if (value.isEmpty() && placeholder != null) Text(placeholder, style = textStyle, color = colors.textTertiary, maxLines = 1)
+                inner()
+            }
+            if (suffix != null) Text(suffix, style = type.small, color = colors.textTertiary, modifier = Modifier.padding(start = 6.dp))
+            trailing?.invoke()
+        }
+    }
+    val fieldModifier = if (focusRequester != null) Modifier.focusRequester(focusRequester) else Modifier
+    val keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction)
+    val keyboardActions = KeyboardActions(onAny = { onIme?.invoke() })
     Column(modifier) {
         if (label != null) {
             Text(label, style = type.small.copy(fontWeight = type.bodyMedium.fontWeight), color = colors.textSecondary, modifier = Modifier.padding(bottom = 6.dp))
         }
-        BasicTextField(
-            value = value,
-            onValueChange = onValueChange,
-            singleLine = true,
-            textStyle = textStyle.copy(color = colors.text),
-            cursorBrush = SolidColor(colors.accent),
-            interactionSource = source,
-            visualTransformation = visualTransformation,
-            keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
-            keyboardActions = KeyboardActions(onAny = { onIme?.invoke() }),
-            decorationBox = { inner ->
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .height(if (large) Control.HeightLg + 4.dp else Control.HeightLg)
-                        .clip(shape)
-                        .background(colors.surface)
-                        .border(if (focused) 1.5.dp else 1.dp, borderColor, shape)
-                        .padding(start = if (leading != null) 10.dp else 12.dp, end = if (trailing != null) 2.dp else 12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    if (leading != null) {
-                        Icon(leading, null, tint = colors.textTertiary, modifier = Modifier.size(16.dp))
-                        Spacer(Modifier.width(8.dp))
-                    }
-                    Box(Modifier.weight(1f)) {
-                        if (value.isEmpty() && placeholder != null) Text(placeholder, style = textStyle, color = colors.textTertiary, maxLines = 1)
-                        inner()
-                    }
-                    if (suffix != null) Text(suffix, style = type.small, color = colors.textTertiary, modifier = Modifier.padding(start = 6.dp))
-                    trailing?.invoke()
+        if (selectAllOnFocus) {
+            var field by remember { mutableStateOf(TextFieldValue(value, TextRange(value.length))) }
+            var selectedOnce by remember { mutableStateOf(false) }
+            // Follow changes made by the caller; keep the selection when the text is the same.
+            val shown = if (field.text == value) field else TextFieldValue(value, TextRange(value.length))
+            LaunchedEffect(focused) {
+                if (focused && !selectedOnce) {
+                    selectedOnce = true
+                    field = TextFieldValue(value, TextRange(0, value.length))
                 }
-            },
-        )
+            }
+            BasicTextField(
+                value = shown,
+                onValueChange = { v -> field = v; if (v.text != value) onValueChange(v.text) },
+                modifier = fieldModifier,
+                singleLine = true,
+                textStyle = textStyle.copy(color = colors.text),
+                cursorBrush = SolidColor(colors.accent),
+                interactionSource = source,
+                visualTransformation = visualTransformation,
+                keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
+                decorationBox = decoration,
+            )
+        } else {
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                modifier = fieldModifier,
+                singleLine = true,
+                textStyle = textStyle.copy(color = colors.text),
+                cursorBrush = SolidColor(colors.accent),
+                interactionSource = source,
+                visualTransformation = visualTransformation,
+                keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
+                decorationBox = decoration,
+            )
+        }
     }
 }
 
@@ -447,6 +489,20 @@ fun fmtAmount(v: Double): String = when {
     v >= 1 -> "%.1f".format(v)
     else -> "%.2f".format(v)
 }
+
+/**
+ * A logged weight as the user typed it: up to 2 decimals, trailing zeros removed (185.4, 72.45, 80).
+ * Rounding to 2 decimals first keeps a lb -> kg -> lb round trip equal to the typed value.
+ */
+fun fmtWeight(v: Double): String {
+    if (!v.isFinite()) return ""
+    // Same rounding as the web app (Math.round(v * 100) / 100), then the shortest decimal text.
+    val r = java.math.BigDecimal.valueOf(Math.round(v * 100) / 100.0).stripTrailingZeros()
+    return (if (r.scale() < 0) r.setScale(0) else r).toPlainString()
+}
+
+/** A calculated weight (trend, goal, change): always one decimal ("72.0"). */
+fun fmtWeight1(v: Double): String = String.format(java.util.Locale.US, "%.1f", v)
 
 /**
  * Nutrient row: name, percent of target and a bar. Tap the row to show the amount ("62 / 90 mg").

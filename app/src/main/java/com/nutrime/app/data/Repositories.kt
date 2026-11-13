@@ -52,8 +52,28 @@ class WeightRepository(
 ) {
     fun observeAll(): Flow<List<WeightEntity>> = db.weights().observeAll()
 
-    /** The most recent weigh-in logged on [date], if any. */
-    fun observeOn(date: LocalDate): Flow<WeightEntity?> = observeAll().map { all -> all.firstOrNull { it.date == date.toString() } }
+    /** The weigh-in shown for [date]: the most recently changed one when a day has more than one. */
+    fun observeOn(date: LocalDate): Flow<WeightEntity?> =
+        observeAll().map { all -> all.filter { it.date == date.toString() }.maxByOrNull { it.updatedAt } }.distinctUntilChanged()
+
+    /**
+     * Save a weigh-in from the weight dialog. With [id], change that weigh-in. Otherwise change the weigh-in
+     * typed in NutriMe on [date] if there is one (so a day does not collect hidden duplicates), or add one.
+     */
+    suspend fun save(date: LocalDate, weightKg: Double, bodyFatPct: Double?, id: String? = null) {
+        val target = id ?: db.weights().onDate(date.toString()).filter { !it.id.startsWith("hc:") }.maxByOrNull { it.updatedAt }?.id
+        if (target != null && update(target, weightKg, bodyFatPct)) return
+        add(date, weightKg, bodyFatPct)
+    }
+
+    /** Change a weigh-in's weight and body fat; its id, date and note stay. Returns false if it is not found. */
+    suspend fun update(id: String, weightKg: Double, bodyFatPct: Double?): Boolean {
+        val e = db.weights().get(id)?.takeIf { !it.deleted } ?: return false
+        db.weights().upsert(e.copy(weightKg = weightKg, bodyFatPct = bodyFatPct, updatedAt = now(), dirty = true))
+        syncProfileWeight()
+        onChange()
+        return true
+    }
 
     suspend fun add(date: LocalDate, weightKg: Double, bodyFatPct: Double?) {
         db.weights().upsert(
@@ -76,6 +96,14 @@ class WeightRepository(
     suspend fun delete(id: String) {
         val e = db.weights().get(id) ?: return
         db.weights().upsert(e.copy(deleted = true, updatedAt = now(), dirty = true))
+        syncProfileWeight()
+        onChange()
+    }
+
+    /** Undo a delete. */
+    suspend fun restore(id: String) {
+        val e = db.weights().get(id) ?: return
+        db.weights().upsert(e.copy(deleted = false, updatedAt = now(), dirty = true))
         syncProfileWeight()
         onChange()
     }

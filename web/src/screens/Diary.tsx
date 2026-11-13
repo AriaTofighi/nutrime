@@ -1,7 +1,7 @@
 import { Apple, Bookmark, CalendarArrowDown, ChartColumn, ChevronLeft, ChevronRight, CircleCheck, Copy, CopyPlus, EllipsisVertical, GripVertical, HeartPulse, NotebookPen, Pencil, Plus, Scale, Trash2, Utensils } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { AmountForm, FoodSearch, type PickedAmount } from "../components/FoodPicker";
-import { WeightDialog, deleteWeight } from "../components/WeightDialog";
+import { WeightDialog, deleteWeight, restoreWeight } from "../components/WeightDialog";
 import { Calendar, Card, Empty, MacroTiles, Modal, NutrientGrid, Ring, ScoreBar } from "../components/ui";
 import { copyDay, copyEntry, entryNutrients, getFood, logFood, reorderEntries, updateEntry, type Food } from "../lib/foods";
 import { N, NUTRIENTS, fmtNum, parseNutrients, sum } from "../lib/nutrients";
@@ -13,7 +13,7 @@ import { dayRecord, logMeal, saveMeal, savedMeals, setComplete, setNote, type Sa
 import { saveProfile } from "./Trends";
 import { store, useStore } from "../lib/store";
 import type { DiaryEntry, WeightRecord } from "../lib/types";
-import { addDays, amountLabel, defaultMealForNow, friendlyDate, isoDate, parseIso } from "../lib/util";
+import { addDays, amountLabel, defaultMealForNow, fmtWeight, friendlyDate, isoDate, parseIso } from "../lib/util";
 import { COLORS } from "../theme/theme";
 
 type Dialog =
@@ -262,14 +262,15 @@ export default function Diary() {
                 <span className="hide-sm" />
                 <span className="hide-sm" />
                 <span className="num log-kcal">
-                  {(profile.imperial ? weight.weightKg * LB_PER_KG : weight.weightKg).toFixed(1)} <span className="dim">{unit}</span>
+                  {fmtWeight(profile.imperial ? weight.weightKg * LB_PER_KG : weight.weightKg)} <span className="dim">{unit}</span>
                 </span>
                 <button
                   className="icon-btn sm row-action"
                   aria-label="Delete weight"
                   onClick={(e) => {
                     e.stopPropagation();
-                    deleteWeight(weight.id);
+                    const rec = deleteWeight(weight.id);
+                    if (rec) flash("Removed weight", () => restoreWeight(rec));
                   }}
                 >
                   <Trash2 size={15} />
@@ -585,7 +586,7 @@ export default function Diary() {
           }} />
         </Modal>
       )}
-      {dialog?.kind === "weight" && <WeightDialog imperial={profile.imperial} date={date} existing={dialog.existing} onClose={() => setDialog(null)} />}
+      {dialog?.kind === "weight" && <WeightDialog imperial={profile.imperial} date={date} existing={dialog.existing} onClose={() => setDialog(null)} onDeleted={(rec) => flash("Removed weight", () => restoreWeight(rec))} />}
 
       {toast && (
         <div className="toast">

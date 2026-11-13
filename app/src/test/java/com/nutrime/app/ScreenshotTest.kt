@@ -84,9 +84,6 @@ class ScreenshotTest {
                 if (d % 2 == 0L) log("almonds", Meal.SNACKS, 30.0, date)
                 c.weights.add(date, 64.0 + d * 0.15, null)
             }
-            // Foods eaten only on earlier days, so today's gaps have something to suggest.
-            log("egg whole hard-boiled", Meal.BREAKFAST, 100.0, today.minusDays(2))
-            log("spinach raw", Meal.LUNCH, 85.0, today.minusDays(3))
         }
         waitForText("Remaining")
         shot("01-diary")

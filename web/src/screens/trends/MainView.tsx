@@ -229,8 +229,9 @@ export function MainView({ p, range, setRange, setView }: { p: Period; range: Tr
         <Modal title={rangeName(range)} subtitle={`Daily average over ${counted.length} day${counted.length === 1 ? "" : "s"}`} onClose={() => setSheet(null)}>
           <div className="sheet-lines">
             <div className="sheet-line"><span>Eaten</span><span className="num">{Math.round(avgKcal).toLocaleString()} kcal</span></div>
-            <button className="sheet-line card-button" onClick={() => { setSheet(null); setView({ kind: "burn" }); }}>
-              <span>Daily burn <span className="dim">· {burnSource(profile, est)}</span></span><span className="num">{Math.round(burn).toLocaleString()} kcal <ChevronRight size={12} /></span>
+            <button className="sheet-line-linked card-button" onClick={() => { setSheet(null); setView({ kind: "burn" }); }}>
+              <span className="sheet-line"><span>Daily burn</span><span className="num">{Math.round(burn).toLocaleString()} kcal</span></span>
+              <span className="sheet-line-caption"><span>{burnSource(profile, est).replace(/^./, (c) => c.toUpperCase())}</span><ChevronRight size={14} aria-hidden /></span>
             </button>
             <div className="sheet-line strong"><span>{balance < 0 ? "Deficit" : "Surplus"}</span><span className="num">{Math.abs(Math.round(balance)).toLocaleString()} kcal</span></div>
             <p className="hint">

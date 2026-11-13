@@ -65,8 +65,6 @@ import com.nutrime.app.model.N
 import com.nutrime.app.model.NutrientMap
 import com.nutrime.app.model.Nutrients
 import com.nutrime.app.model.Profile
-import com.nutrime.app.model.Suggestion
-import com.nutrime.app.model.Suggestions
 import com.nutrime.app.data.local.DiaryEntryEntity
 import com.nutrime.app.model.Target
 import com.nutrime.app.model.sumNutrients
@@ -90,7 +88,7 @@ import com.nutrime.app.ui.components.NutrientRow
 import com.nutrime.app.ui.components.Ring
 import com.nutrime.app.ui.components.SwipeToDelete
 import com.nutrime.app.ui.components.WeightDialog
-import com.nutrime.app.ui.components.fmtAmount
+import com.nutrime.app.ui.components.fmtWeight
 import com.nutrime.app.ui.components.servingText
 import com.nutrime.app.ui.theme.DesignTokens.Radius
 import com.nutrime.app.ui.theme.DesignTokens.Space
@@ -113,7 +111,6 @@ data class DiaryState(
     val items: List<DiaryItem>,
     val weight: WeightEntity?,
     val profile: Profile,
-    val recent: List<DiaryEntryEntity>,
     val day: com.nutrime.app.data.local.DayEntity? = null,
 )
 
@@ -124,9 +121,8 @@ class DiaryViewModel(private val c: AppContainer) : ViewModel() {
     val state = combine(
         combine(date, date.flatMapLatest { c.diary.observeDay(it) }, date.flatMapLatest { c.weights.observeOn(it) }) { d, i, w -> Triple(d, i, w) },
         c.profiles.observe(),
-        c.diary.observeRecent(),
         date.flatMapLatest { c.days.observe(it) },
-    ) { (d, items, w), p, recent, day -> DiaryState(d, items, w, p, recent, day) }
+    ) { (d, items, w), p, day -> DiaryState(d, items, w, p, day) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     val burn = c.burn.observe().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
@@ -163,8 +159,9 @@ class DiaryViewModel(private val c: AppContainer) : ViewModel() {
     suspend fun relogOn(entry: DiaryEntryEntity, day: LocalDate): String = c.diary.relog(entry, day)
     fun reorder(ids: List<String>) = viewModelScope.launch { c.diary.reorder(date.value, ids) }
     fun deleteWeight(id: String) = viewModelScope.launch { c.weights.delete(id) }
+    fun restoreWeight(id: String) = viewModelScope.launch { c.weights.restore(id) }
     fun copyFromYesterday() = viewModelScope.launch { c.diary.copyDay(date.value.minusDays(1), date.value) }
-    fun logWeight(kg: Double, bodyFat: Double?) = viewModelScope.launch { c.weights.add(date.value, kg, bodyFat) }
+    fun saveWeight(kg: Double, bodyFat: Double?, id: String?) = viewModelScope.launch { c.weights.save(date.value, kg, bodyFat, id) }
 }
 
 fun defaultMealForNow(): Meal {
@@ -211,8 +208,14 @@ fun DiaryScreen(nav: NavController) {
     LaunchedEffect(state?.items) { if (reorder.dragging == null) localOrder = null }
     val scope = rememberCoroutineScope()
     val c = NutriTheme.colors
+    fun deleteWeight(id: String) {
+        vm.deleteWeight(id)
+        scope.launch {
+            val r = snackbar.showSnackbar("Removed weight", actionLabel = "Undo", duration = SnackbarDuration.Short)
+            if (r == SnackbarResult.ActionPerformed) vm.restoreWeight(id)
+        }
+    }
 
-    val hiddenSuggestionDay by container.settings.hiddenSuggestionDay.collectAsStateWithLifecycle(initialValue = null)
     val goalReachedHidden by container.settings.goalReachedHidden.collectAsStateWithLifecycle(initialValue = null)
     val burn by vm.burn.collectAsStateWithLifecycle()
     val savedMeals by vm.meals.collectAsStateWithLifecycle()
@@ -323,36 +326,15 @@ fun DiaryScreen(nav: NavController) {
                     }
                 }
             }
-            if (s.items.isNotEmpty() && hiddenSuggestionDay != date.toString()) {
-                item(key = "suggestion") {
-                    val suggestion = remember(s.items, s.recent, targets) {
-                        Suggestions.suggest(totals, targets, s.recent, s.items.map { it.entity.foodId }.toSet()).firstOrNull()
-                    }
-                    if (suggestion != null) {
-                        SuggestionRow(
-                            suggestion,
-                            onLog = { sug ->
-                                scope.launch {
-                                    val id = vm.relog(sug.entry)
-                                    val r = snackbar.showSnackbar("Added ${sug.entry.foodName}", actionLabel = "Undo", duration = SnackbarDuration.Short)
-                                    if (r == SnackbarResult.ActionPerformed) vm.delete(id)
-                                }
-                            },
-                            onDismiss = { scope.launch { container.settings.hideSuggestion(date.toString()) } },
-                            modifier = Modifier.padding(horizontal = Space.S4, vertical = 6.dp),
-                        )
-                    }
-                }
-            }
             item { Spacer(Modifier.height(6.dp)) }
             s.weight?.let { w ->
                 item(key = "weight-${w.id}") {
                     Box(Modifier.groupRow(first = true, last = groupSize == 1)) {
-                        SwipeToDelete(w.id, onDelete = { vm.deleteWeight(w.id) }) {
+                        SwipeToDelete(w.id, onDelete = { deleteWeight(w.id) }) {
                             LogRow(
                                 title = "Weight",
                                 subtitle = w.bodyFatPct?.let { "%.1f%% body fat".format(it) },
-                                value = fmtAmount(if (s.profile.imperial) w.weightKg * LB_PER_KG else w.weightKg),
+                                value = fmtWeight(if (s.profile.imperial) w.weightKg * LB_PER_KG else w.weightKg),
                                 unit = if (s.profile.imperial) "lb" else "kg",
                                 accent = c.alcohol,
                                 onClick = { showWeight = true },
@@ -454,9 +436,14 @@ fun DiaryScreen(nav: NavController) {
 
     if (showWeight) {
         val imperial = state?.profile?.imperial ?: false
-        WeightDialog(imperial, onDismiss = { showWeight = false }) { kg, bf ->
+        val existing = state?.weight
+        WeightDialog(
+            imperial, existing = existing, date = date,
+            onDismiss = { showWeight = false },
+            onDelete = existing?.let { w -> { showWeight = false; deleteWeight(w.id) } },
+        ) { kg, bf ->
             showWeight = false
-            vm.logWeight(kg, bf)
+            vm.saveWeight(kg, bf, existing?.id)
         }
     }
 
@@ -677,33 +664,6 @@ private fun MacroLine(name: String, grams: Double, target: Double?, color: Color
         }
         Spacer(Modifier.height(4.dp))
         ProgressBar(if (target != null && target > 0) (grams / target).toFloat() else 0f, color, height = 5.dp)
-    }
-}
-
-/** "Low on vitamin D. Salmon, 140 g covers 100%." with a one-tap add and an optional dismiss. */
-@Composable
-fun SuggestionRow(s: Suggestion, onLog: (Suggestion) -> Unit, modifier: Modifier = Modifier, onDismiss: (() -> Unit)? = null) {
-    val c = NutriTheme.colors
-    Row(
-        modifier.fillMaxWidth().clip(RoundedCornerShape(Radius.Xl)).background(c.accentSoft).padding(start = Space.S4, top = 8.dp, bottom = 8.dp, end = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Column(Modifier.weight(1f)) {
-            val top = s.covers.firstOrNull()
-            Text(
-                top?.let { "Low on " + it.first.name.substringBefore(" (").replaceFirstChar { ch -> ch.lowercase() } } ?: "Suggestion",
-                style = NutriTheme.type.small.copy(fontWeight = NutriTheme.type.cardTitle.fontWeight), color = c.text, maxLines = 1, overflow = TextOverflow.Ellipsis,
-            )
-            Text(
-                "${s.entry.foodName}, ${servingText(s.entry.servingLabel, s.entry.quantity)}" + (top?.let { " covers %.0f%%".format(it.second * 100) } ?: ""),
-                style = NutriTheme.type.caption, color = c.textSecondary, maxLines = 1, overflow = TextOverflow.Ellipsis,
-            )
-        }
-        if (onDismiss != null) NIconButton(Lucide.X, "Hide suggestion for this day", onDismiss, tint = c.textTertiary, size = 40.dp)
-        Box(
-            Modifier.padding(end = 6.dp).size(32.dp).clip(CircleShape).background(c.accent).clickable(onClickLabel = "Add ${s.entry.foodName}") { onLog(s) },
-            contentAlignment = Alignment.Center,
-        ) { Icon(Lucide.Plus, "Add ${s.entry.foodName}", tint = c.onAccent, modifier = Modifier.size(16.dp)) }
     }
 }
 

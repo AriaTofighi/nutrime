@@ -62,7 +62,6 @@ class SettingsStore(private val context: Context) {
         val lastError = stringPreferencesKey("last_error")
         val themeMode = stringPreferencesKey("theme_mode")
         val accent = stringPreferencesKey("accent")
-        val hiddenSuggestionDay = stringPreferencesKey("hidden_suggestion_day")
         val trendsRange = stringPreferencesKey("trends_range")
         val goalReachedHidden = stringPreferencesKey("goal_reached_hidden")
         val mealReminders = stringPreferencesKey("meal_reminders")
@@ -146,13 +145,6 @@ class SettingsStore(private val context: Context) {
             mode?.let { m -> it[K.themeMode] = m.name }
             accent?.let { a -> it[K.accent] = a.name }
         }
-    }
-
-    /** The diary day (yyyy-mm-dd) on which the food suggestion was dismissed, if any. */
-    val hiddenSuggestionDay: Flow<String?> = context.dataStore.data.map { it[K.hiddenSuggestionDay] }
-
-    suspend fun hideSuggestion(day: String) {
-        context.dataStore.edit { it[K.hiddenSuggestionDay] = day }
     }
 
     val account: Flow<Account> = context.dataStore.data.map { p ->

@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -108,9 +112,12 @@ fun SubPage(
 ) {
     val c = NutriTheme.colors
     val bg = if (plain) c.surface else c.bgSunken
+    // Edge-to-edge: the content keeps clear of the navigation bar (or the bottom bar, when there is one),
+    // and the whole page stays above the keyboard. Children that pad for these insets themselves get 0.
     Scaffold(
+        modifier = Modifier.imePadding(),
         containerColor = bg,
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        contentWindowInsets = WindowInsets.navigationBars.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal),
         topBar = {
             Column(Modifier.background(bg).statusBarsPadding()) {
                 Row(Modifier.fillMaxWidth().height(52.dp).padding(horizontal = Space.S2), verticalAlignment = Alignment.CenterVertically) {

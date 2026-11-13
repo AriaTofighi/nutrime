@@ -82,6 +82,8 @@ import com.nutrime.app.ui.components.NChip
 import com.nutrime.app.ui.components.NDialog
 import com.nutrime.app.ui.components.NSelect
 import com.nutrime.app.ui.components.NTextField
+import com.nutrime.app.ui.components.LinkedSheetLine
+import com.nutrime.app.ui.components.fmtWeight
 import com.nutrime.app.ui.components.SectionLabel
 import com.nutrime.app.ui.components.Segmented
 import com.nutrime.app.ui.components.formatQty
@@ -385,13 +387,10 @@ private fun LazyListScope.goalSection(p: Profile, update: (Profile) -> Unit, ope
                 SheetLine("Resting burn", "%,.0f kcal".format(p.bmr))
                 SheetLine("Activity", "+ %,.0f kcal".format(p.formulaTdee - p.bmr))
             }
-            Row(Modifier.fillMaxWidth().clickable(onClickLabel = "Daily burn details", onClick = openBurn), verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f)) {
-                    SheetLine("Daily burn", "%,.0f kcal".format(p.tdee), strong = true)
-                    Text(burnSource(p, null).replaceFirstChar { it.uppercase() }, style = NutriTheme.type.caption, color = NutriTheme.colors.textTertiary)
-                }
-                Icon(Lucide.ChevronRight, null, tint = NutriTheme.colors.textTertiary, modifier = Modifier.size(16.dp))
-            }
+            LinkedSheetLine(
+                "Daily burn", "%,.0f kcal".format(p.tdee), burnSource(p, null).replaceFirstChar { it.uppercase() },
+                strong = true, onClickLabel = "Daily burn details", onClick = openBurn,
+            )
             SheetLine(
                 goalLabel(p.goalKgPerWeek, p.imperial),
                 if (kotlin.math.abs(goalKcal) < 1) "± 0 kcal" else (if (goalKcal < 0) "− " else "+ ") + "%,.0f kcal".format(kotlin.math.abs(goalKcal)),
@@ -587,14 +586,14 @@ private fun BodySection(p: Profile, update: (Profile) -> Unit) {
                         v.toIntOrNull()?.let { inch -> update(p.copy(heightCm = ((totalIn / 12).toInt() * 12 + inch) * CM_PER_IN)) }
                     }
                 }
-                NumberField("Weight", formatQty((p.weightKg * LB_PER_KG * 10).roundToInt() / 10.0), suffix = "lb") { v ->
+                NumberField("Weight", fmtWeight(p.weightKg * LB_PER_KG), suffix = "lb") { v ->
                     v.toDoubleOrNull()?.takeIf { it > 0 }?.let { update(p.copy(weightKg = it / LB_PER_KG)) }
                 }
             } else {
                 NumberField("Height", formatQty(p.heightCm.roundToInt().toDouble()), suffix = "cm") { v ->
                     v.toDoubleOrNull()?.takeIf { it > 0 }?.let { update(p.copy(heightCm = it)) }
                 }
-                NumberField("Weight", formatQty((p.weightKg * 10).roundToInt() / 10.0), suffix = "kg") { v ->
+                NumberField("Weight", fmtWeight(p.weightKg), suffix = "kg") { v ->
                     v.toDoubleOrNull()?.takeIf { it > 0 }?.let { update(p.copy(weightKg = it)) }
                 }
             }

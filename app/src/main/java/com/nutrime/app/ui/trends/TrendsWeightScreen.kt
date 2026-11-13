@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.nutrime.app.data.local.WeightEntity
 import com.nutrime.app.model.Goal
 import com.nutrime.app.model.Profile
 import com.nutrime.app.ui.SubPage
@@ -40,7 +45,8 @@ import com.nutrime.app.ui.components.RowGroup
 import com.nutrime.app.ui.components.Segmented
 import com.nutrime.app.ui.components.SheetLine
 import com.nutrime.app.ui.components.WeightDialog
-import com.nutrime.app.ui.components.fmtAmount
+import com.nutrime.app.ui.components.fmtWeight
+import com.nutrime.app.ui.components.fmtWeight1
 import com.nutrime.app.ui.theme.DesignTokens.Space
 import com.nutrime.app.ui.theme.Lucide
 import com.nutrime.app.ui.theme.NutriTheme
@@ -60,15 +66,25 @@ fun TrendsWeightScreen(nav: NavController) {
     val profile by c.profiles.observe().collectAsStateWithLifecycle(initialValue = Profile())
     val est by remember { c.burn.observe() }.collectAsStateWithLifecycle(initialValue = null)
     var showDialog by remember { mutableStateOf(false) }
+    var editing by remember { mutableStateOf<WeightEntity?>(null) }
+    val snackbar = remember { SnackbarHostState() }
     var window by rememberSaveable { mutableStateOf(90) }
     val scope = rememberCoroutineScope()
     val imperial = profile.imperial
     val unit = if (imperial) "lb" else "kg"
     fun conv(kg: Double) = if (imperial) kg * LB_PER_KG else kg
     val colors = NutriTheme.colors
+    fun delete(id: String) {
+        scope.launch {
+            c.weights.delete(id)
+            val r = snackbar.showSnackbar("Removed weight", actionLabel = "Undo", duration = SnackbarDuration.Short)
+            if (r == SnackbarResult.ActionPerformed) c.weights.restore(id)
+        }
+    }
     SubPage(
         "Weight",
         onBack = { nav.popBackStack() },
+        snackbar = snackbar,
         actions = { NButton("Log", { showDialog = true }, size = ButtonSize.Sm, icon = Lucide.Plus) },
     ) { padding ->
         Page(Modifier.padding(padding)) {
@@ -91,7 +107,7 @@ fun TrendsWeightScreen(nav: NavController) {
             item {
                 Card {
                     Hero(
-                        "Trend weight", fmtAmount(conv(e.trendKg)), unit,
+                        "Trend weight", fmtWeight1(conv(e.trendKg)), unit,
                         status = change?.let { signed(it, unit) + " in 30 days" },
                     )
                     Text(
@@ -118,7 +134,7 @@ fun TrendsWeightScreen(nav: NavController) {
                             refs = listOfNotNull(goal?.let { RefLine(conv(it), "Goal") }),
                             projection = proj,
                             xLabels = listOf(0f to first.format(fmt), lastX to first.plusDays(lastX.toLong()).format(fmt)).distinctBy { it.first },
-                            format = { fmtAmount(it) },
+                            format = { fmtWeight1(it) },
                         )
                         Text("Line: trend weight. Dots: weigh-ins. A single weigh-in can be up or down by about 1 kg from water and food.", style = NutriTheme.type.caption, color = colors.textTertiary, modifier = Modifier.padding(top = Space.S2))
                     }
@@ -127,7 +143,7 @@ fun TrendsWeightScreen(nav: NavController) {
             profile.goalWeightKg?.let { g ->
                 item {
                     Card {
-                        CardTitle("Goal", meta = "${fmtAmount(conv(g))} $unit")
+                        CardTitle("Goal", meta = "${fmtWeight1(conv(g))} $unit")
                         Spacer(Modifier.height(Space.S2))
                         val fmt = DateTimeFormatter.ofPattern("MMM d, yyyy")
                         if (Goal.reached(e.trendKg, g)) {
@@ -137,7 +153,7 @@ fun TrendsWeightScreen(nav: NavController) {
                             val atNow = Goal.projectedDate(today, e.trendKg, g, e.ratePerWeekKg)
                             SheetLine("At your goal rate", atGoal?.format(fmt) ?: "—")
                             SheetLine("At your current rate", atNow?.format(fmt) ?: "Not at this rate")
-                            Text("%s to go".format(fmtAmount(conv(abs(g - e.trendKg))) + " $unit"), style = NutriTheme.type.caption, color = colors.textTertiary)
+                            Text("%s to go".format(fmtWeight1(conv(abs(g - e.trendKg))) + " $unit"), style = NutriTheme.type.caption, color = colors.textTertiary)
                         }
                     }
                 }
@@ -148,7 +164,11 @@ fun TrendsWeightScreen(nav: NavController) {
                 RowGroup {
                     weights.forEachIndexed { i, w ->
                         if (i > 0) RowDivider()
-                        Row(Modifier.fillMaxWidth().padding(start = Space.S4, end = Space.S1, top = 4.dp, bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Row(
+                            Modifier.fillMaxWidth().clickable(onClickLabel = "Edit weigh-in") { editing = w }
+                                .padding(start = Space.S4, end = Space.S1, top = 4.dp, bottom = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
                             Column(Modifier.weight(1f)) {
                                 Text(LocalDate.parse(w.date).format(DateTimeFormatter.ofPattern("EEE, MMM d, yyyy")), style = NutriTheme.type.body, color = colors.text)
                                 trendOn[w.date]?.let { t ->
@@ -156,10 +176,10 @@ fun TrendsWeightScreen(nav: NavController) {
                                     Text(if (abs(d) < 0.05) "on trend" else "%s%.1f %s from trend".format(if (d > 0) "+" else "−", abs(d), unit), style = NutriTheme.type.caption, color = colors.textTertiary)
                                 }
                             }
-                            Text(fmtAmount(conv(w.weightKg)), style = NutriTheme.type.numeric, color = colors.text)
+                            Text(fmtWeight(conv(w.weightKg)), style = NutriTheme.type.numeric, color = colors.text)
                             Text(" $unit" + (w.bodyFatPct?.let { " · %.1f%%".format(it) } ?: ""), style = NutriTheme.type.small, color = colors.textTertiary)
                             Spacer(Modifier.width(Space.S1))
-                            NIconButton(Lucide.X, "Delete weigh-in", { scope.launch { c.weights.delete(w.id) } }, size = 40.dp, tint = colors.textTertiary)
+                            NIconButton(Lucide.X, "Delete weigh-in", { delete(w.id) }, size = 40.dp, tint = colors.textTertiary)
                         }
                     }
                 }
@@ -167,9 +187,26 @@ fun TrendsWeightScreen(nav: NavController) {
         }
     }
     if (showDialog) {
-        WeightDialog(imperial, onDismiss = { showDialog = false }) { kg, bf ->
+        // "Log" is for today: it opens today's weigh-in when there is one.
+        val today = LocalDate.now()
+        val existing = weights.filter { it.date == today.toString() }.maxByOrNull { it.updatedAt }
+        WeightDialog(
+            imperial, existing = existing, date = today,
+            onDismiss = { showDialog = false },
+            onDelete = existing?.let { w -> { showDialog = false; delete(w.id) } },
+        ) { kg, bf ->
             showDialog = false
-            scope.launch { c.weights.add(LocalDate.now(), kg, bf) }
+            scope.launch { c.weights.save(today, kg, bf, existing?.id) }
+        }
+    }
+    editing?.let { w ->
+        WeightDialog(
+            imperial, existing = w, date = LocalDate.parse(w.date),
+            onDismiss = { editing = null },
+            onDelete = { editing = null; delete(w.id) },
+        ) { kg, bf ->
+            editing = null
+            scope.launch { c.weights.save(LocalDate.parse(w.date), kg, bf, w.id) }
         }
     }
 }

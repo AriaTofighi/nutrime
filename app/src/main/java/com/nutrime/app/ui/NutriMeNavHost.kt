@@ -24,9 +24,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import com.nutrime.app.data.local.WeightEntity
+import kotlinx.coroutines.flow.first
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nutrime.app.ui.components.WeightDialog
 import kotlinx.coroutines.launch
@@ -144,9 +147,19 @@ fun NutriMeNavHost(nav: NavHostController = rememberNavController(), link: Strin
         }
     }
     when (addDialog) {
-        AddAction.WEIGHT -> WeightDialog(profile.imperial, onDismiss = { addDialog = null }) { kg, bf ->
-            addDialog = null
-            scope.launch { container.weights.add(container.selectedDate.value, kg, bf) }
+        AddAction.WEIGHT -> {
+            // Open with the day's weigh-in (if any) so a second log changes it instead of adding a hidden duplicate.
+            val d = container.selectedDate.value
+            val loaded by produceState<Pair<Boolean, WeightEntity?>>(false to null, d) {
+                value = true to container.weights.observeOn(d).first()
+            }
+            if (loaded.first) {
+                val existing = loaded.second
+                WeightDialog(profile.imperial, existing = existing, date = d, onDismiss = { addDialog = null }) { kg, bf ->
+                    addDialog = null
+                    scope.launch { container.weights.save(d, kg, bf, existing?.id) }
+                }
+            }
         }
         AddAction.QUICK -> QuickAddDialog(onDismiss = { addDialog = null }) { name, kcal, p, cb, f ->
             addDialog = null

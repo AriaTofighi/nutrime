@@ -34,12 +34,13 @@ const PRESETS: [number, number, number, string][] = [
 ];
 
 /** A text field bound to a number, so partial input like "1." isn't clobbered while typing. */
-function NumField({ label, value, onChange, suffix }: { label: string; value: number | undefined; onChange: (v: number | undefined) => void; suffix?: string }) {
-  const show = (v: number | undefined) => (v == null ? "" : String(Math.round(v * 10) / 10));
+function NumField({ label, value, onChange, suffix, digits = 1 }: { label: string; value: number | undefined; onChange: (v: number | undefined) => void; suffix?: string; digits?: number }) {
+  const scale = 10 ** digits;
+  const show = (v: number | undefined) => (v == null ? "" : String(Math.round(v * scale) / scale));
   const [text, setText] = useState(show(value));
   useEffect(() => {
     const t = toNum(text);
-    if (!(value != null && t != null && Math.abs(t - value) < 0.05) && !(value == null && t == null)) setText(show(value));
+    if (!(value != null && t != null && Math.abs(t - value) < 0.5 / scale) && !(value == null && t == null)) setText(show(value));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
   return (
@@ -392,6 +393,7 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
               <NumField
                 label="Weight"
                 suffix={imp ? "lb" : "kg"}
+                digits={2}
                 value={imp ? p.weightKg * LB_PER_KG : p.weightKg}
                 onChange={(v) => v && v > 0 && update({ weightKg: imp ? v / LB_PER_KG : v })}
               />

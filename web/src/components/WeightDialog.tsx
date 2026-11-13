@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LB_PER_KG, encodeProfile, parseProfile } from "../lib/profile";
 import { newId, store } from "../lib/store";
 import type { WeightRecord } from "../lib/types";
-import { isoDate, toNum } from "../lib/util";
+import { fmtWeight, isoDate, toNum } from "../lib/util";
 import { Modal } from "./ui";
 
 /** Keep the profile's weight (used for calorie targets) equal to the most recent log, like the app. */
@@ -14,8 +14,17 @@ export function syncProfileWeight() {
     store.put("profile", { id: "profile", json: encodeProfile({ ...p, weightKg: latest.weightKg }), updatedAt: Date.now(), deleted: false });
 }
 
-export function deleteWeight(id: string) {
+/** Soft-delete a weigh-in; returns the record as it was, for undo with [restoreWeight]. */
+export function deleteWeight(id: string): WeightRecord | undefined {
+  const before = store.get("weights", id);
   store.remove("weights", id);
+  syncProfileWeight();
+  return before;
+}
+
+/** Undo a delete: save the record again (new updatedAt, not deleted). */
+export function restoreWeight(rec: WeightRecord) {
+  store.put("weights", { ...rec, deleted: false, updatedAt: Date.now() });
   syncProfileWeight();
 }
 
@@ -24,15 +33,18 @@ export function WeightDialog({
   date: initialDate,
   existing,
   onClose,
+  onDeleted,
 }: {
   imperial: boolean;
   date?: string;
   existing?: WeightRecord;
   onClose: () => void;
+  /** Called after Delete with the removed record, so the parent can offer Undo. */
+  onDeleted?: (rec: WeightRecord) => void;
 }) {
   const conv = (kg: number) => (imperial ? kg * LB_PER_KG : kg);
   const [date, setDate] = useState(existing?.date ?? initialDate ?? isoDate());
-  const [weight, setWeight] = useState(existing ? conv(existing.weightKg).toFixed(1) : "");
+  const [weight, setWeight] = useState(existing ? fmtWeight(conv(existing.weightKg)) : "");
   const [bf, setBf] = useState(existing?.bodyFatPct != null ? String(existing.bodyFatPct) : "");
   const w = toNum(weight);
   const valid = w != null && w > 0;
@@ -82,8 +94,9 @@ export function WeightDialog({
               type="button"
               className="btn btn-danger-ghost"
               onClick={() => {
-                deleteWeight(existing.id);
+                const rec = deleteWeight(existing.id);
                 onClose();
+                if (rec) onDeleted?.(rec);
               }}
             >
               Delete

@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -128,7 +129,7 @@ fun AssistantScreen(nav: NavController, prompt: String? = null) {
         },
         plain = true,
     ) { padding ->
-        Box(Modifier.fillMaxSize().padding(padding).background(NutriTheme.colors.surface)) {
+        Box(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).background(NutriTheme.colors.surface)) {
             when {
                 account == null -> Unit
                 account?.loggedIn != true -> EmptyState(

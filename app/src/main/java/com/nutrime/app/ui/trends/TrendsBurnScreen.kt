@@ -31,7 +31,7 @@ import com.nutrime.app.ui.components.RowGroup
 import com.nutrime.app.ui.components.Segmented
 import com.nutrime.app.ui.components.SheetLine
 import com.nutrime.app.ui.components.Tone
-import com.nutrime.app.ui.components.fmtAmount
+import com.nutrime.app.ui.components.fmtWeight1
 import com.nutrime.app.ui.profile.NumberField
 import com.nutrime.app.ui.theme.DesignTokens.Space
 import com.nutrime.app.ui.theme.NutriTheme
@@ -95,7 +95,7 @@ fun TrendsBurnScreen(nav: NavController) {
                             SheetLine("Weigh-ins used", "${e.weighIns}")
                             val conv = { kg: Double -> if (profile.imperial) kg * LB_PER_KG else kg }
                             val u = if (profile.imperial) "lb" else "kg"
-                            SheetLine("Trend weight", "${fmtAmount(conv(e.trendKg))} $u")
+                            SheetLine("Trend weight", "${fmtWeight1(conv(e.trendKg))} $u")
                             SheetLine("Rate now", if (abs(e.ratePerWeekKg) < 0.02) "steady" else signed(conv(e.ratePerWeekKg), u) + " a week")
                         }
                     }
