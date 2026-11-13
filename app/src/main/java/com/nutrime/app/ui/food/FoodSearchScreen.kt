@@ -373,7 +373,8 @@ fun FoodSearchScreen(nav: NavController, date: String, meal: Int, mode: String, 
                         FoodResult(f, favorite = f.id in favIds, usual = usage[f.id], onAdd = if (logMode) ({ quickAdd(f) }) else null) { open(f) }
                     }
                     if (moreResults.isNotEmpty()) {
-                        item(key = "more-header") { Header("More results") }
+                        // "More results" only below other results; alone, they are simply the results.
+                        if (mainResults.isNotEmpty()) item(key = "more-header") { Header("More results") }
                         items(moreResults, key = { "f-" + it.id }) { f ->
                             FoodResult(f, favorite = f.id in favIds, usual = usage[f.id], onAdd = if (logMode) ({ quickAdd(f) }) else null) { open(f) }
                         }
@@ -496,7 +497,7 @@ private fun Header(text: String) {
 
 /**
  * A search result: the cleaned name; brand, default serving, how often it was logged and ★ below; energy for
- * the default serving (or per 100 g). The source is on the food's own screen. Complete data gets one small mark.
+ * the default serving (or per 100 g). The source is on the food's own screen; the "Complete data" filter finds full lab analyses.
  */
 @Composable
 private fun FoodResult(f: Food, favorite: Boolean = false, usual: FoodUsage? = null, onAdd: (() -> Unit)? = null, onClick: () -> Unit) {
@@ -511,7 +512,7 @@ private fun FoodResult(f: Food, favorite: Boolean = false, usual: FoodUsage? = n
     val unit = if (serving != null) "kcal · ${formatQty(serving.grams)} g" else "kcal/100g"
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(Modifier.weight(1f)) {
-            ResultRow(FoodNames.display(f), sub, kcal, unit = unit, complete = FoodQuality.isComplete(f), onClick = onClick)
+            ResultRow(FoodNames.display(f), sub, kcal, unit = unit, onClick = onClick)
         }
         if (onAdd != null) NIconButton(Lucide.Plus, "Add ${f.name}", onAdd, tint = NutriTheme.colors.accent, modifier = Modifier.padding(end = Space.S2))
     }
@@ -521,7 +522,7 @@ private fun FoodResult(f: Food, favorite: Boolean = false, usual: FoodUsage? = n
 private fun servingName(label: String): String = if (label.firstOrNull()?.isDigit() == true) label else "1 $label"
 
 @Composable
-private fun ResultRow(name: String, subtitle: String, kcal: Double, unit: String = "kcal/100g", complete: Boolean = false, onClick: () -> Unit) {
+private fun ResultRow(name: String, subtitle: String, kcal: Double, unit: String = "kcal/100g", onClick: () -> Unit) {
     val c = NutriTheme.colors
     Row(
         Modifier.fillMaxWidth().clickable(onClick = onClick).padding(horizontal = Space.S4, vertical = 10.dp),
@@ -529,16 +530,7 @@ private fun ResultRow(name: String, subtitle: String, kcal: Double, unit: String
     ) {
         Column(Modifier.weight(1f)) {
             Text(name, style = NutriTheme.type.body, color = c.text, maxLines = 2, overflow = TextOverflow.Ellipsis)
-            if (subtitle.isNotBlank() || complete) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (complete) {
-                        // Full vitamins and minerals (a lab analysis), so the diary shows no false gaps.
-                        Text("Full nutrients", style = NutriTheme.type.caption, color = c.textSecondary, maxLines = 1)
-                        if (subtitle.isNotBlank()) Text(" · ", style = NutriTheme.type.caption, color = c.textTertiary)
-                    }
-                    if (subtitle.isNotBlank()) Text(subtitle, style = NutriTheme.type.caption, color = c.textTertiary, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                }
-            }
+            if (subtitle.isNotBlank()) Text(subtitle, style = NutriTheme.type.caption, color = c.textTertiary, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
         Spacer(Modifier.width(Space.S3))
         Column(horizontalAlignment = Alignment.End) {

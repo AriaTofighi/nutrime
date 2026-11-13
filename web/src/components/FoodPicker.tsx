@@ -36,7 +36,7 @@ const SOURCE_TAG: Record<string, string> = {
 
 /**
  * A food row: the cleaned name; brand, default serving, how often it was logged and ★ below; energy for the
- * default serving (or per 100 g). The source is shown on the food's own screen. Complete data gets one small mark.
+ * default serving (or per 100 g). The source is shown on the food's own screen; the "Complete data" filter finds full lab analyses.
  */
 export function FoodRow({ food, onPick, usual, favorite }: { food: Food; onPick: (f: Food) => void; usual?: number; favorite?: boolean }) {
   const s = food.servings[0];
@@ -47,7 +47,6 @@ export function FoodRow({ food, onPick, usual, favorite }: { food: Food; onPick:
       <span className="food-main">
         <span className="food-name">{displayName(food.name, food.brand)}</span>
         <span className="food-meta">
-          {isComplete(food) && <span className="food-complete" title="Full vitamins and minerals (a lab analysis)">Full nutrients</span>}
           {food.brand && <span>{food.brand}</span>}
           {s && <span>{/^\d/.test(s.label) ? s.label : `1 ${s.label}`}</span>}
           {usual != null && usual > 0 && <span className="dim">logged {usual}×</span>}
@@ -330,7 +329,10 @@ export function FoodSearch({
             {dbError && <p className="hint danger">{dbError}</p>}
             {local.correctedQuery && <p className="corrected">Showing results for “{local.correctedQuery}”</p>}
             {results.length > 0 && <Section icon={<Database size={13} />} title="Results">{results.map((f) => row(f))}</Section>}
-            {moreResults.length > 0 && <Section icon={<Globe size={13} />} title="More results">{moreResults.map((f) => row(f))}</Section>}
+            {/* "More results" only below other results; alone, they are simply the results. */}
+            {moreResults.length > 0 && (results.length > 0
+              ? <Section icon={<Globe size={13} />} title="More results">{moreResults.map((f) => row(f))}</Section>
+              : <Section icon={<Database size={13} />} title="Results">{moreResults.map((f) => row(f))}</Section>)}
             {loading && !results.length && !moreResults.length && (
               <div className="hint center"><LoaderCircle size={16} className="spin" /></div>
             )}

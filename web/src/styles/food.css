@@ -110,10 +110,6 @@
   content: "·";
   margin-right: var(--space-2);
 }
-/* Full vitamins and minerals: one quiet mark, no source label on rows. */
-.food-complete {
-  color: var(--text-secondary);
-}
 .food-kcal {
   display: flex;
   flex-direction: column;
