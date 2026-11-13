@@ -16,6 +16,8 @@ export interface Food {
   servings: Serving[];
   barcode?: string;
   category?: string;
+  /** Where a branded product is sold, as Open Food Facts country names ("canada"). From the server catalog. */
+  countries?: string[];
 }
 
 /** Nutrients a nutrition label prints; anything else is a vitamin or mineral from a lab analysis. Mirrors FoodQuality.kt. */
@@ -118,10 +120,13 @@ function bundledToFood(r: BundledRow): Food {
   };
 }
 
+/** Candidates per search for the ranking (also BundledFoodDb.CANDIDATES in the app). */
+const CANDIDATES = 100;
+
 const tokenize = (q: string) => q.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(Boolean);
 
 /** Prefix match on every word, ranked like the app: curated first, then name starts with the first word, then "raw", then shorter. */
-export async function searchBundled(query: string, limit = 60): Promise<Food[]> {
+export async function searchBundled(query: string, limit = CANDIDATES): Promise<Food[]> {
   const tokens = tokenize(query);
   if (!tokens.length) return [];
   const db = await loadBundled();
@@ -175,7 +180,7 @@ export interface BundledResults {
 }
 
 /** Like the app: synonyms always, and typing-error correction when fewer than 5 foods match. */
-export async function searchBundledDetailed(query: string, limit = 60): Promise<BundledResults> {
+export async function searchBundledDetailed(query: string, limit = CANDIDATES): Promise<BundledResults> {
   const tokens = tokenize(query);
   if (!tokens.length) return { foods: [], corrected: new Set() };
   const words = await loadSearchWords();

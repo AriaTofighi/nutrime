@@ -140,12 +140,14 @@ class FoodProviders(private val usdaApiKey: String, private val budget: Provider
                 ?.takeIf { it.isNotBlank() && !it.startsWith("Quantity not specified") } ?: return@forEach
             if (g.isFinite() && g > 0 && g <= 2000) servings += Serving(text, g)
         }
-        val name = o["description"].str()?.let { prettify(it, branded) } ?: return null
+        val brand = (o["brandName"].str() ?: o["brandOwner"].str())?.let { prettify(it, true) }
+        // Branded descriptions are SHOUTED and often start with the brand: show them like the other names.
+        val name = o["description"].str()?.let { if (branded) com.nutrime.app.model.FoodNames.display(it, brand) else it.trim() } ?: return null
         return Food(
             id = "usda:$fdcId",
             source = if (branded) FoodSource.USDA_BRANDED else FoodSource.USDA,
             name = name,
-            brand = (o["brandName"].str() ?: o["brandOwner"].str())?.let { prettify(it, true) },
+            brand = brand,
             nutrients = nutrients,
             servings = servings.distinctBy { it.label },
             barcode = o["gtinUpc"].str()?.takeIf { it.matches(Regex("[0-9]{4,14}")) },

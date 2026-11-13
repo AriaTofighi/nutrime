@@ -7,22 +7,90 @@ import { N } from "./nutrients";
 import type { DiaryEntry, Serving } from "./types";
 import { dayDiff } from "./range";
 import { addDays } from "./util";
+import { displayName, isShouted } from "./foodNames";
 
 const LABEL = new Set<number>([N.ENERGY, N.PROTEIN, N.CARBS, N.FAT, N.FIBER, N.SUGARS, N.ADDED_SUGARS, N.SAT_FAT, N.TRANS_FAT, N.CHOLESTEROL, N.SODIUM]);
 const STOP = new Set(["and", "with", "in", "of", "the", "a", "an", "or", "to"]);
 
 export const words = (s: string) => s.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter((w) => w && !STOP.has(w));
 
+/** A simple singular form, kept conservative: "tenderloins" → "tenderloin", "tomatoes" → "tomato", "hummus" stays. */
+export function singular(w: string): string {
+  if (w.length < 4) return w;
+  if (w.length >= 5 && /(x|z|ch|sh|o)es$/.test(w)) return w.slice(0, -2);
+  if (w.endsWith("s") && !w.endsWith("ss") && !w.endsWith("us") && !w.endsWith("is")) return w.slice(0, -1);
+  return w;
+}
+
+/** A query word matches a name word by prefix, either as typed or in singular form. */
+export function wordMatches(t: string, w: string): boolean {
+  if (w.startsWith(t) || (w.length >= 4 && t.startsWith(w))) return true;
+  const st = singular(t), sw = singular(w);
+  return sw.startsWith(st) || (sw.length >= 4 && st.startsWith(sw));
+}
+
 const PRIOR: Record<string, number> = { Custom: 1, Recipe: 1, NutriMe: 0.95, USDA: 0.85, "USDA Branded": 0.45, "Open Food Facts": 0.3 };
 
+export const micronutrients = (f: Food) => Object.keys(f.nutrients).filter((k) => !LABEL.has(Number(k))).length;
+export const isComplete = (f: Food) => micronutrients(f) >= 12;
+
 export function qualityScore(f: Food): number {
-  const micros = Object.keys(f.nutrients).filter((k) => !LABEL.has(Number(k))).length;
-  return 0.6 * Math.min(1, micros / 25) + 0.4 * (PRIOR[f.source] ?? 0.5);
+  return 0.6 * Math.min(1, micronutrients(f) / 25) + 0.4 * (PRIOR[f.source] ?? 0.5);
 }
 
 export function matchedWords(q: string[], f: Food): number {
   const ws = words(`${f.name} ${f.brand ?? ""}`);
-  return q.filter((t) => ws.some((w) => w.startsWith(t) || (w.length >= 4 && t.startsWith(w)))).length;
+  return q.filter((t) => ws.some((w) => wordMatches(t, w))).length;
+}
+
+/** The same word, ignoring a plural ("tenderloins" = "tenderloin"). */
+export const sameWord = (t: string, w: string) => singular(t) === singular(w);
+
+/**
+ * Name words that count for the fit, each once: brand words, details in brackets, and descriptors that
+ * plain foods carry ("raw", "cooked", "no added fat") are left out unless the query has them.
+ */
+const NEUTRAL = new Set(["raw", "fresh", "plain", "whole", "nfs", "ns", "cooked", "boiled", "unsalted", "without", "salt", "no", "added", "fat", "prepared", "unprepared", "regular"]);
+/** The name without details in brackets: "Salmon (Atlantic, farmed), raw" → "Salmon, raw". */
+const withoutBrackets = (name: string) => name.replace(/\([^)]*\)/g, " ");
+function fitWords(name: string, brand: string | undefined, q: string[]): string[] {
+  const b = new Set(words(brand ?? "").map(singular));
+  const all = [...new Set(words(withoutBrackets(name)).map(singular))];
+  const kept = all.filter((w) => !b.has(w) && (!NEUTRAL.has(w) || q.some((t) => sameWord(t, w))));
+  return kept.length ? kept : all;
+}
+
+/** 0..1: share of the name's words that are query words. "Chicken tenderloin" → 1; "Cracker Barrel, chicken tenderloin platter, fried" → 2/6. */
+export function nameFit(q: string[], f: Food): number {
+  const ws = fitWords(f.name, f.brand, q);
+  if (!q.length || !ws.length) return 0;
+  return ws.filter((w) => q.some((t) => sameWord(t, w))).length / ws.length;
+}
+
+/** Query words found as whole words (not only as the start of a longer word: "egg" in "eggplant"). */
+export function wholeWords(q: string[], f: Food): number {
+  const ws = words(`${f.name} ${f.brand ?? ""}`);
+  return q.filter((t) => ws.some((w) => sameWord(t, w))).length;
+}
+
+/** The same words as the query, ignoring case, plurals, punctuation and "raw"-like words: "Chicken Tenderloins" = "chicken tenderloin". */
+function sameWords(name: string, query: string): boolean {
+  const y = words(query).map(singular);
+  const x = words(withoutBrackets(name)).map(singular).filter((w) => !NEUTRAL.has(w) || y.includes(w));
+  return x.length > 0 && x.length === y.length && x.every((w, i) => w === y[i]);
+}
+
+const RESTAURANT_CATEGORIES = new Set(["Restaurant Foods", "Fast Foods"]);
+const RESTAURANT_NAME = /\b(fast ?foods?|restaurant)/i;
+
+/** A restaurant or fast-food item: the USDA categories, or a name that says so ("…, from fast food"). */
+export const isRestaurant = (f: Food) => (f.category != null && RESTAURANT_CATEGORIES.has(f.category)) || RESTAURANT_NAME.test(f.name);
+
+/** True when the query names the restaurant: a word of a SHOUTED leading brand ("CRACKER BARREL, …") or of the brand, or "restaurant"/"fast". */
+function asksForRestaurant(q: string[], f: Food): boolean {
+  const lead = f.name.split(",")[0];
+  const part = [...(isShouted(lead) ? words(lead) : []), ...words(f.brand ?? ""), "restaurant", "fast"];
+  return q.some((t) => part.some((w) => wordMatches(t, w)));
 }
 
 export interface FoodUsage {
@@ -52,26 +120,43 @@ export function foodUsage(entries: DiaryEntry[], today: string): Map<string, Foo
   return out;
 }
 
+/** Name match: share of query words found, the first word leading, the same words, and how much of the name the query covers. */
 export function textScore(q: string[], f: Food, query: string): number {
   if (!q.length) return 0;
   let s = matchedWords(q, f) / q.length;
-  if (words(f.name)[0]?.startsWith(q[0])) s += 0.1;
-  if (f.name.trim().toLowerCase() === query.trim().toLowerCase()) s += 0.2;
-  return s;
+  const first = words(f.name)[0];
+  if (first != null && (first.startsWith(q[0]) || singular(first) === singular(q[0]))) s += 0.1;
+  if (sameWords(f.name, query)) s += 0.2;
+  return s + 0.15 * wholeWords(q, f) / q.length + 0.25 * nameFit(q, f);
 }
 
 export interface RankOptions {
   usage: Map<string, FoodUsage>;
   meal?: number;
   favorites: Set<string>;
+  /** Open Food Facts country name ("canada"), see countryName(). */
+  country?: string;
   corrected?: Set<string>;
+}
+
+/** Weight of data quality in the ranking. */
+export const QUALITY_WEIGHT = 0.2;
+
+/**
+ * Penalties that are not about the words: restaurant items the query did not ask for, and products
+ * without a brand. Foods the user has logged get none.
+ */
+export function penalties(q: string[], f: Food): number {
+  return (q.length && isRestaurant(f) && !asksForRestaurant(q, f) ? 0.2 : 0) + (f.source === "Open Food Facts" && !f.brand?.trim() ? 0.1 : 0);
 }
 
 export function score(f: Food, q: string[], query: string, o: RankOptions): number {
   const u = o.usage.get(f.id);
   const us = u ? usageScore(u) : 0;
   const share = u && o.meal != null ? mealShare(u, o.meal) : 0;
-  return textScore(q, f, query) + 0.35 * us + 0.15 * share * us + 0.3 * qualityScore(f) + (o.favorites.has(f.id) ? 0.15 : 0) - (o.corrected?.has(f.id) ? 0.25 : 0);
+  return textScore(q, f, query) + 0.35 * us + 0.15 * share * us + QUALITY_WEIGHT * qualityScore(f) +
+    (o.favorites.has(f.id) ? 0.15 : 0) + (o.country && f.countries?.includes(o.country) ? 0.08 : 0) -
+    (o.corrected?.has(f.id) ? 0.25 : 0) - (u ? 0 : penalties(q, f));
 }
 
 export function rank(foods: Food[], query: string, o: RankOptions): Food[] {
@@ -82,6 +167,57 @@ export function rank(foods: Food[], query: string, o: RankOptions): Food[] {
     .map((f, i) => ({ f, i, s: score(f, q, query, o) }))
     .sort((a, b) => b.s - a.s || a.i - b.i)
     .map((x) => x.f);
+}
+
+const LOCAL_SOURCES = new Set(["Custom", "Recipe", "NutriMe"]);
+const sameEnergy = (a: number, b: number) => Math.abs(a - b) <= 0.05 * Math.max(Math.abs(a), Math.abs(b));
+const productKey = (f: Food) => words(displayName(f.name, f.brand)).map(singular).join(" ") + "|" + words(f.brand ?? "").join(" ");
+
+export interface CollapseOptions {
+  /** Foods the user has logged: never hidden. */
+  used: Set<string> | Map<string, unknown>;
+  favorites: Set<string>;
+  country?: string;
+}
+
+/**
+ * One row per product: foods in rank order with the same cleaned name and brand and energy within 5%
+ * are one product. The row kept (at the place of the best-ranked one) is the user's own or used food,
+ * then a favourite, then the one with more nutrients, with a serving, sold in the user's country.
+ * Custom, recipe and NutriMe foods are never merged, and a food the user logged or made a favourite
+ * is never hidden.
+ */
+export function collapse(ranked: Food[], o: CollapseOptions): Food[] {
+  const kept = (f: Food) => o.used.has(f.id) || o.favorites.has(f.id);
+  const groups: { key: string; kcal: number; members: Food[] }[] = [];
+  for (const f of ranked) {
+    const kcal = f.nutrients[N.ENERGY] ?? 0;
+    if (LOCAL_SOURCES.has(f.source)) { groups.push({ key: "", kcal, members: [f] }); continue; }
+    const key = productKey(f);
+    const g = groups.find((x) => x.key === key && sameEnergy(x.kcal, kcal) && !(kept(f) && x.members.some(kept)));
+    if (g) g.members.push(f);
+    else groups.push({ key, kcal, members: [f] });
+  }
+  const tie = (f: Food) => [o.used.has(f.id) ? 1 : 0, o.favorites.has(f.id) ? 1 : 0, Object.keys(f.nutrients).length, f.servings.length ? 1 : 0, o.country && f.countries?.includes(o.country) ? 1 : 0];
+  return groups.map((g) => {
+    let best = g.members[0];
+    for (const f of g.members.slice(1)) {
+      const a = tie(f), b = tie(best);
+      const i = a.findIndex((v, k) => v !== b[k]);
+      if (i >= 0 && a[i] > b[i]) best = f;
+    }
+    return best;
+  });
+}
+
+/**
+ * Open Food Facts as a fallback: the main list has every other source plus Open Food Facts products the
+ * user has logged or made a favourite; the rest go under "More results". The order inside each is kept.
+ */
+export function splitMoreResults(ranked: Food[], used: Set<string> | Map<string, unknown>, favorites: Set<string>): { main: Food[]; more: Food[] } {
+  const main: Food[] = [], more: Food[] = [];
+  for (const f of ranked) (f.source !== "Open Food Facts" || used.has(f.id) || favorites.has(f.id) ? main : more).push(f);
+  return { main, more };
 }
 
 export function usualFor(meal: number, usage: Iterable<FoodUsage>, limit = 6): FoodUsage[] {

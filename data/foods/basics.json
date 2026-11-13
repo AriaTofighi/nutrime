@@ -1,0 +1,2856 @@
+{
+  "about": "Basic foods (meat, poultry, fish, eggs, dairy, grains, fruit and vegetables) under the names people type. Each copies one USDA food by FDC id; the basis names it. See README.md.",
+  "foods": [
+    {
+      "key": "chicken-tenderloin-raw",
+      "name": "Chicken tenderloin, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken tenderloin",
+        "chicken tenderloins",
+        "chicken tender",
+        "chicken tenders",
+        "tenderloin",
+        "chicken strips",
+        "raw chicken tenders"
+      ],
+      "from": {
+        "fdc": 2646170
+      },
+      "basis": "USDA Foundation Foods 2646170: \"Chicken, breast, boneless, skinless, raw\". The chicken tenderloin (tender) is the pectoralis minor muscle on the underside of the breast. USDA has no separate analysis of unbreaded tenderloin, so this uses USDA boneless, skinless chicken breast meat. Not for breaded or fried tenders.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        },
+        {
+          "label": "1 tenderloin",
+          "g": 35
+        }
+      ]
+    },
+    {
+      "key": "chicken-tenderloin-cooked",
+      "name": "Chicken tenderloin, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken tenderloin",
+        "chicken tenderloins",
+        "tenderloin",
+        "cooked chicken tenderloin"
+      ],
+      "from": {
+        "fdc": 331960
+      },
+      "basis": "USDA Foundation Foods 331960: \"Chicken, broiler or fryers, breast, skinless, boneless, meat only, cooked, braised\". The chicken tenderloin (tender) is the pectoralis minor muscle on the underside of the breast. USDA has no separate analysis of unbreaded tenderloin, so this uses USDA boneless, skinless chicken breast meat. Not for breaded or fried tenders. Cooked by braising (moist heat); about 100 g raw gives about 75 g cooked.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "chicken-tenderloin-grilled",
+      "name": "Chicken tenderloin, grilled",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken tenderloin",
+        "chicken tenderloins",
+        "grilled chicken tenders",
+        "tenderloin"
+      ],
+      "from": {
+        "fdc": 171534
+      },
+      "basis": "USDA SR Legacy 171534: \"Chicken, broiler or fryers, breast, skinless, boneless, meat only, cooked, grilled\". The chicken tenderloin (tender) is the pectoralis minor muscle on the underside of the breast. USDA has no separate analysis of unbreaded tenderloin, so this uses USDA boneless, skinless chicken breast meat. Not for breaded or fried tenders.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "chicken-breast-skin-raw",
+      "name": "Chicken breast with skin, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken breast",
+        "skin on chicken breast",
+        "bone in chicken breast"
+      ],
+      "from": {
+        "fdc": 2727569
+      },
+      "basis": "USDA Foundation Foods 2727569: \"Chicken, breast, meat and skin, raw\". Meat and skin, weighed without bone.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "chicken-thigh-raw",
+      "name": "Chicken thigh, boneless, skinless, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken thigh",
+        "chicken thighs",
+        "boneless chicken thigh"
+      ],
+      "from": {
+        "fdc": 173627
+      },
+      "basis": "USDA SR Legacy 173627: \"Chicken, broilers or fryers, dark meat, thigh, meat only, raw\". Meat only, weighed without bone and skin.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "chicken-thigh-skin-raw",
+      "name": "Chicken thigh with skin, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken thigh",
+        "chicken thighs",
+        "skin on chicken thigh"
+      ],
+      "from": {
+        "fdc": 172385
+      },
+      "basis": "USDA SR Legacy 172385: \"Chicken, broilers or fryers, thigh, meat and skin, raw\". Meat and skin, weighed without bone.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "chicken-thigh-roasted",
+      "name": "Chicken thigh, roasted, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken thigh",
+        "roasted chicken thigh",
+        "baked chicken thigh"
+      ],
+      "from": {
+        "fdc": 172388
+      },
+      "basis": "USDA SR Legacy 172388: \"Chicken, broilers or fryers, thigh, meat only, cooked, roasted\". Meat only, weighed without bone and skin.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "chicken-thigh-skin-roasted",
+      "name": "Chicken thigh with skin, roasted",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken thigh",
+        "roasted chicken thigh",
+        "baked chicken thigh"
+      ],
+      "from": {
+        "fdc": 173625
+      },
+      "basis": "USDA SR Legacy 173625: \"Chicken, broilers or fryers, thigh, meat and skin, cooked, roasted\". Meat and skin, weighed without bone.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "chicken-drumstick-raw",
+      "name": "Chicken drumstick, raw, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken drumstick",
+        "drumstick",
+        "chicken leg"
+      ],
+      "from": {
+        "fdc": 173614
+      },
+      "basis": "USDA SR Legacy 173614: \"Chicken, broilers or fryers, dark meat, drumstick, meat only, raw\". Meat only, weighed without bone and skin."
+    },
+    {
+      "key": "chicken-drumstick-skin-raw",
+      "name": "Chicken drumstick with skin, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken drumstick",
+        "drumstick",
+        "chicken leg"
+      ],
+      "from": {
+        "fdc": 172373
+      },
+      "basis": "USDA SR Legacy 172373: \"Chicken, broilers or fryers, drumstick, meat and skin, raw\". Meat and skin, weighed without bone."
+    },
+    {
+      "key": "chicken-drumstick-skin-roasted",
+      "name": "Chicken drumstick with skin, roasted",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken drumstick",
+        "drumstick",
+        "baked drumstick"
+      ],
+      "from": {
+        "fdc": 173612
+      },
+      "basis": "USDA SR Legacy 173612: \"Chicken, broilers or fryers, drumstick, meat and skin, cooked, roasted\". Meat and skin, weighed without bone."
+    },
+    {
+      "key": "chicken-drumstick-cooked",
+      "name": "Chicken drumstick, cooked, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken drumstick",
+        "drumstick"
+      ],
+      "from": {
+        "fdc": 331897
+      },
+      "basis": "USDA Foundation Foods 331897: \"Chicken, broilers or fryers, drumstick, meat only, cooked, braised\". Meat only, braised (moist heat), weighed without bone and skin."
+    },
+    {
+      "key": "chicken-wing-raw",
+      "name": "Chicken wing with skin, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken wing",
+        "chicken wings",
+        "wings"
+      ],
+      "from": {
+        "fdc": 2727568
+      },
+      "basis": "USDA Foundation Foods 2727568: \"Chicken, wing, meat and skin, raw\". Meat and skin, weighed without bone."
+    },
+    {
+      "key": "chicken-wing-roasted",
+      "name": "Chicken wing with skin, roasted",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken wing",
+        "chicken wings",
+        "baked wings",
+        "wings"
+      ],
+      "from": {
+        "fdc": 173630
+      },
+      "basis": "USDA SR Legacy 173630: \"Chicken, broilers or fryers, wing, meat and skin, cooked, roasted\". Meat and skin, weighed without bone. Plain: no sauce or breading."
+    },
+    {
+      "key": "chicken-leg-skin-roasted",
+      "name": "Chicken leg (thigh and drumstick) with skin, roasted",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chicken leg",
+        "chicken leg quarter",
+        "chicken quarter"
+      ],
+      "from": {
+        "fdc": 173617
+      },
+      "basis": "USDA SR Legacy 173617: \"Chicken, broilers or fryers, leg, meat and skin, cooked, roasted\". Meat and skin, weighed without bone."
+    },
+    {
+      "key": "chicken-ground-raw",
+      "name": "Ground chicken, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground chicken",
+        "chicken mince",
+        "minced chicken"
+      ],
+      "from": {
+        "fdc": 171116
+      },
+      "basis": "USDA SR Legacy 171116: \"Chicken, ground, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "chicken-ground-cooked",
+      "name": "Ground chicken, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground chicken",
+        "chicken mince",
+        "minced chicken"
+      ],
+      "from": {
+        "fdc": 171117
+      },
+      "basis": "USDA SR Legacy 171117: \"Chicken, ground, crumbles, cooked, pan-browned\". Pan-browned crumbles.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "turkey-breast-raw",
+      "name": "Turkey breast, raw, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "turkey breast",
+        "turkey"
+      ],
+      "from": {
+        "fdc": 174515
+      },
+      "basis": "USDA SR Legacy 174515: \"Turkey, retail parts, breast, meat only, raw\". Meat only.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "turkey-breast-roasted",
+      "name": "Turkey breast, roasted, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "turkey breast",
+        "roast turkey",
+        "turkey"
+      ],
+      "from": {
+        "fdc": 174516
+      },
+      "basis": "USDA SR Legacy 174516: \"Turkey, retail parts, breast, meat only, cooked, roasted\". Meat only.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "turkey-ground-raw",
+      "name": "Ground turkey, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground turkey",
+        "turkey mince"
+      ],
+      "from": {
+        "fdc": 171505
+      },
+      "basis": "USDA SR Legacy 171505: \"Turkey, Ground, raw\". Regular ground turkey (lean percentage not stated by USDA).",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "turkey-ground-93-raw",
+      "name": "Ground turkey 93% lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground turkey",
+        "93/7 ground turkey",
+        "lean ground turkey",
+        "turkey mince"
+      ],
+      "from": {
+        "fdc": 172850
+      },
+      "basis": "USDA SR Legacy 172850: \"Turkey, ground, 93% lean, 7% fat, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "turkey-ground-93-cooked",
+      "name": "Ground turkey 93% lean, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground turkey",
+        "93/7 ground turkey",
+        "lean ground turkey"
+      ],
+      "from": {
+        "fdc": 746785
+      },
+      "basis": "USDA Foundation Foods 746785: \"Turkey, ground, 93% lean, 7% fat, pan-broiled crumbles\". Pan-broiled crumbles.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "turkey-ground-85-raw",
+      "name": "Ground turkey 85% lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground turkey",
+        "85/15 ground turkey",
+        "turkey mince"
+      ],
+      "from": {
+        "fdc": 174493
+      },
+      "basis": "USDA SR Legacy 174493: \"Turkey, ground, 85% lean, 15% fat, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "turkey-thigh-raw",
+      "name": "Turkey thigh, raw, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "turkey thigh"
+      ],
+      "from": {
+        "fdc": 174518
+      },
+      "basis": "USDA SR Legacy 174518: \"Turkey, retail parts, thigh, meat only, raw\". Meat only."
+    },
+    {
+      "key": "turkey-thigh-roasted",
+      "name": "Turkey thigh, roasted, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "turkey thigh",
+        "dark meat turkey"
+      ],
+      "from": {
+        "fdc": 172877
+      },
+      "basis": "USDA SR Legacy 172877: \"Turkey, retail parts, thigh, meat only, cooked, roasted\". Meat only."
+    },
+    {
+      "key": "turkey-drumstick-roasted",
+      "name": "Turkey drumstick, roasted, no skin",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "turkey drumstick",
+        "turkey leg"
+      ],
+      "from": {
+        "fdc": 172878
+      },
+      "basis": "USDA SR Legacy 172878: \"Turkey, retail parts, drumstick, meat only, cooked, roasted\". Meat only, weighed without bone."
+    },
+    {
+      "key": "turkey-deli-sliced",
+      "name": "Turkey breast, deli sliced",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "deli turkey",
+        "sliced turkey",
+        "turkey lunch meat",
+        "turkey cold cuts"
+      ],
+      "from": {
+        "fdc": 172941
+      },
+      "basis": "USDA SR Legacy 172941: \"Turkey breast, sliced, prepackaged\". Prepackaged sliced turkey breast."
+    },
+    {
+      "key": "ground-beef-80-raw",
+      "name": "Ground beef 80% lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground beef",
+        "80/20 ground beef",
+        "hamburger meat",
+        "beef mince"
+      ],
+      "from": {
+        "fdc": 174036
+      },
+      "basis": "USDA SR Legacy 174036: \"Beef, ground, 80% lean meat / 20% fat, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "ground-beef-80-cooked",
+      "name": "Ground beef 80% lean, cooked (pan-browned)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground beef",
+        "80/20 ground beef",
+        "beef mince"
+      ],
+      "from": {
+        "fdc": 171799
+      },
+      "basis": "USDA SR Legacy 171799: \"Beef, ground, 80% lean meat / 20% fat, crumbles, cooked, pan-browned\". Pan-browned crumbles, fat drained as in the USDA method.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "ground-beef-85-raw",
+      "name": "Ground beef 85% lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground beef",
+        "85/15 ground beef",
+        "beef mince"
+      ],
+      "from": {
+        "fdc": 171796
+      },
+      "basis": "USDA SR Legacy 171796: \"Beef, ground, 85% lean meat / 15% fat, raw (Includes foods for USDA's Food Distribution Program)\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "ground-beef-90-raw",
+      "name": "Ground beef 90% lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground beef",
+        "90/10 ground beef",
+        "lean ground beef",
+        "beef mince"
+      ],
+      "from": {
+        "fdc": 174030
+      },
+      "basis": "USDA SR Legacy 174030: \"Beef, ground, 90% lean meat / 10% fat, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "ground-beef-93-raw",
+      "name": "Ground beef 93% lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground beef",
+        "93/7 ground beef",
+        "extra lean ground beef",
+        "beef mince"
+      ],
+      "from": {
+        "fdc": 173110
+      },
+      "basis": "USDA SR Legacy 173110: \"Beef, ground, 93% lean meat / 7% fat, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "ground-beef-93-cooked",
+      "name": "Ground beef 93% lean, cooked (pan-browned)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground beef",
+        "93/7 ground beef",
+        "extra lean ground beef"
+      ],
+      "from": {
+        "fdc": 174755
+      },
+      "basis": "USDA SR Legacy 174755: \"Beef, ground, 93% lean meat / 7% fat, crumbles, cooked, pan-browned\". Pan-browned crumbles.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "sirloin-steak-raw",
+      "name": "Sirloin steak, lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "sirloin",
+        "sirloin steak",
+        "top sirloin",
+        "steak"
+      ],
+      "from": {
+        "fdc": 174055
+      },
+      "basis": "USDA SR Legacy 174055: \"Beef, top sirloin, steak, separable lean only, trimmed to 1/8\" fat, all grades, raw\". Lean only: visible fat trimmed off. Top sirloin, all grades.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "sirloin-steak-cooked",
+      "name": "Sirloin steak, lean, cooked (broiled)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "sirloin",
+        "sirloin steak",
+        "top sirloin",
+        "steak",
+        "grilled steak"
+      ],
+      "from": {
+        "fdc": 174054
+      },
+      "basis": "USDA SR Legacy 174054: \"Beef, top sirloin, steak, separable lean only, trimmed to 1/8\" fat, all grades, cooked, broiled\". Lean only: visible fat trimmed off. Top sirloin, all grades.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "ribeye-steak-raw",
+      "name": "Ribeye steak, lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ribeye",
+        "rib eye",
+        "ribeye steak",
+        "steak"
+      ],
+      "from": {
+        "fdc": 172143
+      },
+      "basis": "USDA SR Legacy 172143: \"Beef, rib eye steak, boneless, lip off, separable lean only, trimmed to 0\" fat, all grades, raw\". Lean only: visible fat trimmed off. Boneless, all grades.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "ribeye-steak-grilled",
+      "name": "Ribeye steak, lean, grilled",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ribeye",
+        "rib eye",
+        "ribeye steak",
+        "steak",
+        "grilled steak"
+      ],
+      "from": {
+        "fdc": 172142
+      },
+      "basis": "USDA SR Legacy 172142: \"Beef, rib eye steak, boneless, lip off, separable lean only, trimmed to 0\" fat, all grades, cooked, grilled\". Lean only: visible fat trimmed off. Boneless, all grades.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "ribeye-steak-fat-grilled",
+      "name": "Ribeye steak, lean and fat, grilled",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ribeye",
+        "rib eye",
+        "ribeye steak",
+        "steak"
+      ],
+      "from": {
+        "fdc": 172164
+      },
+      "basis": "USDA SR Legacy 172164: \"Beef, rib eye steak, boneless, lip off, separable lean and fat, trimmed to 0\" fat, all grades, cooked, grilled\". Lean and fat eaten (fat trimmed to 0\" at the edge), boneless, all grades.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "flank-steak-raw",
+      "name": "Flank steak, lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "flank steak",
+        "flank",
+        "steak"
+      ],
+      "from": {
+        "fdc": 174776
+      },
+      "basis": "USDA SR Legacy 174776: \"Beef, flank, steak, separable lean only, trimmed to 0\" fat, all grades, raw\". Lean only: visible fat trimmed off. All grades.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "flank-steak-cooked",
+      "name": "Flank steak, lean, cooked (broiled)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "flank steak",
+        "flank",
+        "steak",
+        "grilled steak"
+      ],
+      "from": {
+        "fdc": 174774
+      },
+      "basis": "USDA SR Legacy 174774: \"Beef, flank, steak, separable lean only, trimmed to 0\" fat, all grades, cooked, broiled\". Lean only: visible fat trimmed off. All grades.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "beef-tenderloin-raw",
+      "name": "Beef tenderloin (filet mignon), lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "filet mignon",
+        "beef tenderloin",
+        "tenderloin steak",
+        "filet",
+        "steak"
+      ],
+      "from": {
+        "fdc": 171812
+      },
+      "basis": "USDA SR Legacy 171812: \"Beef, tenderloin, steak, separable lean only, trimmed to 1/8\" fat, all grades, raw\". Lean only: visible fat trimmed off. All grades.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "beef-tenderloin-cooked",
+      "name": "Beef tenderloin (filet mignon), lean, cooked (broiled)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "filet mignon",
+        "beef tenderloin",
+        "tenderloin steak",
+        "filet",
+        "steak"
+      ],
+      "from": {
+        "fdc": 171811
+      },
+      "basis": "USDA SR Legacy 171811: \"Beef, tenderloin, steak, separable lean only, trimmed to 1/8\" fat, all grades, cooked, broiled\". Lean only: visible fat trimmed off. All grades.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "strip-steak-raw",
+      "name": "Strip steak (New York strip), lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "strip steak",
+        "new york strip",
+        "ny strip",
+        "striploin",
+        "steak"
+      ],
+      "from": {
+        "fdc": 173116
+      },
+      "basis": "USDA SR Legacy 173116: \"Beef, short loin, top loin, steak, separable lean only, trimmed to 1/8\" fat, choice, raw\". Lean only: visible fat trimmed off. Short loin top loin steak, choice grade (USDA has no all-grades raw value).",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "strip-steak-cooked",
+      "name": "Strip steak (New York strip), lean, cooked (broiled)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "strip steak",
+        "new york strip",
+        "ny strip",
+        "striploin",
+        "steak"
+      ],
+      "from": {
+        "fdc": 171813
+      },
+      "basis": "USDA SR Legacy 171813: \"Beef, short loin, top loin, steak, separable lean only, trimmed to 1/8\" fat, all grades, cooked, broiled\". Lean only: visible fat trimmed off. Short loin top loin steak, all grades.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "chuck-roast-raw",
+      "name": "Chuck roast, lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chuck roast",
+        "pot roast",
+        "beef chuck"
+      ],
+      "from": {
+        "fdc": 174051
+      },
+      "basis": "USDA SR Legacy 174051: \"Beef, chuck, arm pot roast, separable lean only, trimmed to 1/8\" fat, all grades, raw\". Lean only: visible fat trimmed off. Arm pot roast, all grades."
+    },
+    {
+      "key": "chuck-roast-cooked",
+      "name": "Chuck roast (pot roast), lean, braised",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "chuck roast",
+        "pot roast",
+        "beef chuck",
+        "roast beef"
+      ],
+      "from": {
+        "fdc": 174050
+      },
+      "basis": "USDA SR Legacy 174050: \"Beef, chuck, arm pot roast, separable lean only, trimmed to 1/8\" fat, all grades, cooked, braised\". Lean only: visible fat trimmed off. Arm pot roast, all grades.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "brisket-raw",
+      "name": "Beef brisket, lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "brisket",
+        "beef brisket"
+      ],
+      "from": {
+        "fdc": 174048
+      },
+      "basis": "USDA SR Legacy 174048: \"Beef, brisket, flat half, separable lean only, trimmed to 1/8\" fat, all grades, raw\". Lean only: visible fat trimmed off. Flat half, all grades."
+    },
+    {
+      "key": "brisket-cooked",
+      "name": "Beef brisket, lean, braised",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "brisket",
+        "beef brisket"
+      ],
+      "from": {
+        "fdc": 170210
+      },
+      "basis": "USDA SR Legacy 170210: \"Beef, brisket, flat half, separable lean only, trimmed to 0\" fat, all grades, cooked, braised\". Lean only: visible fat trimmed off. Flat half, all grades.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "beef-stew-meat-cooked",
+      "name": "Beef stew meat, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "stew meat",
+        "beef stew meat",
+        "stewing beef"
+      ],
+      "from": {
+        "fdc": 2705849
+      },
+      "basis": "USDA FNDDS 2021-2023 2705849: \"Beef, stew meat\". Cooked beef stew meat as eaten (meat only, no gravy)."
+    },
+    {
+      "key": "pork-chop-raw",
+      "name": "Pork chop, boneless, lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "pork chop",
+        "pork chops",
+        "pork loin chop"
+      ],
+      "from": {
+        "fdc": 168263
+      },
+      "basis": "USDA SR Legacy 168263: \"Pork, fresh, loin, center loin (chops), boneless, separable lean only, raw\". Lean only: visible fat trimmed off. Center loin chop.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "pork-chop-cooked",
+      "name": "Pork chop, boneless, lean, pan-cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "pork chop",
+        "pork chops",
+        "pork loin chop"
+      ],
+      "from": {
+        "fdc": 168285
+      },
+      "basis": "USDA SR Legacy 168285: \"Pork, fresh, loin, center loin (chops), boneless, separable lean only, cooked, pan-broiled\". Lean only: visible fat trimmed off. Center loin chop, pan-broiled.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "pork-tenderloin-raw",
+      "name": "Pork tenderloin, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "pork tenderloin",
+        "pork fillet"
+      ],
+      "from": {
+        "fdc": 168249
+      },
+      "basis": "USDA SR Legacy 168249: \"Pork, fresh, loin, tenderloin, separable lean only, raw\". Lean only: visible fat trimmed off.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "pork-tenderloin-roasted",
+      "name": "Pork tenderloin, roasted",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "pork tenderloin",
+        "pork fillet",
+        "roast pork"
+      ],
+      "from": {
+        "fdc": 168250
+      },
+      "basis": "USDA SR Legacy 168250: \"Pork, fresh, loin, tenderloin, separable lean only, cooked, roasted\". Lean only: visible fat trimmed off.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "ground-pork-raw",
+      "name": "Ground pork, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground pork",
+        "pork mince",
+        "minced pork"
+      ],
+      "from": {
+        "fdc": 167902
+      },
+      "basis": "USDA SR Legacy 167902: \"Pork, fresh, ground, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "ground-pork-cooked",
+      "name": "Ground pork, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground pork",
+        "pork mince",
+        "minced pork"
+      ],
+      "from": {
+        "fdc": 167903
+      },
+      "basis": "USDA SR Legacy 167903: \"Pork, fresh, ground, cooked\".",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "bacon-cooked",
+      "name": "Bacon, cooked (pan-fried)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "bacon",
+        "cooked bacon",
+        "bacon strips"
+      ],
+      "from": {
+        "fdc": 168322
+      },
+      "basis": "USDA SR Legacy 168322: \"Pork, cured, bacon, pre-sliced, cooked, pan-fried\". Pre-sliced pork bacon, pan-fried."
+    },
+    {
+      "key": "bacon-raw",
+      "name": "Bacon, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "bacon",
+        "raw bacon"
+      ],
+      "from": {
+        "fdc": 168277
+      },
+      "basis": "USDA SR Legacy 168277: \"Pork, cured, bacon, unprepared\". Pork bacon, unprepared. Weigh before cooking."
+    },
+    {
+      "key": "pork-ribs-roasted",
+      "name": "Pork spareribs, roasted",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "pork ribs",
+        "spareribs",
+        "spare ribs",
+        "ribs"
+      ],
+      "from": {
+        "fdc": 169178
+      },
+      "basis": "USDA SR Legacy 169178: \"Pork, fresh, spareribs, separable lean and fat, cooked, roasted\". Lean and fat, weighed without bone. Plain: no sauce."
+    },
+    {
+      "key": "pork-shoulder-roasted",
+      "name": "Pork shoulder (Boston butt), lean, roasted",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "pork shoulder",
+        "boston butt",
+        "pork butt",
+        "pulled pork"
+      ],
+      "from": {
+        "fdc": 167852
+      },
+      "basis": "USDA SR Legacy 167852: \"Pork, fresh, shoulder, blade, boston (roasts), separable lean only, cooked, roasted\". Lean only: visible fat trimmed off. Blade (Boston) roast. Plain: no sauce.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "ham-sliced",
+      "name": "Ham, deli sliced",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ham",
+        "deli ham",
+        "sliced ham",
+        "ham lunch meat"
+      ],
+      "from": {
+        "fdc": 173864
+      },
+      "basis": "USDA SR Legacy 173864: \"Ham, sliced, regular (approximately 11% fat)\". Regular sliced ham, about 11% fat."
+    },
+    {
+      "key": "ham-sliced-lean",
+      "name": "Ham, deli sliced, extra lean (96% fat free)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ham",
+        "deli ham",
+        "lean ham",
+        "sliced ham"
+      ],
+      "from": {
+        "fdc": 173863
+      },
+      "basis": "USDA SR Legacy 173863: \"Ham, sliced, pre-packaged, deli meat (96%fat free, water added)\"."
+    },
+    {
+      "key": "lamb-ground-raw",
+      "name": "Ground lamb, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground lamb",
+        "lamb mince"
+      ],
+      "from": {
+        "fdc": 174370
+      },
+      "basis": "USDA SR Legacy 174370: \"Lamb, ground, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "lamb-ground-cooked",
+      "name": "Ground lamb, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "ground lamb",
+        "lamb mince"
+      ],
+      "from": {
+        "fdc": 172544
+      },
+      "basis": "USDA SR Legacy 172544: \"Lamb, ground, cooked, broiled\". Broiled.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "lamb-loin-chop-raw",
+      "name": "Lamb loin chop, lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "lamb chop",
+        "lamb chops",
+        "lamb loin chop"
+      ],
+      "from": {
+        "fdc": 173810
+      },
+      "basis": "USDA SR Legacy 173810: \"Lamb, New Zealand, imported, loin chop, separable lean only, raw\". Lean only: visible fat trimmed off. New Zealand lamb, weighed without bone."
+    },
+    {
+      "key": "lamb-loin-chop-cooked",
+      "name": "Lamb loin chop, lean, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "lamb chop",
+        "lamb chops",
+        "lamb loin chop"
+      ],
+      "from": {
+        "fdc": 174457
+      },
+      "basis": "USDA SR Legacy 174457: \"Lamb, New Zealand, imported, loin chop, separable lean only, cooked, fast fried\". Lean only: visible fat trimmed off. New Zealand lamb, fried, weighed without bone."
+    },
+    {
+      "key": "lamb-leg-raw",
+      "name": "Lamb leg, lean, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "leg of lamb",
+        "lamb leg",
+        "lamb"
+      ],
+      "from": {
+        "fdc": 174313
+      },
+      "basis": "USDA SR Legacy 174313: \"Lamb, leg, whole (shank and sirloin), separable lean only, trimmed to 1/4\" fat, choice, raw\". Lean only: visible fat trimmed off. Whole leg (shank and sirloin), choice grade."
+    },
+    {
+      "key": "lamb-leg-roasted",
+      "name": "Lamb leg, lean, roasted",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "leg of lamb",
+        "lamb leg",
+        "roast lamb",
+        "lamb"
+      ],
+      "from": {
+        "fdc": 174318
+      },
+      "basis": "USDA SR Legacy 174318: \"Lamb, leg, sirloin half, separable lean only, trimmed to 1/4\" fat, choice, cooked, roasted\". Lean only: visible fat trimmed off. Sirloin half of the leg, choice grade.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "salmon-raw",
+      "name": "Salmon (Atlantic, farmed), raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "salmon",
+        "atlantic salmon",
+        "salmon fillet"
+      ],
+      "from": {
+        "fdc": 175167
+      },
+      "basis": "USDA SR Legacy 175167: \"Fish, salmon, Atlantic, farmed, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "salmon-sockeye-raw",
+      "name": "Sockeye salmon, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "sockeye salmon",
+        "sockeye",
+        "red salmon",
+        "wild salmon"
+      ],
+      "from": {
+        "fdc": 173691
+      },
+      "basis": "USDA SR Legacy 173691: \"Fish, salmon, sockeye, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "salmon-sockeye-cooked",
+      "name": "Sockeye salmon, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "sockeye salmon",
+        "sockeye",
+        "red salmon",
+        "wild salmon"
+      ],
+      "from": {
+        "fdc": 173692
+      },
+      "basis": "USDA SR Legacy 173692: \"Fish, salmon, sockeye, cooked, dry heat\". Dry heat (baked or grilled), no added fat.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "salmon-canned",
+      "name": "Salmon, canned, drained",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "canned salmon",
+        "tinned salmon",
+        "salmon"
+      ],
+      "from": {
+        "fdc": 173693
+      },
+      "basis": "USDA SR Legacy 173693: \"Fish, salmon, sockeye, canned, drained solids\". Sockeye, drained solids."
+    },
+    {
+      "key": "cod-raw",
+      "name": "Cod, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "cod",
+        "cod fillet",
+        "white fish"
+      ],
+      "from": {
+        "fdc": 171955
+      },
+      "basis": "USDA SR Legacy 171955: \"Fish, cod, Atlantic, raw\". Atlantic cod.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "tuna-steak-raw",
+      "name": "Tuna steak (yellowfin), raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "tuna steak",
+        "ahi tuna",
+        "yellowfin tuna",
+        "ahi"
+      ],
+      "from": {
+        "fdc": 175159
+      },
+      "basis": "USDA SR Legacy 175159: \"Fish, tuna, fresh, yellowfin, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "tuna-canned-albacore-water",
+      "name": "Tuna, albacore (white), canned in water, drained",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "albacore tuna",
+        "white tuna",
+        "canned tuna",
+        "tuna"
+      ],
+      "from": {
+        "fdc": 175158
+      },
+      "basis": "USDA SR Legacy 175158: \"Fish, tuna, white, canned in water, drained solids\"."
+    },
+    {
+      "key": "tilapia-raw",
+      "name": "Tilapia, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "tilapia",
+        "tilapia fillet",
+        "white fish"
+      ],
+      "from": {
+        "fdc": 175176
+      },
+      "basis": "USDA SR Legacy 175176: \"Fish, tilapia, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "halibut-raw",
+      "name": "Halibut, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "halibut"
+      ],
+      "from": {
+        "fdc": 174200
+      },
+      "basis": "USDA SR Legacy 174200: \"Fish, halibut, Atlantic and Pacific, raw\". Atlantic and Pacific halibut.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "halibut-cooked",
+      "name": "Halibut, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "halibut"
+      ],
+      "from": {
+        "fdc": 174201
+      },
+      "basis": "USDA SR Legacy 174201: \"Fish, halibut, Atlantic and Pacific, cooked, dry heat\". Atlantic and Pacific halibut, dry heat, no added fat.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "trout-raw",
+      "name": "Rainbow trout, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "trout",
+        "rainbow trout"
+      ],
+      "from": {
+        "fdc": 173717
+      },
+      "basis": "USDA SR Legacy 173717: \"Fish, trout, rainbow, farmed, raw\". Farmed.",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "trout-cooked",
+      "name": "Rainbow trout, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "trout",
+        "rainbow trout"
+      ],
+      "from": {
+        "fdc": 173718
+      },
+      "basis": "USDA SR Legacy 173718: \"Fish, trout, rainbow, farmed, cooked, dry heat\". Farmed, dry heat, no added fat.",
+      "servings": [
+        {
+          "label": "3 oz",
+          "g": 85
+        }
+      ]
+    },
+    {
+      "key": "mackerel-raw",
+      "name": "Mackerel, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "mackerel",
+        "atlantic mackerel"
+      ],
+      "from": {
+        "fdc": 175119
+      },
+      "basis": "USDA SR Legacy 175119: \"Fish, mackerel, Atlantic, raw\". Atlantic mackerel."
+    },
+    {
+      "key": "mackerel-cooked",
+      "name": "Mackerel, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "mackerel",
+        "atlantic mackerel"
+      ],
+      "from": {
+        "fdc": 175120
+      },
+      "basis": "USDA SR Legacy 175120: \"Fish, mackerel, Atlantic, cooked, dry heat\". Atlantic mackerel, dry heat."
+    },
+    {
+      "key": "sardines-canned-oil",
+      "name": "Sardines, canned in oil, drained",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "sardines",
+        "canned sardines",
+        "tinned sardines"
+      ],
+      "from": {
+        "fdc": 175139
+      },
+      "basis": "USDA SR Legacy 175139: \"Fish, sardine, Atlantic, canned in oil, drained solids with bone\". Atlantic sardines, drained, with bone."
+    },
+    {
+      "key": "pollock-raw",
+      "name": "Pollock, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "pollock",
+        "alaska pollock",
+        "white fish"
+      ],
+      "from": {
+        "fdc": 173725
+      },
+      "basis": "USDA SR Legacy 173725: \"Fish, pollock, Alaska, raw\". Alaska pollock."
+    },
+    {
+      "key": "pollock-cooked",
+      "name": "Pollock, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "pollock",
+        "alaska pollock",
+        "white fish"
+      ],
+      "from": {
+        "fdc": 173726
+      },
+      "basis": "USDA SR Legacy 173726: \"Fish, pollock, Alaska, cooked\". Alaska pollock."
+    },
+    {
+      "key": "haddock-raw",
+      "name": "Haddock, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "haddock",
+        "white fish"
+      ],
+      "from": {
+        "fdc": 171964
+      },
+      "basis": "USDA SR Legacy 171964: \"Fish, haddock, raw\"."
+    },
+    {
+      "key": "haddock-cooked",
+      "name": "Haddock, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "haddock",
+        "white fish"
+      ],
+      "from": {
+        "fdc": 174198
+      },
+      "basis": "USDA SR Legacy 174198: \"Fish, haddock, cooked, dry heat\". Dry heat, no added fat."
+    },
+    {
+      "key": "shrimp-raw",
+      "name": "Shrimp, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "shrimp",
+        "prawns",
+        "raw shrimp"
+      ],
+      "from": {
+        "fdc": 175179
+      },
+      "basis": "USDA SR Legacy 175179: \"Crustaceans, shrimp, raw\".",
+      "servings": [
+        {
+          "label": "4 oz",
+          "g": 113
+        }
+      ]
+    },
+    {
+      "key": "crab-king-cooked",
+      "name": "King crab, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "king crab",
+        "crab",
+        "crab legs"
+      ],
+      "from": {
+        "fdc": 174202
+      },
+      "basis": "USDA SR Legacy 174202: \"Crustaceans, crab, alaska king, cooked, moist heat\". Alaska king crab, moist heat."
+    },
+    {
+      "key": "imitation-crab",
+      "name": "Imitation crab (surimi)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "imitation crab",
+        "crab sticks",
+        "surimi",
+        "kani"
+      ],
+      "from": {
+        "fdc": 174203
+      },
+      "basis": "USDA SR Legacy 174203: \"Crustaceans, crab, alaska king, imitation, made from surimi\"."
+    },
+    {
+      "key": "scallops-raw",
+      "name": "Scallops, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "scallops",
+        "scallop",
+        "sea scallops"
+      ],
+      "from": {
+        "fdc": 174220
+      },
+      "basis": "USDA SR Legacy 174220: \"Mollusks, scallop, mixed species, raw\". Mixed species."
+    },
+    {
+      "key": "scallops-cooked",
+      "name": "Scallops, cooked (steamed)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "scallops",
+        "scallop",
+        "sea scallops"
+      ],
+      "from": {
+        "fdc": 167742
+      },
+      "basis": "USDA SR Legacy 167742: \"Mollusks, scallop, (bay and sea), cooked, steamed\". Bay and sea scallops."
+    },
+    {
+      "key": "lobster-cooked",
+      "name": "Lobster, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "lobster",
+        "lobster tail"
+      ],
+      "from": {
+        "fdc": 174209
+      },
+      "basis": "USDA SR Legacy 174209: \"Crustaceans, lobster, northern, cooked, moist heat\". Northern lobster, moist heat."
+    },
+    {
+      "key": "mussels-cooked",
+      "name": "Mussels, cooked",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "mussels",
+        "mussel"
+      ],
+      "from": {
+        "fdc": 174217
+      },
+      "basis": "USDA SR Legacy 174217: \"Mollusks, mussel, blue, cooked, moist heat\". Blue mussels, moist heat."
+    },
+    {
+      "key": "egg-raw",
+      "name": "Egg, whole, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "egg",
+        "eggs",
+        "large egg",
+        "whole egg"
+      ],
+      "from": {
+        "fdc": 171287
+      },
+      "basis": "USDA SR Legacy 171287: \"Egg, whole, raw, fresh\". One large egg is about 50 g without the shell.",
+      "servings": [
+        {
+          "label": "1 large",
+          "g": 50
+        }
+      ]
+    },
+    {
+      "key": "egg-poached",
+      "name": "Egg, poached",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "poached egg",
+        "egg"
+      ],
+      "from": {
+        "fdc": 172186
+      },
+      "basis": "USDA SR Legacy 172186: \"Egg, whole, cooked, poached\".",
+      "servings": [
+        {
+          "label": "1 large",
+          "g": 50
+        }
+      ]
+    },
+    {
+      "key": "omelet-plain",
+      "name": "Omelette, plain (eggs only)",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "omelette",
+        "omelet",
+        "egg omelette"
+      ],
+      "from": {
+        "fdc": 172185
+      },
+      "basis": "USDA SR Legacy 172185: \"Egg, whole, cooked, omelet\". Whole egg cooked as an omelet, no fillings. Fat used in cooking is as in the USDA analysis."
+    },
+    {
+      "key": "egg-white-raw",
+      "name": "Egg whites, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "egg whites",
+        "egg white",
+        "liquid egg whites"
+      ],
+      "from": {
+        "fdc": 172183
+      },
+      "basis": "USDA SR Legacy 172183: \"Egg, white, raw, fresh\".",
+      "servings": [
+        {
+          "label": "1 large egg white",
+          "g": 33
+        }
+      ]
+    },
+    {
+      "key": "egg-yolk-raw",
+      "name": "Egg yolk, raw",
+      "category": "Meat, fish and eggs",
+      "aliases": [
+        "egg yolk",
+        "yolk"
+      ],
+      "from": {
+        "fdc": 172184
+      },
+      "basis": "USDA SR Legacy 172184: \"Egg, yolk, raw, fresh\".",
+      "servings": [
+        {
+          "label": "1 large yolk",
+          "g": 17
+        }
+      ]
+    },
+    {
+      "key": "milk-whole",
+      "name": "Milk, whole (3.25%)",
+      "category": "Dairy",
+      "aliases": [
+        "whole milk",
+        "milk",
+        "homo milk",
+        "full fat milk"
+      ],
+      "from": {
+        "fdc": 171265
+      },
+      "basis": "USDA SR Legacy 171265: \"Milk, whole, 3.25% milkfat, with added vitamin D\". With added vitamin D."
+    },
+    {
+      "key": "milk-2",
+      "name": "Milk, 2%",
+      "category": "Dairy",
+      "aliases": [
+        "2% milk",
+        "milk",
+        "reduced fat milk",
+        "semi skimmed milk"
+      ],
+      "from": {
+        "fdc": 171267
+      },
+      "basis": "USDA SR Legacy 171267: \"Milk, reduced fat, fluid, 2% milkfat, with added vitamin A and vitamin D\". With added vitamins A and D."
+    },
+    {
+      "key": "milk-1",
+      "name": "Milk, 1%",
+      "category": "Dairy",
+      "aliases": [
+        "1% milk",
+        "milk",
+        "low fat milk"
+      ],
+      "from": {
+        "fdc": 170872
+      },
+      "basis": "USDA SR Legacy 170872: \"Milk, lowfat, fluid, 1% milkfat, with added vitamin A and vitamin D\". With added vitamins A and D."
+    },
+    {
+      "key": "milk-skim",
+      "name": "Milk, skim (fat free)",
+      "category": "Dairy",
+      "aliases": [
+        "skim milk",
+        "fat free milk",
+        "nonfat milk",
+        "skimmed milk",
+        "milk"
+      ],
+      "from": {
+        "fdc": 171269
+      },
+      "basis": "USDA SR Legacy 171269: \"Milk, nonfat, fluid, with added vitamin A and vitamin D (fat free or skim)\". With added vitamins A and D."
+    },
+    {
+      "key": "cheddar",
+      "name": "Cheddar cheese",
+      "category": "Dairy",
+      "aliases": [
+        "cheddar",
+        "cheddar cheese",
+        "cheese"
+      ],
+      "from": {
+        "fdc": 2705709
+      },
+      "basis": "USDA FNDDS 2021-2023 2705709: \"Cheese, Cheddar\".",
+      "servings": [
+        {
+          "label": "1 slice",
+          "g": 28
+        },
+        {
+          "label": "1 oz",
+          "g": 28
+        }
+      ]
+    },
+    {
+      "key": "mozzarella-part-skim",
+      "name": "Mozzarella cheese, part-skim",
+      "category": "Dairy",
+      "aliases": [
+        "mozzarella",
+        "mozzarella cheese",
+        "part skim mozzarella",
+        "shredded mozzarella"
+      ],
+      "from": {
+        "fdc": 171244
+      },
+      "basis": "USDA SR Legacy 171244: \"Cheese, mozzarella, low moisture, part-skim\". Low-moisture part-skim (the usual shredded and block mozzarella).",
+      "servings": [
+        {
+          "label": "1 oz",
+          "g": 28
+        }
+      ]
+    },
+    {
+      "key": "mozzarella-whole",
+      "name": "Mozzarella cheese, whole milk",
+      "category": "Dairy",
+      "aliases": [
+        "mozzarella",
+        "fresh mozzarella",
+        "mozzarella cheese"
+      ],
+      "from": {
+        "fdc": 170845
+      },
+      "basis": "USDA SR Legacy 170845: \"Cheese, mozzarella, whole milk\".",
+      "servings": [
+        {
+          "label": "1 oz",
+          "g": 28
+        }
+      ]
+    },
+    {
+      "key": "parmesan-grated",
+      "name": "Parmesan cheese, grated",
+      "category": "Dairy",
+      "aliases": [
+        "parmesan",
+        "parmesan cheese",
+        "grated parmesan",
+        "parmigiano"
+      ],
+      "from": {
+        "fdc": 171247
+      },
+      "basis": "USDA SR Legacy 171247: \"Cheese, parmesan, grated\"."
+    },
+    {
+      "key": "parmesan-hard",
+      "name": "Parmesan cheese, block",
+      "category": "Dairy",
+      "aliases": [
+        "parmesan",
+        "parmesan cheese",
+        "parmigiano reggiano"
+      ],
+      "from": {
+        "fdc": 170848
+      },
+      "basis": "USDA SR Legacy 170848: \"Cheese, parmesan, hard\". Hard parmesan (not grated).",
+      "servings": [
+        {
+          "label": "1 oz",
+          "g": 28
+        }
+      ]
+    },
+    {
+      "key": "cottage-cheese-2",
+      "name": "Cottage cheese, 2% (low fat)",
+      "category": "Dairy",
+      "aliases": [
+        "cottage cheese",
+        "low fat cottage cheese",
+        "2% cottage cheese"
+      ],
+      "from": {
+        "fdc": 172182
+      },
+      "basis": "USDA SR Legacy 172182: \"Cheese, cottage, lowfat, 2% milkfat\"."
+    },
+    {
+      "key": "cottage-cheese-4",
+      "name": "Cottage cheese, 4% (regular)",
+      "category": "Dairy",
+      "aliases": [
+        "cottage cheese",
+        "full fat cottage cheese",
+        "creamed cottage cheese"
+      ],
+      "from": {
+        "fdc": 172179
+      },
+      "basis": "USDA SR Legacy 172179: \"Cheese, cottage, creamed, large or small curd\". Creamed, large or small curd."
+    },
+    {
+      "key": "feta",
+      "name": "Feta cheese",
+      "category": "Dairy",
+      "aliases": [
+        "feta",
+        "feta cheese"
+      ],
+      "from": {
+        "fdc": 173420
+      },
+      "basis": "USDA SR Legacy 173420: \"Cheese, feta\".",
+      "servings": [
+        {
+          "label": "1 oz",
+          "g": 28
+        }
+      ]
+    },
+    {
+      "key": "swiss-cheese",
+      "name": "Swiss cheese",
+      "category": "Dairy",
+      "aliases": [
+        "swiss cheese",
+        "swiss",
+        "emmental"
+      ],
+      "from": {
+        "fdc": 171251
+      },
+      "basis": "USDA SR Legacy 171251: \"Cheese, swiss\".",
+      "servings": [
+        {
+          "label": "1 slice",
+          "g": 28
+        }
+      ]
+    },
+    {
+      "key": "cream-cheese",
+      "name": "Cream cheese",
+      "category": "Dairy",
+      "aliases": [
+        "cream cheese",
+        "philadelphia"
+      ],
+      "from": {
+        "fdc": 173418
+      },
+      "basis": "USDA SR Legacy 173418: \"Cheese, cream\".",
+      "servings": [
+        {
+          "label": "1 tbsp",
+          "g": 14.5
+        }
+      ]
+    },
+    {
+      "key": "cream-cheese-light",
+      "name": "Cream cheese, light",
+      "category": "Dairy",
+      "aliases": [
+        "light cream cheese",
+        "low fat cream cheese",
+        "cream cheese"
+      ],
+      "from": {
+        "fdc": 169079
+      },
+      "basis": "USDA SR Legacy 169079: \"Cheese, cream, low fat\".",
+      "servings": [
+        {
+          "label": "1 tbsp",
+          "g": 15
+        }
+      ]
+    },
+    {
+      "key": "greek-yogurt-nonfat",
+      "name": "Greek yogurt, plain, nonfat",
+      "category": "Dairy",
+      "aliases": [
+        "greek yogurt",
+        "nonfat greek yogurt",
+        "0% greek yogurt",
+        "fat free greek yogurt"
+      ],
+      "from": {
+        "fdc": 170894
+      },
+      "basis": "USDA SR Legacy 170894: \"Yogurt, Greek, plain, nonfat (Includes foods for USDA's Food Distribution Program)\"."
+    },
+    {
+      "key": "greek-yogurt-lowfat",
+      "name": "Greek yogurt, plain, low fat",
+      "category": "Dairy",
+      "aliases": [
+        "greek yogurt",
+        "low fat greek yogurt",
+        "2% greek yogurt"
+      ],
+      "from": {
+        "fdc": 170903
+      },
+      "basis": "USDA SR Legacy 170903: \"Yogurt, Greek, plain, lowfat\"."
+    },
+    {
+      "key": "greek-yogurt-whole",
+      "name": "Greek yogurt, plain, whole milk",
+      "category": "Dairy",
+      "aliases": [
+        "greek yogurt",
+        "full fat greek yogurt",
+        "whole milk greek yogurt"
+      ],
+      "from": {
+        "fdc": 171304
+      },
+      "basis": "USDA SR Legacy 171304: \"Yogurt, Greek, plain, whole milk\"."
+    },
+    {
+      "key": "yogurt-plain-whole",
+      "name": "Yogurt, plain, whole milk",
+      "category": "Dairy",
+      "aliases": [
+        "plain yogurt",
+        "yogurt",
+        "natural yogurt"
+      ],
+      "from": {
+        "fdc": 171284
+      },
+      "basis": "USDA SR Legacy 171284: \"Yogurt, plain, whole milk\"."
+    },
+    {
+      "key": "yogurt-plain-lowfat",
+      "name": "Yogurt, plain, low fat",
+      "category": "Dairy",
+      "aliases": [
+        "plain yogurt",
+        "low fat yogurt",
+        "yogurt"
+      ],
+      "from": {
+        "fdc": 170886
+      },
+      "basis": "USDA SR Legacy 170886: \"Yogurt, plain, low fat\"."
+    },
+    {
+      "key": "butter",
+      "name": "Butter, salted",
+      "category": "Dairy",
+      "aliases": [
+        "butter",
+        "salted butter"
+      ],
+      "from": {
+        "fdc": 173410
+      },
+      "basis": "USDA SR Legacy 173410: \"Butter, salted\".",
+      "servings": [
+        {
+          "label": "1 tbsp",
+          "g": 14.2
+        },
+        {
+          "label": "1 tsp",
+          "g": 4.7
+        }
+      ]
+    },
+    {
+      "key": "butter-unsalted",
+      "name": "Butter, unsalted",
+      "category": "Dairy",
+      "aliases": [
+        "unsalted butter",
+        "butter"
+      ],
+      "from": {
+        "fdc": 173430
+      },
+      "basis": "USDA SR Legacy 173430: \"Butter, without salt\".",
+      "servings": [
+        {
+          "label": "1 tbsp",
+          "g": 14.2
+        },
+        {
+          "label": "1 tsp",
+          "g": 4.7
+        }
+      ]
+    },
+    {
+      "key": "heavy-cream",
+      "name": "Heavy cream (whipping cream)",
+      "category": "Dairy",
+      "aliases": [
+        "heavy cream",
+        "whipping cream",
+        "double cream",
+        "cream"
+      ],
+      "from": {
+        "fdc": 170859
+      },
+      "basis": "USDA SR Legacy 170859: \"Cream, fluid, heavy whipping\".",
+      "servings": [
+        {
+          "label": "1 tbsp",
+          "g": 15
+        }
+      ]
+    },
+    {
+      "key": "sour-cream",
+      "name": "Sour cream",
+      "category": "Dairy",
+      "aliases": [
+        "sour cream"
+      ],
+      "from": {
+        "fdc": 171257
+      },
+      "basis": "USDA SR Legacy 171257: \"Cream, sour, cultured\".",
+      "servings": [
+        {
+          "label": "1 tbsp",
+          "g": 12
+        }
+      ]
+    },
+    {
+      "key": "half-and-half",
+      "name": "Half and half (cream)",
+      "category": "Dairy",
+      "aliases": [
+        "half and half",
+        "half & half",
+        "coffee cream"
+      ],
+      "from": {
+        "fdc": 171255
+      },
+      "basis": "USDA SR Legacy 171255: \"Cream, fluid, half and half\".",
+      "servings": [
+        {
+          "label": "1 tbsp",
+          "g": 15
+        }
+      ]
+    },
+    {
+      "key": "ricotta-whole",
+      "name": "Ricotta cheese, whole milk",
+      "category": "Dairy",
+      "aliases": [
+        "ricotta",
+        "ricotta cheese"
+      ],
+      "from": {
+        "fdc": 170851
+      },
+      "basis": "USDA SR Legacy 170851: \"Cheese, ricotta, whole milk\"."
+    },
+    {
+      "key": "ricotta-part-skim",
+      "name": "Ricotta cheese, part-skim",
+      "category": "Dairy",
+      "aliases": [
+        "ricotta",
+        "part skim ricotta",
+        "ricotta cheese"
+      ],
+      "from": {
+        "fdc": 171248
+      },
+      "basis": "USDA SR Legacy 171248: \"Cheese, ricotta, part skim milk\"."
+    },
+    {
+      "key": "bread-white",
+      "name": "White bread",
+      "category": "Grains and pasta",
+      "aliases": [
+        "white bread",
+        "bread",
+        "sandwich bread",
+        "toast"
+      ],
+      "from": {
+        "fdc": 174924
+      },
+      "basis": "USDA SR Legacy 174924: \"Bread, white, commercially prepared (includes soft bread crumbs)\". Commercially prepared."
+    },
+    {
+      "key": "bread-sourdough",
+      "name": "Sourdough bread",
+      "category": "Grains and pasta",
+      "aliases": [
+        "sourdough",
+        "sourdough bread",
+        "french bread",
+        "baguette"
+      ],
+      "from": {
+        "fdc": 172675
+      },
+      "basis": "USDA SR Legacy 172675: \"Bread, french or vienna (includes sourdough)\". USDA analyses French or Vienna bread together with sourdough; there is no separate sourdough value."
+    },
+    {
+      "key": "bread-rye",
+      "name": "Rye bread",
+      "category": "Grains and pasta",
+      "aliases": [
+        "rye bread",
+        "rye"
+      ],
+      "from": {
+        "fdc": 172684
+      },
+      "basis": "USDA SR Legacy 172684: \"Bread, rye\"."
+    },
+    {
+      "key": "english-muffin",
+      "name": "English muffin, plain",
+      "category": "Grains and pasta",
+      "aliases": [
+        "english muffin",
+        "english muffins"
+      ],
+      "from": {
+        "fdc": 175063
+      },
+      "basis": "USDA SR Legacy 175063: \"English muffins, plain, enriched, without calcium propionate(includes sourdough)\". Enriched."
+    },
+    {
+      "key": "tortilla-corn",
+      "name": "Corn tortilla",
+      "category": "Grains and pasta",
+      "aliases": [
+        "corn tortilla",
+        "corn tortillas",
+        "tortilla"
+      ],
+      "from": {
+        "fdc": 175036
+      },
+      "basis": "USDA SR Legacy 175036: \"Tortillas, ready-to-bake or -fry, corn\"."
+    },
+    {
+      "key": "pita-white",
+      "name": "Pita bread, white",
+      "category": "Grains and pasta",
+      "aliases": [
+        "pita",
+        "pita bread"
+      ],
+      "from": {
+        "fdc": 174915
+      },
+      "basis": "USDA SR Legacy 174915: \"Bread, pita, white, enriched\". Enriched."
+    },
+    {
+      "key": "naan",
+      "name": "Naan bread, plain",
+      "category": "Grains and pasta",
+      "aliases": [
+        "naan",
+        "naan bread",
+        "nan"
+      ],
+      "from": {
+        "fdc": 171845
+      },
+      "basis": "USDA SR Legacy 171845: \"Bread, naan, plain, commercially prepared, refrigerated\". Commercially prepared, refrigerated."
+    },
+    {
+      "key": "egg-noodles-cooked",
+      "name": "Egg noodles, cooked",
+      "category": "Grains and pasta",
+      "aliases": [
+        "egg noodles",
+        "noodles"
+      ],
+      "from": {
+        "fdc": 168919
+      },
+      "basis": "USDA SR Legacy 168919: \"Noodles, egg, cooked, enriched, with added salt\". Enriched, cooked with salt (the USDA analysis).",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 160
+        }
+      ]
+    },
+    {
+      "key": "rice-noodles-cooked",
+      "name": "Rice noodles, cooked",
+      "category": "Grains and pasta",
+      "aliases": [
+        "rice noodles",
+        "rice vermicelli",
+        "pad thai noodles",
+        "noodles"
+      ],
+      "from": {
+        "fdc": 168914
+      },
+      "basis": "USDA SR Legacy 168914: \"Rice noodles, cooked\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 176
+        }
+      ]
+    },
+    {
+      "key": "barley-cooked",
+      "name": "Barley, cooked",
+      "category": "Grains and pasta",
+      "aliases": [
+        "barley",
+        "pearl barley"
+      ],
+      "from": {
+        "fdc": 170285
+      },
+      "basis": "USDA SR Legacy 170285: \"Barley, pearled, cooked\". Pearled barley.",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 157
+        }
+      ]
+    },
+    {
+      "key": "bulgur-cooked",
+      "name": "Bulgur, cooked",
+      "category": "Grains and pasta",
+      "aliases": [
+        "bulgur",
+        "bulgur wheat",
+        "burghul"
+      ],
+      "from": {
+        "fdc": 170287
+      },
+      "basis": "USDA SR Legacy 170287: \"Bulgur, cooked\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 182
+        }
+      ]
+    },
+    {
+      "key": "popcorn-air-popped",
+      "name": "Popcorn, air-popped",
+      "category": "Grains and pasta",
+      "aliases": [
+        "popcorn",
+        "air popped popcorn"
+      ],
+      "from": {
+        "fdc": 167959
+      },
+      "basis": "USDA SR Legacy 167959: \"Snacks, popcorn, air-popped\". Plain, no butter or oil.",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 8
+        }
+      ]
+    },
+    {
+      "key": "oats-instant-dry",
+      "name": "Instant oatmeal, plain, dry",
+      "category": "Grains and pasta",
+      "aliases": [
+        "instant oatmeal",
+        "instant oats",
+        "oatmeal packet",
+        "quick oats"
+      ],
+      "from": {
+        "fdc": 171661
+      },
+      "basis": "USDA SR Legacy 171661: \"Cereals, oats, instant, fortified, plain, dry\". Fortified, plain, dry (weigh before adding water)."
+    },
+    {
+      "key": "apple",
+      "name": "Apple, raw, with skin",
+      "category": "Fruit",
+      "aliases": [
+        "apple",
+        "apples"
+      ],
+      "from": {
+        "fdc": 171688
+      },
+      "basis": "USDA SR Legacy 171688: \"Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)\"."
+    },
+    {
+      "key": "grapes",
+      "name": "Grapes, red or green",
+      "category": "Fruit",
+      "aliases": [
+        "grapes",
+        "green grapes",
+        "red grapes"
+      ],
+      "from": {
+        "fdc": 174683
+      },
+      "basis": "USDA SR Legacy 174683: \"Grapes, red or green (European type, such as Thompson seedless), raw\". Raw, seedless (such as Thompson)."
+    },
+    {
+      "key": "orange",
+      "name": "Orange (navel), raw",
+      "category": "Fruit",
+      "aliases": [
+        "orange",
+        "oranges",
+        "navel orange"
+      ],
+      "from": {
+        "fdc": 169917
+      },
+      "basis": "USDA SR Legacy 169917: \"Oranges, raw, navels (Includes foods for USDA's Food Distribution Program)\"."
+    },
+    {
+      "key": "avocado",
+      "name": "Avocado, raw",
+      "category": "Fruit",
+      "aliases": [
+        "avocado",
+        "avocados",
+        "guacamole avocado"
+      ],
+      "from": {
+        "fdc": 171705
+      },
+      "basis": "USDA SR Legacy 171705: \"Avocados, raw, all commercial varieties\". All commercial varieties."
+    },
+    {
+      "key": "pineapple",
+      "name": "Pineapple, raw",
+      "category": "Fruit",
+      "aliases": [
+        "pineapple"
+      ],
+      "from": {
+        "fdc": 169124
+      },
+      "basis": "USDA SR Legacy 169124: \"Pineapple, raw, all varieties\". All varieties."
+    },
+    {
+      "key": "grapefruit",
+      "name": "Grapefruit, pink or red, raw",
+      "category": "Fruit",
+      "aliases": [
+        "grapefruit",
+        "pink grapefruit",
+        "red grapefruit"
+      ],
+      "from": {
+        "fdc": 174673
+      },
+      "basis": "USDA SR Legacy 174673: \"Grapefruit, raw, pink and red, all areas\"."
+    },
+    {
+      "key": "mango",
+      "name": "Mango, raw",
+      "category": "Fruit",
+      "aliases": [
+        "mango",
+        "mangoes"
+      ],
+      "from": {
+        "fdc": 169910
+      },
+      "basis": "USDA SR Legacy 169910: \"Mangos, raw\"."
+    },
+    {
+      "key": "cantaloupe",
+      "name": "Cantaloupe, raw",
+      "category": "Fruit",
+      "aliases": [
+        "cantaloupe",
+        "rockmelon",
+        "melon"
+      ],
+      "from": {
+        "fdc": 169092
+      },
+      "basis": "USDA SR Legacy 169092: \"Melons, cantaloupe, raw\"."
+    },
+    {
+      "key": "honeydew",
+      "name": "Honeydew melon, raw",
+      "category": "Fruit",
+      "aliases": [
+        "honeydew",
+        "honeydew melon",
+        "melon"
+      ],
+      "from": {
+        "fdc": 169911
+      },
+      "basis": "USDA SR Legacy 169911: \"Melons, honeydew, raw\"."
+    },
+    {
+      "key": "kiwi",
+      "name": "Kiwi, raw",
+      "category": "Fruit",
+      "aliases": [
+        "kiwi",
+        "kiwifruit",
+        "kiwis"
+      ],
+      "from": {
+        "fdc": 168153
+      },
+      "basis": "USDA SR Legacy 168153: \"Kiwifruit, green, raw\". Green kiwifruit."
+    },
+    {
+      "key": "peach",
+      "name": "Peach, raw",
+      "category": "Fruit",
+      "aliases": [
+        "peach",
+        "peaches"
+      ],
+      "from": {
+        "fdc": 169928
+      },
+      "basis": "USDA SR Legacy 169928: \"Peaches, yellow, raw\". Yellow peach."
+    },
+    {
+      "key": "lettuce-romaine",
+      "name": "Romaine lettuce",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "romaine",
+        "romaine lettuce",
+        "cos lettuce",
+        "lettuce"
+      ],
+      "from": {
+        "fdc": 169247
+      },
+      "basis": "USDA SR Legacy 169247: \"Lettuce, cos or romaine, raw\". Raw."
+    },
+    {
+      "key": "lettuce-iceberg",
+      "name": "Iceberg lettuce",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "iceberg",
+        "iceberg lettuce",
+        "lettuce"
+      ],
+      "from": {
+        "fdc": 169248
+      },
+      "basis": "USDA SR Legacy 169248: \"Lettuce, iceberg (includes crisphead types), raw\". Raw."
+    },
+    {
+      "key": "tomato",
+      "name": "Tomato, raw",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "tomato",
+        "tomatoes"
+      ],
+      "from": {
+        "fdc": 170457
+      },
+      "basis": "USDA SR Legacy 170457: \"Tomatoes, red, ripe, raw, year round average\". Red, ripe, year-round average."
+    },
+    {
+      "key": "cucumber",
+      "name": "Cucumber, raw, with peel",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "cucumber",
+        "cucumbers"
+      ],
+      "from": {
+        "fdc": 168409
+      },
+      "basis": "USDA SR Legacy 168409: \"Cucumber, with peel, raw\"."
+    },
+    {
+      "key": "bell-pepper-red",
+      "name": "Red bell pepper, raw",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "red pepper",
+        "red bell pepper",
+        "bell pepper",
+        "capsicum"
+      ],
+      "from": {
+        "fdc": 170108
+      },
+      "basis": "USDA SR Legacy 170108: \"Peppers, sweet, red, raw\"."
+    },
+    {
+      "key": "bell-pepper-green",
+      "name": "Green bell pepper, raw",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "green pepper",
+        "green bell pepper",
+        "bell pepper",
+        "capsicum"
+      ],
+      "from": {
+        "fdc": 170427
+      },
+      "basis": "USDA SR Legacy 170427: \"Peppers, sweet, green, raw\"."
+    },
+    {
+      "key": "zucchini-raw",
+      "name": "Zucchini, raw",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "zucchini",
+        "courgette"
+      ],
+      "from": {
+        "fdc": 169291
+      },
+      "basis": "USDA SR Legacy 169291: \"Squash, summer, zucchini, includes skin, raw\". With skin."
+    },
+    {
+      "key": "zucchini-cooked",
+      "name": "Zucchini, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "zucchini",
+        "courgette"
+      ],
+      "from": {
+        "fdc": 169292
+      },
+      "basis": "USDA SR Legacy 169292: \"Squash, summer, zucchini, includes skin, cooked, boiled, drained, without salt\". With skin, boiled, no salt."
+    },
+    {
+      "key": "sweet-potato-raw",
+      "name": "Sweet potato, raw",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "sweet potato",
+        "sweet potatoes",
+        "yam"
+      ],
+      "from": {
+        "fdc": 168482
+      },
+      "basis": "USDA SR Legacy 168482: \"Sweet potato, raw, unprepared (Includes foods for USDA's Food Distribution Program)\"."
+    },
+    {
+      "key": "potato-white-raw",
+      "name": "White potato, raw, with skin",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "potato",
+        "potatoes",
+        "white potato"
+      ],
+      "from": {
+        "fdc": 170028
+      },
+      "basis": "USDA SR Legacy 170028: \"Potatoes, white, flesh and skin, raw\"."
+    },
+    {
+      "key": "peas-frozen-cooked",
+      "name": "Green peas, frozen, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "peas",
+        "green peas",
+        "frozen peas"
+      ],
+      "from": {
+        "fdc": 170017
+      },
+      "basis": "USDA SR Legacy 170017: \"Peas, green, frozen, cooked, boiled, drained, without salt\". Boiled, no salt."
+    },
+    {
+      "key": "butternut-squash-raw",
+      "name": "Butternut squash, raw",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "butternut squash",
+        "butternut"
+      ],
+      "from": {
+        "fdc": 169295
+      },
+      "basis": "USDA SR Legacy 169295: \"Squash, winter, butternut, raw\"."
+    },
+    {
+      "key": "spaghetti-squash-cooked",
+      "name": "Spaghetti squash, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "spaghetti squash"
+      ],
+      "from": {
+        "fdc": 169299
+      },
+      "basis": "USDA SR Legacy 169299: \"Squash, winter, spaghetti, cooked, boiled, drained, or baked, without salt\". Boiled or baked, no salt."
+    },
+    {
+      "key": "edamame-cooked",
+      "name": "Edamame, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "edamame",
+        "soybeans"
+      ],
+      "from": {
+        "fdc": 168411
+      },
+      "basis": "USDA SR Legacy 168411: \"Edamame, frozen, prepared\". Frozen, prepared."
+    },
+    {
+      "key": "mushrooms-raw",
+      "name": "White mushrooms, raw",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "mushrooms",
+        "white mushrooms",
+        "button mushrooms"
+      ],
+      "from": {
+        "fdc": 169251
+      },
+      "basis": "USDA SR Legacy 169251: \"Mushrooms, white, raw\"."
+    },
+    {
+      "key": "mushrooms-cooked",
+      "name": "White mushrooms, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "mushrooms",
+        "white mushrooms",
+        "button mushrooms"
+      ],
+      "from": {
+        "fdc": 169252
+      },
+      "basis": "USDA SR Legacy 169252: \"Mushrooms, white, cooked, boiled, drained, without salt\". Boiled, no salt."
+    },
+    {
+      "key": "carrots-cooked",
+      "name": "Carrots, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "carrots",
+        "cooked carrots",
+        "boiled carrots"
+      ],
+      "from": {
+        "fdc": 170394
+      },
+      "basis": "USDA SR Legacy 170394: \"Carrots, cooked, boiled, drained, without salt\". Boiled, no salt."
+    },
+    {
+      "key": "kale-cooked",
+      "name": "Kale, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "kale",
+        "cooked kale"
+      ],
+      "from": {
+        "fdc": 169238
+      },
+      "basis": "USDA SR Legacy 169238: \"Kale, cooked, boiled, drained, without salt\". Boiled, no salt."
+    },
+    {
+      "key": "onion-cooked",
+      "name": "Onion, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "onion",
+        "onions",
+        "cooked onion"
+      ],
+      "from": {
+        "fdc": 170001
+      },
+      "basis": "USDA SR Legacy 170001: \"Onions, cooked, boiled, drained, without salt\". Boiled, no salt."
+    },
+    {
+      "key": "beets-cooked",
+      "name": "Beets, cooked",
+      "category": "Vegetables and potatoes",
+      "aliases": [
+        "beets",
+        "beetroot",
+        "cooked beets"
+      ],
+      "from": {
+        "fdc": 169146
+      },
+      "basis": "USDA SR Legacy 169146: \"Beets, cooked, boiled, drained\". Boiled."
+    }
+  ]
+}

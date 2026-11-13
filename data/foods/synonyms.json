@@ -57,6 +57,19 @@
     ["capsicums", "peppers"],
     ["chilli", "chili"],
     ["chillies", "chili peppers"],
-    ["corgette", "zucchini"]
+    ["corgette", "zucchini"],
+    ["tenderloin", "tender"],
+    ["tenderloins", "tenders"],
+    ["ribeye", "rib eye"],
+    ["kiwi", "kiwifruit"],
+    ["rockmelon", "cantaloupe"],
+    ["ahi", "yellowfin"],
+    ["filet mignon", "beef tenderloin"],
+    ["new york strip", "strip steak"],
+    ["boston butt", "pork shoulder"],
+    ["homo milk", "whole milk"],
+    ["skimmed", "skim"],
+    ["surimi", "imitation crab"],
+    ["kani", "imitation crab"]
   ]
 }

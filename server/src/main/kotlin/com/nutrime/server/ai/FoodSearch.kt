@@ -3,6 +3,7 @@ package com.nutrime.server.ai
 import com.nutrime.app.model.Food
 import com.nutrime.app.model.FoodQuality
 import com.nutrime.app.model.FoodSource
+import com.nutrime.app.model.SearchRank
 import com.nutrime.app.model.Serving
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -59,13 +60,16 @@ class FoodSearch(foodsDbPath: String?, private val online: Boolean, private val 
         val onlineFoods = stored + onlineResult?.foods.orEmpty()
         onlineFoods.forEach { cache[it.id] = it }
         val ownIds = own.map { it.id }.toSet()
+        val queryWords = FoodQuality.words(query)
         // Relevance first. Then own foods, then data quality: NutriMe and USDA analyses (with vitamins and minerals)
         // before label-only products (most Open Food Facts and branded entries), and products sold in the user's country.
         // Stable sort: at equal scores own foods stay first, then curated, then the rest of the bundled database, then online.
         val ranked = (own + local + onlineFoods).distinctBy { it.id }
             .sortedByDescending { f ->
                 matched(tokens, f) + (if (f.id in ownIds) 0.5 else if (f.source == FoodSource.NUTRIME) 0.05 else 0.0) +
-                    0.25 * FoodQuality.score(f) +
+                    // The app's name rules: how much of the name the query covers, same words, restaurant and brand rules.
+                    SearchRank.nameAdjustments(queryWords, f, query) +
+                    SearchRank.QUALITY_WEIGHT * FoodQuality.score(f) +
                     (if (country != null && country in f.countries) 0.05 else 0.0)
             }
             .take(limit)

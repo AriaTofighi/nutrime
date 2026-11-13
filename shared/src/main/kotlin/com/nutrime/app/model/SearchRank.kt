@@ -23,17 +23,99 @@ data class FoodUsage(
 }
 
 /**
- * One ranking for every search result: how well the name matches, how often the user logs the food
- * (and at this meal), favourites, data quality and country. Copied in web/src/lib/searchRank.ts.
+ * One ranking for every search result: how well the name matches (and how much of the name the query
+ * covers), how often the user logs the food (and at this meal), favourites, data quality and country,
+ * less for restaurant items the query did not ask for and products without a brand.
+ * Copied in web/src/lib/searchRank.ts; shared/testdata/search_rank.json checks both.
  */
 object SearchRank {
+    /** Weight of data quality ([FoodQuality.score]) in the ranking. */
+    const val QUALITY_WEIGHT = 0.2
+
+    private fun singular(w: String) = FoodQuality.singular(w)
+    private fun words(s: String) = FoodQuality.words(s)
+
+    /** The same word, ignoring a plural ("tenderloins" = "tenderloin"). */
+    fun sameWord(t: String, w: String): Boolean = singular(t) == singular(w)
+
+    /** Descriptors that plain foods carry ("raw", "cooked", "no added fat"): not counted unless the query has them. */
+    private val NEUTRAL = setOf(
+        "raw", "fresh", "plain", "whole", "nfs", "ns", "cooked", "boiled", "unsalted", "without", "salt", "no", "added", "fat",
+        "prepared", "unprepared", "regular",
+    )
+
+    private val BRACKETS = Regex("\\([^)]*\\)")
+
+    /** The name without details in brackets: "Salmon (Atlantic, farmed), raw" → "Salmon, raw". */
+    private fun withoutBrackets(name: String) = name.replace(BRACKETS, " ")
+
+    /** Name words that count for the fit, each once: brand words, details in brackets and neutral descriptors are left out. */
+    private fun fitWords(name: String, brand: String?, q: List<String>): List<String> {
+        val b = words(brand.orEmpty()).map { singular(it) }.toSet()
+        val all = words(withoutBrackets(name)).map { singular(it) }.distinct()
+        val kept = all.filter { w -> w !in b && (w !in NEUTRAL || q.any { t -> sameWord(t, w) }) }
+        return kept.ifEmpty { all }
+    }
+
+    /** 0..1: share of the name's words that are query words. "Chicken tenderloin" → 1; "Cracker Barrel, chicken tenderloin platter, fried" → 2/6. */
+    fun nameFit(q: List<String>, food: Food): Double {
+        val ws = fitWords(food.name, food.brand, q)
+        if (q.isEmpty() || ws.isEmpty()) return 0.0
+        return ws.count { w -> q.any { t -> sameWord(t, w) } }.toDouble() / ws.size
+    }
+
+    /** Query words found as whole words (not only as the start of a longer word: "egg" in "eggplant"). */
+    fun wholeWords(q: List<String>, food: Food): Int {
+        val ws = words("${food.name} ${food.brand.orEmpty()}")
+        return q.count { t -> ws.any { w -> sameWord(t, w) } }
+    }
+
+    /** The same words as the query, ignoring case, plurals, punctuation and neutral words: "Chicken Tenderloins" = "chicken tenderloin". */
+    private fun sameWords(name: String, query: String): Boolean {
+        val y = words(query).map { singular(it) }
+        val x = words(withoutBrackets(name)).map { singular(it) }.filter { it !in NEUTRAL || it in y }
+        return x.isNotEmpty() && x == y
+    }
+
+    private val RESTAURANT_CATEGORIES = setOf("Restaurant Foods", "Fast Foods")
+    private val RESTAURANT_NAME = Regex("\\b(fast ?foods?|restaurant)", RegexOption.IGNORE_CASE)
+
+    /** A restaurant or fast-food item: the USDA categories, or a name that says so ("…, from fast food"). */
+    fun isRestaurant(food: Food): Boolean = food.category in RESTAURANT_CATEGORIES || RESTAURANT_NAME.containsMatchIn(food.name)
+
+    /** True when the query names the restaurant: a word of a SHOUTED leading brand ("CRACKER BARREL, …") or of the brand, or "restaurant"/"fast". */
+    private fun asksForRestaurant(q: List<String>, food: Food): Boolean {
+        val lead = food.name.substringBefore(",")
+        val part = (if (FoodNames.isShouted(lead)) words(lead) else emptyList()) + words(food.brand.orEmpty()) + listOf("restaurant", "fast")
+        return q.any { t -> part.any { w -> FoodQuality.wordMatches(t, w) } }
+    }
+
+    /**
+     * Penalties that are not about the words: restaurant items the query did not ask for, and products
+     * without a brand. Foods the user has logged get none (the caller leaves them out).
+     */
+    fun penalties(q: List<String>, food: Food): Double =
+        (if (q.isNotEmpty() && isRestaurant(food) && !asksForRestaurant(q, food)) 0.20 else 0.0) +
+            (if (food.source == FoodSource.OPEN_FOOD_FACTS && food.brand.isNullOrBlank()) 0.10 else 0.0)
+
+    /** Name match: share of query words found, the first word leading, the same words, whole words, and the fit. */
     fun textScore(queryWords: List<String>, food: Food, query: String): Double {
         if (queryWords.isEmpty()) return 0.0
         var s = FoodQuality.matchedWords(queryWords, food).toDouble() / queryWords.size
-        val nameWords = FoodQuality.words(food.name)
-        if (nameWords.firstOrNull()?.startsWith(queryWords.first()) == true) s += 0.10
-        if (food.name.trim().equals(query.trim(), ignoreCase = true)) s += 0.20
-        return s
+        val first = words(food.name).firstOrNull()
+        if (first != null && (first.startsWith(queryWords.first()) || singular(first) == singular(queryWords.first()))) s += 0.10
+        if (sameWords(food.name, query)) s += 0.20
+        return s + 0.15 * wholeWords(queryWords, food) / queryWords.size + 0.25 * nameFit(queryWords, food)
+    }
+
+    /**
+     * The name rules without usage, for callers with their own word matching (the assistant's search):
+     * fit, same words, whole words, and the penalties.
+     */
+    fun nameAdjustments(queryWords: List<String>, food: Food, query: String): Double {
+        if (queryWords.isEmpty()) return 0.0
+        return textScore(queryWords, food, query) - FoodQuality.matchedWords(queryWords, food).toDouble() / queryWords.size -
+            penalties(queryWords, food)
     }
 
     fun score(
@@ -44,10 +126,11 @@ object SearchRank {
         val share = if (meal != null && usage != null) usage.mealShare(meal) else 0.0
         return textScore(queryWords, food, query) +
             0.35 * u + 0.15 * share * u +
-            0.30 * FoodQuality.score(food) +
+            QUALITY_WEIGHT * FoodQuality.score(food) +
             (if (favorite) 0.15 else 0.0) +
             (if (country != null && country in food.countries) 0.08 else 0.0) -
-            (if (corrected) 0.25 else 0.0)
+            (if (corrected) 0.25 else 0.0) -
+            (if (usage != null) 0.0 else penalties(queryWords, food))
     }
 
     fun rank(
@@ -56,11 +139,56 @@ object SearchRank {
     ): List<Food> {
         val q = FoodQuality.words(query)
         return foods.distinctBy { it.id }.withIndex()
-            .sortedWith(compareByDescending<IndexedValue<Food>> { (_, f) ->
-                score(f, q, query, usage[f.id], meal, f.id in favorites, country, f.id in corrected)
-            }.thenBy { it.index })
-            .map { it.value }
+            .map { (i, f) -> Triple(i, f, score(f, q, query, usage[f.id], meal, f.id in favorites, country, f.id in corrected)) }
+            .sortedWith(compareByDescending<Triple<Int, Food, Double>> { it.third }.thenBy { it.first })
+            .map { it.second }
     }
+
+    private val LOCAL_SOURCES = setOf(FoodSource.CUSTOM, FoodSource.RECIPE, FoodSource.NUTRIME)
+    private fun sameEnergy(a: Double, b: Double) = kotlin.math.abs(a - b) <= 0.05 * maxOf(kotlin.math.abs(a), kotlin.math.abs(b))
+    private fun productKey(f: Food) =
+        words(FoodNames.display(f.name, f.brand)).joinToString(" ") { singular(it) } + "|" + words(f.brand.orEmpty()).joinToString(" ")
+
+    /**
+     * One row per product: foods in rank order with the same cleaned name and brand and energy within 5%
+     * are one product. The row kept (at the place of the best-ranked one) is the user's own or used food,
+     * then a favourite, then the one with more nutrients, with a serving, sold in the user's country.
+     * Custom, recipe and NutriMe foods are never merged, and a food the user logged or made a favourite
+     * is never hidden.
+     */
+    fun collapse(ranked: List<Food>, used: Set<String>, favorites: Set<String>, country: String? = null): List<Food> {
+        fun kept(f: Food) = f.id in used || f.id in favorites
+        class Group(val key: String, val kcal: Double, val members: MutableList<Food>)
+        val groups = ArrayList<Group>()
+        for (f in ranked) {
+            val kcal = f.nutrients[N.ENERGY] ?: 0.0
+            if (f.source in LOCAL_SOURCES) { groups += Group("", kcal, mutableListOf(f)); continue }
+            val key = productKey(f)
+            val g = groups.firstOrNull { it.key == key && sameEnergy(it.kcal, kcal) && !(kept(f) && it.members.any(::kept)) }
+            if (g != null) g.members += f else groups += Group(key, kcal, mutableListOf(f))
+        }
+        fun tie(f: Food) = listOf(
+            if (f.id in used) 1 else 0, if (f.id in favorites) 1 else 0, f.nutrients.size,
+            if (f.servings.isNotEmpty()) 1 else 0, if (country != null && country in f.countries) 1 else 0,
+        )
+        return groups.map { g ->
+            var best = g.members.first()
+            for (f in g.members.drop(1)) {
+                val a = tie(f)
+                val b = tie(best)
+                val i = a.indices.firstOrNull { a[it] != b[it] }
+                if (i != null && a[i] > b[i]) best = f
+            }
+            best
+        }
+    }
+
+    /**
+     * Open Food Facts as a fallback: the main list has every other source plus Open Food Facts products the
+     * user has logged or made a favourite; the rest go under "More results". The order inside each is kept.
+     */
+    fun splitMoreResults(ranked: List<Food>, used: Set<String>, favorites: Set<String>): Pair<List<Food>, List<Food>> =
+        ranked.partition { it.source != FoodSource.OPEN_FOOD_FACTS || it.id in used || it.id in favorites }
 
     /** Foods for the empty search screen: usual for this meal, best first. */
     fun usualFor(meal: Int, usage: Collection<FoodUsage>, limit: Int = 6): List<FoodUsage> =

@@ -179,6 +179,69 @@ class SharedLogicTest {
         assertEquals(a, SearchRank.rank(listOf(b, a), "yogurt", emptyMap(), null, emptySet(), corrected = setOf("usda:2")).first())
     }
 
+    @Serializable private data class RFood(
+        val id: String, val source: String, val name: String, val brand: String? = null, val category: String? = null,
+        val kcal: Double, val micros: Int, val servings: List<List<kotlinx.serialization.json.JsonPrimitive>> = emptyList(),
+        val countries: List<String> = emptyList(),
+    )
+    @Serializable private data class RCase(
+        val query: String, val country: String? = null, val usage: Map<String, Int> = emptyMap(), val favorites: List<String> = emptyList(),
+        val first: String? = null, val before: List<List<String>> = emptyList(), val hidden: List<String> = emptyList(),
+        val shown: List<String> = emptyList(), val moreResults: List<String> = emptyList(),
+    )
+    @Serializable private data class RVectors(val foods: List<RFood>, val cases: List<RCase>)
+
+    /** Kotlin and TypeScript (web/scripts/search_rank_vectors.ts) must rank, collapse and group the same way. */
+    @Test
+    fun searchRankMatchesTheSharedCases() {
+        val file = listOf("../shared/testdata/search_rank.json", "shared/testdata/search_rank.json").map(::File).first { it.exists() }
+        val data = Json { ignoreUnknownKeys = true }.decodeFromString(RVectors.serializer(), file.readText())
+        // Vitamin and mineral ids (not label nutrients), in the same order as the TypeScript script.
+        val micros = listOf(1051, 1057, 1018, 1292, 1293, 1404, 1278, 1272, 1316, 1106, 1162, 1114, 1109, 1185, 1165, 1166, 1167, 1170, 1175, 1190, 1178, 1180, 1087, 1098, 1089, 1090, 1101, 1091, 1092, 1103)
+        val foods = data.foods.map { v ->
+            Food(
+                v.id, FoodSource.valueOf(v.source), v.name, v.brand,
+                nutrients = mapOf(N.ENERGY to v.kcal) + micros.take(v.micros).associateWith { 1.0 },
+                servings = v.servings.map { Serving(it[0].content, it[1].content.toDouble()) },
+                category = v.category, countries = v.countries,
+            )
+        }
+        data.cases.forEach { c ->
+            val q = com.nutrime.app.model.FoodQuality.words(c.query)
+            val usage = c.usage.mapValues { (id, n) -> FoodUsage(id, n, 1.0, listOf(n, 0, 0, 0)) }
+            val favorites = c.favorites.toSet()
+            val candidates = foods.filter { com.nutrime.app.model.FoodQuality.matchedWords(q, it) > 0 }
+            val ranked = SearchRank.collapse(SearchRank.rank(candidates, c.query, usage, null, favorites, c.country), usage.keys, favorites, c.country)
+            val (main, more) = SearchRank.splitMoreResults(ranked, usage.keys, favorites)
+            val ids = ranked.map { it.id }
+            val label = c.query + (if (c.usage.isNotEmpty()) " (with usage)" else "") + (if (c.favorites.isNotEmpty()) " (with favourite)" else "")
+            c.first?.let { assertEquals(it, main.firstOrNull()?.id, "$label: first of ${main.map { f -> f.id }}") }
+            c.before.forEach { (a, b) ->
+                val i = ids.indexOf(a)
+                val j = ids.indexOf(b)
+                assertTrue(i >= 0 && j >= 0 && i < j, "$label: $a (at $i) must come before $b (at $j) in $ids")
+            }
+            c.hidden.forEach { assertTrue(it !in ids, "$label: $it must be merged into another row") }
+            c.shown.forEach { assertTrue(it in ids, "$label: $it must be shown") }
+            c.moreResults.forEach { m -> assertTrue(more.any { it.id == m }, "$label: $m must be under More results") }
+        }
+    }
+
+    @Test
+    fun foodNamesForDisplay() {
+        val names = com.nutrime.app.model.FoodNames
+        assertEquals("Cracker Barrel, chicken tenderloin platter, fried", names.display("CRACKER BARREL, chicken tenderloin platter, fried", null))
+        assertEquals("Chicken tenderloins", names.display("CHICKEN TENDERLOINS", "Great Value"))
+        assertEquals("Chicken tenderloin", names.display("chicken  tenderloin ", null))
+        assertEquals("Greek Yogurt, Plain", names.display("Greek Yogurt, Plain - Kirkland Signature - Kirkland Signature", "Kirkland Signature"))
+        assertEquals("Greek Yogurt", names.display("Kirkland Signature Greek Yogurt", "Kirkland Signature"))
+        assertEquals("Applebee's, chicken tenders", names.display("APPLEBEE'S, chicken tenders", null))
+        assertEquals("Bananas, raw", names.display("Bananas, raw", null))
+        assertEquals("canada", names.countryName("CA"))
+        assertEquals("united-states", names.countryName("us"))
+        assertNull(names.countryName("XX1"))
+    }
+
     @Test
     fun typingCorrection() {
         assertEquals(1, Fuzzy.distance("chiken", "chicken"))

@@ -6,7 +6,6 @@ import {
   byBarcode,
   defaultQuantity,
   defaultServing,
-  isLabelOnly,
   recordToFood,
   searchBundledDetailed,
   searchMine,
@@ -19,7 +18,9 @@ import { store, useStore } from "../lib/store";
 import type { DiaryEntry, Serving } from "../lib/types";
 import { fmtQty, isoDate, toNum } from "../lib/util";
 import { encodeProfile, parseProfile } from "../lib/profile";
-import { amountLabel, foodUsage, parseQueryAmount, rank, servingFor, textScore, usualFor, words } from "../lib/searchRank";
+import { amountLabel, collapse, foodUsage, isComplete, parseQueryAmount, rank, servingFor, splitMoreResults, textScore, usualFor, words } from "../lib/searchRank";
+import { countryName, displayName } from "../lib/foodNames";
+import { browserCountry } from "../lib/assistant";
 import { savedMeals, type SavedMeal } from "../lib/days";
 import { COLORS } from "../theme/theme";
 import { Empty, NutrientGrid, Ring } from "./ui";
@@ -33,32 +34,29 @@ const SOURCE_TAG: Record<string, string> = {
   Recipe: "Recipe",
 };
 
+/**
+ * A food row: the cleaned name; brand, default serving, how often it was logged and ★ below; energy for the
+ * default serving (or per 100 g). The source is shown on the food's own screen. Complete data gets one small mark.
+ */
 export function FoodRow({ food, onPick, usual, favorite }: { food: Food; onPick: (f: Food) => void; usual?: number; favorite?: boolean }) {
-  const s = defaultServing(food);
-  const q = defaultQuantity(food);
-  const kcal = ((food.nutrients[N.ENERGY] ?? 0) * s.grams * q) / 100;
+  const s = food.servings[0];
+  const per100 = food.nutrients[N.ENERGY] ?? 0;
+  const kcal = s ? (per100 * s.grams) / 100 : per100;
   return (
     <button className="food-row" onClick={() => onPick(food)}>
       <span className="food-main">
-        <span className="food-name">{food.name}</span>
+        <span className="food-name">{displayName(food.name, food.brand)}</span>
         <span className="food-meta">
-          <span className={`tag tag-${SOURCE_TAG[food.source]?.toLowerCase()}`}>{SOURCE_TAG[food.source] ?? food.source}</span>
+          {isComplete(food) && <span className="food-complete" title="Full vitamins and minerals (a lab analysis)">Full nutrients</span>}
           {food.brand && <span>{food.brand}</span>}
-          <span>
-            {fmtQty(q)} {s.label}
-          </span>
-          {favorite && <span title="Favourite">★</span>}
+          {s && <span>{/^\d/.test(s.label) ? s.label : `1 ${s.label}`}</span>}
           {usual != null && usual > 0 && <span className="dim">logged {usual}×</span>}
-          {isLabelOnly(food) && (
-            <span className="dim" title="Only the values on the package label: vitamins and minerals are missing">
-              label only
-            </span>
-          )}
+          {favorite && <span title="Favourite">★</span>}
         </span>
       </span>
       <span className="food-kcal num">
         {Math.round(kcal)}
-        <small>kcal</small>
+        <small>{s ? `kcal · ${fmtQty(Math.round(s.grams * 10) / 10)} g` : "kcal/100g"}</small>
       </span>
     </button>
   );
@@ -204,12 +202,17 @@ export function FoodSearch({
     filter === "all" ? list
       : filter === "mine" ? list.filter((f) => f.source === "Custom" || f.source === "Recipe" || usage.has(f.id))
         : filter === "favorites" ? list.filter((f) => favorites.has(f.id))
-          : list.filter((f) => !isLabelOnly(f) && Object.keys(f.nutrients).length >= 20);
+          : list.filter((f) => isComplete(f));
 
-  const results = useMemo(
-    () => applyFilter(rank([...local.foods, ...(online?.q === q ? online.foods : [])], q, { usage, meal, favorites, corrected: local.corrected })),
+  // Ranked, one row per product, then Open Food Facts (unless logged or a favourite) under "More results".
+  const country = useMemo(() => countryName(browserCountry()), []);
+  const { main: results, more: moreResults } = useMemo(
+    () => {
+      const ranked = rank([...local.foods, ...(online?.q === q ? online.foods : [])], q, { usage, meal, favorites, country, corrected: local.corrected });
+      return splitMoreResults(applyFilter(collapse(ranked, { used: usage, favorites, country })), usage, favorites);
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [local, online, usage, favorites, filter, meal, q],
+    [local, online, usage, favorites, filter, meal, q, country],
   );
 
   // Before typing.
@@ -327,7 +330,8 @@ export function FoodSearch({
             {dbError && <p className="hint danger">{dbError}</p>}
             {local.correctedQuery && <p className="corrected">Showing results for “{local.correctedQuery}”</p>}
             {results.length > 0 && <Section icon={<Database size={13} />} title="Results">{results.map((f) => row(f))}</Section>}
-            {loading && !results.length && (
+            {moreResults.length > 0 && <Section icon={<Globe size={13} />} title="More results">{moreResults.map((f) => row(f))}</Section>}
+            {loading && !results.length && !moreResults.length && (
               <div className="hint center"><LoaderCircle size={16} className="spin" /></div>
             )}
             {online && online.q === q && online.errors.length > 0 && (
@@ -336,7 +340,7 @@ export function FoodSearch({
                 {online.errors.map((e) => <p key={e} className={online.foods.length ? "hint" : "hint danger"}>{e}</p>)}
               </>
             )}
-            {!loading && !results.length && !onlineLoading && online?.q === q && !online.errors.length && <p className="hint">No foods found.</p>}
+            {!loading && !results.length && !moreResults.length && !onlineLoading && online?.q === q && !online.errors.length && <p className="hint">No foods found.</p>}
             {onlineLoading ? (
               <p className="hint center"><LoaderCircle size={16} className="spin" /> Searching branded and online foods…</p>
             ) : (

@@ -16,6 +16,8 @@ because diary entries point to them: fix an entry in place, and don't rename or 
 ## Files
 
 - `prepared.json`: everyday prepared foods (cooked rices, grilled chicken, steamed vegetables…).
+- `basics.json`: basic foods under the names people type (meat and poultry cuts raw and cooked, fish and
+  seafood, eggs, dairy, common grains, fruit and vegetables whose USDA names are long). Each copies one USDA food.
 - `branded/*.json`: branded products, one file per brand or store (e.g. `branded/kirkland.json`).
 
 Each file is `{"about": "...", "foods": [ ...entries ]}`.

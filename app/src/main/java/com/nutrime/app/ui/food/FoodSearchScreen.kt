@@ -54,6 +54,7 @@ import com.nutrime.app.data.SavedMeal
 import com.nutrime.app.data.decodeNutrients
 import com.nutrime.app.data.local.DiaryEntryEntity
 import com.nutrime.app.model.Food
+import com.nutrime.app.model.FoodNames
 import com.nutrime.app.model.FoodQuality
 import com.nutrime.app.model.FoodSource
 import com.nutrime.app.model.FoodUsage
@@ -78,6 +79,7 @@ import com.nutrime.app.ui.components.NTextField
 import com.nutrime.app.ui.components.SectionLabel
 import com.nutrime.app.ui.components.Spinner
 import com.nutrime.app.ui.components.StatusPill
+import com.nutrime.app.ui.components.formatQty
 import com.nutrime.app.ui.components.servingText
 import com.nutrime.app.ui.theme.DesignTokens.Space
 import com.nutrime.app.ui.theme.Lucide
@@ -143,18 +145,26 @@ class FoodSearchViewModel(private val c: AppContainer, val meal: Int) : ViewMode
         .mapLatest { ids -> ids.mapNotNull { c.foods.get(it) } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    /** Local and online results in one list, ranked by name match, usage, favourites and data quality. */
+    /** The device's country as Open Food Facts names it ("canada"), for ranking products sold here. */
+    private val country = FoodNames.countryName(java.util.Locale.getDefault().country)
+
+    /**
+     * Local and online results ranked by name match, usage, favourites and data quality, one row per
+     * product, then split: Open Food Facts products (unless logged or a favourite) go under "More results".
+     */
     val results = combine(local, online, usage, profile, filter) { l, o, u, p, f ->
         val favs = p?.favoriteFoodIds.orEmpty().toSet()
         val text = QueryAmount.parse(query.value)?.query ?: query.value
-        val ranked = SearchRank.rank(l.foods + o.orEmpty(), text, u, meal, favs, corrected = l.corrected)
-        when (f) {
-            SearchFilter.ALL -> ranked
-            SearchFilter.MINE -> ranked.filter { it.source == FoodSource.CUSTOM || it.source == FoodSource.RECIPE || it.id in u }
-            SearchFilter.FAVORITES -> ranked.filter { it.id in favs }
-            SearchFilter.COMPLETE -> ranked.filter { FoodQuality.isComplete(it) }
+        val ranked = SearchRank.rank(l.foods + o.orEmpty(), text, u, meal, favs, country, corrected = l.corrected)
+        val collapsed = SearchRank.collapse(ranked, u.keys, favs, country)
+        val filtered = when (f) {
+            SearchFilter.ALL -> collapsed
+            SearchFilter.MINE -> collapsed.filter { it.source == FoodSource.CUSTOM || it.source == FoodSource.RECIPE || it.id in u }
+            SearchFilter.FAVORITES -> collapsed.filter { it.id in favs }
+            SearchFilter.COMPLETE -> collapsed.filter { FoodQuality.isComplete(it) }
         }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        SearchRank.splitMoreResults(filtered, u.keys, favs)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList<Food>() to emptyList())
 
     init {
         // Search online without a button press when local results are weak and typing has stopped.
@@ -357,8 +367,16 @@ fun FoodSearchScreen(nav: NavController, date: String, meal: Int, mode: String, 
                             Text("Showing results for “$cq”", style = NutriTheme.type.small, color = c.textSecondary, modifier = Modifier.padding(horizontal = Space.S4, vertical = Space.S2))
                         }
                     }
-                    items(results, key = { "f-" + it.id }) { f ->
-                        FoodResult(f, favorite = f.id in (vm.profile.value?.favoriteFoodIds.orEmpty()), usual = usage[f.id], onAdd = if (logMode) ({ quickAdd(f) }) else null) { open(f) }
+                    val (mainResults, moreResults) = results
+                    val favIds = vm.profile.value?.favoriteFoodIds.orEmpty().toSet()
+                    items(mainResults, key = { "f-" + it.id }) { f ->
+                        FoodResult(f, favorite = f.id in favIds, usual = usage[f.id], onAdd = if (logMode) ({ quickAdd(f) }) else null) { open(f) }
+                    }
+                    if (moreResults.isNotEmpty()) {
+                        item(key = "more-header") { Header("More results") }
+                        items(moreResults, key = { "f-" + it.id }) { f ->
+                            FoodResult(f, favorite = f.id in favIds, usual = usage[f.id], onAdd = if (logMode) ({ quickAdd(f) }) else null) { open(f) }
+                        }
                     }
                     if (onlineErrors.isNotEmpty()) {
                         item {
@@ -375,7 +393,7 @@ fun FoodSearchScreen(nav: NavController, date: String, meal: Int, mode: String, 
                             }
                         }
                     }
-                    if (results.isEmpty() && !onlineLoading && online != null && onlineErrors.isEmpty()) {
+                    if (results.first.isEmpty() && results.second.isEmpty() && !onlineLoading && online != null && onlineErrors.isEmpty()) {
                         item { Text("No foods found", style = NutriTheme.type.small, color = c.textTertiary, modifier = Modifier.padding(Space.S4)) }
                     }
                     item {
@@ -476,23 +494,34 @@ private fun Header(text: String) {
     SectionLabel(text, Modifier.padding(start = Space.S4, end = Space.S4, top = Space.S4, bottom = Space.S1))
 }
 
+/**
+ * A search result: the cleaned name; brand, default serving, how often it was logged and ★ below; energy for
+ * the default serving (or per 100 g). The source is on the food's own screen. Complete data gets one small mark.
+ */
 @Composable
 private fun FoodResult(f: Food, favorite: Boolean = false, usual: FoodUsage? = null, onAdd: (() -> Unit)? = null, onClick: () -> Unit) {
-    // Label-only products (no vitamins or minerals) say so, so people can prefer a complete USDA or NutriMe food.
-    val labelOnly = (f.source == FoodSource.OPEN_FOOD_FACTS || f.source == FoodSource.USDA_BRANDED) && !FoodQuality.isComplete(f)
+    val serving = f.servings.firstOrNull()
     val sub = listOfNotNull(
-        "★".takeIf { favorite },
-        f.brand, f.source.label.takeIf { f.source != FoodSource.USDA || f.brand == null }, "label only".takeIf { labelOnly },
+        f.brand?.takeIf { it.isNotBlank() },
+        serving?.let { servingName(it.label) },
         usual?.let { "logged ${it.count}×" },
+        "★".takeIf { favorite },
     ).joinToString(" · ")
+    val kcal = if (serving != null) f.kcalPer100g * serving.grams / 100.0 else f.kcalPer100g
+    val unit = if (serving != null) "kcal · ${formatQty(serving.grams)} g" else "kcal/100g"
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.weight(1f)) { ResultRow(f.name, sub, f.kcalPer100g, onClick = onClick) }
+        Box(Modifier.weight(1f)) {
+            ResultRow(FoodNames.display(f), sub, kcal, unit = unit, complete = FoodQuality.isComplete(f), onClick = onClick)
+        }
         if (onAdd != null) NIconButton(Lucide.Plus, "Add ${f.name}", onAdd, tint = NutriTheme.colors.accent, modifier = Modifier.padding(end = Space.S2))
     }
 }
 
+/** A serving label as a row reads it: "slice" → "1 slice"; "1 cup" stays. */
+private fun servingName(label: String): String = if (label.firstOrNull()?.isDigit() == true) label else "1 $label"
+
 @Composable
-private fun ResultRow(name: String, subtitle: String, kcal: Double, unit: String = "kcal/100g", onClick: () -> Unit) {
+private fun ResultRow(name: String, subtitle: String, kcal: Double, unit: String = "kcal/100g", complete: Boolean = false, onClick: () -> Unit) {
     val c = NutriTheme.colors
     Row(
         Modifier.fillMaxWidth().clickable(onClick = onClick).padding(horizontal = Space.S4, vertical = 10.dp),
@@ -500,7 +529,16 @@ private fun ResultRow(name: String, subtitle: String, kcal: Double, unit: String
     ) {
         Column(Modifier.weight(1f)) {
             Text(name, style = NutriTheme.type.body, color = c.text, maxLines = 2, overflow = TextOverflow.Ellipsis)
-            if (subtitle.isNotBlank()) Text(subtitle, style = NutriTheme.type.caption, color = c.textTertiary, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            if (subtitle.isNotBlank() || complete) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    if (complete) {
+                        // Full vitamins and minerals (a lab analysis), so the diary shows no false gaps.
+                        Text("Full nutrients", style = NutriTheme.type.caption, color = c.textSecondary, maxLines = 1)
+                        if (subtitle.isNotBlank()) Text(" · ", style = NutriTheme.type.caption, color = c.textTertiary)
+                    }
+                    if (subtitle.isNotBlank()) Text(subtitle, style = NutriTheme.type.caption, color = c.textTertiary, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                }
+            }
         }
         Spacer(Modifier.width(Space.S3))
         Column(horizontalAlignment = Alignment.End) {

@@ -4,7 +4,7 @@ NutriMe is an Android app (`app/`, Kotlin + Compose), a web app (`web/`, React +
 server (`server/`, Ktor, its own Gradle build). Shared models and logic live in `shared/`. See `README.md`.
 
 The web app has TypeScript copies of shared logic (`web/src/lib/burn.ts`, `goal.ts`, `range.ts`,
-`searchRank.ts`, `insights.ts`, `export.ts`). Change both sides together. A new sync collection needs the
+`searchRank.ts`, `foodNames.ts`, `insights.ts`, `export.ts`). Change both sides together. A new sync collection needs the
 server's `COLLECTIONS`, the app's `SyncManager` and Room schema (with a migration), and `web/src/lib/types.ts`.
 
 ## Finishing a task: always merge to main
@@ -50,6 +50,8 @@ cannot run a check, report that limit instead of starting a GitHub workflow. Kee
 - Android tests: `./gradlew :app:testDebugUnitTest` (requires an Android SDK).
 - Web type check: `cd web && npm ci && npx tsc --noEmit`.
 - Learned-burn vectors (web copy): `cd web && npx tsx scripts/burn_vectors.ts`.
+- Search ranking cases (web copy): `cd web && npx tsx scripts/search_rank_vectors.ts` (`shared/testdata/search_rank.json`;
+  `SharedLogicTest` checks the Kotlin side).
 - Generated design files: `python3 tools/gen_design_tokens.py --check`.
 - Server and web Docker images are built by the deployment platform when it deploys them;
   GitHub Actions does not need to build another copy for each code change.

@@ -219,7 +219,7 @@ fun FoodDetailScreen(
             Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(top = Space.S1, bottom = Space.S4),
         ) {
             Card {
-                Text(f.name, style = NutriTheme.type.title, color = c.text)
+                Text(com.nutrime.app.model.FoodNames.display(f), style = NutriTheme.type.title, color = c.text)
                 Text(listOfNotNull(f.brand, f.source.label, f.category).joinToString(" · "), style = NutriTheme.type.small, color = c.textTertiary, modifier = Modifier.padding(top = 2.dp))
                 Spacer(Modifier.height(Space.S4))
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Space.S2)) {

@@ -43,7 +43,25 @@ object FoodQuality {
     /** Query words that a food's name or brand contains (word prefixes and simple plurals match). */
     fun matchedWords(queryWords: List<String>, food: Food, extra: String = ""): Int {
         val words = words("${food.name} ${food.brand.orEmpty()} $extra")
-        return queryWords.count { t -> words.any { w -> w.startsWith(t) || (w.length >= 4 && t.startsWith(w)) } }
+        return queryWords.count { t -> words.any { w -> wordMatches(t, w) } }
+    }
+
+    /** A simple singular form, kept conservative: "tenderloins" → "tenderloin", "tomatoes" → "tomato", "hummus" stays. */
+    fun singular(w: String): String {
+        if (w.length < 4) return w
+        if (w.length >= 5 && ES_PLURAL.containsMatchIn(w)) return w.dropLast(2)
+        if (w.endsWith("s") && !w.endsWith("ss") && !w.endsWith("us") && !w.endsWith("is")) return w.dropLast(1)
+        return w
+    }
+
+    private val ES_PLURAL = Regex("(x|z|ch|sh|o)es$")
+
+    /** A query word matches a name word by prefix, either as typed or in singular form. */
+    fun wordMatches(t: String, w: String): Boolean {
+        if (w.startsWith(t) || (w.length >= 4 && t.startsWith(w))) return true
+        val st = singular(t)
+        val sw = singular(w)
+        return sw.startsWith(st) || (sw.length >= 4 && st.startsWith(sw))
     }
 
     fun words(s: String): List<String> = s.lowercase().split(Regex("[^\\p{L}\\p{N}]+")).filter { it.isNotBlank() && it !in STOP_WORDS }
@@ -51,23 +69,11 @@ object FoodQuality {
     private val STOP_WORDS = setOf("and", "with", "in", "of", "the", "a", "an", "or", "to")
 
     /**
-     * Order online results. Relevance comes first (how many query words the name contains); among
-     * equally relevant foods, complete data and better sources come first, and products sold in the
-     * user's country get a small lift. A label-only product never outranks an equally named USDA food
-     * only because it's sold locally, but a local product beats a foreign one of the same quality.
+     * Order online results (the server's catalog search) with the same scoring as the app's search,
+     * without usage or favourites: name match and fit, data quality, country, restaurant and brand rules.
      */
     fun rank(foods: List<Food>, query: String, country: String? = null): List<Food> {
-        val q = words(query)
-        if (q.isEmpty()) return foods.sortedByDescending { score(it) }
-        return foods.withIndex().sortedWith(
-            compareByDescending<IndexedValue<Food>> { (_, f) ->
-                val relevance = matchedWords(q, f).toDouble() / q.size
-                // A name that starts with the query's first word reads as the thing itself ("milk, 2%"),
-                // not something that contains it ("chocolate milk").
-                val lead = if (words(f.name).firstOrNull()?.startsWith(q.first()) == true) 0.1 else 0.0
-                val local = if (country != null && country in f.countries) 0.08 else 0.0
-                relevance + lead + 0.3 * score(f) + local
-            }.thenBy { it.index },
-        ).map { it.value }
+        if (words(query).isEmpty()) return foods.sortedByDescending { score(it) }
+        return SearchRank.rank(foods, query, emptyMap(), null, emptySet(), country)
     }
 }

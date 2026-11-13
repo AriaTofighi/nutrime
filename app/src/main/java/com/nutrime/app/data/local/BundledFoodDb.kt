@@ -35,7 +35,11 @@ class BundledFoodDb(private val context: Context) {
         }
     }
 
-    suspend fun search(query: String, limit: Int = 60): List<Food> = searchDetailed(query, limit).foods
+    /**
+     * Up to [limit] candidates for [com.nutrime.app.model.SearchRank], which orders them. The SQL order only
+     * decides which candidates are kept when more match, so the limit leaves room for short, plain names.
+     */
+    suspend fun search(query: String, limit: Int = CANDIDATES): List<Food> = searchDetailed(query, limit).foods
 
     /** Results, the ids found only through a typing correction, and the corrected query. */
     data class Results(val foods: List<Food>, val corrected: Set<String> = emptySet(), val correctedQuery: String? = null)
@@ -44,7 +48,7 @@ class BundledFoodDb(private val context: Context) {
      * Search with synonyms ("yoghurt" also finds "yogurt") and, when few foods match, typing-error
      * correction against the database's word list ("chiken" → "chicken").
      */
-    suspend fun searchDetailed(query: String, limit: Int = 60): Results = withContext(Dispatchers.IO) {
+    suspend fun searchDetailed(query: String, limit: Int = CANDIDATES): Results = withContext(Dispatchers.IO) {
         val tokens = tokens(query)
         if (tokens.isEmpty()) return@withContext Results(emptyList())
         val db = open()
@@ -148,7 +152,10 @@ class BundledFoodDb(private val context: Context) {
 
     companion object {
         /** Bump when assets/foods.db is regenerated so devices re-copy it. */
-        const val ASSET_VERSION = 4
+        const val ASSET_VERSION = 5
+
+        /** Candidates per search (also in web/src/lib/foods.ts). */
+        const val CANDIDATES = 100
 
         private const val COLUMNS = "f.id, f.name, f.category, f.source, f.nutrients, f.portions, f.ref, f.brand, f.barcode"
     }

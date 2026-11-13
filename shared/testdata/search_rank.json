@@ -1,0 +1,145 @@
+{
+  "about": "Fixed food-search ranking cases, shared by SearchRank.kt (server/src/test/.../SharedLogicTest.kt) and searchRank.ts (web/scripts/search_rank_vectors.ts). Foods are synthetic: names like the real databases, energy in kcal per 100 g, and 'micros' = how many vitamins and minerals the food lists. For each case, the candidates are the foods whose name or brand contains at least one query word. They are ranked, collapsed (one row per product) and split into the main list and 'More results' (Open Food Facts). 'first' is the first food of the main list; 'before' pairs must keep that order in the collapsed ranking; 'hidden' foods are merged into another row; 'shown' foods must stay.",
+  "foods": [
+    { "id": "off:0001", "source": "OPEN_FOOD_FACTS", "name": "Chicken tenderloin", "brand": "Kirkland Signature", "kcal": 110, "micros": 0, "servings": [["112 g", 112]], "countries": ["united-states"] },
+    { "id": "off:0002", "source": "OPEN_FOOD_FACTS", "name": "Chicken tenderloin", "kcal": 120, "micros": 0 },
+    { "id": "usda:170001", "source": "USDA", "name": "CRACKER BARREL, chicken tenderloin platter, fried", "category": "Restaurant Foods", "kcal": 245, "micros": 20 },
+    { "id": "usda:170002", "source": "USDA", "name": "CRACKER BARREL, chicken tenderloin platter, fried, from kid's menu", "category": "Restaurant Foods", "kcal": 256, "micros": 20 },
+    { "id": "nm:chicken-tenderloin-raw", "source": "NUTRIME", "name": "Chicken tenderloin, raw", "kcal": 120, "micros": 25 },
+    { "id": "nm:chicken-tenderloin-cooked", "source": "NUTRIME", "name": "Chicken tenderloin, cooked", "kcal": 165, "micros": 25 },
+    { "id": "off:0003", "source": "OPEN_FOOD_FACTS", "name": "Chicken Tenderloins", "brand": "Great Value", "kcal": 107, "micros": 0, "servings": [["4 oz", 112]], "countries": ["united-states"] },
+    { "id": "off:0004", "source": "OPEN_FOOD_FACTS", "name": "CHICKEN TENDERLOINS", "brand": "Great Value", "kcal": 110, "micros": 0 },
+    { "id": "off:0005", "source": "OPEN_FOOD_FACTS", "name": "Chicken Tenderloins", "brand": "Great Value", "kcal": 230, "micros": 0 },
+    { "id": "usda:2400001", "source": "USDA_BRANDED", "name": "CHICKEN BREAST TENDERLOINS", "brand": "Tyson", "kcal": 110, "micros": 2, "servings": [["4 oz", 112]] },
+
+    { "id": "usda:171477", "source": "USDA", "name": "Chicken, broilers or fryers, breast, meat only, cooked, roasted", "category": "Poultry Products", "kcal": 165, "micros": 25 },
+    { "id": "usda:2646170", "source": "USDA", "name": "Chicken, breast, boneless, skinless, raw", "category": "Poultry Products", "kcal": 120, "micros": 22 },
+    { "id": "nm:chicken-breast-raw", "source": "NUTRIME", "name": "Chicken breast, boneless, skinless, raw", "kcal": 120, "micros": 25 },
+    { "id": "nm:chicken-breast-grilled", "source": "NUTRIME", "name": "Chicken breast, grilled, no skin", "kcal": 151, "micros": 25 },
+    { "id": "usda:2705964", "source": "USDA", "name": "Chicken breast, baked, broiled, or roasted, skin not eaten, from raw", "category": "Chicken, whole pieces", "kcal": 151, "micros": 25 },
+    { "id": "usda:2706000", "source": "USDA", "name": "Chicken breast, fried, coated, from fast food", "category": "Chicken, whole pieces", "kcal": 260, "micros": 25 },
+    { "id": "usda:170999", "source": "USDA", "name": "Fast foods, chicken fillet sandwich, plain with pickles", "category": "Fast Foods", "kcal": 250, "micros": 20 },
+    { "id": "off:0010", "source": "OPEN_FOOD_FACTS", "name": "Chicken Breast", "brand": "Maple Leaf", "kcal": 110, "micros": 0, "countries": ["canada"] },
+
+    { "id": "usda:170903", "source": "USDA", "name": "Yogurt, Greek, plain, nonfat", "category": "Dairy and Egg Products", "kcal": 59, "micros": 22 },
+    { "id": "usda:171304", "source": "USDA", "name": "Yogurt, Greek, plain, whole milk", "category": "Dairy and Egg Products", "kcal": 97, "micros": 22 },
+    { "id": "usda:2705501", "source": "USDA", "name": "Yogurt, Greek, NS as to type of milk, plain", "category": "Yogurt, Greek", "kcal": 75, "micros": 25 },
+    { "id": "usda:2705502", "source": "USDA", "name": "Salad dressing, greek yogurt based", "category": "Salad dressings and vegetable oils", "kcal": 120, "micros": 10 },
+    { "id": "off:0020", "source": "OPEN_FOOD_FACTS", "name": "Greek Yogurt, Plain - Kirkland Signature - Kirkland Signature", "brand": "Kirkland Signature", "kcal": 60, "micros": 1 },
+    { "id": "off:0021", "source": "OPEN_FOOD_FACTS", "name": "Greek yogurt", "brand": "Oikos", "kcal": 80, "micros": 0 },
+
+    { "id": "usda:173944", "source": "USDA", "name": "Bananas, raw", "category": "Fruits and Fruit Juices", "kcal": 89, "micros": 25 },
+    { "id": "usda:2709001", "source": "USDA", "name": "Banana bread", "category": "Cakes and pies", "kcal": 326, "micros": 25 },
+    { "id": "usda:2709002", "source": "USDA", "name": "Banana chips", "category": "Snacks", "kcal": 519, "micros": 15 },
+    { "id": "usda:2709003", "source": "USDA", "name": "Babyfood, fruit, bananas with tapioca, strained", "category": "Baby Foods", "kcal": 56, "micros": 20 },
+    { "id": "off:0030", "source": "OPEN_FOOD_FACTS", "name": "Banana", "brand": "Dole", "kcal": 89, "micros": 0 },
+
+    { "id": "usda:171287", "source": "USDA", "name": "Egg, whole, raw, fresh", "category": "Dairy and Egg Products", "kcal": 143, "micros": 25 },
+    { "id": "usda:172183", "source": "USDA", "name": "Egg, white, raw, fresh", "category": "Dairy and Egg Products", "kcal": 52, "micros": 18 },
+    { "id": "nm:egg-boiled", "source": "NUTRIME", "name": "Egg, hard-boiled", "kcal": 155, "micros": 25 },
+    { "id": "usda:169228", "source": "USDA", "name": "Eggplant, raw", "category": "Vegetables and Vegetable Products", "kcal": 25, "micros": 25 },
+    { "id": "usda:2708001", "source": "USDA", "name": "Egg rolls, chicken", "category": "Egg rolls, dumplings, sushi", "kcal": 220, "micros": 25 },
+
+    { "id": "nm:rice-white-cooked", "source": "NUTRIME", "name": "White rice, long-grain, cooked, unsalted", "kcal": 130, "micros": 25 },
+    { "id": "usda:169756", "source": "USDA", "name": "Rice, white, long-grain, regular, raw, enriched", "category": "Cereal Grains and Pasta", "kcal": 365, "micros": 25 },
+    { "id": "usda:2708101", "source": "USDA", "name": "Rice, NFS", "category": "Rice", "kcal": 130, "micros": 25 },
+    { "id": "usda:2708102", "source": "USDA", "name": "Rice, white, cooked, no added fat", "category": "Rice", "kcal": 130, "micros": 25 },
+    { "id": "usda:2708103", "source": "USDA", "name": "Snacks, rice cakes, brown rice, plain", "category": "Snacks", "kcal": 387, "micros": 22 },
+    { "id": "usda:2708104", "source": "USDA", "name": "Rice, fried, with chicken", "category": "Fried rice and lo/chow mein", "kcal": 170, "micros": 25 },
+    { "id": "usda:2708105", "source": "USDA", "name": "Restaurant, Chinese, fried rice, without meat", "category": "Restaurant Foods", "kcal": 174, "micros": 22 },
+
+    { "id": "custom:oats-mine", "source": "CUSTOM", "name": "My overnight oats", "kcal": 150, "micros": 0 },
+    { "id": "off:0040", "source": "OPEN_FOOD_FACTS", "name": "Quick oats", "brand": "Quaker", "kcal": 375, "micros": 3 },
+    { "id": "off:0041", "source": "OPEN_FOOD_FACTS", "name": "QUICK OATS", "brand": "Quaker", "kcal": 379, "micros": 0 },
+    { "id": "usda:173904", "source": "USDA", "name": "Cereals, oats, regular and quick, not fortified, dry", "category": "Breakfast Cereals", "kcal": 379, "micros": 25 }
+  ],
+  "cases": [
+    {
+      "query": "chicken tenderloin",
+      "first": "nm:chicken-tenderloin-raw",
+      "before": [
+        ["nm:chicken-tenderloin-raw", "nm:chicken-tenderloin-cooked"],
+        ["nm:chicken-tenderloin-cooked", "usda:170001"],
+        ["off:0001", "usda:170001"],
+        ["off:0001", "off:0002"],
+        ["usda:170001", "usda:170002"]
+      ],
+      "hidden": ["off:0004"],
+      "shown": ["off:0003", "off:0005", "usda:2400001"],
+      "moreResults": ["off:0001", "off:0002", "off:0003", "off:0005"]
+    },
+    {
+      "query": "chicken tenderloins",
+      "first": "nm:chicken-tenderloin-raw",
+      "before": [["off:0001", "usda:170001"], ["off:0003", "usda:170002"]]
+    },
+    {
+      "query": "chicken breast",
+      "first": "nm:chicken-breast-raw",
+      "before": [
+        ["nm:chicken-breast-raw", "usda:2706000"],
+        ["usda:2646170", "usda:2706000"],
+        ["usda:171477", "usda:170999"]
+      ],
+      "moreResults": ["off:0010"]
+    },
+    {
+      "query": "greek yogurt",
+      "first": "usda:170903",
+      "before": [["usda:171304", "usda:2705502"], ["off:0021", "off:0020"]]
+    },
+    {
+      "query": "banana",
+      "first": "usda:173944",
+      "before": [["usda:173944", "usda:2709001"], ["usda:2709001", "usda:2709003"]]
+    },
+    {
+      "query": "egg",
+      "first": "usda:171287",
+      "before": [["usda:171287", "usda:169228"], ["usda:172183", "usda:169228"], ["usda:171287", "usda:2708001"]]
+    },
+    {
+      "query": "rice",
+      "first": "usda:2708101",
+      "before": [
+        ["nm:rice-white-cooked", "usda:2708103"],
+        ["usda:2708102", "usda:2708104"],
+        ["usda:2708104", "usda:2708105"]
+      ]
+    },
+    {
+      "query": "cracker barrel chicken",
+      "first": "usda:170001",
+      "before": [["usda:170001", "nm:chicken-tenderloin-raw"], ["usda:170002", "nm:chicken-breast-raw"]]
+    },
+    {
+      "query": "chinese fried rice restaurant",
+      "first": "usda:2708105"
+    },
+    {
+      "query": "chicken tenderloin",
+      "usage": { "off:0002": 12 },
+      "first": "off:0002",
+      "note": "A food the user logs often comes first, even a label-only product without a brand."
+    },
+    {
+      "query": "chicken tenderloin",
+      "country": "canada",
+      "favorites": ["off:0004"],
+      "first": "nm:chicken-tenderloin-raw",
+      "hidden": ["off:0003"],
+      "shown": ["off:0004"],
+      "note": "A favourite is never hidden: it is the row kept for its product."
+    },
+    {
+      "query": "quick oats",
+      "first": "usda:173904",
+      "hidden": ["off:0041"],
+      "shown": ["off:0040"]
+    },
+    {
+      "query": "oats",
+      "shown": ["custom:oats-mine", "usda:173904"]
+    }
+  ]
+}
