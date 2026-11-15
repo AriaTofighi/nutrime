@@ -49,11 +49,14 @@ object SearchRank {
     /** The name without details in brackets: "Salmon (Atlantic, farmed), raw" → "Salmon, raw". */
     private fun withoutBrackets(name: String) = name.replace(BRACKETS, " ")
 
-    /** Name words that count for the fit, each once: brand words, details in brackets and neutral descriptors are left out. */
+    /**
+     * Name words that count for the fit, each once: details in brackets are left out, and brand words and
+     * neutral descriptors are left out unless the query has them.
+     */
     private fun fitWords(name: String, brand: String?, q: List<String>): List<String> {
         val b = words(brand.orEmpty()).map { singular(it) }.toSet()
         val all = words(withoutBrackets(name)).map { singular(it) }.distinct()
-        val kept = all.filter { w -> w !in b && (w !in NEUTRAL || q.any { t -> sameWord(t, w) }) }
+        val kept = all.filter { w -> (w !in b && w !in NEUTRAL) || q.any { t -> sameWord(t, w) } }
         return kept.ifEmpty { all }
     }
 
@@ -144,7 +147,8 @@ object SearchRank {
             .map { it.second }
     }
 
-    private val LOCAL_SOURCES = setOf(FoodSource.CUSTOM, FoodSource.RECIPE, FoodSource.NUTRIME)
+    private val LOCAL_SOURCES = setOf(FoodSource.CUSTOM, FoodSource.RECIPE)
+    private val USDA_SOURCES = setOf(FoodSource.USDA, FoodSource.USDA_BRANDED)
     private fun sameEnergy(a: Double, b: Double) = kotlin.math.abs(a - b) <= 0.05 * maxOf(kotlin.math.abs(a), kotlin.math.abs(b))
     private fun productKey(f: Food) =
         words(FoodNames.display(f.name, f.brand)).joinToString(" ") { singular(it) } + "|" + words(f.brand.orEmpty()).joinToString(" ")
@@ -153,34 +157,76 @@ object SearchRank {
      * One row per product: foods in rank order with the same cleaned name and brand and energy within 5%
      * are one product. The row kept (at the place of the best-ranked one) is the user's own or used food,
      * then a favourite, then the one with more nutrients, with a serving, sold in the user's country.
-     * Custom, recipe and NutriMe foods are never merged, and a food the user logged or made a favourite
-     * is never hidden.
+     * A NutriMe food takes in USDA and USDA Branded rows of the same product and is the row kept, unless
+     * one of those is used or a favourite and the NutriMe food is not. Custom and recipe foods are never
+     * merged, two NutriMe foods are never merged, and a food the user logged or made a favourite is never
+     * hidden behind another logged or favourite food.
      */
     fun collapse(ranked: List<Food>, used: Set<String>, favorites: Set<String>, country: String? = null): List<Food> {
         fun kept(f: Food) = f.id in used || f.id in favorites
         class Group(val key: String, val kcal: Double, val members: MutableList<Food>)
+        fun hasNutriMe(g: Group) = g.members.any { it.source == FoodSource.NUTRIME }
+        fun accepts(g: Group, f: Food): Boolean = when {
+            f.source == FoodSource.NUTRIME -> g.members.all { it.source in USDA_SOURCES }
+            hasNutriMe(g) -> f.source in USDA_SOURCES
+            else -> true
+        }
         val groups = ArrayList<Group>()
         for (f in ranked) {
             val kcal = f.nutrients[N.ENERGY] ?: 0.0
             if (f.source in LOCAL_SOURCES) { groups += Group("", kcal, mutableListOf(f)); continue }
             val key = productKey(f)
-            val g = groups.firstOrNull { it.key == key && sameEnergy(it.kcal, kcal) && !(kept(f) && it.members.any(::kept)) }
+            val g = groups.firstOrNull {
+                it.key == key && it.key.isNotEmpty() && sameEnergy(it.kcal, kcal) && accepts(it, f) && !(kept(f) && it.members.any(::kept))
+            }
             if (g != null) g.members += f else groups += Group(key, kcal, mutableListOf(f))
         }
         fun tie(f: Food) = listOf(
             if (f.id in used) 1 else 0, if (f.id in favorites) 1 else 0, f.nutrients.size,
             if (f.servings.isNotEmpty()) 1 else 0, if (country != null && country in f.countries) 1 else 0,
         )
-        return groups.map { g ->
-            var best = g.members.first()
-            for (f in g.members.drop(1)) {
+        fun best(members: List<Food>): Food {
+            var best = members.first()
+            for (f in members.drop(1)) {
                 val a = tie(f)
                 val b = tie(best)
                 val i = a.indices.firstOrNull { a[it] != b[it] }
                 if (i != null && a[i] > b[i]) best = f
             }
-            best
+            return best
         }
+        return groups.map { g ->
+            val nutriMe = g.members.firstOrNull { it.source == FoodSource.NUTRIME }
+            if (nutriMe != null && (kept(nutriMe) || g.members.none(::kept))) nutriMe else best(g.members)
+        }
+    }
+
+    /**
+     * Usage for ranking when the bundled database hides duplicates: each hidden food's usage
+     * (foods.db `food_alias`, old id → new id) also counts for the food shown in its place.
+     */
+    fun withAliases(usage: Map<String, FoodUsage>, aliases: Map<String, String>): Map<String, FoodUsage> {
+        if (aliases.isEmpty()) return usage
+        val out = LinkedHashMap(usage)
+        for ((id, u) in usage) {
+            val to = aliases[id] ?: continue
+            val other = out[to]
+            out[to] = if (other == null) u.copy(foodId = to) else merge(other, u.copy(foodId = to))
+        }
+        return out
+    }
+
+    /** Favourite ids plus the foods shown in place of hidden favourites. */
+    fun withAliases(ids: Set<String>, aliases: Map<String, String>): Set<String> =
+        if (aliases.isEmpty()) ids else ids + ids.mapNotNull { aliases[it] }
+
+    private fun merge(a: FoodUsage, b: FoodUsage): FoodUsage {
+        val recent = if (b.daysSince < a.daysSince) b else a
+        return a.copy(
+            count = a.count + b.count, daysSince = minOf(a.daysSince, b.daysSince),
+            byMeal = (0 until maxOf(a.byMeal.size, b.byMeal.size)).map { (a.byMeal.getOrNull(it) ?: 0) + (b.byMeal.getOrNull(it) ?: 0) },
+            lastServingLabel = recent.lastServingLabel, lastServingGrams = recent.lastServingGrams, lastQuantity = recent.lastQuantity,
+        )
     }
 
     /**

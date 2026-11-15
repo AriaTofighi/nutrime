@@ -83,8 +83,11 @@ export function recordToFood(r: FoodRecord): Food {
 // the Android app's foods.db by scripts/export_foods.py
 // -----------------------------------------------------------------------------------------------
 
-/** [fdcId, name, category, nutrients, portions], plus [ref, brand, keywords, barcode] for curated foods. */
-type BundledRow = [number, string, string, Record<string, number>, [string, number][], string?, (string | null)?, (string | null)?, (string | null)?];
+/**
+ * [fdcId, name, category, nutrients, portions], plus [ref, brand, keywords, barcode] for curated foods and
+ * branded USDA foods, plus [1] for a hidden duplicate (found by id, never by search; see scripts/export_foods.py).
+ */
+type BundledRow = [number, string, string, Record<string, number>, [string, number][], (string | null)?, (string | null)?, (string | null)?, (string | null)?, number?];
 interface Bundled {
   rows: BundledRow[];
   words: string[][];
@@ -142,6 +145,7 @@ export async function searchBundled(query: string, limit = CANDIDATES): Promise<
   const db = await loadBundled();
   const hits: { row: BundledRow; score: number }[] = [];
   for (let i = 0; i < db.rows.length; i++) {
+    if (db.rows[i][9]) continue;
     const words = db.words[i];
     if (!tokens.every((t) => words.some((w) => w.startsWith(t)))) continue;
     const name = db.rows[i][1].toLowerCase();
@@ -156,21 +160,28 @@ export async function searchBundled(query: string, limit = CANDIDATES): Promise<
 interface SearchWords {
   syn: Map<string, string[]>;
   vocab: [string, number][];
+  /** Hidden duplicate id -> the food shown in its place. */
+  alias: Map<string, string>;
 }
 let searchWords: Promise<SearchWords> | null = null;
 
 function loadSearchWords(): Promise<SearchWords> {
   if (!searchWords) {
     searchWords = fetch("/foods-search.json")
-      .then((r) => (r.ok ? (r.json() as Promise<{ syn: [string, string][]; vocab: [string, number][] }>) : { syn: [], vocab: [] }))
+      .then((r) => (r.ok ? (r.json() as Promise<{ syn: [string, string][]; vocab: [string, number][]; alias?: [string, string][] }>) : { syn: [], vocab: [] }))
       .catch(() => ({ syn: [] as [string, string][], vocab: [] as [string, number][] }))
-      .then((d) => {
+      .then((d: { syn: [string, string][]; vocab: [string, number][]; alias?: [string, string][] }) => {
         const syn = new Map<string, string[]>();
         for (const [a, b] of d.syn) (syn.get(a) ?? syn.set(a, []).get(a)!).push(b);
-        return { syn, vocab: d.vocab };
+        return { syn, vocab: d.vocab, alias: new Map(d.alias ?? []) };
       });
   }
   return searchWords;
+}
+
+/** Hidden duplicate id -> the food shown in its place (empty when foods-search.json has none). */
+export async function bundledAliases(): Promise<Map<string, string>> {
+  return (await loadSearchWords()).alias;
 }
 
 /** The query with one word or two-word phrase replaced by a synonym (at most 4 variants). */

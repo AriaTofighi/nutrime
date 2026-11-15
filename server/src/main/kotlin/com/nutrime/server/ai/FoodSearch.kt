@@ -113,7 +113,7 @@ class FoodSearch(foodsDbPath: String?, private val online: Boolean, private val 
                 """
                 SELECT $COLUMNS
                 FROM food f JOIN food_fts t ON t.docid = f.id
-                WHERE food_fts MATCH ?
+                WHERE food_fts MATCH ?$shownOnly
                 ORDER BY (f.source = 'nutrime') DESC, (LOWER(f.name) LIKE ? || '%') DESC, (LOWER(f.name) LIKE '%raw%') DESC, LENGTH(f.name)
                 LIMIT ?
                 """.trimIndent()
@@ -126,7 +126,17 @@ class FoodSearch(foodsDbPath: String?, private val online: Boolean, private val 
         }
     }
 
-    /** A bundled food by app id: "usda:<fdcId>" or "nm:<key>". */
+    /** " AND f.hidden = 0" so hidden duplicates stay out of search, or "" for an older db without the column. */
+    private val shownOnly: String by lazy {
+        val conn = bundled ?: return@lazy ""
+        synchronized(conn) {
+            conn.createStatement().use { st ->
+                st.executeQuery("PRAGMA table_info(food)").use { rs -> var has = false; while (rs.next()) if (rs.getString(2) == "hidden") has = true; has }
+            }
+        }.let { if (it) " AND f.hidden = 0" else "" }
+    }
+
+    /** A bundled food by app id: "usda:<fdcId>" or "nm:<key>", hidden or not. */
     private suspend fun bundledById(id: String): Food? = withContext(Dispatchers.IO) {
         val conn = bundled ?: return@withContext null
         val (where, arg) = when {

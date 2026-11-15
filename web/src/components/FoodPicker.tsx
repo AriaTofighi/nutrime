@@ -3,6 +3,7 @@ import { RecipeIcon } from "./icons";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   allServings,
+  bundledAliases,
   byBarcode,
   defaultQuantity,
   defaultServing,
@@ -19,7 +20,7 @@ import { store, useStore } from "../lib/store";
 import type { DiaryEntry, Serving } from "../lib/types";
 import { fmtQty, isoDate, toNum } from "../lib/util";
 import { encodeProfile, parseProfile } from "../lib/profile";
-import { amountLabel, collapse, foodUsage, isComplete, parseQueryAmount, rank, servingFor, splitMoreResults, textScore, usualFor, words } from "../lib/searchRank";
+import { amountLabel, collapse, foodUsage, idsWithAliases, isComplete, parseQueryAmount, rank, servingFor, splitMoreResults, textScore, usageWithAliases, usualFor, words } from "../lib/searchRank";
 import { countryName, nameWithBrand, servingLine } from "../lib/foodNames";
 import { browserCountry } from "../lib/assistant";
 import { savedMeals, type SavedMeal } from "../lib/days";
@@ -112,6 +113,11 @@ export function FoodSearch({
   const profile = parseProfile(store.get("profile", "profile")?.json);
   const favorites = useMemo(() => new Set(profile.favoriteFoodIds), [version]);
   const usage = useMemo(() => foodUsage(store.all("diary"), isoDate()), [version]);
+  // Hidden duplicates in the bundled foods: their usage and favourites count for the food shown instead.
+  const [aliases, setAliases] = useState<Map<string, string>>(new Map());
+  useEffect(() => { bundledAliases().then(setAliases).catch(() => {}); }, []);
+  const rankUsage = useMemo(() => usageWithAliases(usage, aliases), [usage, aliases]);
+  const rankFavorites = useMemo(() => idsWithAliases(favorites, aliases), [favorites, aliases]);
 
   useEffect(() => {
     setOnline(null);
@@ -181,19 +187,19 @@ export function FoodSearch({
 
   const applyFilter = (list: Food[]) =>
     filter === "all" ? list
-      : filter === "mine" ? list.filter((f) => f.source === "Custom" || f.source === "Recipe" || usage.has(f.id))
-        : filter === "favorites" ? list.filter((f) => favorites.has(f.id))
+      : filter === "mine" ? list.filter((f) => f.source === "Custom" || f.source === "Recipe" || rankUsage.has(f.id))
+        : filter === "favorites" ? list.filter((f) => rankFavorites.has(f.id))
           : list.filter((f) => isComplete(f));
 
   // Ranked, one row per product, then Open Food Facts (unless logged or a favourite) under "More results".
   const country = useMemo(() => countryName(browserCountry()), []);
   const { main: results, more: moreResults } = useMemo(
     () => {
-      const ranked = rank([...local.foods, ...(online?.q === q ? online.foods : [])], q, { usage, meal, favorites, country, corrected: local.corrected });
-      return splitMoreResults(applyFilter(collapse(ranked, { used: usage, favorites, country })), usage, favorites);
+      const ranked = rank([...local.foods, ...(online?.q === q ? online.foods : [])], q, { usage: rankUsage, meal, favorites: rankFavorites, country, corrected: local.corrected });
+      return splitMoreResults(applyFilter(collapse(ranked, { used: rankUsage, favorites: rankFavorites, country })), rankUsage, rankFavorites);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [local, online, usage, favorites, filter, meal, q, country],
+    [local, online, rankUsage, rankFavorites, filter, meal, q, country],
   );
 
   // Before typing.

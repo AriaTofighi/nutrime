@@ -128,6 +128,10 @@ class FoodSearchViewModel(private val c: AppContainer, val meal: Int) : ViewMode
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), FoodRepository.LocalResults(emptyList()))
 
     val usage = c.diary.observeUsage().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyMap())
+
+    /** Hidden bundled duplicates: their usage and favourites count for the food shown in their place. */
+    private val aliases = MutableStateFlow<Map<String, String>>(emptyMap())
+    private val rankUsage = combine(usage, aliases) { u, a -> SearchRank.withAliases(u, a) }
     val profile = c.profiles.observe().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
     val meals = c.meals.observeAll().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     private val loggedIn = c.settings.account.map { it.loggedIn }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
@@ -151,8 +155,8 @@ class FoodSearchViewModel(private val c: AppContainer, val meal: Int) : ViewMode
      * Local and online results ranked by name match, usage, favourites and data quality, one row per
      * product, then split: Open Food Facts products (unless logged or a favourite) go under "More results".
      */
-    val results = combine(local, online, usage, profile, filter) { l, o, u, p, f ->
-        val favs = p?.favoriteFoodIds.orEmpty().toSet()
+    val results = combine(local, online, rankUsage, profile, filter) { l, o, u, p, f ->
+        val favs = SearchRank.withAliases(p?.favoriteFoodIds.orEmpty().toSet(), aliases.value)
         val text = QueryAmount.parse(query.value)?.query ?: query.value
         val ranked = SearchRank.rank(l.foods + o.orEmpty(), text, u, meal, favs, country, corrected = l.corrected)
         val collapsed = SearchRank.collapse(ranked, u.keys, favs, country)
@@ -166,6 +170,7 @@ class FoodSearchViewModel(private val c: AppContainer, val meal: Int) : ViewMode
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList<Food>() to emptyList())
 
     init {
+        viewModelScope.launch { aliases.value = runCatching { c.foods.aliases() }.getOrDefault(emptyMap()) }
         // Search online without a button press when local results are weak and typing has stopped.
         viewModelScope.launch {
             local.collect { l ->

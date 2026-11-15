@@ -84,6 +84,9 @@ class FoodRepository(
         return catalog.barcode(code)?.also { remember(it) }
     }
 
+    /** Hidden bundled duplicate id → the food shown in its place (see BundledFoodDb.aliases). */
+    suspend fun aliases(): Map<String, String> = bundled.aliases()
+
     suspend fun get(id: String): Food? {
         db.foods().get(id)?.takeIf { !it.deleted }?.let { return it.toFood() }
         cache[id]?.let { return it }

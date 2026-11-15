@@ -69,6 +69,22 @@ Exactly one of these says where the nutrients come from:
 Don't add numbers you can't point to. If USDA has no analysis of the exact food (say, jasmine rice), use the
 closest USDA food and say so in `basis`.
 
+## Duplicates
+
+The build hides duplicate rows instead of deleting them (`food.hidden = 1`), and writes `food_alias(old_id, new_id)`
+with the food shown in place of each. Search leaves hidden rows out; lookups by id still find them, so diary
+entries keep working, and the apps count a hidden food's usage and favourites for its alias. Hidden are:
+
+- a USDA row that a curated entry copies with `from` (and no `override`);
+- USDA rows with the same name and energy within 5% across layers: Foundation is kept, then SR Legacy, then
+  FNDDS, and the kept row gets the household portions it lacks. A curated food with the same name and energy
+  takes the place of the whole group;
+- an FNDDS "NS as to …" or "NFS" row whose values are a copy of exactly one specific sibling.
+
+The build also cleans USDA display names: the "(Includes foods for USDA's Food Distribution Program)" note is
+removed, and an SR Legacy name with a SHOUTED brand ("McDONALD'S, BIG MAC") gets the brand in its usual case and
+in the `brand` column. `python3 tools/update_food_db.py --duplicates` lists the same-name groups still shown.
+
 ## Adding or changing foods
 
 ```bash

@@ -16,6 +16,8 @@ import java.io.File
 /**
  * Read-only food database shipped in assets/foods.db: USDA SR Legacy, Foundation and FNDDS foods
  * ("usda:<fdcId>") and NutriMe's curated foods ("nm:<key>"). See tools/update_food_db.py.
+ * Duplicates are hidden (`food.hidden`): search leaves them out, [get] still finds them, and
+ * [aliases] names the food shown in place of each.
  */
 class BundledFoodDb(private val context: Context) {
     private val json = Json { ignoreUnknownKeys = true }
@@ -71,6 +73,31 @@ class BundledFoodDb(private val context: Context) {
 
     private fun tokens(q: String) = q.lowercase().split(Regex("[^\\p{L}\\p{N}]+")).filter { it.isNotBlank() }
 
+    /** Hidden duplicate id → the food shown in its place (foods.db `food_alias`; empty for an older db). */
+    suspend fun aliases(): Map<String, String> {
+        aliasCache?.let { return it }
+        return withContext(Dispatchers.IO) {
+            val db = open()
+            val map = if (!hasTable(db, "food_alias")) emptyMap() else db.rawQuery("SELECT old_id, new_id FROM food_alias", null).use { c ->
+                buildMap { while (c.moveToNext()) put(c.getString(0), c.getString(1)) }
+            }
+            map.also { aliasCache = it }
+        }
+    }
+
+    @Volatile private var aliasCache: Map<String, String>? = null
+    @Volatile private var hasHidden: Boolean? = null
+
+    /** " AND f.hidden = 0", or "" for an older db without the column. */
+    private fun shownOnly(db: SQLiteDatabase): String {
+        val has = hasHidden ?: db.rawQuery("PRAGMA table_info(food)", null).use { c ->
+            var found = false
+            while (c.moveToNext()) if (c.getString(1) == "hidden") found = true
+            found
+        }.also { hasHidden = it }
+        return if (has) " AND f.hidden = 0" else ""
+    }
+
     private fun hasTable(db: SQLiteDatabase, name: String): Boolean =
         db.rawQuery("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?", arrayOf(name)).use { it.moveToFirst() }
 
@@ -104,10 +131,11 @@ class BundledFoodDb(private val context: Context) {
         if (tokens.isEmpty()) return emptyList()
         val match = tokens.joinToString(" ") { "$it*" }
         val first = tokens.first()
+        val db = open()
         val sql = """
             SELECT $COLUMNS
             FROM food f JOIN food_fts t ON t.docid = f.id
-            WHERE food_fts MATCH ?
+            WHERE food_fts MATCH ?${shownOnly(db)}
             ORDER BY
               (f.source = 'nutrime') DESC,
               (LOWER(f.name) LIKE ? || '%') DESC,
@@ -115,12 +143,12 @@ class BundledFoodDb(private val context: Context) {
               LENGTH(f.name)
             LIMIT ?
         """
-        return open().rawQuery(sql, arrayOf(match, first, limit.toString())).use { c ->
+        return db.rawQuery(sql, arrayOf(match, first, limit.toString())).use { c ->
             buildList { while (c.moveToNext()) add(row(c)) }
         }
     }
 
-    /** A bundled food by app id ("usda:<fdcId>" or "nm:<key>"), or null if it isn't bundled. */
+    /** A bundled food by app id ("usda:<fdcId>" or "nm:<key>"), hidden or not, or null if it isn't bundled. */
     suspend fun get(id: String): Food? = withContext(Dispatchers.IO) {
         val (where, arg) = when {
             id.startsWith("usda:") -> "f.id = ? AND f.ref IS NULL" to (id.removePrefix("usda:").toLongOrNull() ?: return@withContext null).toString()
@@ -152,7 +180,7 @@ class BundledFoodDb(private val context: Context) {
 
     companion object {
         /** Bump when assets/foods.db is regenerated so devices re-copy it. */
-        const val ASSET_VERSION = 5
+        const val ASSET_VERSION = 6
 
         /** Candidates per search (also in web/src/lib/foods.ts). */
         const val CANDIDATES = 100

@@ -1,5 +1,5 @@
 {
-  "about": "Fixed food-search ranking cases, shared by SearchRank.kt (server/src/test/.../SharedLogicTest.kt) and searchRank.ts (web/scripts/search_rank_vectors.ts). Foods are synthetic: names like the real databases, energy in kcal per 100 g, and 'micros' = how many vitamins and minerals the food lists. For each case, the candidates are the foods whose name or brand contains at least one query word. They are ranked, collapsed (one row per product) and split into the main list and 'More results' (Open Food Facts). 'first' is the first food of the main list; 'before' pairs must keep that order in the collapsed ranking; 'hidden' foods are merged into another row; 'shown' foods must stay.",
+  "about": "Fixed food-search ranking cases, shared by SearchRank.kt (server/src/test/.../SharedLogicTest.kt) and searchRank.ts (web/scripts/search_rank_vectors.ts). Foods are synthetic: names like the real databases, energy in kcal per 100 g, and 'micros' = how many vitamins and minerals the food lists. For each case, the candidates are the foods whose name or brand contains at least one query word. They are ranked, collapsed (one row per product) and split into the main list and 'More results' (Open Food Facts). 'first' is the first food of the main list; 'before' pairs must keep that order in the collapsed ranking; 'hidden' foods are merged into another row; 'shown' foods must stay. A NutriMe food takes in USDA rows of the same product (same cleaned name, energy within 5%) unless one of those is used or a favourite and the NutriMe food is not.",
   "foods": [
     { "id": "off:0001", "source": "OPEN_FOOD_FACTS", "name": "Chicken tenderloin", "brand": "Kirkland Signature", "kcal": 110, "micros": 0, "servings": [["112 g", 112]], "countries": ["united-states"] },
     { "id": "off:0002", "source": "OPEN_FOOD_FACTS", "name": "Chicken tenderloin", "kcal": 120, "micros": 0 },
@@ -51,7 +51,14 @@
     { "id": "custom:oats-mine", "source": "CUSTOM", "name": "My overnight oats", "kcal": 150, "micros": 0 },
     { "id": "off:0040", "source": "OPEN_FOOD_FACTS", "name": "Quick oats", "brand": "Quaker", "kcal": 375, "micros": 3 },
     { "id": "off:0041", "source": "OPEN_FOOD_FACTS", "name": "QUICK OATS", "brand": "Quaker", "kcal": 379, "micros": 0 },
-    { "id": "usda:173904", "source": "USDA", "name": "Cereals, oats, regular and quick, not fortified, dry", "category": "Breakfast Cereals", "kcal": 379, "micros": 25 }
+    { "id": "usda:173904", "source": "USDA", "name": "Cereals, oats, regular and quick, not fortified, dry", "category": "Breakfast Cereals", "kcal": 379, "micros": 25 },
+
+    { "id": "nm:mango-raw", "source": "NUTRIME", "name": "Mango, raw", "kcal": 60, "micros": 30, "servings": [["1 cup, pieces", 165]] },
+    { "id": "usda:2709242", "source": "USDA", "name": "Mango, raw", "category": "Fruits", "kcal": 60, "micros": 28, "servings": [["1 mango", 207]] },
+    { "id": "usda:169910", "source": "USDA", "name": "Mangos, raw", "category": "Fruits and Fruit Juices", "kcal": 61, "micros": 30, "servings": [["1 cup, pieces", 165]] },
+    { "id": "usda:2709250", "source": "USDA", "name": "Mango, dried", "category": "Fruits", "kcal": 319, "micros": 20 },
+    { "id": "off:0060", "source": "OPEN_FOOD_FACTS", "name": "Mango, raw", "kcal": 60, "micros": 0 },
+    { "id": "usda:170500", "source": "USDA", "name": "Cracker Barrel, chicken tenderloin platter, fried", "brand": "Cracker Barrel", "category": "Restaurant Foods", "kcal": 240, "micros": 20 }
   ],
   "cases": [
     {
@@ -78,10 +85,11 @@
       "first": "nm:chicken-breast-raw",
       "before": [
         ["nm:chicken-breast-raw", "usda:2706000"],
-        ["usda:2646170", "usda:2706000"],
         ["usda:171477", "usda:170999"]
       ],
-      "moreResults": ["off:0010"]
+      "hidden": ["usda:2646170"],
+      "moreResults": ["off:0010"],
+      "note": "The USDA row with the same name and energy as a NutriMe food is merged into it."
     },
     {
       "query": "greek yogurt",
@@ -140,6 +148,32 @@
     {
       "query": "oats",
       "shown": ["custom:oats-mine", "usda:173904"]
+    },
+    {
+      "query": "mango",
+      "first": "nm:mango-raw",
+      "hidden": ["usda:2709242", "usda:169910"],
+      "shown": ["usda:2709250", "off:0060"],
+      "note": "USDA rows of the NutriMe food's product are merged into it; Open Food Facts and other products are not."
+    },
+    {
+      "query": "mango",
+      "usage": { "usda:2709242": 5 },
+      "first": "usda:2709242",
+      "hidden": ["nm:mango-raw", "usda:169910"],
+      "note": "A logged USDA row stays the row kept; the NutriMe food the user never logged is merged into it."
+    },
+    {
+      "query": "mango",
+      "usage": { "usda:2709242": 5 },
+      "favorites": ["nm:mango-raw"],
+      "shown": ["nm:mango-raw", "usda:2709242"],
+      "note": "Two foods the user logged or made a favourite are never merged."
+    },
+    {
+      "query": "cracker barrel tenderloin",
+      "before": [["usda:170500", "usda:170002"], ["usda:170500", "nm:chicken-tenderloin-raw"]],
+      "note": "A SR Legacy restaurant row with its brand in the brand field: brand words count when the query names them."
     }
   ]
 }

@@ -47,8 +47,8 @@ export function matchedWords(q: string[], f: Food): number {
 export const sameWord = (t: string, w: string) => singular(t) === singular(w);
 
 /**
- * Name words that count for the fit, each once: brand words, details in brackets, and descriptors that
- * plain foods carry ("raw", "cooked", "no added fat") are left out unless the query has them.
+ * Name words that count for the fit, each once: details in brackets are left out, and brand words and
+ * descriptors that plain foods carry ("raw", "cooked", "no added fat") are left out unless the query has them.
  */
 const NEUTRAL = new Set(["raw", "fresh", "plain", "whole", "nfs", "ns", "cooked", "boiled", "unsalted", "without", "salt", "no", "added", "fat", "prepared", "unprepared", "regular"]);
 /** The name without details in brackets: "Salmon (Atlantic, farmed), raw" → "Salmon, raw". */
@@ -56,7 +56,7 @@ const withoutBrackets = (name: string) => name.replace(/\([^)]*\)/g, " ");
 function fitWords(name: string, brand: string | undefined, q: string[]): string[] {
   const b = new Set(words(brand ?? "").map(singular));
   const all = [...new Set(words(withoutBrackets(name)).map(singular))];
-  const kept = all.filter((w) => !b.has(w) && (!NEUTRAL.has(w) || q.some((t) => sameWord(t, w))));
+  const kept = all.filter((w) => (!b.has(w) && !NEUTRAL.has(w)) || q.some((t) => sameWord(t, w)));
   return kept.length ? kept : all;
 }
 
@@ -169,7 +169,8 @@ export function rank(foods: Food[], query: string, o: RankOptions): Food[] {
     .map((x) => x.f);
 }
 
-const LOCAL_SOURCES = new Set(["Custom", "Recipe", "NutriMe"]);
+const LOCAL_SOURCES = new Set(["Custom", "Recipe"]);
+const USDA_SOURCES = new Set(["USDA", "USDA Branded"]);
 const sameEnergy = (a: number, b: number) => Math.abs(a - b) <= 0.05 * Math.max(Math.abs(a), Math.abs(b));
 const productKey = (f: Food) => words(displayName(f.name, f.brand)).map(singular).join(" ") + "|" + words(f.brand ?? "").join(" ");
 
@@ -184,22 +185,29 @@ export interface CollapseOptions {
  * One row per product: foods in rank order with the same cleaned name and brand and energy within 5%
  * are one product. The row kept (at the place of the best-ranked one) is the user's own or used food,
  * then a favourite, then the one with more nutrients, with a serving, sold in the user's country.
- * Custom, recipe and NutriMe foods are never merged, and a food the user logged or made a favourite
- * is never hidden.
+ * A NutriMe food takes in USDA and USDA Branded rows of the same product and is the row kept, unless
+ * one of those is used or a favourite and the NutriMe food is not. Custom and recipe foods are never
+ * merged, two NutriMe foods are never merged, and a food the user logged or made a favourite is never
+ * hidden behind another logged or favourite food.
  */
 export function collapse(ranked: Food[], o: CollapseOptions): Food[] {
   const kept = (f: Food) => o.used.has(f.id) || o.favorites.has(f.id);
-  const groups: { key: string; kcal: number; members: Food[] }[] = [];
+  type Group = { key: string; kcal: number; members: Food[] };
+  const accepts = (g: Group, f: Food) =>
+    f.source === "NutriMe" ? g.members.every((m) => USDA_SOURCES.has(m.source)) : g.members.some((m) => m.source === "NutriMe") ? USDA_SOURCES.has(f.source) : true;
+  const groups: Group[] = [];
   for (const f of ranked) {
     const kcal = f.nutrients[N.ENERGY] ?? 0;
     if (LOCAL_SOURCES.has(f.source)) { groups.push({ key: "", kcal, members: [f] }); continue; }
     const key = productKey(f);
-    const g = groups.find((x) => x.key === key && sameEnergy(x.kcal, kcal) && !(kept(f) && x.members.some(kept)));
+    const g = groups.find((x) => x.key === key && x.key !== "" && sameEnergy(x.kcal, kcal) && accepts(x, f) && !(kept(f) && x.members.some(kept)));
     if (g) g.members.push(f);
     else groups.push({ key, kcal, members: [f] });
   }
   const tie = (f: Food) => [o.used.has(f.id) ? 1 : 0, o.favorites.has(f.id) ? 1 : 0, Object.keys(f.nutrients).length, f.servings.length ? 1 : 0, o.country && f.countries?.includes(o.country) ? 1 : 0];
   return groups.map((g) => {
+    const nutriMe = g.members.find((m) => m.source === "NutriMe");
+    if (nutriMe && (kept(nutriMe) || !g.members.some(kept))) return nutriMe;
     let best = g.members[0];
     for (const f of g.members.slice(1)) {
       const a = tie(f), b = tie(best);
@@ -208,6 +216,35 @@ export function collapse(ranked: Food[], o: CollapseOptions): Food[] {
     }
     return best;
   });
+}
+
+/**
+ * Usage for ranking when the bundled database hides duplicates: each hidden food's usage
+ * (foods.db `food_alias`, old id → new id) also counts for the food shown in its place.
+ */
+export function usageWithAliases(usage: Map<string, FoodUsage>, aliases: Map<string, string>): Map<string, FoodUsage> {
+  if (!aliases.size) return usage;
+  const out = new Map(usage);
+  for (const [id, u] of usage) {
+    const to = aliases.get(id);
+    if (!to) continue;
+    const other = out.get(to);
+    if (!other) { out.set(to, { ...u, foodId: to }); continue; }
+    const recent = u.daysSince < other.daysSince ? u : other;
+    out.set(to, {
+      foodId: to, count: other.count + u.count, daysSince: Math.min(other.daysSince, u.daysSince),
+      byMeal: other.byMeal.map((n, i) => n + (u.byMeal[i] ?? 0)), last: recent.last,
+    });
+  }
+  return out;
+}
+
+/** Favourite ids plus the foods shown in place of hidden favourites. */
+export function idsWithAliases(ids: Set<string>, aliases: Map<string, string>): Set<string> {
+  if (!aliases.size) return ids;
+  const out = new Set(ids);
+  for (const id of ids) { const to = aliases.get(id); if (to) out.add(to); }
+  return out;
 }
 
 /**

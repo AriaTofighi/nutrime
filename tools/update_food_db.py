@@ -13,6 +13,12 @@ ids already in people's diaries stay valid. This script replaces two layers on t
   is derived from a USDA food, a recipe of USDA foods, or a package label, and is validated here.
 
 Curated foods get stable string ids ("nm:<key>") stored in the `ref` column; USDA rows keep "usda:<id>".
+
+Duplicates are hidden, never deleted (see plan_hidden): `food.hidden = 1` keeps a row out of search, and
+`food_alias(old_id, new_id)` names the food shown in its place. Lookups by id still find hidden rows, so
+diary entries keep working; the apps count a hidden food's usage for its alias.
+
+    python3 tools/update_food_db.py --duplicates   # list the duplicate groups still shown in search
 """
 import argparse
 import csv
@@ -223,6 +229,7 @@ def curated_rows(base, usda):
             lab = e["label"]
             servings.insert(0, {"label": lab.get("serving_label") or "serving", "g": lab["serving_g"]})
         rows.append({
+            "from": e["from"]["fdc"] if "from" in e and not e["from"].get("override") else None,
             "ref": "nm:" + e["key"], "name": e["name"], "brand": e.get("brand"), "barcode": e.get("barcode"),
             "category": e.get("category", ""), "keywords": " ".join(e.get("aliases", [])),
             "nutrients": {k: v for k, v in n.items() if v is not None},
@@ -240,7 +247,10 @@ def ensure_schema(db):
     for col in ("ref", "brand", "barcode", "keywords"):
         if col not in cols:
             db.execute(f"ALTER TABLE food ADD COLUMN {col} TEXT")
+    if "hidden" not in cols:
+        db.execute("ALTER TABLE food ADD COLUMN hidden INTEGER NOT NULL DEFAULT 0")
     db.execute("CREATE INDEX IF NOT EXISTS food_ref ON food(ref)")
+    db.execute("CREATE TABLE IF NOT EXISTS food_alias(old_id TEXT PRIMARY KEY, new_id TEXT NOT NULL)")
 
 
 def usda_foods(db):
@@ -254,15 +264,241 @@ def nutrients_json(n):
     return json.dumps({str(k): fmt(v) for k, v in sorted(n.items())}, separators=(",", ":"))
 
 
+# ---------------------------------------------------------------------------------------------
+# Name cleanup (USDA rows): display names only, ids never change
+# ---------------------------------------------------------------------------------------------
+
+FDP = " (Includes foods for USDA's Food Distribution Program)"
+
+# SR Legacy names that start with a SHOUTED brand ("McDONALD'S, BIG MAC"): the lead as it is shown, and
+# the brand stored in `brand`. Written by hand, because title case gets many of them wrong (KFC,
+# Chick-fil-A, McDonald's) and one is misspelt in the source (WEND'YS).
+SHOUTED_BRANDS = {
+    "APPLEBEE'S": ("Applebee's", "Applebee's"), "ARBY'S": ("Arby's", "Arby's"), "BANQUET": ("Banquet", "Banquet"),
+    "BURGER KING": ("Burger King", "Burger King"), "CAMPBELL'S CHUNKY": ("Campbell's Chunky", "Campbell's"),
+    "CAMPBELL'S": ("Campbell's", "Campbell's"), "CARRABBA'S ITALIAN GRILL": ("Carrabba's Italian Grill", "Carrabba's Italian Grill"),
+    "CHICK-FIL-A": ("Chick-fil-A", "Chick-fil-A"), "CRACKER BARREL": ("Cracker Barrel", "Cracker Barrel"),
+    "DENNY'S": ("Denny's", "Denny's"), "DIGIORNO": ("DiGiorno", "DiGiorno"), "DOMINO'S": ("Domino's", "Domino's"),
+    "HORMEL ALWAYS TENDER": ("Hormel Always Tender", "Hormel"), "HORMEL": ("Hormel", "Hormel"),
+    "HOT POCKETS": ("Hot Pockets", "Hot Pockets"), "HOUSE FOODS": ("House Foods", "House Foods"),
+    "HUNGRY MAN": ("Hungry Man", "Hungry Man"), "JIMMY DEAN": ("Jimmy Dean", "Jimmy Dean"), "KFC": ("KFC", "KFC"),
+    "KRAFT BREAKSTONE'S FREE": ("Kraft Breakstone's Free", "Kraft"), "KRAFT BREAKSTONE'S": ("Kraft Breakstone's", "Kraft"),
+    "KRAFT CHEEZ WHIZ LIGHT": ("Kraft Cheez Whiz Light", "Kraft"), "KRAFT CHEEZ WHIZ": ("Kraft Cheez Whiz", "Kraft"),
+    "KRAFT FREE": ("Kraft Free", "Kraft"), "KRAFT VELVEETA LIGHT": ("Kraft Velveeta Light", "Kraft"),
+    "KRAFT VELVEETA": ("Kraft Velveeta", "Kraft"), "LEAN POCKETS": ("Lean Pockets", "Lean Pockets"),
+    "LITTLE CAESARS": ("Little Caesars", "Little Caesars"), "MORI-NU": ("Mori-Nu", "Mori-Nu"),
+    "McDONALD'S": ("McDonald's", "McDonald's"), "OLIVE GARDEN": ("Olive Garden", "Olive Garden"),
+    "ON THE BORDER": ("On The Border", "On The Border"), "PAPA JOHN'S": ("Papa John's", "Papa John's"),
+    "PIZZA HUT": ("Pizza Hut", "Pizza Hut"), "POPEYES": ("Popeyes", "Popeyes"), "RICE-A-RONI": ("Rice-A-Roni", "Rice-A-Roni"),
+    "SCHIFF": ("Schiff", "Schiff"), "SILK": ("Silk", "Silk"), "SMART SOUP": ("Smart Soup", "Smart Soup"),
+    "SUBWAY": ("Subway", "Subway"), "T.G.I. FRIDAY'S": ("T.G.I. Friday's", "T.G.I. Friday's"),
+    "TACO BELL": ("Taco Bell", "Taco Bell"), "WEND'YS": ("Wendy's", "Wendy's"), "WENDY'S": ("Wendy's", "Wendy's"),
+}
+
+
+def clean_name(name):
+    """(name, brand or None) for one SR Legacy row: no Food Distribution Program note, a SHOUTED brand lead
+    in its usual case. Running it again on its own output changes nothing."""
+    name = name.replace(FDP, "")
+    for lead in sorted(SHOUTED_BRANDS, key=len, reverse=True):
+        shown, brand = SHOUTED_BRANDS[lead]
+        for old in (lead, shown):
+            if name.startswith(old) and name[len(old):len(old) + 1] in (",", " "):
+                return shown + name[len(old):], brand
+    return name, None
+
+
+def name_changes(db):
+    """[(id, name, brand)] for SR Legacy rows whose stored name or brand differs from clean_name."""
+    out = []
+    for fid, name, brand in db.execute("SELECT id, name, brand FROM food WHERE source = 'sr_legacy'"):
+        new, new_brand = clean_name(name)
+        if (new, new_brand) != (name, brand):
+            out.append((fid, new, new_brand))
+    return out
+
+
+# ---------------------------------------------------------------------------------------------
+# Duplicates: hidden rows and aliases
+# ---------------------------------------------------------------------------------------------
+
+import re  # noqa: E402
+
+LAYER = {"foundation": 0, "sr_legacy": 1, "fndds": 2}
+NS = re.compile(r"^(ns as to .*|nfs)$")
+# Nutrients that must be equal (within 1%) for an "NS as to" / "NFS" row to count as a copy of its sibling.
+KEY_NUTRIENTS = (1008, 1003, 1004, 1005, 1093)
+
+
+def norm_name(name):
+    return " ".join(re.findall(r"[a-z0-9]+", name.replace(FDP, "").lower()))
+
+
+def within(a, b, share):
+    return abs(a - b) <= share * max(abs(a), abs(b))
+
+
+def word_set(s):
+    return set(re.findall(r"[a-z0-9]+", s.lower()))
+
+
+def plan_hidden(db, curated):
+    """Which USDA rows to hide, their aliases, and portions to merge into kept rows.
+
+    1. A USDA row that a curated entry copies (`from` without `override`) is hidden behind the curated food.
+       When several curated entries copy the same row, the alias goes to the one whose name shares the most
+       words with the USDA name; on a tie there is no alias (the row is still hidden).
+    2. USDA rows with the same name (lowercase, letters and digits only) and energy within 5% of the kept
+       row are one food across layers. The kept row is Foundation, then SR Legacy, then FNDDS; it gets the
+       household portions of the others that it lacks. If a curated entry copies any row of the group, or a
+       curated food has the same name and energy within 5%, the whole group is hidden behind that curated food.
+    3. An FNDDS "NS as to …" / "NFS" row is hidden only when exactly one sibling has the same name with that
+       part made specific ("Rice, white, cooked, NS as to fat" -> "Rice, white, cooked, no added fat") and the
+       same energy, protein, fat, carbohydrate and sodium (FNDDS gives such a row its default's values).
+
+    Returns (hidden ids, {old app id: new app id}, {kept id: portions}). Aliases point at a shown food.
+    """
+    rows = {fid: {"name": name, "source": src, "n": {int(k): v for k, v in json.loads(n).items()}, "p": json.loads(p)}
+            for fid, name, src, n, p in db.execute("SELECT id, name, source, nutrients, portions FROM food WHERE source != 'nutrime'")}
+    copies = {}
+    for r in curated:
+        if r.get("from") is not None:
+            copies.setdefault(r["from"], []).append(r)
+    target = {}  # usda id -> curated app id (or None: hidden without alias)
+    for fid, rs in copies.items():
+        if fid not in rows:
+            continue
+        words = word_set(rows[fid]["name"])
+        scored = sorted(((len(words & word_set(r["name"])) / len(words | word_set(r["name"])), r["ref"]) for r in rs), reverse=True)
+        tie = len(scored) > 1 and scored[0][0] == scored[1][0]
+        target[fid] = None if tie else scored[0][1]
+
+    hidden, alias, merged = set(), {}, {}
+    uid = lambda fid: f"usda:{fid}"  # noqa: E731
+    for fid, t in target.items():
+        hidden.add(fid)
+        if t:
+            alias[uid(fid)] = t
+
+    groups = {}
+    for fid, r in rows.items():
+        groups.setdefault(norm_name(r["name"]), []).append(fid)
+    named = {}  # curated foods by the same name comparison: they lead their group
+    for r in curated:
+        named.setdefault(norm_name(r["name"]), []).append(r)
+    for key, ids in groups.items():
+        if len(ids) + len(named.get(key, [])) < 2:
+            continue
+        ids.sort(key=lambda i: (LAYER.get(rows[i]["source"], 9), i))
+        clusters = [[r] for r in named.get(key, [])]
+        kcal_of = lambda x: x["nutrients"].get(1008, 0.0) if isinstance(x, dict) else rows[x]["n"].get(1008, 0.0)  # noqa: E731
+        for i in ids:
+            kcal = rows[i]["n"].get(1008, 0.0)
+            c = next((c for c in clusters if within(kcal_of(c[0]), kcal, 0.05)), None)
+            if c is None:
+                clusters.append([i])
+            else:
+                c.append(i)
+        for c in clusters:
+            if len(c) < 2:
+                continue
+            copied = [i for i in c if not isinstance(i, dict) and i in target]
+            if isinstance(c[0], dict) or copied:
+                t = c[0]["ref"] if isinstance(c[0], dict) else target[copied[0]]
+                c = [i for i in c if not isinstance(i, dict)]
+                for i in c:
+                    hidden.add(i)
+                    if t:
+                        alias[uid(i)] = t
+                continue
+            keep, rest = c[0], c[1:]
+            portions = list(rows[keep]["p"])
+            labels = {same(x["l"]) for x in portions}
+            for i in rest:
+                hidden.add(i)
+                alias[uid(i)] = uid(keep)
+                for x in rows[i]["p"]:
+                    if same(x["l"]) not in labels:
+                        labels.add(same(x["l"]))
+                        portions.append(x)
+            if portions != rows[keep]["p"]:
+                merged[keep] = portions
+
+    by_lead = {}
+    for fid, r in rows.items():
+        if r["source"] == "fndds":
+            by_lead.setdefault(r["name"].split(",")[0].strip().lower(), []).append(fid)
+    for fid, r in rows.items():
+        if r["source"] != "fndds" or fid in hidden:
+            continue
+        segs = [x.strip().lower() for x in r["name"].split(",")]
+        unspecified = [x for x in segs if NS.match(x)]
+        if not unspecified:
+            continue
+        base = [x for x in segs if not NS.match(x)]
+        sibs = []
+        for o in by_lead[segs[0]]:
+            os_ = [x.strip().lower() for x in rows[o]["name"].split(",")]
+            if o == fid or any(NS.match(x) for x in os_) or len(os_) != len(segs) or not all(b in os_ for b in base):
+                continue
+            if all(within(rows[o]["n"].get(k, 0.0), r["n"].get(k, 0.0), 0.01) or abs(rows[o]["n"].get(k, 0.0) - r["n"].get(k, 0.0)) < 0.5
+                   for k in KEY_NUTRIENTS):
+                sibs.append(o)
+        if len(sibs) == 1:
+            hidden.add(fid)
+            alias[uid(fid)] = uid(sibs[0])
+
+    # Follow chains (a row aliased to a row that is itself hidden) to a shown food.
+    def resolve(a, seen=()):
+        nxt = alias.get(a)
+        return a if nxt is None or a in seen else resolve(nxt, seen + (a,))
+    alias = {k: resolve(v) for k, v in alias.items()}
+    alias = {k: v for k, v in alias.items() if not (v.startswith("usda:") and int(v[5:]) in hidden)}
+    return hidden, alias, merged
+
+
+def apply_hidden(db, hidden, alias, merged):
+    db.execute("UPDATE food SET hidden = 0 WHERE hidden != 0")
+    db.executemany("UPDATE food SET hidden = 1 WHERE id = ?", [(i,) for i in sorted(hidden)])
+    db.executemany("UPDATE food SET portions = ? WHERE id = ?",
+                   [(json.dumps(p, separators=(",", ":")), i) for i, p in sorted(merged.items())])
+    db.execute("DELETE FROM food_alias")
+    db.executemany("INSERT INTO food_alias VALUES (?, ?)", sorted(alias.items()))
+
+
+def duplicate_groups(db, shown_only=True):
+    """Groups of rows still shown in search with the same name (as plan_hidden compares names)."""
+    has_hidden = "hidden" in {r[1] for r in db.execute("PRAGMA table_info(food)")}
+    where = " WHERE hidden = 0" if shown_only and has_hidden else ""
+    groups = {}
+    for fid, name, src, kcal in db.execute(f"SELECT id, name, source, json_extract(nutrients, '$.1008') FROM food{where}"):
+        groups.setdefault(norm_name(name), []).append((fid, name, src, kcal))
+    return {k: v for k, v in groups.items() if len(v) > 1}
+
+
+def print_duplicates(db):
+    groups = duplicate_groups(db)
+    near = {k: v for k, v in groups.items() if all(within(v[0][3] or 0, x[3] or 0, 0.05) for x in v)}
+    print(f"{len(groups)} name groups still shown ({sum(len(v) for v in groups.values())} rows); "
+          f"{len(near)} of them with energy within 5% ({sum(len(v) for v in near.values())} rows)")
+    for k in sorted(groups):
+        print("  " + "; ".join(f"{src} {fid} {kcal:g} kcal" if kcal is not None else f"{src} {fid}" for fid, _n, src, kcal in groups[k])
+              + f"  <- {groups[k][0][1]}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--fndds", help="extracted FNDDS CSV folder (FoodData_Central_survey_food_csv_*)")
     ap.add_argument("--curated", default=DEFAULT_CURATED)
     ap.add_argument("--db", default=DEFAULT_DB)
     ap.add_argument("--check", action="store_true", help="validate curated foods and check the db already has them (no writes)")
+    ap.add_argument("--duplicates", action="store_true", help="list duplicate groups still shown in search (no writes)")
     args = ap.parse_args()
 
     db = sqlite3.connect(args.db)
+    if args.duplicates:
+        print_duplicates(db)
+        return
     if not args.check:
         ensure_schema(db)
     if args.fndds:
@@ -278,6 +514,11 @@ def main():
                 [(r["id"], r["name"], r["category"], "fndds", nutrients_json(r["nutrients"]),
                   json.dumps(r["portions"], separators=(",", ":"))) for r in fndds])
             print(f"FNDDS: {len(fndds)} foods")
+
+    if not args.check:
+        changes = name_changes(db)
+        db.executemany("UPDATE food SET name = ?, brand = ? WHERE id = ?", [(n, b, i) for i, n, b in changes])
+        print(f"USDA names cleaned: {len(changes)}")
 
     rows, errors = curated_rows(args.curated, usda_foods(db))
     if errors:
@@ -295,6 +536,17 @@ def main():
             sys.exit(f"{args.db} is out of date for {len(stale)} curated foods (e.g. {stale[:3]}). "
                      "Run: python3 tools/update_food_db.py")
         print(f"{len(rows)} curated foods OK and bundled")
+        if name_changes(db):
+            sys.exit("foods.db has USDA names that are not cleaned. Run: python3 tools/update_food_db.py")
+        cols = {r[1] for r in db.execute("PRAGMA table_info(food)")}
+        tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type = 'table'")}
+        if "hidden" not in cols or "food_alias" not in tables:
+            sys.exit("foods.db has no hidden column or food_alias table. Run: python3 tools/update_food_db.py")
+        hidden, alias, merged = plan_hidden(db, rows)
+        if merged or {r[0] for r in db.execute("SELECT id FROM food WHERE hidden != 0")} != hidden \
+                or dict(db.execute("SELECT old_id, new_id FROM food_alias").fetchall()) != alias:
+            sys.exit("foods.db hidden duplicates are out of date. Run: python3 tools/update_food_db.py")
+        print(f"duplicates OK: {len(hidden)} hidden, {len(alias)} aliases")
         check_search_words(db)
         return
 
@@ -305,6 +557,13 @@ def main():
           json.dumps(r["portions"], separators=(",", ":")), r["ref"], r["brand"], r["barcode"], r["keywords"] or None)
          for i, r in enumerate(sorted(rows, key=lambda r: r["ref"]))])
     print(f"NutriMe curated: {len(rows)} foods")
+
+    before = duplicate_groups(db, shown_only=False)
+    hidden, alias, merged = plan_hidden(db, rows)
+    apply_hidden(db, hidden, alias, merged)
+    after = duplicate_groups(db)
+    print(f"duplicates: {len(hidden)} rows hidden, {len(alias)} aliases, portions merged into {len(merged)} rows; "
+          f"same-name groups {len(before)} -> {len(after)}")
 
     # Search index: name, plus brand and aliases for curated foods.
     db.execute("DROP TABLE IF EXISTS food_fts")
@@ -337,11 +596,12 @@ def synonym_pairs(path=SYNONYMS):
 
 
 def vocabulary(db):
-    """Each search word of 4+ letters and how many foods contain it (for typing-error correction)."""
+    """Each search word of 4+ letters and how many shown foods contain it (for typing-error correction)."""
     import re
     word = re.compile(r"[^\W_]+", re.UNICODE)
     counts = {}
-    for name, keywords, brand in db.execute("SELECT name, keywords, brand FROM food"):
+    has_hidden = "hidden" in {r[1] for r in db.execute("PRAGMA table_info(food)")}
+    for name, keywords, brand in db.execute("SELECT name, keywords, brand FROM food" + (" WHERE hidden = 0" if has_hidden else "")):
         words = {w for w in word.findall(f"{name} {keywords or ''} {brand or ''}".lower()) if len(w) >= 4 and not w.isdigit()}
         for w in words:
             counts[w] = counts.get(w, 0) + 1
