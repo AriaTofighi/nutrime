@@ -68,6 +68,11 @@ Exactly one of these says where the nutrients come from:
    it was read). Needs a `brand`. Use the Canadian page for Canadian menus: recipes differ by country.
    A recipe written by NutriMe (typical amounts, not a measured dish) is a `recipe`, and its `basis` says so.
 
+   **No published weight.** Many restaurant guides give values per "1 donut" or "Medium" with no weight. For such
+   a food, leave out `serving_g`, give a `serving_label`, and end the `key` in `-serving`. The apps then offer
+   only that serving (never grams or ounces) and don't show a weight (`Food.servingOnly`). Never guess a weight.
+   One food per size: sizes can't share a food when there is no weight to scale by.
+
 ## Rules (checked by the build)
 
 - Every entry has a `basis`, and it doesn't start with "TODO".

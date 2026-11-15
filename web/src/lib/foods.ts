@@ -39,7 +39,15 @@ export function isLabelOnly(f: Food): boolean {
   return Object.keys(f.nutrients).filter((k) => !LABEL_NUTRIENTS.has(Number(k))).length < 12;
 }
 
+/**
+ * True for a curated food whose source gives no weight (a restaurant's "1 donut" or "Medium"): its id ends in
+ * "-serving". It is logged only by its own serving; the serving's grams are a nominal amount and are never shown.
+ */
+export const servingOnly = (f: { id: string; servings: Serving[] }): boolean =>
+  f.id.startsWith("nm:") && f.id.endsWith("-serving") && f.servings.length > 0;
+
 export function allServings(f: Food): Serving[] {
+  if (servingOnly(f)) return [...f.servings];
   const out = [...f.servings];
   if (!out.some((s) => s.label === "g")) out.push({ label: "g", grams: 1 });
   if (!out.some((s) => s.label === "oz")) out.push({ label: "oz", grams: 28.3495 });

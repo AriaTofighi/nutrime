@@ -131,6 +131,15 @@ def load_curated(base):
     return entries
 
 
+# A food whose source gives no weight ("1 donut", "Medium"): its key ends in "-serving", and the apps then
+# offer only its own serving, never grams (Food.servingOnly). Nutrients are stored for this nominal weight.
+SERVING_ONLY_G = 1000.0
+
+
+def serving_only(entry):
+    return str(entry.get("key", "")).endswith("-serving") and ("label" in entry or "published" in entry)
+
+
 def resolve(entry, usda):
     """Per-100 g nutrients for one curated entry, from its `from`, `recipe` or `label` basis."""
     kinds = [k for k in ("from", "recipe", "label", "published") if k in entry]
@@ -174,8 +183,15 @@ def resolve(entry, usda):
     else:
         lab = entry["label"]
     g = lab.get("serving_g")
-    if not g or g <= 0:
-        raise Invalid("label needs serving_g")
+    if serving_only(entry):
+        # The source gives no weight: the food is stored per serving, at a nominal weight that is never shown.
+        if g is not None:
+            raise Invalid("a key ending in -serving is for a food with no published weight: leave out serving_g")
+        if not lab.get("serving_label"):
+            raise Invalid("a food with no published weight needs serving_label")
+        g = SERVING_ONLY_G
+    elif not g or g <= 0:
+        raise Invalid("label needs serving_g (or, when the source gives no weight, a key ending in -serving)")
     if "calories" not in lab:
         raise Invalid("label needs calories")
     unknown = set(lab) - set(LABEL) - {"serving_label", "serving_g"}
@@ -202,6 +218,8 @@ def validate(entry, n):
     # Labels round, and fiber/sugar alcohols count less than 4 kcal/g, so allow some slack.
     if kcal > 20 and abs(atwater - kcal) > max(20, 0.15 * kcal):
         raise Invalid(f"{kcal:.0f} kcal per 100 g but macros add up to {atwater:.0f}")
+    if serving_only(entry) and entry.get("servings"):
+        raise Invalid("a food with no published weight can't have other servings")
     for s in entry.get("servings", []):
         if not s.get("label") or not 0 < s.get("g", 0) <= 2000:
             raise Invalid(f"bad serving {s}")
@@ -239,7 +257,8 @@ def curated_rows(base, usda):
             servings += [{"label": p["l"], "g": p["g"]} for p in usda[e["from"]["fdc"]][1] if same(p["l"]) not in labels]
         if "label" in e or "published" in e:
             lab = e.get("label") or e["published"]
-            servings.insert(0, {"label": lab.get("serving_label") or "serving", "g": lab["serving_g"]})
+            servings.insert(0, {"label": lab.get("serving_label") or "serving",
+                                "g": SERVING_ONLY_G if serving_only(e) else lab["serving_g"]})
         rows.append({
             "from": e["from"]["fdc"] if "from" in e and not e["from"].get("override") else None,
             "ref": "nm:" + e["key"], "name": e["name"], "brand": e.get("brand"), "barcode": e.get("barcode"),

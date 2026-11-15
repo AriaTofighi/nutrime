@@ -91,11 +91,13 @@ object FoodNames {
         return if (r % 1.0 == 0.0) r.toLong().toString() else r.toString()
     }
 
-    /** The grey line under a result row's name: the default serving and its weight ("1 container - 170 g"), or "100 g". */
+    /** The grey line under a result row's name: the default serving and its weight ("1 container - 170 g"), or "100 g".
+     * A [Food.servingOnly] food shows its serving alone ("1 donut"). */
     fun servingLine(food: Food): String {
         val s = food.servings.firstOrNull() ?: return "100 g"
         val weight = grams(s.grams) + " g"
         val label = s.label.trim()
+        if (food.servingOnly) return if (label.firstOrNull()?.isDigit() == true) label else "1 $label"
         if (label == "g" || label.equals(weight, ignoreCase = true)) return weight
         return (if (label.firstOrNull()?.isDigit() == true) label else "1 $label") + " - " + weight
     }

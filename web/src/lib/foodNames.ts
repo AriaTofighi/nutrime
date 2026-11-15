@@ -74,11 +74,12 @@ export function nameWithBrand(name: string, brand?: string | null): string {
 export const gramsText = (g: number) => String(Math.round(g * 10) / 10);
 
 /** The grey line under a result row's name: the default serving and its weight ("1 container - 170 g"), or "100 g". */
-export function servingLine(servings: { label: string; grams: number }[]): string {
+export function servingLine(servings: { label: string; grams: number }[], servingOnly = false): string {
   const s = servings[0];
   if (!s) return "100 g";
   const weight = `${gramsText(s.grams)} g`;
   const label = s.label.trim();
+  if (servingOnly) return /^\d/.test(label) ? label : `1 ${label}`;
   if (label === "g" || label.toLowerCase() === weight.toLowerCase()) return weight;
   return (/^\d/.test(label) ? label : `1 ${label}`) + " - " + weight;
 }

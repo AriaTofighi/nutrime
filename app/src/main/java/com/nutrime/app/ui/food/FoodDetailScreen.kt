@@ -230,7 +230,7 @@ fun FoodDetailScreen(
                         textStyle = NutriTheme.type.numeric.copy(textAlign = TextAlign.Center),
                     )
                     NSelect(
-                        f.allServings, s, { if (it.label == "g") "g" else "${it.label} (${formatQty(Math.round(it.grams * 10) / 10.0)} g)" },
+                        f.allServings, s, { if (it.label == "g" || f.servingOnly) it.label else "${it.label} (${formatQty(Math.round(it.grams * 10) / 10.0)} g)" },
                         { new ->
                             // Keep the same gram amount when switching to/from raw grams.
                             if (new.label == "g" && s.label != "g" && qty != null) qtyText = formatQty(Math.round(qty * s.grams * 10) / 10.0)
@@ -251,7 +251,7 @@ fun FoodDetailScreen(
                 )
                 Spacer(Modifier.height(Space.S4))
                 MacroTiles(totals)
-                if (s.label != "g") {
+                if (s.label != "g" && f?.servingOnly != true) {
                     Text("For ${formatQty(Math.round(grams * 10) / 10.0)} g", style = NutriTheme.type.caption, color = c.textTertiary, modifier = Modifier.padding(top = Space.S3))
                 }
             }

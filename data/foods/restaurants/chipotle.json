@@ -1,0 +1,753 @@
+{
+ "about": "Chipotle Canada ingredients and sides, nutrition per portion as Chipotle publishes it on its Canadian paper menu (2025). A burrito or bowl is the sum of its parts. Drinks are left out. Rows with a \"<1\" value in a main nutrient are left out.",
+ "foods": [
+  {
+   "key": "chipotle-flour-tortilla-for-burrito-serving",
+   "name": "Flour tortilla for burrito",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 tortilla",
+    "calories": 320,
+    "fat_g": 9,
+    "saturated_fat_g": 0.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 600,
+    "carbs_g": 50,
+    "fiber_g": 3,
+    "sugars_g": 0,
+    "protein_g": 8,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Flour Tortilla (burrito)\", portion \"1 ea\", as published. Read 2026-11-15. No weight in grams is published for this portion."
+  },
+  {
+   "key": "chipotle-flour-tortilla-for-taco-serving",
+   "name": "Flour tortilla for taco",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 tortilla",
+    "calories": 80,
+    "fat_g": 2.5,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 160,
+    "carbs_g": 13,
+    "sugars_g": 0,
+    "protein_g": 2,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Flour Tortilla (taco)\", portion \"1 ea\", as published. Read 2026-11-15. No weight in grams is published for this portion."
+  },
+  {
+   "key": "chipotle-crispy-corn-tortilla-serving",
+   "name": "Crispy Corn Tortilla",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 tortilla",
+    "calories": 70,
+    "fat_g": 3,
+    "saturated_fat_g": 0.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 10,
+    "fiber_g": 1,
+    "sugars_g": 0,
+    "protein_g": 1,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Crispy Corn Tortilla\", portion \"1 ea\", as published. Read 2026-11-15. No weight in grams is published for this portion."
+  },
+  {
+   "key": "chipotle-cilantro-lime-brown-rice",
+   "name": "Cilantro-Lime Brown Rice",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 210,
+    "fat_g": 5.5,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 195,
+    "carbs_g": 36,
+    "fiber_g": 2.5,
+    "sugars_g": 0,
+    "protein_g": 4,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Cilantro-Lime Brown Rice\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-cilantro-lime-white-rice",
+   "name": "Cilantro-Lime White Rice",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 210,
+    "fat_g": 4,
+    "saturated_fat_g": 1,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 345,
+    "carbs_g": 40,
+    "fiber_g": 1,
+    "sugars_g": 0,
+    "protein_g": 3.5,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Cilantro-Lime White Rice\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-black-beans",
+   "name": "Black Beans",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 130,
+    "fat_g": 1.5,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 210,
+    "carbs_g": 22,
+    "fiber_g": 7,
+    "sugars_g": 2,
+    "protein_g": 8,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Black Beans\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-pinto-beans",
+   "name": "Pinto Beans",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 130,
+    "fat_g": 1.5,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 210,
+    "carbs_g": 21,
+    "fiber_g": 8,
+    "sugars_g": 1,
+    "protein_g": 8,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Pinto Beans\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-fajita-vegetables",
+   "name": "Fajita Vegetables",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 57,
+    "calories": 20,
+    "fat_g": 0.5,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 150,
+    "carbs_g": 5,
+    "fiber_g": 1,
+    "sugars_g": 2,
+    "protein_g": 1,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Fajita Vegetables\", portion \"57 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-barbacoa",
+   "name": "Barbacoa",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 170,
+    "fat_g": 7,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 65,
+    "sodium_mg": 530,
+    "carbs_g": 2,
+    "fiber_g": 1,
+    "sugars_g": 0,
+    "protein_g": 24,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Barbacoa\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-chicken",
+   "name": "Chicken",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 180,
+    "fat_g": 7,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 125,
+    "sodium_mg": 310,
+    "carbs_g": 0,
+    "fiber_g": 0.5,
+    "sugars_g": 0,
+    "protein_g": 32,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Chicken\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-carnitas",
+   "name": "Carnitas",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 210,
+    "fat_g": 12,
+    "saturated_fat_g": 6.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 65,
+    "sodium_mg": 450,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 23,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Carnitas\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-steak",
+   "name": "Steak",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 150,
+    "fat_g": 6.5,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 80,
+    "sodium_mg": 330,
+    "carbs_g": 1,
+    "fiber_g": 1,
+    "sugars_g": 0,
+    "protein_g": 21,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Steak\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-sofritas",
+   "name": "Sofritas",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 150,
+    "fat_g": 10,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 555,
+    "carbs_g": 9,
+    "fiber_g": 3.5,
+    "sugars_g": 4.5,
+    "protein_g": 8,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Sofritas\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-fresh-tomato-salsa",
+   "name": "Fresh Tomato Salsa",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 25,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 550,
+    "carbs_g": 4,
+    "fiber_g": 1,
+    "sugars_g": 1,
+    "protein_g": 0,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Fresh Tomato Salsa\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-roasted-chili-corn-salsa",
+   "name": "Roasted Chili-Corn Salsa",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 80,
+    "fat_g": 1.5,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 330,
+    "carbs_g": 16,
+    "fiber_g": 3,
+    "sugars_g": 4,
+    "protein_g": 3,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Roasted Chili-Corn Salsa\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-tomatillo-green-chili-salsa-serving",
+   "name": "Tomatillo-Green Chili Salsa",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "59 ml",
+    "calories": 15,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 255,
+    "carbs_g": 4,
+    "fiber_g": 0,
+    "sugars_g": 1.5,
+    "protein_g": 0,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Tomatillo-Green Chili Salsa\", portion \"59 ml\", as published. Read 2026-11-15. No weight in grams is published for this portion."
+  },
+  {
+   "key": "chipotle-tomatillo-red-chili-salsa-serving",
+   "name": "Tomatillo-Red Chili Salsa",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "59 ml",
+    "calories": 30,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 500,
+    "carbs_g": 4,
+    "fiber_g": 1.5,
+    "sugars_g": 0,
+    "protein_g": 0,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Tomatillo-Red Chili Salsa\", portion \"59 ml\", as published. Read 2026-11-15. No weight in grams is published for this portion."
+  },
+  {
+   "key": "chipotle-sour-cream",
+   "name": "Sour Cream",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 57,
+    "calories": 90,
+    "fat_g": 8,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 25,
+    "sodium_mg": 45,
+    "carbs_g": 3,
+    "fiber_g": 0,
+    "sugars_g": 2,
+    "protein_g": 1,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Sour Cream\", portion \"57 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-guacamole-side",
+   "name": "Guacamole, side",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 230,
+    "fat_g": 22,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 375,
+    "carbs_g": 8,
+    "fiber_g": 6,
+    "sugars_g": 1,
+    "protein_g": 2,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Guacamole (topping/side)\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-guacamole-large",
+   "name": "Guacamole, large",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 226,
+    "calories": 460,
+    "fat_g": 44,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 740,
+    "carbs_g": 16,
+    "fiber_g": 12,
+    "sugars_g": 2,
+    "protein_g": 4,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Guacamole (large)\", portion \"226 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-queso-blanco-entree-portion",
+   "name": "Queso Blanco, entrée portion",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 57,
+    "calories": 120,
+    "fat_g": 9,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 30,
+    "sodium_mg": 250,
+    "carbs_g": 4,
+    "fiber_g": 0,
+    "sugars_g": 1,
+    "protein_g": 5,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Queso Blanco (entreé)\", portion \"57 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-queso-blanco-side",
+   "name": "Queso Blanco, side",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 240,
+    "fat_g": 18,
+    "saturated_fat_g": 12,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 60,
+    "sodium_mg": 490,
+    "carbs_g": 7,
+    "fiber_g": 0,
+    "sugars_g": 2,
+    "protein_g": 10,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Queso Blanco (side)\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-queso-blanco-large",
+   "name": "Queso Blanco, large",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 226,
+    "calories": 480,
+    "fat_g": 37,
+    "saturated_fat_g": 23,
+    "trans_fat_g": 1.5,
+    "cholesterol_mg": 120,
+    "sodium_mg": 980,
+    "carbs_g": 14,
+    "sugars_g": 5,
+    "protein_g": 20,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Queso Blanco (large)\", portion \"226 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-supergreens-mix",
+   "name": "Supergreens Mix",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 85,
+    "calories": 15,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 3,
+    "fiber_g": 2,
+    "sugars_g": 1,
+    "protein_g": 1,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Supergreens Mix (salad)\", portion \"85 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-romaine-lettuce",
+   "name": "Romaine Lettuce",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 28,
+    "calories": 5,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 1,
+    "fiber_g": 1,
+    "sugars_g": 0,
+    "protein_g": 0,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Romaine Lettuce (tacos)\", portion \"28 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-chips-regular",
+   "name": "Chips, regular",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 113,
+    "calories": 540,
+    "fat_g": 25,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 390,
+    "carbs_g": 73,
+    "fiber_g": 7,
+    "sugars_g": 1,
+    "protein_g": 7,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Chips (regular)\", portion \"113 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-chips-large",
+   "name": "Chips, large",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "1 portion",
+    "serving_g": 170,
+    "calories": 810,
+    "fat_g": 38,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 590,
+    "carbs_g": 110,
+    "fiber_g": 11,
+    "sugars_g": 2,
+    "protein_g": 11,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Chips (large)\", portion \"170 g\", as published. Read 2026-11-15."
+  },
+  {
+   "key": "chipotle-vinaigrette-serving",
+   "name": "Vinaigrette",
+   "brand": "Chipotle",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chipotle",
+    "chipotle mexican grill"
+   ],
+   "published": {
+    "serving_label": "59 ml",
+    "calories": 220,
+    "fat_g": 16,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 850,
+    "carbs_g": 18,
+    "fiber_g": 1,
+    "sugars_g": 12,
+    "protein_g": 1,
+    "url": "https://www.chipotle.ca/nutrition-calculator",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Chipotle Canada nutrition facts on its paper menu (PDF \"CA-Nutrition-Facts-Paper-Menu-3-2025\"), row \"Vinaigrette\", portion \"59 ml\", as published. Read 2026-11-15. No weight in grams is published for this portion."
+  }
+ ]
+}

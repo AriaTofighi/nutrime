@@ -28,6 +28,7 @@ const val KCAL_REJECT = 0.25
 
 private fun resolveServing(food: Food, label: String?, quantity: Double?, grams: Double?): Pair<Serving, Double> {
     if (grams != null) {
+        if (food.servingOnly) throw ToolError("'${food.name}' has no published weight. Log it by serving: serving_label '${food.servings.first().label}' and a quantity.")
         if (grams <= 0 || grams > 5000) throw ToolError("grams must be between 0 and 5000")
         return Serving("g", 1.0) to grams
     }

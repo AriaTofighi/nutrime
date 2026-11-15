@@ -7,6 +7,7 @@ import {
   byBarcode,
   defaultQuantity,
   defaultServing,
+  servingOnly,
   recordToFood,
   searchBundledDetailed,
   searchMine,
@@ -37,7 +38,7 @@ export function FoodRow({ food, onPick }: { food: Food; onPick: (f: Food) => voi
     <button className="food-row" onClick={() => onPick(food)}>
       <span className="food-main">
         <span className="food-name">{nameWithBrand(food.name, food.brand)}</span>
-        <span className="food-meta"><span>{servingLine(food.servings)}</span></span>
+        <span className="food-meta"><span>{servingLine(food.servings, servingOnly(food))}</span></span>
       </span>
       <span className="food-source">{SOURCE_SHORT[food.source] ?? food.source}</span>
     </button>
@@ -429,7 +430,7 @@ export function AmountForm({
               {servings.map((s, i) => (
                 <option key={s.label + i} value={i}>
                   {s.label}
-                  {s.label === "g" || s.label === "100 g" ? "" : ` · ${fmtNum(s.grams)} g`}
+                  {s.label === "g" || s.label === "100 g" || servingOnly(food) ? "" : ` · ${fmtNum(s.grams)} g`}
                 </option>
               ))}
             </select>
@@ -461,7 +462,7 @@ export function AmountForm({
               <i className="dot" style={{ background: COLORS.fat }} />
               Fat <b className="num">{fmtNum(f)} g</b>
             </div>
-            <div className="dim">{fmtNum(grams)} g total</div>
+            {!servingOnly(food) && <div className="dim">{fmtNum(grams)} g total</div>}
           </div>
         </div>
       </div>

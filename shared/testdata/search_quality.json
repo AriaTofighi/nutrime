@@ -195,6 +195,13 @@
     {"query": "pink drink", "name_has": ["pink drink"]},
     {"query": "starbucks caramel macchiato", "name_has": ["caramel macchiato"]},
     {"query": "freshii mixed berry smoothie", "name_has": ["mixed berry"]},
+    {"query": "tim hortons double double", "name_has": ["double double"]},
+    {"query": "honey dip donut", "name_has": ["honey dip"]},
+    {"query": "iced capp", "name_has": ["iced capp"]},
+    {"query": "kfc big crunch", "name_has": ["big crunch"]},
+    {"query": "popeyes chicken sandwich", "name_has": ["chicken sandwich"]},
+    {"query": "oreo blizzard", "name_has": ["oreo", "blizzard"]},
+    {"query": "chipotle carnitas", "name_has": ["carnitas"]},
     {"query": "kirkland greek yogurt", "confidence": "low"},
     {"query": "zzqx", "confidence": "none"}
   ]

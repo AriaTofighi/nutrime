@@ -1,0 +1,1565 @@
+{
+ "about": "KFC Canada menu items, nutrition per serving as KFC Canada publishes it (PDF updated October 15, 2026). No weights are published, so each food is logged by its serving (keys end in -serving). Items published as a range and bottled drinks are left out.",
+ "foods": [
+  {
+   "key": "kfc-original-recipe-chicken-keel-serving",
+   "name": "Original Recipe chicken, keel",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 290,
+    "fat_g": 13,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 105,
+    "sodium_mg": 420,
+    "carbs_g": 8,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 35,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"ORIGINAL RECIPE CHICKEN\", row \"Keel\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-original-recipe-chicken-rib-serving",
+   "name": "Original Recipe chicken, rib",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 270,
+    "fat_g": 15,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 90,
+    "sodium_mg": 420,
+    "carbs_g": 6,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 29,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"ORIGINAL RECIPE CHICKEN\", row \"Rib\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-original-recipe-chicken-drumstick-serving",
+   "name": "Original Recipe chicken, drumstick",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 140,
+    "fat_g": 8,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 70,
+    "sodium_mg": 150,
+    "carbs_g": 2,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 15,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"ORIGINAL RECIPE CHICKEN\", row \"Drumstick\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-original-recipe-chicken-wing-serving",
+   "name": "Original Recipe chicken, wing",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 160,
+    "fat_g": 9,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 65,
+    "sodium_mg": 470,
+    "carbs_g": 6,
+    "fiber_g": 0,
+    "sugars_g": 1,
+    "protein_g": 12,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"ORIGINAL RECIPE CHICKEN\", row \"Wing\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-original-recipe-chicken-thigh-serving",
+   "name": "Original Recipe chicken, thigh",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 230,
+    "fat_g": 17,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 70,
+    "sodium_mg": 680,
+    "carbs_g": 7,
+    "fiber_g": 0,
+    "sugars_g": 1,
+    "protein_g": 12,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"ORIGINAL RECIPE CHICKEN\", row \"Thigh\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-hot-and-spicy-chicken-keel-serving",
+   "name": "Hot & Spicy chicken, keel",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 410,
+    "fat_g": 23,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 100,
+    "sodium_mg": 560,
+    "carbs_g": 13,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 36,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"HOT & SPICY CHICKEN\", row \"Keel\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-hot-and-spicy-chicken-rib-serving",
+   "name": "Hot & Spicy chicken, rib",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 360,
+    "fat_g": 21,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 90,
+    "sodium_mg": 470,
+    "carbs_g": 14,
+    "fiber_g": 0,
+    "sugars_g": 2,
+    "protein_g": 28,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"HOT & SPICY CHICKEN\", row \"Rib\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-hot-and-spicy-chicken-drumstick-serving",
+   "name": "Hot & Spicy chicken, drumstick",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 170,
+    "fat_g": 10,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 70,
+    "sodium_mg": 230,
+    "carbs_g": 3,
+    "fiber_g": 0,
+    "sugars_g": 1,
+    "protein_g": 16,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"HOT & SPICY CHICKEN\", row \"Drumstick\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-hot-and-spicy-chicken-wing-serving",
+   "name": "Hot & Spicy chicken, wing",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 210,
+    "fat_g": 14,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 65,
+    "sodium_mg": 240,
+    "carbs_g": 6,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 14,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"HOT & SPICY CHICKEN\", row \"Wing\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-hot-and-spicy-chicken-thigh-serving",
+   "name": "Hot & Spicy chicken, thigh",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 310,
+    "fat_g": 23,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 85,
+    "sodium_mg": 350,
+    "carbs_g": 13,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 14,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"HOT & SPICY CHICKEN\", row \"Thigh\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-extra-crispy-chicken-keel-serving",
+   "name": "Extra Crispy chicken, keel",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 350,
+    "fat_g": 20,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 100,
+    "sodium_mg": 600,
+    "carbs_g": 10,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 33,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"EXTRA CRISPY CHICKEN\", row \"Keel\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-extra-crispy-chicken-rib-serving",
+   "name": "Extra Crispy chicken, rib",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 310,
+    "fat_g": 17,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 100,
+    "sodium_mg": 550,
+    "carbs_g": 7,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 31,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"EXTRA CRISPY CHICKEN\", row \"Rib\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-extra-crispy-chicken-drumstick-serving",
+   "name": "Extra Crispy chicken, drumstick",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 150,
+    "fat_g": 9,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 80,
+    "sodium_mg": 320,
+    "carbs_g": 2,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 15,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"EXTRA CRISPY CHICKEN\", row \"Drumstick\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-extra-crispy-chicken-wing-serving",
+   "name": "Extra Crispy chicken, wing",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 190,
+    "fat_g": 13,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 60,
+    "sodium_mg": 340,
+    "carbs_g": 4,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 14,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"EXTRA CRISPY CHICKEN\", row \"Wing\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-extra-crispy-chicken-thigh-serving",
+   "name": "Extra Crispy chicken, thigh",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 piece",
+    "calories": 250,
+    "fat_g": 18,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 85,
+    "sodium_mg": 340,
+    "carbs_g": 7,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 15,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"EXTRA CRISPY CHICKEN\", row \"Thigh\", serving \"1 piece\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-famous-chicken-sandwich-serving",
+   "name": "Famous Chicken Sandwich",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 690,
+    "fat_g": 36,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 85,
+    "sodium_mg": 1400,
+    "carbs_g": 58,
+    "fiber_g": 2,
+    "sugars_g": 11,
+    "protein_g": 35,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Famous Chicken Sandwich\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-spicy-famous-chicken-sandwich-serving",
+   "name": "Spicy Famous Chicken Sandwich",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 700,
+    "fat_g": 37,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 100,
+    "sodium_mg": 1370,
+    "carbs_g": 58,
+    "fiber_g": 2,
+    "sugars_g": 11,
+    "protein_g": 35,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Spicy Famous Chicken Sandwich\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-deluxe-famous-chicken-sandwich-serving",
+   "name": "Deluxe Famous Chicken Sandwich",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 755,
+    "fat_g": 40,
+    "saturated_fat_g": 5.5,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 98,
+    "sodium_mg": 1506,
+    "carbs_g": 60,
+    "fiber_g": 3,
+    "sugars_g": 13,
+    "protein_g": 39,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Deluxe Famous Chicken Sandwich\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-spicy-deluxe-famous-chicken-sandwich-serving",
+   "name": "Spicy Deluxe Famous Chicken Sandwich",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 760,
+    "fat_g": 41,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 110,
+    "sodium_mg": 1480,
+    "carbs_g": 61,
+    "fiber_g": 3,
+    "sugars_g": 13,
+    "protein_g": 39,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Spicy Deluxe Famous Chicken Sandwich\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-big-crunch-serving",
+   "name": "Big Crunch",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 620,
+    "fat_g": 34,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 45,
+    "sodium_mg": 1100,
+    "carbs_g": 57,
+    "fiber_g": 3,
+    "sugars_g": 5,
+    "protein_g": 25,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Big Crunch®\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-spicy-big-crunch-serving",
+   "name": "Spicy Big Crunch",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 630,
+    "fat_g": 34,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1070,
+    "carbs_g": 57,
+    "fiber_g": 3,
+    "sugars_g": 5,
+    "protein_g": 25,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Spicy Big Crunch®\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-deluxe-big-crunch-serving",
+   "name": "Deluxe Big Crunch",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 690,
+    "fat_g": 38,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1210,
+    "carbs_g": 59,
+    "fiber_g": 4,
+    "sugars_g": 7,
+    "protein_g": 28,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Deluxe Big Crunch®\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-spicy-deluxe-big-crunch-serving",
+   "name": "Spicy Deluxe Big Crunch",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 690,
+    "fat_g": 38,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 70,
+    "sodium_mg": 1180,
+    "carbs_g": 60,
+    "fiber_g": 4,
+    "sugars_g": 7,
+    "protein_g": 29,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Spicy Deluxe Big Crunch®\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-zinger-sandwich-serving",
+   "name": "Zinger Sandwich",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 640,
+    "fat_g": 35,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1250,
+    "carbs_g": 59,
+    "fiber_g": 3,
+    "sugars_g": 6,
+    "protein_g": 25,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Zinger Sandwich\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-zinger-twister-serving",
+   "name": "Zinger Twister",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 660,
+    "fat_g": 37,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1410,
+    "carbs_g": 59,
+    "fiber_g": 3,
+    "sugars_g": 4,
+    "protein_g": 24,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Zinger Twister\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-deluxe-zinger-serving",
+   "name": "Deluxe Zinger",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sandwich",
+    "calories": 680,
+    "fat_g": 35,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 75,
+    "sodium_mg": 1380,
+    "carbs_g": 60,
+    "fiber_g": 4,
+    "sugars_g": 7,
+    "protein_g": 32,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Deluxe Zinger\", serving \"1 sandwich\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-cheese-slice-serving",
+   "name": "Cheese slice",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 slice",
+    "calories": 80,
+    "fat_g": 6,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 20,
+    "sodium_mg": 160,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 5,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Cheese\", serving \"1 slice\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-deluxe-it-up-sandwich-add-on-serving",
+   "name": "Deluxe It Up (sandwich add-on)",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 serving",
+    "calories": 60,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 15,
+    "sodium_mg": 105,
+    "carbs_g": 2,
+    "fiber_g": 0,
+    "sugars_g": 2,
+    "protein_g": 4,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SANDWICHES & WRAPS\", row \"Deluxe It Up\", serving \"1 serving\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-hot-wings-5-wings-serving",
+   "name": "Hot Wings, 5 wings",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "5 wings",
+    "calories": 380,
+    "fat_g": 24,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 95,
+    "sodium_mg": 970,
+    "carbs_g": 15,
+    "fiber_g": 2,
+    "sugars_g": 0,
+    "protein_g": 27,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Hot Wings\", serving \"5 wings\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-hot-wings-10-wings-serving",
+   "name": "Hot Wings, 10 wings",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "10 wings",
+    "calories": 760,
+    "fat_g": 48,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 190,
+    "sodium_mg": 1950,
+    "carbs_g": 31,
+    "fiber_g": 5,
+    "sugars_g": 0,
+    "protein_g": 55,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Hot Wings\", serving \"10 wings\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-hot-wings-20-wings-serving",
+   "name": "Hot Wings, 20 wings",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "20 wings",
+    "calories": 1520,
+    "fat_g": 95,
+    "saturated_fat_g": 19,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 380,
+    "sodium_mg": 3900,
+    "carbs_g": 62,
+    "fiber_g": 10,
+    "sugars_g": 0,
+    "protein_g": 109,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Hot Wings\", serving \"20 wings\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-popcorn-chicken-individual-serving",
+   "name": "Popcorn Chicken, individual",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Individual size",
+    "calories": 170,
+    "fat_g": 10,
+    "saturated_fat_g": 1,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 20,
+    "sodium_mg": 400,
+    "carbs_g": 12,
+    "fiber_g": 1,
+    "sugars_g": 0,
+    "protein_g": 9,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Popcorn Chicken®\", serving \"Individual size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-popcorn-chicken-small-serving",
+   "name": "Popcorn Chicken, small",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Small size",
+    "calories": 370,
+    "fat_g": 21,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 40,
+    "sodium_mg": 850,
+    "carbs_g": 26,
+    "fiber_g": 2,
+    "sugars_g": 0,
+    "protein_g": 19,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Popcorn Chicken®\", serving \"Small size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-popcorn-chicken-large-serving",
+   "name": "Popcorn Chicken, large",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Large size",
+    "calories": 1000,
+    "fat_g": 57,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 105,
+    "sodium_mg": 2290,
+    "carbs_g": 71,
+    "fiber_g": 5,
+    "sugars_g": 0,
+    "protein_g": 52,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Popcorn Chicken®\", serving \"Large size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-seasoned-french-fries-individual-serving",
+   "name": "Seasoned French Fries, individual",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Individual size",
+    "calories": 310,
+    "fat_g": 13,
+    "saturated_fat_g": 1,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 0,
+    "sodium_mg": 470,
+    "carbs_g": 45,
+    "fiber_g": 4,
+    "sugars_g": 1,
+    "protein_g": 5,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Seasoned French Fries\", serving \"Individual size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-seasoned-french-fries-large-serving",
+   "name": "Seasoned French Fries, large",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Large size",
+    "calories": 1320,
+    "fat_g": 55,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 5,
+    "sodium_mg": 1990,
+    "carbs_g": 191,
+    "fiber_g": 16,
+    "sugars_g": 3,
+    "protein_g": 23,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Seasoned French Fries\", serving \"Large size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-crispy-onion-rings-individual-serving",
+   "name": "Crispy Onion Rings, individual",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Individual size",
+    "calories": 360,
+    "fat_g": 18,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 1,
+    "sodium_mg": 570,
+    "carbs_g": 45,
+    "fiber_g": 3,
+    "sugars_g": 5,
+    "protein_g": 4,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Crispy Onion Rings\", serving \"Individual size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-crispy-onion-rings-large-serving",
+   "name": "Crispy Onion Rings, large",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Large size",
+    "calories": 1180,
+    "fat_g": 61,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 5,
+    "sodium_mg": 1900,
+    "carbs_g": 150,
+    "fiber_g": 9,
+    "sugars_g": 16,
+    "protein_g": 13,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Crispy Onion Rings\", serving \"Large size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-gravy-individual-serving",
+   "name": "Gravy, individual",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Individual size",
+    "calories": 45,
+    "fat_g": 1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 460,
+    "carbs_g": 7,
+    "fiber_g": 0,
+    "sugars_g": 2,
+    "protein_g": 1,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Gravy\", serving \"Individual size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-gravy-large-serving",
+   "name": "Gravy, large",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Large size",
+    "calories": 210,
+    "fat_g": 6,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 5,
+    "sodium_mg": 2230,
+    "carbs_g": 35,
+    "fiber_g": 1,
+    "sugars_g": 8,
+    "protein_g": 5,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Gravy\", serving \"Large size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-original-recipe-corn-individual-serving",
+   "name": "Original Recipe Corn, individual",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Individual size",
+    "calories": 150,
+    "fat_g": 11,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 0,
+    "sodium_mg": 270,
+    "carbs_g": 11,
+    "fiber_g": 2,
+    "sugars_g": 5,
+    "protein_g": 2,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Original Recipe® Corn\", serving \"Individual size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-original-recipe-corn-large-serving",
+   "name": "Original Recipe Corn, large",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Large size",
+    "calories": 700,
+    "fat_g": 52,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 0,
+    "sodium_mg": 1260,
+    "carbs_g": 50,
+    "fiber_g": 10,
+    "sugars_g": 23,
+    "protein_g": 10,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Original Recipe® Corn\", serving \"Large size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-popcorn-chicken-poutine-serving",
+   "name": "Popcorn Chicken Poutine",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 poutine",
+    "calories": 950,
+    "fat_g": 50,
+    "saturated_fat_g": 13,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 85,
+    "sodium_mg": 2130,
+    "carbs_g": 93,
+    "fiber_g": 7,
+    "sugars_g": 3,
+    "protein_g": 35,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Popcorn Chicken® Poutine\", serving \"1 Poutine\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-snack-sized-poutine-serving",
+   "name": "Snack Sized Poutine",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 poutine",
+    "calories": 570,
+    "fat_g": 31,
+    "saturated_fat_g": 12,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1350,
+    "carbs_g": 55,
+    "fiber_g": 4,
+    "sugars_g": 3,
+    "protein_g": 20,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Snack Sized Poutine\", serving \"1 Poutine\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-poutine-serving",
+   "name": "Poutine",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 poutine",
+    "calories": 740,
+    "fat_g": 38,
+    "saturated_fat_g": 12,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1650,
+    "carbs_g": 78,
+    "fiber_g": 6,
+    "sugars_g": 3,
+    "protein_g": 24,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Poutine\", serving \"1 Poutine\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-mash-potatoes-and-gravy-individual-serving",
+   "name": "Mash Potatoes & Gravy, individual",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Individual size",
+    "calories": 120,
+    "fat_g": 6,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 15,
+    "sodium_mg": 550,
+    "carbs_g": 16,
+    "fiber_g": 1,
+    "sugars_g": 1,
+    "protein_g": 2,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Mash Potatoes & Gravy\", serving \"Individual size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-mash-potatoes-and-gravy-large-serving",
+   "name": "Mash Potatoes & Gravy, large",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Large size",
+    "calories": 460,
+    "fat_g": 21,
+    "saturated_fat_g": 14,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1720,
+    "carbs_g": 58,
+    "fiber_g": 4,
+    "sugars_g": 4,
+    "protein_g": 7,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Mash Potatoes & Gravy\", serving \"Large size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-famous-bowl-individual-serving",
+   "name": "Famous Bowl, individual",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Individual size",
+    "calories": 600,
+    "fat_g": 33,
+    "saturated_fat_g": 13,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 70,
+    "sodium_mg": 1950,
+    "carbs_g": 62,
+    "fiber_g": 5,
+    "sugars_g": 8,
+    "protein_g": 16,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SNACKABLES & SIDES\", row \"Famous Bowl\", serving \"Individual size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-coleslaw-salad-individual-serving",
+   "name": "Coleslaw Salad, individual",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Individual size",
+    "calories": 220,
+    "fat_g": 21,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 10,
+    "sodium_mg": 290,
+    "carbs_g": 7,
+    "fiber_g": 2,
+    "sugars_g": 2,
+    "protein_g": 1,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SALADS\", row \"Coleslaw Salad\", serving \"Individual size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-coleslaw-salad-large-serving",
+   "name": "Coleslaw Salad, large",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Large size",
+    "calories": 940,
+    "fat_g": 91,
+    "saturated_fat_g": 12,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 40,
+    "sodium_mg": 1260,
+    "carbs_g": 31,
+    "fiber_g": 8,
+    "sugars_g": 8,
+    "protein_g": 4,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SALADS\", row \"Coleslaw Salad\", serving \"Large size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-macaroni-salad-individual-serving",
+   "name": "Macaroni Salad, individual",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Individual size",
+    "calories": 300,
+    "fat_g": 24,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 30,
+    "sodium_mg": 240,
+    "carbs_g": 20,
+    "fiber_g": 1,
+    "sugars_g": 4,
+    "protein_g": 3,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SALADS\", row \"Macaroni Salad\", serving \"Individual size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-macaroni-salad-large-serving",
+   "name": "Macaroni Salad, large",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "Large size",
+    "calories": 1050,
+    "fat_g": 86,
+    "saturated_fat_g": 14,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 100,
+    "sodium_mg": 860,
+    "carbs_g": 70,
+    "fiber_g": 4,
+    "sugars_g": 16,
+    "protein_g": 12,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"SALADS\", row \"Macaroni Salad\", serving \"Large size\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-buttermilk-ranch-dipping-sauce-serving",
+   "name": "Buttermilk Ranch Dipping Sauce",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 dip cup",
+    "calories": 220,
+    "fat_g": 23,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 10,
+    "sodium_mg": 380,
+    "carbs_g": 3,
+    "fiber_g": 0,
+    "sugars_g": 2,
+    "protein_g": 0,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"DIPS\", row \"Buttermilk Ranch Dipping Sauce\", serving \"1 dip cup\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-sweet-and-smokey-bbq-dipping-sauce-serving",
+   "name": "Sweet and Smokey BBQ Dipping Sauce",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 dip cup",
+    "calories": 100,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 350,
+    "carbs_g": 23,
+    "fiber_g": 0,
+    "sugars_g": 19,
+    "protein_g": 1,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"DIPS\", row \"Sweet and Smokey BBQ Dipping Sauce\", serving \"1 dip cup\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-carolina-honey-mustard-dipping-sauce-serving",
+   "name": "Carolina Honey Mustard Dipping Sauce",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 dip cup",
+    "calories": 130,
+    "fat_g": 9,
+    "saturated_fat_g": 1,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 10,
+    "sodium_mg": 300,
+    "carbs_g": 12,
+    "fiber_g": 0,
+    "sugars_g": 10,
+    "protein_g": 1,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"DIPS\", row \"Carolina Honey Mustard Dipping Sauce\", serving \"1 dip cup\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-southern-plum-dipping-sauce-serving",
+   "name": "Southern Plum Dipping Sauce",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 dip cup",
+    "calories": 80,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 21,
+    "fiber_g": 0,
+    "sugars_g": 19,
+    "protein_g": 0,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"DIPS\", row \"Southern Plum Dipping Sauce\", serving \"1 dip cup\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-supercharger-dipping-sauce-serving",
+   "name": "Supercharger Dipping Sauce",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 dip cup",
+    "calories": 200,
+    "fat_g": 20,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 15,
+    "sodium_mg": 300,
+    "carbs_g": 4,
+    "fiber_g": 0,
+    "sugars_g": 3,
+    "protein_g": 0,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"DIPS\", row \"Supercharger Dipping Sauce\", serving \"1 dip cup\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-kfc-signature-dipping-sauce-serving",
+   "name": "KFC Signature Dipping Sauce",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 dip cup",
+    "calories": 160,
+    "fat_g": 14,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 15,
+    "sodium_mg": 280,
+    "carbs_g": 8,
+    "fiber_g": 0,
+    "sugars_g": 8,
+    "protein_g": 1,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"DIPS\", row \"KFC Signature Dipping Sauce\", serving \"1 dip cup\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-kentucky-hot-sauce-serving",
+   "name": "Kentucky Hot Sauce",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 sachet",
+    "calories": 5,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 300,
+    "carbs_g": 1,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"DIPS\", row \"Kentucky Hot Sauce\", serving \"1 sachet\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  },
+  {
+   "key": "kfc-smores-brownie-serving",
+   "name": "S'mores Brownie",
+   "brand": "KFC",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "kfc",
+    "kentucky fried chicken"
+   ],
+   "published": {
+    "serving_label": "1 brownie",
+    "calories": 430,
+    "fat_g": 19,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 50,
+    "sodium_mg": 120,
+    "carbs_g": 60,
+    "fiber_g": 3,
+    "sugars_g": 36,
+    "protein_g": 5,
+    "url": "https://www.kfc.ca/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "KFC Canada \"Nutrition Information\" (PDF from KFC Canada, updated October 15, 2026), section \"DESSERTS\", row \"S'mores Brownie\", serving \"1 brownie\", as published. The PDF gives no serving weight. Read 2026-11-15."
+  }
+ ]
+}

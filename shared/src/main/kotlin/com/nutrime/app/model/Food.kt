@@ -31,9 +31,15 @@ data class Food(
     /** Where a branded product is sold, as Open Food Facts country names ("canada", "united-states"). Empty when unknown. */
     val countries: List<String> = emptyList(),
 ) {
-    /** All choosable servings: the food's own portions plus gram/ounce units. */
+    /**
+     * True for a curated food whose source gives no weight (a restaurant's "1 donut" or "Medium"): its id ends in
+     * "-serving". It is logged only by its own serving; the serving's grams are a nominal amount and are never shown.
+     */
+    val servingOnly: Boolean get() = id.startsWith("nm:") && id.endsWith("-serving") && servings.isNotEmpty()
+
+    /** All choosable servings: the food's own portions plus gram/ounce units (none for a [servingOnly] food). */
     val allServings: List<Serving>
-        get() = buildList {
+        get() = if (servingOnly) servings else buildList {
             addAll(servings)
             if (none { it.label == "g" }) add(Serving("g", 1.0))
             if (none { it.label == "oz" }) add(Serving("oz", 28.3495))

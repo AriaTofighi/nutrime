@@ -234,12 +234,20 @@ private fun foodSummary(f: Food): JsonObject = buildJsonObject {
     put("name", com.nutrime.server.food.cleanFoodName(f.name, f.brand))
     f.brand?.let { put("brand", it) }
     put("source", f.source.label)
-    put("per_100g", macros(f.nutrients))
+    if (f.servingOnly) putServingOnly(f) else put("per_100g", macros(f.nutrients))
     put("nutrients_listed", f.nutrients.size)
     // Lab analyses list vitamins and minerals; label-only products don't, which makes the diary show false gaps.
     if (f.source == FoodSource.OPEN_FOOD_FACTS || f.source == FoodSource.USDA_BRANDED)
         put("data", if (com.nutrime.app.model.FoodQuality.isComplete(f)) "full nutrients" else "label only (no vitamins/minerals)")
-    putJsonArray("servings") { f.servings.take(6).forEach { s -> add("${s.label} = ${r(s.grams)} g") } }
+    if (!f.servingOnly) putJsonArray("servings") { f.servings.take(6).forEach { s -> add("${s.label} = ${r(s.grams)} g") } }
+}
+
+/** A food with no published weight ([Food.servingOnly]): its values per serving, and no grams (they are nominal). */
+private fun kotlinx.serialization.json.JsonObjectBuilder.putServingOnly(f: Food) {
+    val s = f.servings.first()
+    put("serving", s.label)
+    put("per_serving", macros(f.nutrients.mapValues { it.value * s.grams / 100 }))
+    put("weight", "not published: log by serving_label and quantity, never by grams")
 }
 
 const val MAX_QUERIES = 15
@@ -255,6 +263,11 @@ private fun searchSummary(f: Food, match: MatchQuality?): JsonObject = buildJson
     put("source", f.source.label)
     put("match", (match ?: MatchQuality.WEAK).name.lowercase())
     val kcal = f.nutrients[N.ENERGY] ?: 0.0
+    if (f.servingOnly) {
+        put("kcal_per_serving", r(kcal * f.servings.first().grams / 100, 0))
+        putServingOnly(f)
+        return@buildJsonObject
+    }
     put("kcal_per_100g", r(kcal, 0))
     f.servings.firstOrNull()?.let { s ->
         put("default_serving", "${s.label} = ${r(s.grams)} g")
@@ -310,6 +323,12 @@ internal suspend fun getFood(ctx: ToolContext, id: String): JsonObject {
         "recipe_servings" to JsonPrimitive(recipe.recipeServings ?: 1.0),
         "ingredients" to buildJsonArray { decodeIngredients(recipe.ingredientsJson).forEach { i -> add("${i.name}: ${r(i.grams)} g (food_id ${i.foodId})") } },
     )
+    if (f.servingOnly) {
+        val k = f.servings.first().grams / 100
+        return JsonObject(foodSummary(f) + ("nutrients_per_serving" to buildJsonArray {
+            Nutrients.all.forEach { def -> f.nutrients[def.id]?.let { add("${nutrientKey(def.id)}: ${r(it * k, 2)}") } }
+        }))
+    }
     return JsonObject(foodSummary(f) + extra + ("nutrients_per_100g" to buildJsonArray {
         Nutrients.all.forEach { def -> f.nutrients[def.id]?.let { add("${nutrientKey(def.id)}: ${r(it, 2)}") } }
     }) + ("servings" to buildJsonArray { f.allServings.forEach { add("${it.label} = ${r(it.grams)} g") } }))
