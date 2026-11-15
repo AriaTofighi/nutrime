@@ -60,7 +60,11 @@
     { "id": "off:0060", "source": "OPEN_FOOD_FACTS", "name": "Mango, raw", "kcal": 60, "micros": 0 },
     { "id": "usda:170500", "source": "USDA", "name": "Cracker Barrel, chicken tenderloin platter, fried", "brand": "Cracker Barrel", "category": "Restaurant Foods", "kcal": 240, "micros": 20 },
     { "id": "nm:poutine", "source": "NUTRIME", "name": "Poutine", "category": "Mixed dishes", "kcal": 230, "micros": 20 },
-    { "id": "nm:examplechain-poutine", "source": "NUTRIME", "name": "Poutine, regular", "brand": "Example Chain", "category": "Restaurant Foods", "kcal": 250, "micros": 6 }
+    { "id": "nm:examplechain-poutine", "source": "NUTRIME", "name": "Poutine, regular", "brand": "Example Chain", "category": "Restaurant Foods", "kcal": 250, "micros": 6 },
+    { "id": "nm:burger-homemade", "source": "NUTRIME", "name": "Beef burger, homemade, on bun", "category": "Mixed dishes", "kcal": 260, "micros": 20 },
+    { "id": "nm:aw-teen-burger", "source": "NUTRIME", "name": "Teen Burger", "brand": "A&W", "category": "Restaurant Foods", "kcal": 270, "micros": 4 },
+    { "id": "nm:latte", "source": "NUTRIME", "name": "Latte, with 2% milk", "category": "Beverages", "kcal": 55, "micros": 20 },
+    { "id": "nm:starbucks-caffe-latte-grande", "source": "NUTRIME", "name": "Caffè Latte, Grande", "brand": "Starbucks", "category": "Restaurant Foods", "kcal": 40, "micros": 5 }
   ],
   "cases": [
     {
@@ -188,6 +192,30 @@
       "query": "example chain poutine",
       "first": "nm:examplechain-poutine",
       "note": "When the query names the chain, its curated menu item comes first."
+    },
+    {
+      "query": "teen burger",
+      "first": "nm:aw-teen-burger",
+      "before": [["nm:aw-teen-burger", "nm:burger-homemade"]],
+      "shown": ["nm:burger-homemade"],
+      "note": "A menu item name that only one chain uses: the item that matches every query word comes first, although it is a restaurant item."
+    },
+    {
+      "query": "a&w teen burger",
+      "first": "nm:aw-teen-burger",
+      "note": "The chain name in the query ('a&w' gives the word 'w') counts as a brand word."
+    },
+    {
+      "query": "latte",
+      "first": "nm:latte",
+      "before": [["nm:latte", "nm:starbucks-caffe-latte-grande"]],
+      "shown": ["nm:starbucks-caffe-latte-grande"],
+      "note": "A generic drink comes before a chain's drink when the query does not name the chain."
+    },
+    {
+      "query": "starbucks latte",
+      "first": "nm:starbucks-caffe-latte-grande",
+      "note": "When the query names the chain, its drink comes first."
     }
   ]
 }

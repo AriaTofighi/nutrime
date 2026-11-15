@@ -189,6 +189,12 @@
     {"query": "pad thai", "name_has": ["pad thai"]},
     {"query": "miso soup", "name_has": ["miso soup"]},
     {"query": "tourtiere", "name_has": ["tourti"]},
+    {"query": "teen burger", "name_has": ["teen burger"]},
+    {"query": "a&w papa burger", "name_has": ["papa burger"]},
+    {"query": "big mary", "name_has": ["big mary"]},
+    {"query": "pink drink", "name_has": ["pink drink"]},
+    {"query": "starbucks caramel macchiato", "name_has": ["caramel macchiato"]},
+    {"query": "freshii mixed berry smoothie", "name_has": ["mixed berry"]},
     {"query": "kirkland greek yogurt", "confidence": "low"},
     {"query": "zzqx", "confidence": "none"}
   ]
