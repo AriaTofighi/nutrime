@@ -1,0 +1,1875 @@
+{
+ "about": "A&W Canada menu items, nutrition per serving as A&W Canada publishes it on web.aw.ca (the JSON its menu pages load). Calcium is left out: the feed's calcium amounts disagree with its own % DV.",
+ "foods": [
+  {
+   "key": "aw-bacon-egger-english-muffin",
+   "name": "Bacon & Egger on English muffin",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "bacon and egger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (144 g)",
+    "serving_g": 144,
+    "calories": 380,
+    "fat_g": 21,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 230,
+    "sodium_mg": 550,
+    "carbs_g": 29,
+    "fiber_g": 1,
+    "sugars_g": 1,
+    "protein_g": 18,
+    "url": "https://web.aw.ca/api/menu/bacon-egger-english-muffin/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Bacon & Egger (English Muffin)\" (web.aw.ca menu item page, JSON at the url), per 144 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-sausage-egger",
+   "name": "Sausage & Egger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "sausage and egger",
+    "breakfast sandwich",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (185 g)",
+    "serving_g": 185,
+    "calories": 530,
+    "fat_g": 34,
+    "saturated_fat_g": 12,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 260,
+    "sodium_mg": 760,
+    "carbs_g": 34,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 24,
+    "url": "https://web.aw.ca/api/menu/sausage-egger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Sausage & Egger\" (web.aw.ca menu item page, JSON at the url), per 185 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-cheese-egger",
+   "name": "Cheese & Egger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "cheese and egger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (130 g)",
+    "serving_g": 130,
+    "calories": 360,
+    "fat_g": 25,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 220,
+    "sodium_mg": 520,
+    "carbs_g": 30,
+    "fiber_g": 1,
+    "sugars_g": 2,
+    "protein_g": 14,
+    "url": "https://web.aw.ca/api/menu/cheese-egger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Cheese & Egger\" (web.aw.ca menu item page, JSON at the url), per 130 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-sausage-cheddar",
+   "name": "Sausage & Cheddar breakfast sandwich",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "sausage and cheddar",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (138 g)",
+    "serving_g": 138,
+    "calories": 460,
+    "fat_g": 29,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 55,
+    "sodium_mg": 700,
+    "carbs_g": 33,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 17,
+    "url": "https://web.aw.ca/api/menu/sausage-cheddar/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Sausage & Cheddar\" (web.aw.ca menu item page, JSON at the url), per 138 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-chicken-cheddar",
+   "name": "Chicken & Cheddar breakfast sandwich",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chicken and cheddar",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (140 g)",
+    "serving_g": 140,
+    "calories": 410,
+    "fat_g": 30,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 40,
+    "sodium_mg": 660,
+    "carbs_g": 35,
+    "fiber_g": 2,
+    "sugars_g": 3,
+    "protein_g": 14,
+    "url": "https://web.aw.ca/api/menu/chicken-cheddar/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Chicken & Cheddar\" (web.aw.ca menu item page, JSON at the url), per 140 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-classic-bacon-eggs",
+   "name": "Classic Bacon & Eggs breakfast",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "bacon and eggs platter",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (217 g)",
+    "serving_g": 217,
+    "calories": 550,
+    "fat_g": 27,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 400,
+    "sodium_mg": 820,
+    "carbs_g": 43,
+    "fiber_g": 4,
+    "sugars_g": 2,
+    "protein_g": 30,
+    "url": "https://web.aw.ca/api/menu/classic-bacon-eggs/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Classic Bacon & Eggs\" (web.aw.ca menu item page, JSON at the url), per 217 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-all-canadian-special",
+   "name": "All-Canadian Special breakfast",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "all canadian",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (347 g)",
+    "serving_g": 347,
+    "calories": 860,
+    "fat_g": 56,
+    "saturated_fat_g": 15,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 460,
+    "sodium_mg": 1250,
+    "carbs_g": 55,
+    "fiber_g": 4,
+    "sugars_g": 5,
+    "protein_g": 34,
+    "url": "https://web.aw.ca/api/menu/all-canadian-special/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"All-Canadian Special\" (web.aw.ca menu item page, JSON at the url), per 347 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-breakfast-wrap",
+   "name": "Breakfast Wrap",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (95 g)",
+    "serving_g": 95,
+    "calories": 230,
+    "fat_g": 12,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 220,
+    "sodium_mg": 400,
+    "carbs_g": 18,
+    "fiber_g": 1,
+    "sugars_g": 2,
+    "protein_g": 13,
+    "url": "https://web.aw.ca/api/menu/breakfast-wrap/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Breakfast Wrap\" (web.aw.ca menu item page, JSON at the url), per 95 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-pancakes-with-syrup",
+   "name": "Pancakes with syrup (3 pancakes)",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "hotcakes",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (202 g)",
+    "serving_g": 202,
+    "calories": 590,
+    "fat_g": 17,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 25,
+    "sodium_mg": 720,
+    "carbs_g": 90,
+    "fiber_g": 2,
+    "sugars_g": 51,
+    "protein_g": 9,
+    "url": "https://web.aw.ca/api/menu/pancakes-with-syrup-3pc/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Pancakes with Syrup (3pc)\" (web.aw.ca menu item page, JSON at the url), per 202 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-hash-brown",
+   "name": "Hash brown",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "hashbrown",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (70 g)",
+    "serving_g": 70,
+    "calories": 180,
+    "fat_g": 11,
+    "saturated_fat_g": 0.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 270,
+    "carbs_g": 18,
+    "fiber_g": 2,
+    "sugars_g": 0,
+    "protein_g": 2,
+    "url": "https://web.aw.ca/api/menu/hash-brown/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Hash Brown\" (web.aw.ca menu item page, JSON at the url), per 70 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-teen-burger",
+   "name": "Teen Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "teen",
+    "teenburger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (250 g)",
+    "serving_g": 250,
+    "calories": 500,
+    "fat_g": 30,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 85,
+    "sodium_mg": 910,
+    "carbs_g": 36,
+    "fiber_g": 2,
+    "sugars_g": 8,
+    "protein_g": 27,
+    "url": "https://web.aw.ca/api/menu/teen-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Teen Burger\" (web.aw.ca menu item page, JSON at the url), per 250 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-teen-burger-lettuce-wrapped",
+   "name": "Teen Burger, lettuce-wrapped",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "teen burger no bun",
+    "low carb",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (200 g)",
+    "serving_g": 200,
+    "calories": 340,
+    "fat_g": 22,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 70,
+    "sodium_mg": 680,
+    "carbs_g": 9,
+    "fiber_g": 0,
+    "sugars_g": 6,
+    "protein_g": 20,
+    "url": "https://web.aw.ca/api/menu/teen-burger-lettuce-wrapped/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Teen Burger (lettuce-wrapped)\" (web.aw.ca menu item page, JSON at the url), per 200 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-double-teen-burger",
+   "name": "Double Teen Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "double teen",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (340 g)",
+    "serving_g": 340,
+    "calories": 680,
+    "fat_g": 48,
+    "saturated_fat_g": 19,
+    "trans_fat_g": 2,
+    "cholesterol_mg": 145,
+    "sodium_mg": 990,
+    "carbs_g": 36,
+    "fiber_g": 2,
+    "sugars_g": 8,
+    "protein_g": 43,
+    "url": "https://web.aw.ca/api/menu/double-teen-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Double Teen Burger\" (web.aw.ca menu item page, JSON at the url), per 340 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-mozza-burger",
+   "name": "Mozza Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mozza",
+    "mozzaburger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (218 g)",
+    "serving_g": 218,
+    "calories": 620,
+    "fat_g": 39,
+    "saturated_fat_g": 13,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 80,
+    "sodium_mg": 900,
+    "carbs_g": 37,
+    "fiber_g": 1,
+    "sugars_g": 9,
+    "protein_g": 27,
+    "url": "https://web.aw.ca/api/menu/mozza-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Mozza Burger\" (web.aw.ca menu item page, JSON at the url), per 218 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-double-mozza-burger",
+   "name": "Double Mozza Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "double mozza",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (278 g)",
+    "serving_g": 278,
+    "calories": 800,
+    "fat_g": 52,
+    "saturated_fat_g": 19,
+    "trans_fat_g": 1.5,
+    "cholesterol_mg": 125,
+    "sodium_mg": 950,
+    "carbs_g": 37,
+    "fiber_g": 1,
+    "sugars_g": 8,
+    "protein_g": 41,
+    "url": "https://web.aw.ca/api/menu/double-mozza-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Double Mozza Burger\" (web.aw.ca menu item page, JSON at the url), per 278 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-mama-burger",
+   "name": "Mama Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mama",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (170 g)",
+    "serving_g": 170,
+    "calories": 400,
+    "fat_g": 24,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 60,
+    "sodium_mg": 870,
+    "carbs_g": 35,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 20,
+    "url": "https://web.aw.ca/api/menu/mama-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Mama Burger\" (web.aw.ca menu item page, JSON at the url), per 170 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-mama-burger-cheese",
+   "name": "Mama Burger with cheese",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mama cheeseburger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (184 g)",
+    "serving_g": 184,
+    "calories": 460,
+    "fat_g": 29,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 75,
+    "sodium_mg": 940,
+    "carbs_g": 34,
+    "fiber_g": 2,
+    "sugars_g": 6,
+    "protein_g": 24,
+    "url": "https://web.aw.ca/api/menu/mama-burger-with-cheese/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Mama Burger (with cheese)\" (web.aw.ca menu item page, JSON at the url), per 184 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-papa-burger",
+   "name": "Papa Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "papa",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (230 g)",
+    "serving_g": 230,
+    "calories": 580,
+    "fat_g": 40,
+    "saturated_fat_g": 13,
+    "trans_fat_g": 2,
+    "cholesterol_mg": 120,
+    "sodium_mg": 950,
+    "carbs_g": 35,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 40,
+    "url": "https://web.aw.ca/api/menu/papa-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Papa Burger\" (web.aw.ca menu item page, JSON at the url), per 230 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-papa-burger-cheese",
+   "name": "Papa Burger with cheese",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "papa cheeseburger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (244 g)",
+    "serving_g": 244,
+    "calories": 640,
+    "fat_g": 42,
+    "saturated_fat_g": 16,
+    "trans_fat_g": 2,
+    "cholesterol_mg": 135,
+    "sodium_mg": 960,
+    "carbs_g": 34,
+    "fiber_g": 2,
+    "sugars_g": 6,
+    "protein_g": 40,
+    "url": "https://web.aw.ca/api/menu/papa-burger-with-cheese/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Papa Burger (with cheese)\" (web.aw.ca menu item page, JSON at the url), per 244 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-grandpa-burger",
+   "name": "Grandpa Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "grandpa",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (290 g)",
+    "serving_g": 290,
+    "calories": 760,
+    "fat_g": 58,
+    "saturated_fat_g": 21,
+    "trans_fat_g": 3,
+    "cholesterol_mg": 180,
+    "sodium_mg": 1000,
+    "carbs_g": 35,
+    "fiber_g": 2,
+    "sugars_g": 7,
+    "protein_g": 53,
+    "url": "https://web.aw.ca/api/menu/grandpa-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Grandpa Burger\" (web.aw.ca menu item page, JSON at the url), per 290 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-baby-burger",
+   "name": "Baby Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (96 g)",
+    "serving_g": 96,
+    "calories": 240,
+    "fat_g": 11,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 30,
+    "sodium_mg": 540,
+    "carbs_g": 29,
+    "fiber_g": 1,
+    "sugars_g": 4,
+    "protein_g": 12,
+    "url": "https://web.aw.ca/api/menu/baby-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Baby Burger\" (web.aw.ca menu item page, JSON at the url), per 96 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-buddy-burger",
+   "name": "Buddy Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "buddy",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (145 g)",
+    "serving_g": 145,
+    "calories": 310,
+    "fat_g": 15,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 32,
+    "sodium_mg": 700,
+    "carbs_g": 36,
+    "fiber_g": 1,
+    "sugars_g": 8,
+    "protein_g": 13,
+    "url": "https://web.aw.ca/api/menu/buddy-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Buddy Burger\" (web.aw.ca menu item page, JSON at the url), per 145 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-buddy-cheeseburger",
+   "name": "Buddy Cheeseburger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "buddy burger with cheese",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (159 g)",
+    "serving_g": 159,
+    "calories": 370,
+    "fat_g": 16,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 40,
+    "sodium_mg": 770,
+    "carbs_g": 35,
+    "fiber_g": 2,
+    "sugars_g": 9,
+    "protein_g": 16,
+    "url": "https://web.aw.ca/api/menu/buddy-cheeseburger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Buddy Cheeseburger\" (web.aw.ca menu item page, JSON at the url), per 159 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-double-buddy-burger",
+   "name": "Double Buddy Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "double buddy",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (176 g)",
+    "serving_g": 176,
+    "calories": 435,
+    "fat_g": 22,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 60,
+    "sodium_mg": 730,
+    "carbs_g": 35,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 21,
+    "url": "https://web.aw.ca/api/menu/double-buddy-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Double Buddy Burger\" (web.aw.ca menu item page, JSON at the url), per 176 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-cheddar-bacon-uncle-burger",
+   "name": "Cheddar Bacon Uncle Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "uncle burger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (287 g)",
+    "serving_g": 287,
+    "calories": 740,
+    "fat_g": 53,
+    "saturated_fat_g": 20,
+    "trans_fat_g": 2,
+    "cholesterol_mg": 130,
+    "sodium_mg": 1095,
+    "carbs_g": 38,
+    "fiber_g": 3,
+    "sugars_g": 7,
+    "protein_g": 38,
+    "url": "https://web.aw.ca/api/menu/cheddar-bacon-uncle-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Cheddar Bacon Uncle Burger\" (web.aw.ca menu item page, JSON at the url), per 287 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-smash-burger",
+   "name": "Smash Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "smashburger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (220 g)",
+    "serving_g": 220,
+    "calories": 670,
+    "fat_g": 43,
+    "saturated_fat_g": 13,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 88,
+    "sodium_mg": 900,
+    "carbs_g": 31,
+    "fiber_g": 6,
+    "sugars_g": 6,
+    "protein_g": 30,
+    "url": "https://web.aw.ca/api/menu/aw-smash-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"A&W Smash Burger\" (web.aw.ca menu item page, JSON at the url), per 220 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-double-smash-burger",
+   "name": "Double Smash Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "double smashburger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (310 g)",
+    "serving_g": 310,
+    "calories": 950,
+    "fat_g": 65,
+    "saturated_fat_g": 23,
+    "trans_fat_g": 2,
+    "cholesterol_mg": 160,
+    "sodium_mg": 1155,
+    "carbs_g": 31,
+    "fiber_g": 6,
+    "sugars_g": 6,
+    "protein_g": 50,
+    "url": "https://web.aw.ca/api/menu/aw-double-smash-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"A&W Double Smash Burger\" (web.aw.ca menu item page, JSON at the url), per 310 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-chubby-chicken-burger",
+   "name": "Chubby Chicken Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chubby chicken",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (190 g)",
+    "serving_g": 190,
+    "calories": 490,
+    "fat_g": 27,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 50,
+    "sodium_mg": 1100,
+    "carbs_g": 44,
+    "fiber_g": 2,
+    "sugars_g": 4,
+    "protein_g": 21,
+    "url": "https://web.aw.ca/api/menu/chubby-chicken-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Chubby Chicken Burger\" (web.aw.ca menu item page, JSON at the url), per 190 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-chubby-chicken-cruncher",
+   "name": "Chubby Chicken Cruncher",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chicken cruncher",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (224 g)",
+    "serving_g": 224,
+    "calories": 630,
+    "fat_g": 29,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 64,
+    "sodium_mg": 1430,
+    "carbs_g": 60,
+    "fiber_g": 2,
+    "sugars_g": 6,
+    "protein_g": 26,
+    "url": "https://web.aw.ca/api/menu/chubby-chicken-cruncher/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Chubby Chicken Cruncher\" (web.aw.ca menu item page, JSON at the url), per 224 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-nashville-hot-chicken-cruncher",
+   "name": "Nashville Hot Chicken Cruncher",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "nashville chicken",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (260 g)",
+    "serving_g": 260,
+    "calories": 720,
+    "fat_g": 41,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 64,
+    "sodium_mg": 1700,
+    "carbs_g": 60,
+    "fiber_g": 2,
+    "sugars_g": 6,
+    "protein_g": 26,
+    "url": "https://web.aw.ca/api/menu/nashville-hot-chicken-cruncher/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Nashville Hot Chicken Cruncher\" (web.aw.ca menu item page, JSON at the url), per 260 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-blt-chicken-cruncher",
+   "name": "BLT Chicken Cruncher",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (246 g)",
+    "serving_g": 246,
+    "calories": 690,
+    "fat_g": 33,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 80,
+    "sodium_mg": 1630,
+    "carbs_g": 60,
+    "fiber_g": 2,
+    "sugars_g": 7,
+    "protein_g": 30,
+    "url": "https://web.aw.ca/api/menu/blt-chicken-cruncher/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"BLT Chicken Cruncher\" (web.aw.ca menu item page, JSON at the url), per 246 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-blt-chicken-burger",
+   "name": "BLT Chicken Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (246 g)",
+    "serving_g": 246,
+    "calories": 600,
+    "fat_g": 35,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1050,
+    "carbs_g": 50,
+    "fiber_g": 3,
+    "sugars_g": 6,
+    "protein_g": 25,
+    "url": "https://web.aw.ca/api/menu/blt-chicken-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"BLT Chicken Burger\" (web.aw.ca menu item page, JSON at the url), per 246 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-spicy-habanero-chicken-burger",
+   "name": "Spicy Habanero Chicken Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (225 g)",
+    "serving_g": 225,
+    "calories": 550,
+    "fat_g": 26,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 45,
+    "sodium_mg": 870,
+    "carbs_g": 47,
+    "fiber_g": 3,
+    "sugars_g": 6,
+    "protein_g": 20,
+    "url": "https://web.aw.ca/api/menu/spicy-habanero-chicken-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Spicy Habanero Chicken Burger\" (web.aw.ca menu item page, JSON at the url), per 225 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-spicy-chipotle-chicken-burger",
+   "name": "Spicy Chipotle Chicken Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (225 g)",
+    "serving_g": 225,
+    "calories": 550,
+    "fat_g": 26,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 45,
+    "sodium_mg": 870,
+    "carbs_g": 47,
+    "fiber_g": 3,
+    "sugars_g": 6,
+    "protein_g": 20,
+    "url": "https://web.aw.ca/api/menu/spicy-chipotle-chicken-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Spicy Chipotle Chicken Burger\" (web.aw.ca menu item page, JSON at the url), per 225 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-chicken-buddy-burger",
+   "name": "Chicken Buddy Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chicken buddy",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (134 g)",
+    "serving_g": 134,
+    "calories": 360,
+    "fat_g": 19,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 25,
+    "sodium_mg": 730,
+    "carbs_g": 35,
+    "fiber_g": 2,
+    "sugars_g": 4,
+    "protein_g": 11,
+    "url": "https://web.aw.ca/api/menu/chicken-buddy-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Chicken Buddy Burger\" (web.aw.ca menu item page, JSON at the url), per 134 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-chicken-strips-3",
+   "name": "Chicken strips, 3 pieces",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chicken tenders",
+    "chicken fingers",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (150 g)",
+    "serving_g": 150,
+    "calories": 300,
+    "fat_g": 15,
+    "saturated_fat_g": 1,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 45,
+    "sodium_mg": 705,
+    "carbs_g": 21,
+    "fiber_g": 2,
+    "sugars_g": 1.5,
+    "protein_g": 19.5,
+    "url": "https://web.aw.ca/api/menu/chicken-strips-3/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Chicken Strips (3)\" (web.aw.ca menu item page, JSON at the url), per 150 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-chicken-strips-5",
+   "name": "Chicken strips, 5 pieces",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chicken tenders",
+    "chicken fingers",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (250 g)",
+    "serving_g": 250,
+    "calories": 500,
+    "fat_g": 25,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 75,
+    "sodium_mg": 1175,
+    "carbs_g": 35,
+    "fiber_g": 3,
+    "sugars_g": 2.5,
+    "protein_g": 32.5,
+    "url": "https://web.aw.ca/api/menu/chicken-strips-5/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Chicken Strips (5)\" (web.aw.ca menu item page, JSON at the url), per 250 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-crispy-veggie-burger",
+   "name": "Crispy Veggie Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "veggie burger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (240 g)",
+    "serving_g": 240,
+    "calories": 570,
+    "fat_g": 28,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 34,
+    "sodium_mg": 830,
+    "carbs_g": 60,
+    "fiber_g": 5,
+    "sugars_g": 6,
+    "protein_g": 15,
+    "url": "https://web.aw.ca/api/menu/crispy-veggie-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Crispy Veggie Burger\" (web.aw.ca menu item page, JSON at the url), per 240 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-plant-based-burger",
+   "name": "Plant-Based Burger",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "beyond meat",
+    "veggie burger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (231 g)",
+    "serving_g": 231,
+    "calories": 500,
+    "fat_g": 30,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 8,
+    "sodium_mg": 1260,
+    "carbs_g": 36,
+    "fiber_g": 3,
+    "sugars_g": 16,
+    "protein_g": 21,
+    "url": "https://web.aw.ca/api/menu/aw-plant-based-burger/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"A&W Plant-Based Burger\" (web.aw.ca menu item page, JSON at the url), per 231 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-fish-sandwich",
+   "name": "Fish Sandwich",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "fish burger",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (220 g)",
+    "serving_g": 220,
+    "calories": 600,
+    "fat_g": 33,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 44,
+    "sodium_mg": 933,
+    "carbs_g": 56,
+    "fiber_g": 2,
+    "sugars_g": 9,
+    "protein_g": 17,
+    "url": "https://web.aw.ca/api/menu/fish-sandwich/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Fish Sandwich\" (web.aw.ca menu item page, JSON at the url), per 220 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-bacon-chicken-wrap",
+   "name": "Bacon Chicken Wrap",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (106 g)",
+    "serving_g": 106,
+    "calories": 290,
+    "fat_g": 14,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 25,
+    "sodium_mg": 680,
+    "carbs_g": 28,
+    "fiber_g": 2,
+    "sugars_g": 1,
+    "protein_g": 11,
+    "url": "https://web.aw.ca/api/menu/bacon-chicken-wrap/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Bacon Chicken Wrap\" (web.aw.ca menu item page, JSON at the url), per 106 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-spicy-chipotle-chicken-wrap",
+   "name": "Spicy Chipotle Chicken Wrap",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (105 g)",
+    "serving_g": 105,
+    "calories": 290,
+    "fat_g": 15,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 30,
+    "sodium_mg": 640,
+    "carbs_g": 28,
+    "fiber_g": 2,
+    "sugars_g": 12,
+    "protein_g": 11,
+    "url": "https://web.aw.ca/api/menu/spicy-chipotle-chicken-wrap/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Spicy Chipotle Chicken Wrap\" (web.aw.ca menu item page, JSON at the url), per 105 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-fries-kids",
+   "name": "Russet thick-cut fries, kids size",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "french fries",
+    "chips",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (100 g)",
+    "serving_g": 100,
+    "calories": 250,
+    "fat_g": 12,
+    "saturated_fat_g": 1,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 260,
+    "carbs_g": 35,
+    "fiber_g": 3,
+    "sugars_g": 0,
+    "protein_g": 3,
+    "url": "https://web.aw.ca/api/menu/russet-thick-cut-fries-kids-size/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Russet Thick-Cut Fries (Kid's Size)\" (web.aw.ca menu item page, JSON at the url), per 100 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-sweet-potato-fries",
+   "name": "Sweet potato fries",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (135 g)",
+    "serving_g": 135,
+    "calories": 360,
+    "fat_g": 18,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 115,
+    "carbs_g": 47,
+    "fiber_g": 6,
+    "sugars_g": 17,
+    "protein_g": 4,
+    "url": "https://web.aw.ca/api/menu/sweet-potato-fries/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Sweet Potato Fries\" (web.aw.ca menu item page, JSON at the url), per 135 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-onion-rings",
+   "name": "Onion rings",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (150 g)",
+    "serving_g": 150,
+    "calories": 520,
+    "fat_g": 32,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 0,
+    "sodium_mg": 630,
+    "carbs_g": 50,
+    "fiber_g": 4,
+    "sugars_g": 6,
+    "protein_g": 7,
+    "url": "https://web.aw.ca/api/menu/onion-rings/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Onion Rings\" (web.aw.ca menu item page, JSON at the url), per 150 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-poutine",
+   "name": "Poutine",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (333 g)",
+    "serving_g": 333,
+    "calories": 610,
+    "fat_g": 33,
+    "saturated_fat_g": 13,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 65,
+    "sodium_mg": 1240,
+    "carbs_g": 58,
+    "fiber_g": 8,
+    "sugars_g": 1,
+    "protein_g": 23,
+    "url": "https://web.aw.ca/api/menu/poutine-english-canada/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Poutine (English Canada)\" (web.aw.ca menu item page, JSON at the url), per 333 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-gravy-small",
+   "name": "Gravy, small",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (118 g)",
+    "serving_g": 118,
+    "calories": 50,
+    "fat_g": 1,
+    "saturated_fat_g": 0.3,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 700,
+    "carbs_g": 10,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 1,
+    "url": "https://web.aw.ca/api/menu/gravy-small/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Gravy (Small)\" (web.aw.ca menu item page, JSON at the url), per 118 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-apple-turnover",
+   "name": "Apple turnover",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (90 g)",
+    "serving_g": 90,
+    "calories": 280,
+    "fat_g": 15,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 190,
+    "carbs_g": 38,
+    "fiber_g": 1,
+    "sugars_g": 14,
+    "protein_g": 3,
+    "url": "https://web.aw.ca/api/menu/apple-turnover/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Apple Turnover\" (web.aw.ca menu item page, JSON at the url), per 90 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-bbq-dipping-sauce",
+   "name": "Barbecue dipping sauce",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "bbq sauce",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (32 g)",
+    "serving_g": 32,
+    "calories": 60,
+    "fat_g": 0.5,
+    "saturated_fat_g": 0.4,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 0,
+    "sodium_mg": 220,
+    "carbs_g": 13,
+    "fiber_g": 0,
+    "sugars_g": 12,
+    "protein_g": 0,
+    "url": "https://web.aw.ca/api/menu/dipping-sauce-barbecue/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Dipping Sauce (Barbecue)\" (web.aw.ca menu item page, JSON at the url), per 32 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-honey-mustard-dipping-sauce",
+   "name": "Honey mustard dipping sauce",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (28 g)",
+    "serving_g": 28,
+    "calories": 100,
+    "fat_g": 8,
+    "saturated_fat_g": 0.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 10,
+    "sodium_mg": 200,
+    "carbs_g": 8,
+    "fiber_g": 0,
+    "sugars_g": 6,
+    "protein_g": 0,
+    "url": "https://web.aw.ca/api/menu/dipping-sauce-honey-mustard/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Dipping Sauce (Honey Mustard)\" (web.aw.ca menu item page, JSON at the url), per 28 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-jalapeno-ranch-dipping-sauce",
+   "name": "Jalapeño ranch dipping sauce",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "jalapeno ranch",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (28 g)",
+    "serving_g": 28,
+    "calories": 110,
+    "fat_g": 11,
+    "saturated_fat_g": 0.8,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 10,
+    "sodium_mg": 250,
+    "carbs_g": 2,
+    "fiber_g": 0,
+    "sugars_g": 1,
+    "protein_g": 1,
+    "url": "https://web.aw.ca/api/menu/dipping-sauce-jalapeo-ranch/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Dipping Sauce (Jalapeño Ranch)\" (web.aw.ca menu item page, JSON at the url), per 28 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-sweet-sour-dipping-sauce",
+   "name": "Sweet & sour dipping sauce",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "sweet and sour",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 item (32 g)",
+    "serving_g": 32,
+    "calories": 60,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 140,
+    "carbs_g": 14,
+    "fiber_g": 0,
+    "sugars_g": 11,
+    "protein_g": 0,
+    "url": "https://web.aw.ca/api/menu/dipping-sauce-sweet-sour/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Dipping Sauce (Sweet & Sour)\" (web.aw.ca menu item page, JSON at the url), per 32 g serving, read 2026-11-15."
+  },
+  {
+   "key": "aw-root-beer-small",
+   "name": "Root beer, small",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "rootbeer",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (355 ml)",
+    "serving_g": 355,
+    "calories": 160,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 75,
+    "carbs_g": 39,
+    "fiber_g": 0,
+    "sugars_g": 38,
+    "protein_g": 0,
+    "url": "https://web.aw.ca/api/menu/aw-root-beer-small/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"A&W Root Beer (Small)\" (web.aw.ca menu item page, JSON at the url), per 355 ml serving, read 2026-11-15. Serving is the published 355 ml, stored as 355 g."
+  },
+  {
+   "key": "aw-root-beer-regular",
+   "name": "Root beer, regular",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "rootbeer",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (591 ml)",
+    "serving_g": 591,
+    "calories": 270,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 120,
+    "carbs_g": 65,
+    "fiber_g": 0,
+    "sugars_g": 63,
+    "protein_g": 0,
+    "url": "https://web.aw.ca/api/menu/aw-root-beer-regular/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"A&W Root Beer (Regular)\" (web.aw.ca menu item page, JSON at the url), per 591 ml serving, read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "aw-root-beer-float-zero-sugar",
+   "name": "Root beer float, zero sugar",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "diet root beer float",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (485 ml)",
+    "serving_g": 485,
+    "calories": 310,
+    "fat_g": 14,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 5,
+    "sodium_mg": 253,
+    "carbs_g": 44,
+    "fiber_g": 2,
+    "sugars_g": 29,
+    "protein_g": 3,
+    "url": "https://web.aw.ca/api/menu/aw-root-beer-float-zero-sugar/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"A&W Root Beer Float (Zero Sugar)\" (web.aw.ca menu item page, JSON at the url), per 485 ml serving, read 2026-11-15. Serving is the published 485 ml, stored as 485 g."
+  },
+  {
+   "key": "aw-frozen-root-beer-small",
+   "name": "Frozen root beer, small",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (355 ml)",
+    "serving_g": 355,
+    "calories": 200,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 90,
+    "carbs_g": 48,
+    "fiber_g": 0,
+    "sugars_g": 48,
+    "protein_g": 0,
+    "url": "https://web.aw.ca/api/menu/frozen-aw-root-beer-small/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Frozen A&W Root Beer (Small)\" (web.aw.ca menu item page, JSON at the url), per 355 ml serving, read 2026-11-15. Serving is the published 355 ml, stored as 355 g."
+  },
+  {
+   "key": "aw-frozen-root-beer-regular",
+   "name": "Frozen root beer, regular",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (591 ml)",
+    "serving_g": 591,
+    "calories": 340,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 120,
+    "carbs_g": 84,
+    "fiber_g": 0,
+    "sugars_g": 84,
+    "protein_g": 0,
+    "url": "https://web.aw.ca/api/menu/frozen-aw-root-beer-regular/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Frozen A&W Root Beer (Regular)\" (web.aw.ca menu item page, JSON at the url), per 591 ml serving, read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "aw-root-beer-shake-regular",
+   "name": "Root beer shake, regular",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "milkshake",
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (591 ml)",
+    "serving_g": 591,
+    "calories": 350,
+    "fat_g": 15,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 60,
+    "sodium_mg": 170,
+    "carbs_g": 67,
+    "fiber_g": 0,
+    "sugars_g": 67,
+    "protein_g": 2,
+    "url": "https://web.aw.ca/api/menu/aw-root-beer-shake-regular/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"A&W Root Beer Shake (Regular)\" (web.aw.ca menu item page, JSON at the url), per 591 ml serving, read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "aw-brewed-coffee",
+   "name": "Brewed coffee, black",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (296 ml)",
+    "serving_g": 296,
+    "calories": 5,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 5,
+    "carbs_g": 1,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0,
+    "url": "https://web.aw.ca/api/menu/brewed-coffee/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Brewed Coffee\" (web.aw.ca menu item page, JSON at the url), per 296 ml serving, read 2026-11-15. Serving is the published 296 ml, stored as 296 g."
+  },
+  {
+   "key": "aw-latte-small",
+   "name": "Latte, small, 2% milk",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (295 ml)",
+    "serving_g": 295,
+    "calories": 130,
+    "fat_g": 6,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 20,
+    "sodium_mg": 130,
+    "carbs_g": 13,
+    "fiber_g": 0,
+    "sugars_g": 13,
+    "protein_g": 10,
+    "url": "https://web.aw.ca/api/menu/latte-small-2-milk/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Latte (Small - 2% Milk)\" (web.aw.ca menu item page, JSON at the url), per 295 ml serving, read 2026-11-15. Serving is the published 295 ml, stored as 295 g."
+  },
+  {
+   "key": "aw-latte-regular",
+   "name": "Latte, regular, 2% milk",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (415 ml)",
+    "serving_g": 415,
+    "calories": 160,
+    "fat_g": 6,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 25,
+    "sodium_mg": 150,
+    "carbs_g": 17,
+    "fiber_g": 0,
+    "sugars_g": 15,
+    "protein_g": 12,
+    "url": "https://web.aw.ca/api/menu/latte-regular-2-milk/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Latte (Regular - 2% Milk)\" (web.aw.ca menu item page, JSON at the url), per 415 ml serving, read 2026-11-15. Serving is the published 415 ml, stored as 415 g."
+  },
+  {
+   "key": "aw-cappuccino-regular",
+   "name": "Cappuccino, regular",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (415 ml)",
+    "serving_g": 415,
+    "calories": 200,
+    "fat_g": 8,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 28,
+    "sodium_mg": 180,
+    "carbs_g": 20,
+    "fiber_g": 0,
+    "sugars_g": 18,
+    "protein_g": 14,
+    "url": "https://web.aw.ca/api/menu/cappuccino-regular/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Cappuccino (Regular)\" (web.aw.ca menu item page, JSON at the url), per 415 ml serving, read 2026-11-15. Serving is the published 415 ml, stored as 415 g."
+  },
+  {
+   "key": "aw-hot-chocolate",
+   "name": "Hot chocolate",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (250 ml)",
+    "serving_g": 250,
+    "calories": 160,
+    "fat_g": 0.5,
+    "saturated_fat_g": 0.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 210,
+    "carbs_g": 26,
+    "fiber_g": 1,
+    "sugars_g": 21,
+    "protein_g": 1,
+    "url": "https://web.aw.ca/api/menu/hot-chocolate/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Hot Chocolate\" (web.aw.ca menu item page, JSON at the url), per 250 ml serving, read 2026-11-15. Serving is the published 250 ml, stored as 250 g."
+  },
+  {
+   "key": "aw-iced-latte-regular",
+   "name": "Iced latte, regular, 2% milk",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (415 ml)",
+    "serving_g": 415,
+    "calories": 120,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 20,
+    "sodium_mg": 120,
+    "carbs_g": 13,
+    "fiber_g": 0,
+    "sugars_g": 12,
+    "protein_g": 9,
+    "url": "https://web.aw.ca/api/menu/iced-latte-regular-2-milk/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Iced Latte (Regular - 2% Milk)\" (web.aw.ca menu item page, JSON at the url), per 415 ml serving, read 2026-11-15. Serving is the published 415 ml, stored as 415 g."
+  },
+  {
+   "key": "aw-orange-juice-small",
+   "name": "Orange juice, small",
+   "brand": "A&W",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "a&w",
+    "a and w",
+    "aw"
+   ],
+   "published": {
+    "serving_label": "1 drink (355 ml)",
+    "serving_g": 355,
+    "calories": 160,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 40,
+    "fiber_g": 0,
+    "sugars_g": 36,
+    "protein_g": 0,
+    "url": "https://web.aw.ca/api/menu/orange-juice-small/",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "A&W Canada published nutrition for \"Orange Juice (Small)\" (web.aw.ca menu item page, JSON at the url), per 355 ml serving, read 2026-11-15. Serving is the published 355 ml, stored as 355 g."
+  }
+ ]
+}

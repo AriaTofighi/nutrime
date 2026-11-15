@@ -169,7 +169,7 @@ class BundledFoodDb(private val context: Context) {
 
     companion object {
         /** Bump when assets/foods.db is regenerated so devices re-copy it. */
-        const val ASSET_VERSION = 7
+        const val ASSET_VERSION = 8
 
         /** Candidates per search (also in web/src/lib/foods.ts). */
         const val CANDIDATES = 100
