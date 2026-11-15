@@ -1,0 +1,1103 @@
+{
+ "about": "Mary Brown's Chicken (Canada) menu items, nutrition per serving from Mary Brown's own Allergen and Nutritionals PDF (July 2026). Rows with values that contradict themselves in the PDF are left out.",
+ "foods": [
+  {
+   "key": "mary-browns-fries-small",
+   "name": "Fries, small",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "french fries",
+    "chips",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (156 g)",
+    "serving_g": 156,
+    "calories": 324,
+    "fat_g": 21.4,
+    "saturated_fat_g": 1.63,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 0,
+    "sodium_mg": 663,
+    "carbs_g": 35.6,
+    "fiber_g": 2.3,
+    "sugars_g": 1.1,
+    "protein_g": 2.3,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Fries (Small)\", per 1 serving of 156 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-fries-medium",
+   "name": "Fries, medium",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "french fries",
+    "chips",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (343 g)",
+    "serving_g": 343,
+    "calories": 710,
+    "fat_g": 46.9,
+    "saturated_fat_g": 3.56,
+    "trans_fat_g": 0.87,
+    "cholesterol_mg": 0,
+    "sodium_mg": 1459,
+    "carbs_g": 78.3,
+    "fiber_g": 5,
+    "sugars_g": 2.5,
+    "protein_g": 5.1,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Fries (Medium)\", per 1 serving of 343 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-taters-small",
+   "name": "Taters, small",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "potato wedges",
+    "tater",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (199 g)",
+    "serving_g": 199,
+    "calories": 470,
+    "fat_g": 24.5,
+    "saturated_fat_g": 2.35,
+    "trans_fat_g": 0.09,
+    "cholesterol_mg": 0,
+    "sodium_mg": 611,
+    "carbs_g": 63,
+    "fiber_g": 6.6,
+    "sugars_g": 1.9,
+    "protein_g": 9.4,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Taters (Small)\", per 1 serving of 199 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-taters-medium",
+   "name": "Taters, medium",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "potato wedges",
+    "tater",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (510 g)",
+    "serving_g": 510,
+    "calories": 1209,
+    "fat_g": 62.9,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 0,
+    "sodium_mg": 1571,
+    "carbs_g": 162,
+    "fiber_g": 16.9,
+    "sugars_g": 4.8,
+    "protein_g": 24.2,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Taters (Medium)\", per 1 serving of 510 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-fries-poutine",
+   "name": "Fries Poutine",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "poutine",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (372 g)",
+    "serving_g": 372,
+    "calories": 668,
+    "fat_g": 44.7,
+    "saturated_fat_g": 12.6,
+    "trans_fat_g": 1.5,
+    "cholesterol_mg": 59,
+    "sodium_mg": 1881,
+    "carbs_g": 54.6,
+    "fiber_g": 3,
+    "sugars_g": 2.6,
+    "protein_g": 18.2,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Fries Poutine\", per 1 serving of 372 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-taters-poutine",
+   "name": "Taters Poutine",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "poutine",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (372 g)",
+    "serving_g": 372,
+    "calories": 726,
+    "fat_g": 41.9,
+    "saturated_fat_g": 12.8,
+    "trans_fat_g": 1.05,
+    "cholesterol_mg": 59,
+    "sodium_mg": 1648,
+    "carbs_g": 72.3,
+    "fiber_g": 6.8,
+    "sugars_g": 2.9,
+    "protein_g": 24.7,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Taters Poutine\", per 1 serving of 372 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-mashed-potatoes",
+   "name": "Mashed potatoes, individual",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (255 g)",
+    "serving_g": 255,
+    "calories": 152,
+    "fat_g": 2.5,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 7,
+    "sodium_mg": 743,
+    "carbs_g": 30.3,
+    "fiber_g": 1.6,
+    "sugars_g": 0.4,
+    "protein_g": 3.5,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Mashed Potatoes (Individual)\", per 1 serving of 255 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-coleslaw-small",
+   "name": "Coleslaw, small",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "slaw",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (108 g)",
+    "serving_g": 108,
+    "calories": 122,
+    "fat_g": 8.3,
+    "saturated_fat_g": 0.7,
+    "trans_fat_g": 0.08,
+    "cholesterol_mg": 7,
+    "sodium_mg": 296,
+    "carbs_g": 11.4,
+    "fiber_g": 2,
+    "sugars_g": 8.3,
+    "protein_g": 0.2,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Coleslaw (Small)\", per 1 serving of 108 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-coleslaw-medium",
+   "name": "Coleslaw, medium",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "slaw",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (190 g)",
+    "serving_g": 190,
+    "calories": 216,
+    "fat_g": 14.6,
+    "saturated_fat_g": 1.21,
+    "trans_fat_g": 0.14,
+    "cholesterol_mg": 12,
+    "sodium_mg": 522,
+    "carbs_g": 20,
+    "fiber_g": 3.6,
+    "sugars_g": 14.7,
+    "protein_g": 0.4,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Coleslaw (Medium)\", per 1 serving of 190 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-gravy-small",
+   "name": "Gravy, small",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (115 g)",
+    "serving_g": 115,
+    "calories": 37,
+    "fat_g": 0.5,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 625,
+    "carbs_g": 7.2,
+    "fiber_g": 0.2,
+    "sugars_g": 0.8,
+    "protein_g": 1,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Gravy (Small)\", per 1 serving of 115 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-gravy-medium",
+   "name": "Gravy, medium",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (227 g)",
+    "serving_g": 227,
+    "calories": 73,
+    "fat_g": 1,
+    "saturated_fat_g": 0.09,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 1233,
+    "carbs_g": 14.2,
+    "fiber_g": 0.3,
+    "sugars_g": 1.5,
+    "protein_g": 1.9,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Gravy (Medium)\", per 1 serving of 227 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-chicken-thigh",
+   "name": "Fried chicken thigh, 1 piece",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "fried chicken",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 piece (133 g)",
+    "serving_g": 133,
+    "calories": 240,
+    "fat_g": 16,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 95,
+    "sodium_mg": 430,
+    "carbs_g": 4,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 19,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Thigh\", per 1 piece of 133 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-chicken-side-breast",
+   "name": "Fried chicken side breast, 1 piece",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "fried chicken",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 piece (172 g)",
+    "serving_g": 172,
+    "calories": 241,
+    "fat_g": 12,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 105,
+    "sodium_mg": 570,
+    "carbs_g": 2,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 32,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Side Breast\", per 1 piece of 172 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-chicken-centre-breast",
+   "name": "Fried chicken centre breast, 1 piece",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "fried chicken",
+    "center breast",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 piece (170 g)",
+    "serving_g": 170,
+    "calories": 330,
+    "fat_g": 16,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 125,
+    "sodium_mg": 820,
+    "carbs_g": 7,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 39,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Centre Breast\", per 1 piece of 170 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-chicken-wing-piece",
+   "name": "Fried chicken wing, 1 piece",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "fried chicken",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 piece (86 g)",
+    "serving_g": 86,
+    "calories": 160,
+    "fat_g": 10,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 65,
+    "sodium_mg": 370,
+    "carbs_g": 4,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 14,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Wing\", per 1 piece of 86 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-chicken-drumstick",
+   "name": "Fried chicken drumstick, 1 piece",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "fried chicken",
+    "drum",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 piece (70 g)",
+    "serving_g": 70,
+    "calories": 90,
+    "fat_g": 5,
+    "saturated_fat_g": 1,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 55,
+    "sodium_mg": 250,
+    "carbs_g": 1,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 11,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Drumstick\", per 1 piece of 70 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-big-mary",
+   "name": "Big Mary chicken sandwich",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "big mary",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (249 g)",
+    "serving_g": 249,
+    "calories": 596,
+    "fat_g": 31.7,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0.6,
+    "cholesterol_mg": 72,
+    "sodium_mg": 655,
+    "carbs_g": 44.3,
+    "fiber_g": 1.9,
+    "sugars_g": 3.5,
+    "protein_g": 33,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Big Mary\", per 1 serving of 249 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-spicy-big-mary",
+   "name": "Spicy Big Mary chicken sandwich",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "spicy big mary",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (250 g)",
+    "serving_g": 250,
+    "calories": 598,
+    "fat_g": 31,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 75,
+    "sodium_mg": 802,
+    "carbs_g": 45.6,
+    "fiber_g": 2,
+    "sugars_g": 3.5,
+    "protein_g": 33,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Spicy Big Mary\", per 1 serving of 250 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-buffalo-mary",
+   "name": "Buffalo Mary chicken sandwich",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (320 g)",
+    "serving_g": 320,
+    "calories": 700,
+    "fat_g": 31,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 75,
+    "sodium_mg": 1560,
+    "carbs_g": 65,
+    "fiber_g": 2,
+    "sugars_g": 25,
+    "protein_g": 35,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Buffalo Mary Sandwich\", per 1 serving of 320 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-chicken-tenders-3",
+   "name": "Chicken tenders, 3 pieces",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chicken fingers",
+    "chicken strips",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (128 g)",
+    "serving_g": 128,
+    "calories": 394,
+    "fat_g": 30.6,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.7,
+    "cholesterol_mg": 50,
+    "sodium_mg": 160,
+    "carbs_g": 8.6,
+    "fiber_g": 0.4,
+    "sugars_g": 0.1,
+    "protein_g": 20.8,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"3 PC: Chicken Tenders\", per 1 serving of 128 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-chicken-tenders-5",
+   "name": "Chicken tenders, 5 pieces",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chicken fingers",
+    "chicken strips",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (213 g)",
+    "serving_g": 213,
+    "calories": 657,
+    "fat_g": 51,
+    "saturated_fat_g": 4.2,
+    "trans_fat_g": 1.2,
+    "cholesterol_mg": 83,
+    "sodium_mg": 267,
+    "carbs_g": 14.3,
+    "fiber_g": 0.7,
+    "sugars_g": 0.1,
+    "protein_g": 34.7,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"5 PC: Chicken Tenders\", per 1 serving of 213 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-mini-mary",
+   "name": "Mini Mary chicken sandwich",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (106 g)",
+    "serving_g": 106,
+    "calories": 355,
+    "fat_g": 25.6,
+    "saturated_fat_g": 3.22,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 24,
+    "sodium_mg": 348,
+    "carbs_g": 21.2,
+    "fiber_g": 0.7,
+    "sugars_g": 2.2,
+    "protein_g": 10.3,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Mini Mary\", per 1 serving of 106 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-spicy-mini-mary",
+   "name": "Spicy Mini Mary chicken sandwich",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (106 g)",
+    "serving_g": 106,
+    "calories": 355,
+    "fat_g": 25,
+    "saturated_fat_g": 2.16,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 27,
+    "sodium_mg": 348,
+    "carbs_g": 21.9,
+    "fiber_g": 0.7,
+    "sugars_g": 2.2,
+    "protein_g": 10.3,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Spicy Mini Mary\", per 1 serving of 106 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-crispy-chicken-twists",
+   "name": "Crispy Chicken Twist wraps, 2 pieces",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chicken twist",
+    "wrap",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "2 pieces (138 g)",
+    "serving_g": 138,
+    "calories": 419,
+    "fat_g": 23.8,
+    "saturated_fat_g": 4.6,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 26,
+    "sodium_mg": 757,
+    "carbs_g": 37.3,
+    "fiber_g": 1.1,
+    "sugars_g": 3.3,
+    "protein_g": 13.6,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Crispy Chicken Twists\", per 2 pieces of 138 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-chicken-pop-ins-regular",
+   "name": "Chicken Pop-ins, regular",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "popcorn chicken",
+    "pop ins",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (181 g)",
+    "serving_g": 181,
+    "calories": 302,
+    "fat_g": 7.7,
+    "saturated_fat_g": 1.06,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 86,
+    "sodium_mg": 892,
+    "carbs_g": 19.4,
+    "fiber_g": 1,
+    "sugars_g": 0.2,
+    "protein_g": 36.5,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Chicken Pop-ins (Regular)\", per 1 serving of 181 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-chicken-pop-ins-large",
+   "name": "Chicken Pop-ins, large",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "popcorn chicken",
+    "pop ins",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (272 g)",
+    "serving_g": 272,
+    "calories": 454,
+    "fat_g": 11.5,
+    "saturated_fat_g": 1.6,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 129,
+    "sodium_mg": 1338,
+    "carbs_g": 29,
+    "fiber_g": 1.4,
+    "sugars_g": 0.3,
+    "protein_g": 54.7,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Chicken Pop-ins (Large)\", per 1 serving of 272 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-thai-chicken-pop-ins-regular",
+   "name": "Chicken Thai Pop-ins, regular",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "pop ins",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (241 g)",
+    "serving_g": 241,
+    "calories": 408,
+    "fat_g": 7.6,
+    "saturated_fat_g": 1.05,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 86,
+    "sodium_mg": 1081,
+    "carbs_g": 45,
+    "fiber_g": 0.9,
+    "sugars_g": 21.6,
+    "protein_g": 36.6,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Chicken Thai Pop-ins (Regular)\", per 1 serving of 241 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-mash-up-bowl",
+   "name": "Mash-up Bowl",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mashup bowl",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (405 g)",
+    "serving_g": 405,
+    "calories": 336,
+    "fat_g": 9.4,
+    "saturated_fat_g": 3.8,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 35,
+    "sodium_mg": 1337,
+    "carbs_g": 48.7,
+    "fiber_g": 3.3,
+    "sugars_g": 1.1,
+    "protein_g": 15.7,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Mash-up Bowl\", per 1 serving of 405 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-honey-dill-sauce",
+   "name": "Honey dill dipping sauce",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (28 g)",
+    "serving_g": 28,
+    "calories": 140,
+    "fat_g": 11,
+    "saturated_fat_g": 1,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 10,
+    "sodium_mg": 140,
+    "carbs_g": 10,
+    "fiber_g": 0,
+    "sugars_g": 6,
+    "protein_g": 0.2,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Honey Dill\", per 1 serving of 28 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-honey-mustard-sauce",
+   "name": "Honey mustard dipping sauce",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (28 g)",
+    "serving_g": 28,
+    "calories": 60,
+    "fat_g": 1,
+    "saturated_fat_g": 0.1,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 70,
+    "carbs_g": 14,
+    "fiber_g": 1,
+    "sugars_g": 12,
+    "protein_g": 1,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Honey Mustard\", per 1 serving of 28 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-bbq-sauce",
+   "name": "BBQ dipping sauce",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "barbecue sauce",
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (28 g)",
+    "serving_g": 28,
+    "calories": 40,
+    "fat_g": 0.2,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 300,
+    "carbs_g": 9,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 0.5,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"BBQ\", per 1 serving of 28 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-ranch-sauce",
+   "name": "Ranch dipping sauce",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (28 g)",
+    "serving_g": 28,
+    "calories": 143,
+    "fat_g": 14.3,
+    "saturated_fat_g": 1.2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 12,
+    "sodium_mg": 226,
+    "carbs_g": 2.4,
+    "fiber_g": 0,
+    "sugars_g": 2.4,
+    "protein_g": 0.4,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Ranch\", per 1 serving of 28 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-mb-sauce",
+   "name": "MB Sauce",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (28 g)",
+    "serving_g": 28,
+    "calories": 150,
+    "fat_g": 14,
+    "saturated_fat_g": 1,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 10,
+    "sodium_mg": 220,
+    "carbs_g": 5,
+    "fiber_g": 0,
+    "sugars_g": 5,
+    "protein_g": 0.3,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"MB Sauce\", per 1 serving of 28 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-buffalo-sauce",
+   "name": "Buffalo sauce",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (28 g)",
+    "serving_g": 28,
+    "calories": 42,
+    "fat_g": 0.5,
+    "saturated_fat_g": 0.2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 439,
+    "carbs_g": 8.4,
+    "fiber_g": 0,
+    "sugars_g": 7.5,
+    "protein_g": 0.2,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Buffalo\", per 1 serving of 28 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-hot-honey-sauce",
+   "name": "Hot honey sauce",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (28 g)",
+    "serving_g": 28,
+    "calories": 80,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 1,
+    "carbs_g": 22,
+    "fiber_g": 0,
+    "sugars_g": 21,
+    "protein_g": 0.1,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Hot Honey\", per 1 serving of 28 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-sweet-sour-sauce",
+   "name": "Sweet and sour dipping sauce",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 serving (28 g)",
+    "serving_g": 28,
+    "calories": 45,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 60,
+    "carbs_g": 10,
+    "fiber_g": 0,
+    "sugars_g": 9,
+    "protein_g": 0.1,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Sweet and Sour\", per 1 serving of 28 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-caramilk-cake-cup",
+   "name": "Caramilk chocolate cake cup",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 container (85 g)",
+    "serving_g": 85,
+    "calories": 300,
+    "fat_g": 18,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 50,
+    "sodium_mg": 200,
+    "carbs_g": 35,
+    "fiber_g": 1,
+    "sugars_g": 26,
+    "protein_g": 3,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Caramilk Chocolate Cake Cup\", per 1 container of 85 g as published, read 2026-11-15."
+  },
+  {
+   "key": "mary-browns-banana-pudding",
+   "name": "Banana pudding",
+   "brand": "Mary Brown's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mary brown's",
+    "mary browns",
+    "marybrowns"
+   ],
+   "published": {
+    "serving_label": "1 container (118 g)",
+    "serving_g": 118,
+    "calories": 235,
+    "fat_g": 11.3,
+    "saturated_fat_g": 10.4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 2,
+    "sodium_mg": 248,
+    "carbs_g": 31,
+    "fiber_g": 0.4,
+    "sugars_g": 21,
+    "protein_g": 2.4,
+    "url": "https://marybrowns.com/wp-content/uploads/Mary-Browns-Allergen-and-Nutritionals-July-2026.pdf",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Mary Brown's Canada \"Allergen and Nutritionals\" PDF (July 2026), row \"Banana Pudding\", per 1 container of 118 g as published, read 2026-11-15."
+  }
+ ]
+}
