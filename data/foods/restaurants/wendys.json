@@ -1,0 +1,4009 @@
+{
+ "about": "Wendy's Canada menu items, nutrition per item for the default recipe from Wendy's Canadian menu data (retrieved November 15, 2026), taken from a compilation PDF supplied by the owner, not read from Wendy's directly. No weights are given, so each food is logged by its serving (keys end in -serving).",
+ "foods": [
+  {
+   "key": "wendys-daves-single-serving",
+   "name": "Dave's Single",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 560,
+    "fat_g": 34,
+    "saturated_fat_g": 14,
+    "trans_fat_g": 1.5,
+    "cholesterol_mg": 85,
+    "sodium_mg": 1120,
+    "carbs_g": 35,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 29,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Dave's Single\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-daves-double-serving",
+   "name": "Dave's Double",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 810,
+    "fat_g": 53,
+    "saturated_fat_g": 22,
+    "trans_fat_g": 2.5,
+    "cholesterol_mg": 145,
+    "sodium_mg": 1320,
+    "carbs_g": 35,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 49,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Dave's Double\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-daves-triple-serving",
+   "name": "Dave's Triple",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 1090,
+    "fat_g": 75,
+    "saturated_fat_g": 32,
+    "trans_fat_g": 3.5,
+    "cholesterol_mg": 215,
+    "sodium_mg": 1700,
+    "carbs_g": 36,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 71,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Dave's Triple\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-baconator-serving",
+   "name": "Baconator",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 900,
+    "fat_g": 59,
+    "saturated_fat_g": 24,
+    "trans_fat_g": 2.5,
+    "cholesterol_mg": 160,
+    "sodium_mg": 1540,
+    "carbs_g": 34,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 58,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Baconator\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-son-of-baconator-serving",
+   "name": "Son of Baconator",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 620,
+    "fat_g": 38,
+    "saturated_fat_g": 15,
+    "trans_fat_g": 1.5,
+    "cholesterol_mg": 95,
+    "sodium_mg": 1260,
+    "carbs_g": 34,
+    "fiber_g": 1,
+    "sugars_g": 6,
+    "protein_g": 35,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Son of Baconator\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-bacon-deluxe-14-lb-single-serving",
+   "name": "Bacon Deluxe ¼ lb. Single",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 610,
+    "fat_g": 38,
+    "saturated_fat_g": 15,
+    "trans_fat_g": 1.5,
+    "cholesterol_mg": 95,
+    "sodium_mg": 1290,
+    "carbs_g": 35,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 34,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Bacon Deluxe ¼ lb.* Single\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-bacon-deluxe-34lb-triple-serving",
+   "name": "Bacon Deluxe ¾lb. Triple",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 1140,
+    "fat_g": 78,
+    "saturated_fat_g": 33,
+    "trans_fat_g": 3.5,
+    "cholesterol_mg": 225,
+    "sodium_mg": 1870,
+    "carbs_g": 36,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 76,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Bacon Deluxe ¾lb.* Triple\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-double-stack-serving",
+   "name": "Double Stack",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 410,
+    "fat_g": 23,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 70,
+    "sodium_mg": 710,
+    "carbs_g": 25,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 25,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Double Stack\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-double-jr-bacon-cheeseburger-serving",
+   "name": "Double Jr. Bacon Cheeseburger",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 490,
+    "fat_g": 31,
+    "saturated_fat_g": 12,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 80,
+    "sodium_mg": 770,
+    "carbs_g": 25,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 28,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Double Jr. Bacon Cheeseburger\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-jr-hamburger-deluxe-serving",
+   "name": "Jr. Hamburger Deluxe",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 300,
+    "fat_g": 16,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 35,
+    "sodium_mg": 450,
+    "carbs_g": 26,
+    "fiber_g": 1,
+    "sugars_g": 6,
+    "protein_g": 14,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Jr. Hamburger Deluxe\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-jr-cheeseburger-deluxe-serving",
+   "name": "Jr. Cheeseburger Deluxe",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 340,
+    "fat_g": 20,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 45,
+    "sodium_mg": 630,
+    "carbs_g": 26,
+    "fiber_g": 1,
+    "sugars_g": 6,
+    "protein_g": 16,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Jr. Cheeseburger Deluxe\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-jr-bacon-cheeseburger-serving",
+   "name": "Jr. Bacon Cheeseburger",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 370,
+    "fat_g": 22,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 50,
+    "sodium_mg": 660,
+    "carbs_g": 25,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 19,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Jr. Bacon Cheeseburger\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-cheesy-cheddarburger-serving",
+   "name": "Cheesy Cheddarburger",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 300,
+    "fat_g": 16,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 45,
+    "sodium_mg": 610,
+    "carbs_g": 24,
+    "fiber_g": 1,
+    "sugars_g": 4,
+    "protein_g": 16,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Cheesy Cheddarburger\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-3-piece-korean-bbq-chicken-strips-serving",
+   "name": "3-Piece Korean BBQ Chicken Strips",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 440,
+    "fat_g": 20,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1410,
+    "carbs_g": 43,
+    "fiber_g": 2,
+    "sugars_g": 13,
+    "protein_g": 25,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"3-Piece Korean BBQ Chicken Strips\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-5-piece-korean-bbq-chicken-strips-serving",
+   "name": "5-Piece Korean BBQ Chicken Strips",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 740,
+    "fat_g": 33,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 100,
+    "sodium_mg": 2350,
+    "carbs_g": 72,
+    "fiber_g": 3,
+    "sugars_g": 21,
+    "protein_g": 42,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"5-Piece Korean BBQ Chicken Strips\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-3-piece-buffalo-chicken-strips-serving",
+   "name": "3-Piece Buffalo Chicken Strips",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 390,
+    "fat_g": 20,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1790,
+    "carbs_g": 31,
+    "fiber_g": 2,
+    "sugars_g": 1,
+    "protein_g": 25,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"3-Piece Buffalo Chicken Strips\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-5-piece-buffalo-chicken-strips-serving",
+   "name": "5-Piece Buffalo Chicken Strips",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 650,
+    "fat_g": 33,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 100,
+    "sodium_mg": 2990,
+    "carbs_g": 51,
+    "fiber_g": 3,
+    "sugars_g": 2,
+    "protein_g": 41,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"5-Piece Buffalo Chicken Strips\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-buffalo-chicken-sandwich-serving",
+   "name": "Buffalo Chicken Sandwich",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 460,
+    "fat_g": 19,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 50,
+    "sodium_mg": 1730,
+    "carbs_g": 46,
+    "fiber_g": 2,
+    "sugars_g": 5,
+    "protein_g": 24,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Buffalo Chicken Sandwich\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-spicy-buffalo-chicken-sandwich-serving",
+   "name": "Spicy Buffalo Chicken Sandwich",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 470,
+    "fat_g": 21,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 55,
+    "sodium_mg": 1650,
+    "carbs_g": 46,
+    "fiber_g": 2,
+    "sugars_g": 5,
+    "protein_g": 24,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Spicy Buffalo Chicken Sandwich\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-spicy-chicken-sandwich-serving",
+   "name": "Spicy Chicken Sandwich",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 450,
+    "fat_g": 20,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 55,
+    "sodium_mg": 1110,
+    "carbs_g": 45,
+    "fiber_g": 2,
+    "sugars_g": 5,
+    "protein_g": 24,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Spicy Chicken Sandwich\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-classic-chicken-sandwich-serving",
+   "name": "Classic Chicken Sandwich",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 460,
+    "fat_g": 21,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 50,
+    "sodium_mg": 1320,
+    "carbs_g": 46,
+    "fiber_g": 2,
+    "sugars_g": 5,
+    "protein_g": 24,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Classic Chicken Sandwich\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-classic-asiago-ranch-chicken-club-serving",
+   "name": "Classic Asiago Ranch Chicken Club",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 580,
+    "fat_g": 30,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 75,
+    "sodium_mg": 1510,
+    "carbs_g": 47,
+    "fiber_g": 2,
+    "sugars_g": 6,
+    "protein_g": 33,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Classic Asiago Ranch Chicken Club\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-spicy-asiago-ranch-chicken-club-serving",
+   "name": "Spicy Asiago Ranch Chicken Club",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 570,
+    "fat_g": 29,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 80,
+    "sodium_mg": 1400,
+    "carbs_g": 46,
+    "fiber_g": 2,
+    "sugars_g": 6,
+    "protein_g": 32,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Spicy Asiago Ranch Chicken Club\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-3-piece-chicken-strips-serving",
+   "name": "3-Piece Chicken Strips",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 380,
+    "fat_g": 19,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1080,
+    "carbs_g": 30,
+    "fiber_g": 2,
+    "sugars_g": 1,
+    "protein_g": 25,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"3-Piece Chicken Strips\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-5-piece-chicken-strips-serving",
+   "name": "5-Piece Chicken Strips",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 640,
+    "fat_g": 32,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 100,
+    "sodium_mg": 1800,
+    "carbs_g": 50,
+    "fiber_g": 3,
+    "sugars_g": 2,
+    "protein_g": 41,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"5-Piece Chicken Strips\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-6-piece-crispy-chicken-nuggets-serving",
+   "name": "6-Piece Crispy Chicken Nuggets",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 190,
+    "fat_g": 11,
+    "saturated_fat_g": 1,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 35,
+    "sodium_mg": 530,
+    "carbs_g": 13,
+    "fiber_g": 1,
+    "sugars_g": 0,
+    "protein_g": 11,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"6-Piece Crispy Chicken Nuggets\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-10-piece-crispy-chicken-nuggets-serving",
+   "name": "10-Piece Crispy Chicken Nuggets",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 320,
+    "fat_g": 18,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 60,
+    "sodium_mg": 880,
+    "carbs_g": 21,
+    "fiber_g": 1,
+    "sugars_g": 1,
+    "protein_g": 18,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"10-Piece Crispy Chicken Nuggets\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-grilled-chicken-wrap-duo-serving",
+   "name": "Grilled Chicken Wrap Duo",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 300,
+    "fat_g": 15,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 40,
+    "sodium_mg": 810,
+    "carbs_g": 25,
+    "fiber_g": 3,
+    "sugars_g": 2,
+    "protein_g": 18,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Grilled Chicken Wrap Duo\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-spicy-chicken-wrap-duo-serving",
+   "name": "Spicy Chicken Wrap Duo",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 470,
+    "fat_g": 24,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 65,
+    "sodium_mg": 1210,
+    "carbs_g": 37,
+    "fiber_g": 3,
+    "sugars_g": 2,
+    "protein_g": 25,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Spicy Chicken Wrap Duo\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-classic-chicken-wrap-duo-serving",
+   "name": "Classic Chicken Wrap Duo",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 480,
+    "fat_g": 25,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1310,
+    "carbs_g": 38,
+    "fiber_g": 3,
+    "sugars_g": 2,
+    "protein_g": 25,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Classic Chicken Wrap Duo\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-cobb-salad-serving",
+   "name": "Cobb Salad",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 590,
+    "fat_g": 40,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 280,
+    "sodium_mg": 1470,
+    "carbs_g": 18,
+    "fiber_g": 3,
+    "sugars_g": 6,
+    "protein_g": 39,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Cobb Salad\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-grilled-caesar-salad-serving",
+   "name": "Grilled Caesar Salad",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 560,
+    "fat_g": 38,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 105,
+    "sodium_mg": 1270,
+    "carbs_g": 17,
+    "fiber_g": 2,
+    "sugars_g": 4,
+    "protein_g": 35,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Grilled Caesar Salad\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-apple-pecan-chicken-salad-serving",
+   "name": "Apple Pecan Chicken Salad",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 490,
+    "fat_g": 24,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 85,
+    "sodium_mg": 1150,
+    "carbs_g": 42,
+    "fiber_g": 5,
+    "sugars_g": 32,
+    "protein_g": 32,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Apple Pecan Chicken Salad\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-taco-salad-serving",
+   "name": "Taco Salad",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 660,
+    "fat_g": 35,
+    "saturated_fat_g": 15,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 90,
+    "sodium_mg": 1910,
+    "carbs_g": 54,
+    "fiber_g": 8,
+    "sugars_g": 12,
+    "protein_g": 30,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Taco Salad\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-side-caesar-serving",
+   "name": "Side Caesar",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 380,
+    "fat_g": 33,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 40,
+    "sodium_mg": 500,
+    "carbs_g": 13,
+    "fiber_g": 1,
+    "sugars_g": 2,
+    "protein_g": 8,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.        Trans       Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Side Caesar\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-cinnabon-pull-apart-serving",
+   "name": "Cinnabon Pull-Apart",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 530,
+    "fat_g": 24,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 30,
+    "sodium_mg": 400,
+    "carbs_g": 70,
+    "fiber_g": 3,
+    "sugars_g": 26,
+    "protein_g": 9,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Cinnabon Pull-Apart\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-buffalo-shaker-fries-serving",
+   "name": "Buffalo Shaker Fries",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 290,
+    "fat_g": 12,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 1650,
+    "carbs_g": 42,
+    "fiber_g": 4,
+    "sugars_g": 1,
+    "protein_g": 5,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Buffalo Shaker Fries\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-fries-serving",
+   "name": "Small Fries",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 260,
+    "fat_g": 12,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 380,
+    "carbs_g": 35,
+    "fiber_g": 3,
+    "sugars_g": 0,
+    "protein_g": 4,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Fries\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-baconator-fries-serving",
+   "name": "Baconator Fries",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 400,
+    "fat_g": 22,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 30,
+    "sodium_mg": 890,
+    "carbs_g": 38,
+    "fiber_g": 3,
+    "sugars_g": 1,
+    "protein_g": 12,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Baconator Fries\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-homestyle-french-toast-sticks-4-pc-serving",
+   "name": "Homestyle French Toast Sticks, 4 PC",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 490,
+    "fat_g": 17,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 115,
+    "sodium_mg": 380,
+    "carbs_g": 76,
+    "fiber_g": 1,
+    "sugars_g": 45,
+    "protein_g": 11,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Homestyle French Toast Sticks, 4 PC\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-homestyle-french-toast-sticks-6-pc-serving",
+   "name": "Homestyle French Toast Sticks, 6 PC",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 660,
+    "fat_g": 25,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 175,
+    "sodium_mg": 570,
+    "carbs_g": 92,
+    "fiber_g": 2,
+    "sugars_g": 49,
+    "protein_g": 16,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Homestyle French Toast Sticks, 6 PC\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-poutine-serving",
+   "name": "Small Poutine",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 330,
+    "fat_g": 18,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 30,
+    "sodium_mg": 800,
+    "carbs_g": 32,
+    "fiber_g": 2,
+    "sugars_g": 0,
+    "protein_g": 11,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Poutine\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-poutine-serving",
+   "name": "Poutine",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 610,
+    "fat_g": 33,
+    "saturated_fat_g": 15,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1640,
+    "carbs_g": 57,
+    "fiber_g": 4,
+    "sugars_g": 1,
+    "protein_g": 20,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Poutine\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-bacon-poutine-serving",
+   "name": "Bacon Poutine",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 670,
+    "fat_g": 37,
+    "saturated_fat_g": 17,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 70,
+    "sodium_mg": 1840,
+    "carbs_g": 57,
+    "fiber_g": 4,
+    "sugars_g": 1,
+    "protein_g": 25,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Bacon Poutine\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-chili-cheese-fries-serving",
+   "name": "Chili Cheese Fries",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 520,
+    "fat_g": 27,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 35,
+    "sodium_mg": 1290,
+    "carbs_g": 53,
+    "fiber_g": 6,
+    "sugars_g": 4,
+    "protein_g": 17,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Chili Cheese Fries\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-chili-cheese-nachos-serving",
+   "name": "Chili Cheese Nachos",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 370,
+    "fat_g": 20,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 25,
+    "sodium_mg": 780,
+    "carbs_g": 36,
+    "fiber_g": 4,
+    "sugars_g": 3,
+    "protein_g": 11,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Chili Cheese Nachos\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-chili-serving",
+   "name": "Small Chili",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 230,
+    "fat_g": 11,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 45,
+    "sodium_mg": 870,
+    "carbs_g": 14,
+    "fiber_g": 3,
+    "sugars_g": 5,
+    "protein_g": 18,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Chili\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-chili-serving",
+   "name": "Large Chili",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 320,
+    "fat_g": 16,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 65,
+    "sodium_mg": 1220,
+    "carbs_g": 20,
+    "fiber_g": 4,
+    "sugars_g": 8,
+    "protein_g": 25,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Chili\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-plain-baked-potato-serving",
+   "name": "Plain Baked Potato",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 260,
+    "fat_g": 0.4,
+    "saturated_fat_g": 0.1,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 30,
+    "carbs_g": 60,
+    "fiber_g": 6,
+    "sugars_g": 3,
+    "protein_g": 7,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Plain Baked Potato\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-sour-cream-and-chive-baked-potato-serving",
+   "name": "Sour Cream and Chive Baked Potato",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 330,
+    "fat_g": 7,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 25,
+    "sodium_mg": 55,
+    "carbs_g": 63,
+    "fiber_g": 6,
+    "sugars_g": 6,
+    "protein_g": 9,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Sour Cream and Chive Baked Potato\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-bacon-cheddar-cheese-sauce-baked-potato-serving",
+   "name": "Bacon Cheddar Cheese Sauce Baked Potato",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 400,
+    "fat_g": 11,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 30,
+    "sodium_mg": 530,
+    "carbs_g": 63,
+    "fiber_g": 6,
+    "sugars_g": 4,
+    "protein_g": 15,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Bacon Cheddar Cheese Sauce Baked Potato\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-classic-chicken-wrap-serving",
+   "name": "Classic Chicken Wrap",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 480,
+    "fat_g": 25,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 60,
+    "sodium_mg": 1310,
+    "carbs_g": 38,
+    "fiber_g": 3,
+    "sugars_g": 2,
+    "protein_g": 25,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Classic Chicken Wrap\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-grilled-chicken-wrap-serving",
+   "name": "Grilled Chicken Wrap",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 300,
+    "fat_g": 14,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 40,
+    "sodium_mg": 810,
+    "carbs_g": 25,
+    "fiber_g": 3,
+    "sugars_g": 3,
+    "protein_g": 18,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Grilled Chicken Wrap\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-spicy-chicken-wrap-serving",
+   "name": "Spicy Chicken Wrap",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 350,
+    "fat_g": 19,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 40,
+    "sodium_mg": 840,
+    "carbs_g": 31,
+    "fiber_g": 3,
+    "sugars_g": 2,
+    "protein_g": 16,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Spicy Chicken Wrap\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-kids-4pc-nuggets-serving",
+   "name": "Kids' 4PC Nuggets",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 130,
+    "fat_g": 7,
+    "saturated_fat_g": 0.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 25,
+    "sodium_mg": 350,
+    "carbs_g": 9,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 7,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Kids' 4PC Nuggets\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-jr-chocolate-frosty-serving",
+   "name": "Jr. Chocolate Frosty",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 190,
+    "fat_g": 6,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 20,
+    "sodium_mg": 105,
+    "carbs_g": 31,
+    "fiber_g": 1,
+    "sugars_g": 27,
+    "protein_g": 5,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Jr. Chocolate Frosty\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-jr-vanilla-frosty-serving",
+   "name": "Jr. Vanilla Frosty",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 190,
+    "fat_g": 6,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 20,
+    "sodium_mg": 110,
+    "carbs_g": 32,
+    "fiber_g": 0,
+    "sugars_g": 28,
+    "protein_g": 5,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Jr. Vanilla Frosty\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-kids-meal-coca-cola-serving",
+   "name": "Kids' Meal Coca-Cola",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 110,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 30,
+    "fiber_g": 0,
+    "sugars_g": 30,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Kids' Meal Coca-Cola\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-kids-meal-diet-coke-serving",
+   "name": "Kids' Meal Diet Coke",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 1,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 5,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Kids' Meal Diet Coke\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-kids-meal-sprite-serving",
+   "name": "Kids' Meal Sprite",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 100,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 27,
+    "fiber_g": 0,
+    "sugars_g": 27,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Kids' Meal Sprite\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-dasani-bottled-water-serving",
+   "name": "Dasani Bottled Water",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 0,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 1,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Dasani Bottled Water\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-minute-maid-apple-juice-serving",
+   "name": "Minute Maid Apple Juice",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 40,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 9,
+    "fiber_g": 0,
+    "sugars_g": 8,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Minute Maid Apple Juice\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-chocolate-milk-serving",
+   "name": "Chocolate Milk",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 150,
+    "fat_g": 2.5,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 10,
+    "sodium_mg": 180,
+    "carbs_g": 27,
+    "fiber_g": 0,
+    "sugars_g": 25,
+    "protein_g": 7,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Chocolate Milk\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-milk-serving",
+   "name": "Milk",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 130,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 20,
+    "sodium_mg": 110,
+    "carbs_g": 12,
+    "fiber_g": 0,
+    "sugars_g": 12,
+    "protein_g": 7,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Milk\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-minute-maid-orange-juice-serving",
+   "name": "Minute Maid Orange Juice",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 140,
+    "fat_g": 0.2,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 20,
+    "carbs_g": 33,
+    "fiber_g": 0,
+    "sugars_g": 30,
+    "protein_g": 2,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Minute Maid Orange Juice\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-simply-orange-serving",
+   "name": "Simply Orange",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 160,
+    "fat_g": 0.2,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 3,
+    "carbs_g": 39,
+    "fiber_g": 1,
+    "sugars_g": 34,
+    "protein_g": 3,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Simply Orange\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-simply-apple-serving",
+   "name": "Simply Apple",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 150,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 5,
+    "carbs_g": 38,
+    "fiber_g": 0,
+    "sugars_g": 35,
+    "protein_g": 0.5,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Simply Apple\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-apple-bites-serving",
+   "name": "Apple Bites",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 30,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 8,
+    "fiber_g": 2,
+    "sugars_g": 6,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Apple Bites\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-kids-cheeseburger-serving",
+   "name": "Kids' Cheeseburger",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 280,
+    "fat_g": 14,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 40,
+    "sodium_mg": 550,
+    "carbs_g": 25,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 15,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Kids' Cheeseburger\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-honest-kids-apple-serving",
+   "name": "Honest Kids Apple",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 40,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 9,
+    "fiber_g": 0,
+    "sugars_g": 8,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Honest Kids Apple\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-honest-kids-fruit-punch-serving",
+   "name": "Honest Kids Fruit Punch",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 40,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 8,
+    "fiber_g": 0,
+    "sugars_g": 8,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Honest Kids Fruit Punch\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-kids-hamburger-serving",
+   "name": "Kids' Hamburger",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 250,
+    "fat_g": 11,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 30,
+    "sodium_mg": 370,
+    "carbs_g": 24,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 13,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Kids' Hamburger\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-french-toast-sticks-kids-meal-3-pc-serving",
+   "name": "French Toast Sticks Kids' Meal, 3 PC",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 410,
+    "fat_g": 12,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 85,
+    "sodium_mg": 290,
+    "carbs_g": 67,
+    "fiber_g": 1,
+    "sugars_g": 43,
+    "protein_g": 8,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"French Toast Sticks Kids' Meal, 3 PC\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-chocolate-frosty-serving",
+   "name": "Small Chocolate Frosty",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 300,
+    "fat_g": 9,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 30,
+    "sodium_mg": 170,
+    "carbs_g": 49,
+    "fiber_g": 1,
+    "sugars_g": 43,
+    "protein_g": 8,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Chocolate Frosty\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-chocolate-frosty-serving",
+   "name": "Medium Chocolate Frosty",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 380,
+    "fat_g": 11,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 40,
+    "sodium_mg": 210,
+    "carbs_g": 62,
+    "fiber_g": 1,
+    "sugars_g": 54,
+    "protein_g": 10,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Medium Chocolate Frosty\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-chocolate-frosty-serving",
+   "name": "Large Chocolate Frosty",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 490,
+    "fat_g": 15,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 50,
+    "sodium_mg": 270,
+    "carbs_g": 81,
+    "fiber_g": 1,
+    "sugars_g": 71,
+    "protein_g": 14,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Chocolate Frosty\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-vanilla-frosty-serving",
+   "name": "Small Vanilla Frosty",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 300,
+    "fat_g": 9,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 30,
+    "sodium_mg": 170,
+    "carbs_g": 50,
+    "fiber_g": 0,
+    "sugars_g": 44,
+    "protein_g": 8,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Vanilla Frosty\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-vanilla-frosty-serving",
+   "name": "Medium Vanilla Frosty",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 380,
+    "fat_g": 11,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 40,
+    "sodium_mg": 220,
+    "carbs_g": 63,
+    "fiber_g": 0,
+    "sugars_g": 55,
+    "protein_g": 10,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Medium Vanilla Frosty\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-vanilla-frosty-serving",
+   "name": "Large Vanilla Frosty",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 490,
+    "fat_g": 15,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 50,
+    "sodium_mg": 280,
+    "carbs_g": 82,
+    "fiber_g": 0,
+    "sugars_g": 72,
+    "protein_g": 13,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Vanilla Frosty\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-oreo-brownie-frosty-vanilla-serving",
+   "name": "Medium Oreo Brownie Frosty, Vanilla",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 550,
+    "fat_g": 23,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 40,
+    "sodium_mg": 370,
+    "carbs_g": 79,
+    "fiber_g": 1,
+    "sugars_g": 64,
+    "protein_g": 11,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Medium Oreo Brownie Frosty, Vanilla\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-oreo-brownie-frosty-vanilla-serving",
+   "name": "Large Oreo Brownie Frosty, Vanilla",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 650,
+    "fat_g": 26,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 45,
+    "sodium_mg": 430,
+    "carbs_g": 95,
+    "fiber_g": 1,
+    "sugars_g": 77,
+    "protein_g": 13,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Oreo Brownie Frosty, Vanilla\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-oreo-brownie-frosty-chocolate-serving",
+   "name": "Medium Oreo Brownie Frosty, Chocolate",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 550,
+    "fat_g": 23,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 35,
+    "sodium_mg": 360,
+    "carbs_g": 78,
+    "fiber_g": 2,
+    "sugars_g": 63,
+    "protein_g": 11,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Medium Oreo Brownie Frosty, Chocolate\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-oreo-brownie-frosty-chocolate-serving",
+   "name": "Large Oreo Brownie Frosty, Chocolate",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 650,
+    "fat_g": 27,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 45,
+    "sodium_mg": 420,
+    "carbs_g": 94,
+    "fiber_g": 2,
+    "sugars_g": 76,
+    "protein_g": 14,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Oreo Brownie Frosty, Chocolate\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-peach-refresher-serving",
+   "name": "Peach Refresher",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 180,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 20,
+    "carbs_g": 44,
+    "fiber_g": 1,
+    "sugars_g": 41,
+    "protein_g": 0.4,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Peach Refresher\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-peach-refresher-serving",
+   "name": "Medium Peach Refresher",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 270,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 25,
+    "carbs_g": 64,
+    "fiber_g": 1,
+    "sugars_g": 61,
+    "protein_g": 1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Peach Refresher\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-peach-refresher-serving",
+   "name": "Large Peach Refresher",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 360,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 35,
+    "carbs_g": 85,
+    "fiber_g": 1,
+    "sugars_g": 81,
+    "protein_g": 1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Peach Refresher\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-tropical-strawberry-refresher-serving",
+   "name": "Tropical Strawberry Refresher",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 210,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 25,
+    "carbs_g": 50,
+    "fiber_g": 1,
+    "sugars_g": 48,
+    "protein_g": 0.3,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Tropical Strawberry Refresher\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-tropical-strawberry-refresher-serving",
+   "name": "Medium Tropical Strawberry Refresher",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 300,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 35,
+    "carbs_g": 73,
+    "fiber_g": 1,
+    "sugars_g": 71,
+    "protein_g": 0.4,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Tropical Strawberry Refresher\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-tropical-strawberry-refresher-serving",
+   "name": "Large Tropical Strawberry Refresher",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 400,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 55,
+    "carbs_g": 97,
+    "fiber_g": 1,
+    "sugars_g": 94,
+    "protein_g": 0.5,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Tropical Strawberry Refresher\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-strawberry-lemonade-serving",
+   "name": "Strawberry Lemonade",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 230,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 25,
+    "carbs_g": 58,
+    "fiber_g": 0,
+    "sugars_g": 55,
+    "protein_g": 0.1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Strawberry Lemonade\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-strawberry-lemonade-serving",
+   "name": "Medium Strawberry Lemonade",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 330,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 35,
+    "carbs_g": 85,
+    "fiber_g": 0,
+    "sugars_g": 81,
+    "protein_g": 0.1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Strawberry Lemonade\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-strawberry-lemonade-serving",
+   "name": "Large Strawberry Lemonade",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 430,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 45,
+    "carbs_g": 109,
+    "fiber_g": 0,
+    "sugars_g": 103,
+    "protein_g": 0.2,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Strawberry Lemonade\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-original-lemonade-serving",
+   "name": "Original Lemonade",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 190,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 25,
+    "carbs_g": 48,
+    "fiber_g": 0,
+    "sugars_g": 46,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Original Lemonade\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-original-lemonade-serving",
+   "name": "Medium Original Lemonade",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 280,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 35,
+    "carbs_g": 72,
+    "fiber_g": 0,
+    "sugars_g": 68,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Original Lemonade\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-original-lemonade-serving",
+   "name": "Large Original Lemonade",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 330,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 45,
+    "carbs_g": 86,
+    "fiber_g": 0,
+    "sugars_g": 81,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Original Lemonade\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-frosty-fizz-serving",
+   "name": "Small Frosty Fizz",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 320,
+    "fat_g": 7,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 25,
+    "sodium_mg": 150,
+    "carbs_g": 62,
+    "fiber_g": 0,
+    "sugars_g": 57,
+    "protein_g": 7,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Small Frosty Fizz\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-frosty-fizz-serving",
+   "name": "Large Frosty Fizz",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 460,
+    "fat_g": 10,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 35,
+    "sodium_mg": 200,
+    "carbs_g": 90,
+    "fiber_g": 0,
+    "sugars_g": 83,
+    "protein_g": 10,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Frosty Fizz\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-coca-cola-serving",
+   "name": "Coca-Cola",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 190,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 5,
+    "carbs_g": 51,
+    "fiber_g": 0,
+    "sugars_g": 51,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Coca-Cola\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-coca-cola-serving",
+   "name": "Medium Coca-Cola",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 270,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 74,
+    "fiber_g": 0,
+    "sugars_g": 74,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Coca-Cola\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-coca-cola-serving",
+   "name": "Large Coca-Cola",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 340,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 93,
+    "fiber_g": 0,
+    "sugars_g": 93,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Coca-Cola\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-coke-zero-sugar-serving",
+   "name": "Coke Zero Sugar",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 1,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Coke Zero Sugar\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-coca-cola-zero-sugar-serving",
+   "name": "Medium Coca-Cola Zero Sugar",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 2,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Coca-Cola Zero Sugar\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-coca-cola-zero-sugar-serving",
+   "name": "Large Coca-Cola Zero Sugar",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 2,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 20,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.2,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Coca-Cola Zero Sugar\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-diet-coke-serving",
+   "name": "Diet Coke",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 1,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Diet Coke\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-diet-coke-serving",
+   "name": "Medium Diet Coke",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 2,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Diet Coke\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-diet-coke-serving",
+   "name": "Large Diet Coke",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 2,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 20,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.2,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Diet Coke\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-sprite-serving",
+   "name": "Sprite",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 180,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 46,
+    "fiber_g": 0,
+    "sugars_g": 46,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Sprite\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-sprite-serving",
+   "name": "Medium Sprite",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 250,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 67,
+    "fiber_g": 0,
+    "sugars_g": 67,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Sprite\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-sprite-serving",
+   "name": "Large Sprite",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 320,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 84,
+    "fiber_g": 0,
+    "sugars_g": 84,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Sprite\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-barqs-root-beer-serving",
+   "name": "Barq's Root Beer",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 200,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 53,
+    "fiber_g": 0,
+    "sugars_g": 53,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Barq's Root Beer\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-barqs-root-beer-serving",
+   "name": "Medium Barq's Root Beer",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 290,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 77,
+    "fiber_g": 0,
+    "sugars_g": 77,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Barq's Root Beer\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-barqs-root-beer-serving",
+   "name": "Large Barq's Root Beer",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 360,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 97,
+    "fiber_g": 0,
+    "sugars_g": 97,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Barq's Root Beer\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-fanta-orange-serving",
+   "name": "Fanta Orange",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 200,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 53,
+    "fiber_g": 0,
+    "sugars_g": 53,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Fanta Orange\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-fanta-orange-serving",
+   "name": "Medium Fanta Orange",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 280,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 77,
+    "fiber_g": 0,
+    "sugars_g": 77,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Fanta Orange\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-fanta-orange-serving",
+   "name": "Large Fanta Orange",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 360,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 0,
+    "carbs_g": 97,
+    "fiber_g": 0,
+    "sugars_g": 97,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Fanta Orange\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-fuze-tea-serving",
+   "name": "Fuze Tea",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 130,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 55,
+    "carbs_g": 36,
+    "fiber_g": 0,
+    "sugars_g": 36,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Fuze Tea\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-fuze-tea-serving",
+   "name": "Medium Fuze Tea",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 190,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 80,
+    "carbs_g": 52,
+    "fiber_g": 0,
+    "sugars_g": 52,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Fuze Tea\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-fuze-tea-serving",
+   "name": "Large Fuze Tea",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 250,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 100,
+    "carbs_g": 66,
+    "fiber_g": 0,
+    "sugars_g": 66,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Fuze Tea\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-strawberry-passion-fruitopia-serving",
+   "name": "Small Strawberry Passion Fruitopia",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 140,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 55,
+    "carbs_g": 37,
+    "fiber_g": 0,
+    "sugars_g": 36,
+    "protein_g": 0.1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Small Strawberry Passion Fruitopia\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-strawberry-passion-fruitopia-serving",
+   "name": "Medium Strawberry Passion Fruitopia",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 200,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 75,
+    "carbs_g": 53,
+    "fiber_g": 0,
+    "sugars_g": 52,
+    "protein_g": 0.1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Medium Strawberry Passion Fruitopia\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-strawberry-passion-fruitopia-serving",
+   "name": "Large Strawberry Passion Fruitopia",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 260,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 95,
+    "carbs_g": 67,
+    "fiber_g": 0,
+    "sugars_g": 66,
+    "protein_g": 0.1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Strawberry Passion Fruitopia\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-hot-coffee-serving",
+   "name": "Small Hot Coffee",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 3,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 5,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.4,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Small Hot Coffee\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-hot-coffee-serving",
+   "name": "Large Hot Coffee",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 4,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 1,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Hot Coffee\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-hot-tea-serving",
+   "name": "Small Hot Tea",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 5,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 2,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Small Hot Tea\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-hot-tea-serving",
+   "name": "Large Hot Tea",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 5,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 20,
+    "carbs_g": 2,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat         Sat.         Trans       Chol.       Sodium   Carb.       Fibre       Sugars   Protein   Calcium   Iron       Potass.\", row \"Large Hot Tea\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-cheese-fries-serving",
+   "name": "Cheese Fries",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 400,
+    "fat_g": 22,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 25,
+    "sodium_mg": 820,
+    "carbs_g": 42,
+    "fiber_g": 4,
+    "sugars_g": 1,
+    "protein_g": 10,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Cheese Fries\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-crispy-chicken-sandwich-serving",
+   "name": "Crispy Chicken Sandwich",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 330,
+    "fat_g": 16,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 35,
+    "sodium_mg": 600,
+    "carbs_g": 32,
+    "fiber_g": 1,
+    "sugars_g": 4,
+    "protein_g": 13,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Crispy Chicken Sandwich\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-bacon-egg-and-swiss-croissant-serving",
+   "name": "Bacon, Egg & Swiss Croissant",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 420,
+    "fat_g": 23,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 230,
+    "sodium_mg": 860,
+    "carbs_g": 35,
+    "fiber_g": 0,
+    "sugars_g": 7,
+    "protein_g": 17,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Bacon, Egg & Swiss Croissant\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-sausage-egg-and-swiss-croissant-serving",
+   "name": "Sausage, Egg & Swiss Croissant",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 580,
+    "fat_g": 39,
+    "saturated_fat_g": 16,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 260,
+    "sodium_mg": 980,
+    "carbs_g": 35,
+    "fiber_g": 0,
+    "sugars_g": 7,
+    "protein_g": 20,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Sausage, Egg & Swiss Croissant\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-egg-and-cheese-croissant-serving",
+   "name": "Egg & Cheese Croissant",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 370,
+    "fat_g": 19,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 225,
+    "sodium_mg": 690,
+    "carbs_g": 34,
+    "fiber_g": 0,
+    "sugars_g": 7,
+    "protein_g": 13,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Egg & Cheese Croissant\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-egg-blt-serving",
+   "name": "EGG BLT",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 490,
+    "fat_g": 30,
+    "saturated_fat_g": 12,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 235,
+    "sodium_mg": 970,
+    "carbs_g": 36,
+    "fiber_g": 1,
+    "sugars_g": 7,
+    "protein_g": 19,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"EGG BLT\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-breakfast-baconator-serving",
+   "name": "Breakfast Baconator",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 670,
+    "fat_g": 45,
+    "saturated_fat_g": 17,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 265,
+    "sodium_mg": 1660,
+    "carbs_g": 35,
+    "fiber_g": 1,
+    "sugars_g": 6,
+    "protein_g": 32,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Breakfast Baconator\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-sausage-bacon-deluxe-serving",
+   "name": "Sausage Bacon Deluxe",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 470,
+    "fat_g": 33,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 55,
+    "sodium_mg": 840,
+    "carbs_g": 26,
+    "fiber_g": 1,
+    "sugars_g": 6,
+    "protein_g": 16,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Sausage Bacon Deluxe\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-bacon-egg-and-cheese-classic-serving",
+   "name": "Bacon, Egg & Cheese Classic",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 310,
+    "fat_g": 17,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 200,
+    "sodium_mg": 770,
+    "carbs_g": 24,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 16,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Bacon, Egg & Cheese Classic\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-sausage-egg-and-cheese-classic-serving",
+   "name": "Sausage, Egg, & Cheese Classic",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 480,
+    "fat_g": 34,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 230,
+    "sodium_mg": 890,
+    "carbs_g": 25,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 18,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Sausage, Egg, & Cheese Classic\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-egg-and-cheese-classic-serving",
+   "name": "Egg & Cheese Classic",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 270,
+    "fat_g": 14,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 195,
+    "sodium_mg": 600,
+    "carbs_g": 24,
+    "fiber_g": 1,
+    "sugars_g": 4,
+    "protein_g": 12,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Egg & Cheese Classic\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-original-frosty-cream-cold-brew-serving",
+   "name": "Small Original Frosty Cream Cold Brew",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 170,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 15,
+    "sodium_mg": 105,
+    "carbs_g": 30,
+    "fiber_g": 0,
+    "sugars_g": 23,
+    "protein_g": 5,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Original Frosty Cream Cold Brew\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-original-frosty-cream-cold-brew-serving",
+   "name": "Large Original Frosty Cream Cold Brew",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 250,
+    "fat_g": 7,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 25,
+    "sodium_mg": 140,
+    "carbs_g": 42,
+    "fiber_g": 0,
+    "sugars_g": 32,
+    "protein_g": 7,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Original Frosty Cream Cold Brew\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-vanilla-frosty-cream-cold-brew-serving",
+   "name": "Small Vanilla Frosty Cream Cold Brew",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 220,
+    "fat_g": 4,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 15,
+    "sodium_mg": 90,
+    "carbs_g": 44,
+    "fiber_g": 0,
+    "sugars_g": 38,
+    "protein_g": 4,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Vanilla Frosty Cream Cold Brew\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-vanilla-frosty-cream-cold-brew-serving",
+   "name": "Large Vanilla Frosty Cream Cold Brew",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 310,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 20,
+    "sodium_mg": 125,
+    "carbs_g": 61,
+    "fiber_g": 0,
+    "sugars_g": 52,
+    "protein_g": 6,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Vanilla Frosty Cream Cold Brew\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-chocolate-frosty-cream-cold-brew-serving",
+   "name": "Small Chocolate Frosty Cream Cold Brew",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 220,
+    "fat_g": 4,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 15,
+    "sodium_mg": 90,
+    "carbs_g": 44,
+    "fiber_g": 0,
+    "sugars_g": 38,
+    "protein_g": 4,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Chocolate Frosty Cream Cold Brew\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-chocolate-frosty-cream-cold-brew-serving",
+   "name": "Large Chocolate Frosty Cream Cold Brew",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 310,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 20,
+    "sodium_mg": 125,
+    "carbs_g": 60,
+    "fiber_g": 0,
+    "sugars_g": 52,
+    "protein_g": 6,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Chocolate Frosty Cream Cold Brew\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-caramel-frosty-cream-cold-brew-serving",
+   "name": "Small Caramel Frosty Cream Cold Brew",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 230,
+    "fat_g": 4,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 15,
+    "sodium_mg": 200,
+    "carbs_g": 44,
+    "fiber_g": 0,
+    "sugars_g": 38,
+    "protein_g": 4,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Caramel Frosty Cream Cold Brew\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-caramel-frosty-cream-cold-brew-serving",
+   "name": "Large Caramel Frosty Cream Cold Brew",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 310,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 20,
+    "sodium_mg": 270,
+    "carbs_g": 61,
+    "fiber_g": 0,
+    "sugars_g": 52,
+    "protein_g": 6,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Caramel Frosty Cream Cold Brew\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-brown-sugar-frosty-cream-cold-brew-serving",
+   "name": "Small Brown Sugar Frosty Cream Cold Brew",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 270,
+    "fat_g": 4,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 15,
+    "sodium_mg": 85,
+    "carbs_g": 55,
+    "fiber_g": 0,
+    "sugars_g": 49,
+    "protein_g": 4,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Brown Sugar Frosty Cream Cold Brew\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-brown-sugar-frosty-cream-cold-brew-serving",
+   "name": "Large Brown Sugar Frosty Cream Cold Brew",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 370,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 20,
+    "sodium_mg": 120,
+    "carbs_g": 75,
+    "fiber_g": 0,
+    "sugars_g": 66,
+    "protein_g": 6,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Brown Sugar Frosty Cream Cold Brew\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-bacon-breakfast-wrap-serving",
+   "name": "Bacon Breakfast Wrap",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 450,
+    "fat_g": 28,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 210,
+    "sodium_mg": 1170,
+    "carbs_g": 32,
+    "fiber_g": 3,
+    "sugars_g": 3,
+    "protein_g": 17,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Bacon Breakfast Wrap\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-sausage-breakfast-wrap-serving",
+   "name": "Sausage Breakfast Wrap",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 620,
+    "fat_g": 45,
+    "saturated_fat_g": 14,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 235,
+    "sodium_mg": 1300,
+    "carbs_g": 33,
+    "fiber_g": 3,
+    "sugars_g": 3,
+    "protein_g": 20,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Sausage Breakfast Wrap\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-egg-and-cheese-breakfast-wrap-serving",
+   "name": "Egg & Cheese Breakfast Wrap",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 400,
+    "fat_g": 25,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 200,
+    "sodium_mg": 1010,
+    "carbs_g": 32,
+    "fiber_g": 3,
+    "sugars_g": 2,
+    "protein_g": 13,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans    Chol.    Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Egg & Cheese Breakfast Wrap\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-classic-breakfast-poutine-serving",
+   "name": "Classic Breakfast Poutine",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 770,
+    "fat_g": 41,
+    "saturated_fat_g": 17,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 60,
+    "sodium_mg": 2220,
+    "carbs_g": 81,
+    "fiber_g": 6,
+    "sugars_g": 1,
+    "protein_g": 21,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Classic Breakfast Poutine\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-swiss-cheese-breakfast-poutine-serving",
+   "name": "Swiss Cheese Breakfast Poutine",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 880,
+    "fat_g": 52,
+    "saturated_fat_g": 24,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 110,
+    "sodium_mg": 2100,
+    "carbs_g": 78,
+    "fiber_g": 6,
+    "sugars_g": 3,
+    "protein_g": 26,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Swiss Cheese Breakfast Poutine\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-small-seasoned-potatoes-serving",
+   "name": "Small Seasoned Potatoes",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 280,
+    "fat_g": 13,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 600,
+    "carbs_g": 39,
+    "fiber_g": 4,
+    "sugars_g": 0,
+    "protein_g": 3,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Small Seasoned Potatoes\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-medium-seasoned-potatoes-serving",
+   "name": "Medium Seasoned Potatoes",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 400,
+    "fat_g": 18,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 860,
+    "carbs_g": 56,
+    "fiber_g": 5,
+    "sugars_g": 1,
+    "protein_g": 5,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Medium Seasoned Potatoes\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  },
+  {
+   "key": "wendys-large-seasoned-potatoes-serving",
+   "name": "Large Seasoned Potatoes",
+   "brand": "Wendy's",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "wendys",
+    "wendy's"
+   ],
+   "published": {
+    "serving_label": "1 item",
+    "calories": 510,
+    "fat_g": 23,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 1090,
+    "carbs_g": 71,
+    "fiber_g": 6,
+    "sugars_g": 1,
+    "protein_g": 6,
+    "url": "https://www.wendys.com/en-ca",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Wendy's Canada menu nutrition (default recipe), section \"Fat        Sat.         Trans       Chol.       Sodium   Carb.    Fibre       Sugars   Protein   Calcium   Iron        Potass.\", row \"Large Seasoned Potatoes\", as copied in a compilation PDF that the owner supplied (data retrieved November 15, 2026; not a Wendy's document). Not compared with the source itself. No serving weight is given. Read 2026-11-15."
+  }
+ ]
+}

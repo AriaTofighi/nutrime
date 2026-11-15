@@ -1,0 +1,2665 @@
+{
+  "about": "Domino's Canada complete menu items (Parmesan stuffed crust Feast pizzas, breads, chicken, pastas, desserts, fries and poutines), nutrition per serving as Domino's publishes it in its Canadian Nutrition Guide (August 2026 PDF). The build-your-own pizza tables (crust, sauce and toppings by size) and the other Feast pizza tables are not included.",
+  "foods": [
+    {
+      "key": "dominos-bbq-chicken-bacon-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "BBQ Chicken Bacon Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 245,
+        "calories": 720,
+        "fat_g": 36,
+        "saturated_fat_g": 20,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 80,
+        "sodium_mg": 1280,
+        "carbs_g": 63,
+        "fiber_g": 3,
+        "sugars_g": 9,
+        "protein_g": 36,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"BBQ CHICKEN BACON\", serving \"M (1/4 of pizza) 2 slices\" (245 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-buffalo-chicken-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Buffalo Chicken Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 235,
+        "calories": 710,
+        "fat_g": 39,
+        "saturated_fat_g": 23,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 90,
+        "sodium_mg": 1360,
+        "carbs_g": 57,
+        "fiber_g": 3,
+        "sugars_g": 3,
+        "protein_g": 34,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"BUFFALO CHICKEN\", serving \"M (1/4 of pizza) 2 slices\" (235 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-canadian-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Canadian Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 253,
+        "calories": 730,
+        "fat_g": 39,
+        "saturated_fat_g": 21,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 75,
+        "sodium_mg": 1320,
+        "carbs_g": 59,
+        "fiber_g": 3,
+        "sugars_g": 4,
+        "protein_g": 37,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"CANADIAN\", serving \"M (1/4 of pizza) 2 slices\" (253 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-chicken-bacon-alfredo-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Chicken Bacon Alfredo Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 264,
+        "calories": 790,
+        "fat_g": 43,
+        "saturated_fat_g": 25,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 100,
+        "sodium_mg": 1250,
+        "carbs_g": 58,
+        "fiber_g": 3,
+        "sugars_g": 3,
+        "protein_g": 40,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"CHICKEN BACON ALFREDO\", serving \"M (1/4 of pizza) 2 slices\" (264 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-chicken-bacon-ranch-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Chicken Bacon Ranch Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 254,
+        "calories": 800,
+        "fat_g": 47,
+        "saturated_fat_g": 22,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 80,
+        "sodium_mg": 1260,
+        "carbs_g": 57,
+        "fiber_g": 3,
+        "sugars_g": 3,
+        "protein_g": 36,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"CHICKEN BACON RANCH\", serving \"M (1/4 of pizza) 2 slices\" (254 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-deluxe-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Deluxe Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 248,
+        "calories": 670,
+        "fat_g": 35,
+        "saturated_fat_g": 19,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 60,
+        "sodium_mg": 1160,
+        "carbs_g": 59,
+        "fiber_g": 4,
+        "sugars_g": 4,
+        "protein_g": 31,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"DELUXE\", serving \"M (1/4 of pizza) 2 slices\" (248 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-extravaganzza-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Extravaganzza® Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 slice (1/8 of pizza)",
+        "serving_g": 147,
+        "calories": 390,
+        "fat_g": 22,
+        "saturated_fat_g": 11,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 45,
+        "sodium_mg": 800,
+        "carbs_g": 30,
+        "fiber_g": 2,
+        "sugars_g": 2,
+        "protein_g": 19,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"EXTRAVAGANZZA®\", serving \"M (1/8 of pizza) 1 slice\" (147 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-hawaiian-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Hawaiian Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 258,
+        "calories": 680,
+        "fat_g": 33,
+        "saturated_fat_g": 19,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 65,
+        "sodium_mg": 1190,
+        "carbs_g": 61,
+        "fiber_g": 3,
+        "sugars_g": 6,
+        "protein_g": 34,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"HAWAIIAN\", serving \"M (1/4 of pizza) 2 slices\" (258 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-meatzza-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Meatzza Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 266,
+        "calories": 770,
+        "fat_g": 42,
+        "saturated_fat_g": 23,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 90,
+        "sodium_mg": 1540,
+        "carbs_g": 59,
+        "fiber_g": 3,
+        "sugars_g": 3,
+        "protein_g": 38,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"MEATZZA\", serving \"M (1/4 of pizza) 2 slices\" (266 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-pacific-veggie-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Pacific Veggie Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 slice (1/8 of pizza)",
+        "serving_g": 140,
+        "calories": 350,
+        "fat_g": 18,
+        "saturated_fat_g": 10,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 35,
+        "sodium_mg": 580,
+        "carbs_g": 30,
+        "fiber_g": 2,
+        "sugars_g": 2,
+        "protein_g": 17,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"PACIFIC VEGGIE\", serving \"M (1/8 of pizza) 1 slice\" (140 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-pepperoni-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Pepperoni Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 241,
+        "calories": 720,
+        "fat_g": 39,
+        "saturated_fat_g": 21,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 75,
+        "sodium_mg": 1280,
+        "carbs_g": 58,
+        "fiber_g": 3,
+        "sugars_g": 3,
+        "protein_g": 35,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"PEPPERONI FEAST\", serving \"M (1/4 of pizza) 2 slices\" (241 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-philly-cheese-steak-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Philly Cheese Steak Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 221,
+        "calories": 630,
+        "fat_g": 33,
+        "saturated_fat_g": 19,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 65,
+        "sodium_mg": 1090,
+        "carbs_g": 57,
+        "fiber_g": 3,
+        "sugars_g": 3,
+        "protein_g": 28,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"PHILLY CHEESE STEAK\", serving \"M (1/4 of pizza) 2 slices\" (221 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-six-cheese-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Six Cheese Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 240,
+        "calories": 720,
+        "fat_g": 39,
+        "saturated_fat_g": 23,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 80,
+        "sodium_mg": 1230,
+        "carbs_g": 58,
+        "fiber_g": 3,
+        "sugars_g": 3,
+        "protein_g": 35,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"SIX CHEESE\", serving \"M (1/4 of pizza) 2 slices\" (240 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-spicy-chicken-bacon-ranch-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Spicy Chicken Bacon Ranch Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 slice (1/8 of pizza)",
+        "serving_g": 137,
+        "calories": 420,
+        "fat_g": 25,
+        "saturated_fat_g": 12,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 45,
+        "sodium_mg": 860,
+        "carbs_g": 29,
+        "fiber_g": 1,
+        "sugars_g": 2,
+        "protein_g": 20,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"SPICY CHICKEN BACON RANCH\", serving \"M (1/8 of pizza) 1 slice\" (137 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-spinach-and-feta-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Spinach & Feta Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 250,
+        "calories": 760,
+        "fat_g": 42,
+        "saturated_fat_g": 25,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 90,
+        "sodium_mg": 1290,
+        "carbs_g": 57,
+        "fiber_g": 3,
+        "sugars_g": 2,
+        "protein_g": 37,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"SPINACH & FETA\", serving \"M (1/4 of pizza) 2 slices\" (250 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-veggie-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Veggie Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 slices (1/4 of pizza)",
+        "serving_g": 249,
+        "calories": 620,
+        "fat_g": 30,
+        "saturated_fat_g": 17,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 45,
+        "sodium_mg": 920,
+        "carbs_g": 59,
+        "fiber_g": 4,
+        "sugars_g": 4,
+        "protein_g": 28,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"VEGGIE\", serving \"M (1/4 of pizza) 2 slices\" (249 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-donair-pizza-feast-pizza-parmesan-stuffed-crust-medium",
+      "name": "Donair Pizza Feast pizza, Parmesan stuffed crust, medium",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 slice (1/8 of pizza)",
+        "serving_g": 156,
+        "calories": 430,
+        "fat_g": 23,
+        "saturated_fat_g": 11,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 45,
+        "sodium_mg": 780,
+        "carbs_g": 38,
+        "fiber_g": 2,
+        "sugars_g": 6,
+        "protein_g": 19,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 17, section \"FEAST PIZZAS (info for Parmesan Stuffed Crust)\", row \"DONAIR PIZZA\", serving \"M (1/8 of pizza) 1 slice\" (156 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-cheesy-bread",
+      "name": "Cheesy Bread",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 77,
+        "calories": 260,
+        "fat_g": 13,
+        "saturated_fat_g": 6,
+        "trans_fat_g": 0.2,
+        "cholesterol_mg": 15,
+        "sodium_mg": 300,
+        "carbs_g": 27,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 8,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"Cheesy Bread\", serving \"2 pieces\" (77 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-10-cheesy-garlic-fingers",
+      "name": "10\" Cheesy Garlic Fingers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 48,
+        "calories": 140,
+        "fat_g": 5,
+        "saturated_fat_g": 2,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 10,
+        "sodium_mg": 200,
+        "carbs_g": 17,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 6,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"10\" Cheesy Garlic Fingers\", serving \"2 pieces\" (48 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-12-cheesy-garlic-fingers",
+      "name": "12\" Cheesy Garlic Fingers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 65,
+        "calories": 190,
+        "fat_g": 8,
+        "saturated_fat_g": 3.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 10,
+        "sodium_mg": 290,
+        "carbs_g": 21,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 8,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"12\" Cheesy Garlic Fingers\", serving \"2 pieces\" (65 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-14-cheesy-garlic-fingers",
+      "name": "14\" Cheesy Garlic Fingers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 62,
+        "calories": 180,
+        "fat_g": 8,
+        "saturated_fat_g": 3,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 10,
+        "sodium_mg": 280,
+        "carbs_g": 20,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 8,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"14\" Cheesy Garlic Fingers\", serving \"2 pieces\" (62 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-16-cheesy-garlic-fingers",
+      "name": "16\" Cheesy Garlic Fingers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 82,
+        "calories": 240,
+        "fat_g": 10,
+        "saturated_fat_g": 4,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 15,
+        "sodium_mg": 370,
+        "carbs_g": 27,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 10,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"16\" Cheesy Garlic Fingers\", serving \"2 pieces\" (82 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-10-bacon-garlic-fingers",
+      "name": "10\" Bacon Garlic Fingers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 53,
+        "calories": 160,
+        "fat_g": 7,
+        "saturated_fat_g": 2.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 15,
+        "sodium_mg": 300,
+        "carbs_g": 17,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 8,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"10\" Bacon Garlic Fingers\", serving \"2 pieces\" (53 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-12-bacon-garlic-fingers",
+      "name": "12\" Bacon Garlic Fingers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 72,
+        "calories": 220,
+        "fat_g": 10,
+        "saturated_fat_g": 4,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 20,
+        "sodium_mg": 420,
+        "carbs_g": 21,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 11,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"12\" Bacon Garlic Fingers\", serving \"2 pieces\" (72 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-14-bacon-garlic-fingers",
+      "name": "14\" Bacon Garlic Fingers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 69,
+        "calories": 210,
+        "fat_g": 10,
+        "saturated_fat_g": 4,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 20,
+        "sodium_mg": 410,
+        "carbs_g": 21,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 10,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"14\" Bacon Garlic Fingers\", serving \"2 pieces\" (69 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-16-bacon-garlic-fingers",
+      "name": "16\" Bacon Garlic Fingers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 92,
+        "calories": 290,
+        "fat_g": 13,
+        "saturated_fat_g": 5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 25,
+        "sodium_mg": 560,
+        "carbs_g": 27,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 14,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"16\" Bacon Garlic Fingers\", serving \"2 pieces\" (92 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-16-pc-order-parmesan-bread-bites",
+      "name": "16 pc order Parmesan Bread Bites",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "4 pieces",
+        "serving_g": 63,
+        "calories": 210,
+        "fat_g": 10,
+        "saturated_fat_g": 4.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 210,
+        "carbs_g": 26,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 5,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"16 pc order Parmesan Bread Bites\", serving \"4 pieces\" (63 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-32-pc-order-parmesan-bread-bites",
+      "name": "32 pc order Parmesan Bread Bites",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "4 pieces",
+        "serving_g": 63,
+        "calories": 210,
+        "fat_g": 10,
+        "saturated_fat_g": 4.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 210,
+        "carbs_g": 26,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 5,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"32 pc order Parmesan Bread Bites\", serving \"4 pieces\" (63 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-16-pc-order-garlic-bread-bites",
+      "name": "16 pc order Garlic Bread Bites",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "4 pieces",
+        "serving_g": 62,
+        "calories": 200,
+        "fat_g": 9,
+        "saturated_fat_g": 4,
+        "trans_fat_g": 0.1,
+        "cholesterol_mg": 0,
+        "sodium_mg": 190,
+        "carbs_g": 26,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 5,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"16 pc order Garlic Bread Bites\", serving \"4 pieces\" (62 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-32-pc-order-garlic-bread-bites",
+      "name": "32 pc order Garlic Bread Bites",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "4 pieces",
+        "serving_g": 62,
+        "calories": 200,
+        "fat_g": 9,
+        "saturated_fat_g": 4,
+        "trans_fat_g": 0.1,
+        "cholesterol_mg": 0,
+        "sodium_mg": 190,
+        "carbs_g": 26,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 5,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"32 pc order Garlic Bread Bites\", serving \"4 pieces\" (62 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-stuffed-cheesy-bread",
+      "name": "Stuffed Cheesy Bread",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 piece",
+        "serving_g": 47,
+        "calories": 150,
+        "fat_g": 8,
+        "saturated_fat_g": 4.5,
+        "trans_fat_g": 0.2,
+        "cholesterol_mg": 15,
+        "sodium_mg": 210,
+        "carbs_g": 14,
+        "fiber_g": 1,
+        "sugars_g": 0,
+        "protein_g": 6,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"Stuffed Cheesy Bread\", serving \"1 piece\" (47 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-bacon-and-jalapeno-stuffed-cheesy-bread",
+      "name": "Bacon & Jalapeño Stuffed Cheesy Bread",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 piece",
+        "serving_g": 51,
+        "calories": 160,
+        "fat_g": 9,
+        "saturated_fat_g": 5,
+        "trans_fat_g": 0.2,
+        "cholesterol_mg": 15,
+        "sodium_mg": 300,
+        "carbs_g": 14,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 7,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"Bacon & Jalapeño Stuffed Cheesy Bread\", serving \"1 piece\" (51 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-pepperoni-stuffed-cheesy-bread",
+      "name": "Pepperoni Stuffed Cheesy Bread",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 piece",
+        "serving_g": 50,
+        "calories": 170,
+        "fat_g": 10,
+        "saturated_fat_g": 5,
+        "trans_fat_g": 0.2,
+        "cholesterol_mg": 15,
+        "sodium_mg": 270,
+        "carbs_g": 14,
+        "fiber_g": 1,
+        "sugars_g": 0,
+        "protein_g": 7,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"Pepperoni Stuffed Cheesy Bread\", serving \"1 piece\" (50 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-philly-steak-stuffed-cheesy-bread",
+      "name": "Philly Steak Stuffed Cheesy Bread",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 piece",
+        "serving_g": 56,
+        "calories": 160,
+        "fat_g": 9,
+        "saturated_fat_g": 5,
+        "trans_fat_g": 0.2,
+        "cholesterol_mg": 15,
+        "sodium_mg": 290,
+        "carbs_g": 14,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 7,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"Philly Steak Stuffed Cheesy Bread\", serving \"1 piece\" (56 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-spinach-and-feta-stuffed-cheesy-bread",
+      "name": "Spinach & Feta Stuffed Cheesy Bread",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 piece",
+        "serving_g": 50,
+        "calories": 160,
+        "fat_g": 9,
+        "saturated_fat_g": 5,
+        "trans_fat_g": 0.2,
+        "cholesterol_mg": 15,
+        "sodium_mg": 240,
+        "carbs_g": 14,
+        "fiber_g": 1,
+        "sugars_g": 0,
+        "protein_g": 7,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BREADS\", row \"Spinach & Feta Stuffed Cheesy Bread\", serving \"1 piece\" (50 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-specialty-chicken-classic-hot-buffalo",
+      "name": "Specialty Chicken Classic Hot Buffalo",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "4 pieces",
+        "serving_g": 85,
+        "calories": 170,
+        "fat_g": 9,
+        "saturated_fat_g": 3,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 35,
+        "sodium_mg": 1090,
+        "carbs_g": 9,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 13,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"CHICKEN\", row \"Specialty Chicken Classic Hot Buffalo\", serving \"4 pieces\" (85 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-specialty-chicken-spicy-pineapple-and-jalapeno",
+      "name": "Specialty Chicken Spicy Pineapple & Jalapeño",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "4 pieces",
+        "serving_g": 90,
+        "calories": 170,
+        "fat_g": 7,
+        "saturated_fat_g": 3,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 30,
+        "sodium_mg": 650,
+        "carbs_g": 16,
+        "fiber_g": 1,
+        "sugars_g": 7,
+        "protein_g": 12,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"CHICKEN\", row \"Specialty Chicken Spicy Pineapple & Jalapeño\", serving \"4 pieces\" (90 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-specialty-chicken-crispy-bacon-and-tomato",
+      "name": "Specialty Chicken Crispy Bacon & Tomato",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "4 pieces",
+        "serving_g": 90,
+        "calories": 230,
+        "fat_g": 15,
+        "saturated_fat_g": 4.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 45,
+        "sodium_mg": 810,
+        "carbs_g": 10,
+        "fiber_g": 1,
+        "sugars_g": 1,
+        "protein_g": 15,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"CHICKEN\", row \"Specialty Chicken Crispy Bacon & Tomato\", serving \"4 pieces\" (90 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-specialty-chicken-sweet-bbq-bacon",
+      "name": "Specialty Chicken Sweet BBQ Bacon",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "4 pieces",
+        "serving_g": 86,
+        "calories": 190,
+        "fat_g": 9,
+        "saturated_fat_g": 3.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 40,
+        "sodium_mg": 860,
+        "carbs_g": 14,
+        "fiber_g": 1,
+        "sugars_g": 5,
+        "protein_g": 15,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"CHICKEN\", row \"Specialty Chicken Sweet BBQ Bacon\", serving \"4 pieces\" (86 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-specialty-chicken-chicken-parm",
+      "name": "Specialty Chicken Chicken Parm",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "4 pieces",
+        "serving_g": 82,
+        "calories": 150,
+        "fat_g": 6,
+        "saturated_fat_g": 2.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 30,
+        "sodium_mg": 700,
+        "carbs_g": 10,
+        "fiber_g": 1,
+        "sugars_g": 2,
+        "protein_g": 13,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"CHICKEN\", row \"Specialty Chicken Chicken Parm\", serving \"4 pieces\" (82 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-boneless-chicken",
+      "name": "Boneless Chicken",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 50,
+        "calories": 90,
+        "fat_g": 3,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 20,
+        "sodium_mg": 450,
+        "carbs_g": 8,
+        "fiber_g": 1,
+        "sugars_g": 0,
+        "protein_g": 9,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"CHICKEN\", row \"Boneless Chicken\", serving \"2 pieces\" (50 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-bbq-wings",
+      "name": "BBQ Wings",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 45,
+        "calories": 90,
+        "fat_g": 5,
+        "saturated_fat_g": 1.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 35,
+        "sodium_mg": 390,
+        "carbs_g": 4,
+        "fiber_g": 0,
+        "sugars_g": 3,
+        "protein_g": 7,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"CHICKEN\", row \"BBQ Wings\", serving \"2 pieces\" (45 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-hot-wings",
+      "name": "Hot Wings",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 56,
+        "calories": 90,
+        "fat_g": 5,
+        "saturated_fat_g": 1.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 35,
+        "sodium_mg": 770,
+        "carbs_g": 4,
+        "fiber_g": 0,
+        "sugars_g": 3,
+        "protein_g": 7,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"CHICKEN\", row \"Hot Wings\", serving \"2 pieces\" (56 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-honey-garlic-wings",
+      "name": "Honey Garlic Wings",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "2 pieces",
+        "serving_g": 56,
+        "calories": 120,
+        "fat_g": 5,
+        "saturated_fat_g": 1.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 35,
+        "sodium_mg": 410,
+        "carbs_g": 11,
+        "fiber_g": 0,
+        "sugars_g": 7,
+        "protein_g": 7,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"CHICKEN\", row \"Honey Garlic Wings\", serving \"2 pieces\" (56 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-chicken-alfredo",
+      "name": "Chicken Alfredo",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 326,
+        "calories": 570,
+        "fat_g": 24,
+        "saturated_fat_g": 14,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 100,
+        "sodium_mg": 950,
+        "carbs_g": 58,
+        "fiber_g": 3,
+        "sugars_g": 4,
+        "protein_g": 25,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"PASTAS\", row \"Chicken Alfredo\", serving \"1 Dish\" (326 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-chicken-carbonara",
+      "name": "Chicken Carbonara",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 369,
+        "calories": 640,
+        "fat_g": 28,
+        "saturated_fat_g": 16,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 115,
+        "sodium_mg": 1200,
+        "carbs_g": 61,
+        "fiber_g": 3,
+        "sugars_g": 5,
+        "protein_g": 30,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"PASTAS\", row \"Chicken Carbonara\", serving \"1 Dish\" (369 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-italian-sausage-marinara",
+      "name": "Italian Sausage Marinara",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 383,
+        "calories": 630,
+        "fat_g": 26,
+        "saturated_fat_g": 12,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 80,
+        "sodium_mg": 1780,
+        "carbs_g": 67,
+        "fiber_g": 5,
+        "sugars_g": 11,
+        "protein_g": 30,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"PASTAS\", row \"Italian Sausage Marinara\", serving \"1 Dish\" (383 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-pasta-primavera",
+      "name": "Pasta Primavera",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 360,
+        "calories": 520,
+        "fat_g": 23,
+        "saturated_fat_g": 14,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 65,
+        "sodium_mg": 750,
+        "carbs_g": 61,
+        "fiber_g": 4,
+        "sugars_g": 6,
+        "protein_g": 15,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"PASTAS\", row \"Pasta Primavera\", serving \"1 Dish\" (360 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-oven-baked-creamy-5-cheese-penne",
+      "name": "Oven-Baked Creamy 5-Cheese Penne",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 360,
+        "calories": 820,
+        "fat_g": 47,
+        "saturated_fat_g": 29,
+        "trans_fat_g": 1.5,
+        "cholesterol_mg": 145,
+        "sodium_mg": 1640,
+        "carbs_g": 60,
+        "fiber_g": 2,
+        "sugars_g": 4,
+        "protein_g": 35,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"PASTAS\", row \"Oven-Baked Creamy 5-Cheese Penne\", serving \"1 Dish\" (360 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-oven-baked-hot-buffalo-5-cheese-penne",
+      "name": "Oven-Baked Hot Buffalo 5-Cheese Penne",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 374,
+        "calories": 820,
+        "fat_g": 47,
+        "saturated_fat_g": 29,
+        "trans_fat_g": 1.5,
+        "cholesterol_mg": 145,
+        "sodium_mg": 2140,
+        "carbs_g": 60,
+        "fiber_g": 3,
+        "sugars_g": 4,
+        "protein_g": 35,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"PASTAS\", row \"Oven-Baked Hot Buffalo 5-Cheese Penne\", serving \"1 Dish\" (374 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-penne-noodles",
+      "name": "Penne Noodles",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 156,
+        "calories": 250,
+        "fat_g": 1.5,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 20,
+        "carbs_g": 51,
+        "fiber_g": 2,
+        "sugars_g": 2,
+        "protein_g": 8,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BYO PASTAS\", row \"Penne Noodles\", serving \"1 Dish\" (156 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-alfredo-sauce",
+      "name": "Alfredo Sauce",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 113,
+        "calories": 250,
+        "fat_g": 21,
+        "saturated_fat_g": 13,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 65,
+        "sodium_mg": 710,
+        "carbs_g": 6,
+        "fiber_g": 0,
+        "sugars_g": 2,
+        "protein_g": 5,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BYO PASTAS\", row \"Alfredo Sauce\", serving \"1 Dish\" (113 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-hearty-marinara-sauce",
+      "name": "Hearty Marinara Sauce",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 113,
+        "calories": 60,
+        "fat_g": 1,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 710,
+        "carbs_g": 11,
+        "fiber_g": 2,
+        "sugars_g": 8,
+        "protein_g": 2,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"BYO PASTAS\", row \"Hearty Marinara Sauce\", serving \"1 Dish\" (113 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-bacon",
+      "name": "Bacon",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 21,
+        "calories": 90,
+        "fat_g": 6,
+        "saturated_fat_g": 2,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 20,
+        "sodium_mg": 380,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 1,
+        "protein_g": 8,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Bacon\", serving \"1 Dish\" (21 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-banana-peppers",
+      "name": "Banana Peppers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 20,
+        "calories": 5,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 290,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Banana Peppers\", serving \"1 Dish\" (20 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-beef-crumble",
+      "name": "Beef Crumble",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 57,
+        "calories": 180,
+        "fat_g": 16,
+        "saturated_fat_g": 7,
+        "trans_fat_g": 0.5,
+        "cholesterol_mg": 50,
+        "sodium_mg": 620,
+        "carbs_g": 0,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 8,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Beef Crumble\", serving \"1 Dish\" (57 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-black-olives",
+      "name": "Black Olives",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 14,
+        "calories": 25,
+        "fat_g": 2,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 115,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Black Olives\", serving \"1 Dish\" (14 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-cheddar-mozzarella-blend",
+      "name": "Cheddar/Mozzarella Blend",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 28,
+        "calories": 100,
+        "fat_g": 7,
+        "saturated_fat_g": 5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 25,
+        "sodium_mg": 210,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 7,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Cheddar/Mozzarella Blend\", serving \"1 Dish\" (28 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-chicken",
+      "name": "Chicken",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 57,
+        "calories": 70,
+        "fat_g": 2,
+        "saturated_fat_g": 0.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 40,
+        "sodium_mg": 220,
+        "carbs_g": 2,
+        "fiber_g": 1,
+        "sugars_g": 0,
+        "protein_g": 11,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Chicken\", serving \"1 Dish\" (57 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-feta-cheese",
+      "name": "Feta Cheese",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 28,
+        "calories": 80,
+        "fat_g": 6,
+        "saturated_fat_g": 4,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 20,
+        "sodium_mg": 390,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 6,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Feta Cheese\", serving \"1 Dish\" (28 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-green-peppers",
+      "name": "Green Peppers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 14,
+        "calories": 5,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 0,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Green Peppers\", serving \"1 Dish\" (14 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-ham",
+      "name": "Ham",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 31,
+        "calories": 30,
+        "fat_g": 1,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 15,
+        "sodium_mg": 340,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 4,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Ham\", serving \"1 Dish\" (31 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-jalapeno-peppers",
+      "name": "Jalapeño Peppers",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 20,
+        "calories": 5,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 310,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Jalapeño Peppers\", serving \"1 Dish\" (20 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-onions",
+      "name": "Onions",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 14,
+        "calories": 5,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 0,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 1,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Onions\", serving \"1 Dish\" (14 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-pepperoni",
+      "name": "Pepperoni",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 18,
+        "calories": 80,
+        "fat_g": 7,
+        "saturated_fat_g": 2.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 15,
+        "sodium_mg": 340,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 4,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Pepperoni\", serving \"1 Dish\" (18 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-philly-steak",
+      "name": "Philly Steak",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 28,
+        "calories": 45,
+        "fat_g": 2.5,
+        "saturated_fat_g": 1,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 15,
+        "sodium_mg": 320,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 1,
+        "protein_g": 4,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Philly Steak\", serving \"1 Dish\" (28 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-pineapple",
+      "name": "Pineapple",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 28,
+        "calories": 20,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 0,
+        "carbs_g": 5,
+        "fiber_g": 0,
+        "sugars_g": 5,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Pineapple\", serving \"1 Dish\" (28 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-provolone-cheese",
+      "name": "Provolone Cheese",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 28,
+        "calories": 90,
+        "fat_g": 7,
+        "saturated_fat_g": 4.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 25,
+        "sodium_mg": 135,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 7,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Provolone Cheese\", serving \"1 Dish\" (28 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-roasted-red-pepper",
+      "name": "Roasted Red Pepper",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 14,
+        "calories": 5,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 20,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Roasted Red Pepper\", serving \"1 Dish\" (14 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-sausage",
+      "name": "Sausage",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 57,
+        "calories": 170,
+        "fat_g": 14,
+        "saturated_fat_g": 4.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 40,
+        "sodium_mg": 760,
+        "carbs_g": 3,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 8,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Sausage\", serving \"1 Dish\" (57 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-shredded-parmesan-asiago",
+      "name": "Shredded Parmesan Asiago",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 28,
+        "calories": 120,
+        "fat_g": 8,
+        "saturated_fat_g": 6,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 25,
+        "sodium_mg": 440,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 9,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Shredded Parmesan Asiago\", serving \"1 Dish\" (28 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-spinach",
+      "name": "Spinach",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 20,
+        "calories": 5,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 15,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 1,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Spinach\", serving \"1 Dish\" (20 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-tomatoes",
+      "name": "Tomatoes",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 28,
+        "calories": 5,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 0,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 1,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Tomatoes\", serving \"1 Dish\" (28 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-white-processed-cheddar-cheese",
+      "name": "White Processed Cheddar Cheese",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 14,
+        "calories": 50,
+        "fat_g": 4,
+        "saturated_fat_g": 2.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 15,
+        "sodium_mg": 200,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 3,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"White Processed Cheddar Cheese\", serving \"1 Dish\" (14 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-green-olives",
+      "name": "Green Olives",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 dish",
+        "serving_g": 14,
+        "calories": 15,
+        "fat_g": 1,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 230,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"TOPPINGS (5 max. for proper bake)\", row \"Green Olives\", serving \"1 Dish\" (14 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-chocolate-lava-cake",
+      "name": "Chocolate Lava Cake",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 cake",
+        "serving_g": 85,
+        "calories": 350,
+        "fat_g": 17,
+        "saturated_fat_g": 10,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 60,
+        "sodium_mg": 180,
+        "carbs_g": 47,
+        "fiber_g": 1,
+        "sugars_g": 30,
+        "protein_g": 4,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"DESSERTS\", row \"Chocolate Lava Cake\", serving \"1 cake\" (85 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-crushed-red-pepper",
+      "name": "Crushed Red Pepper",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 packet",
+        "serving_g": 1,
+        "calories": 0,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 0,
+        "carbs_g": 0,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"OTHER\", row \"Crushed Red Pepper\", serving \"1 packet\" (1 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-slice-sauce",
+      "name": "Slice Sauce",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 cup",
+        "serving_g": 35,
+        "calories": 170,
+        "fat_g": 18,
+        "saturated_fat_g": 4,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 15,
+        "sodium_mg": 380,
+        "carbs_g": 2,
+        "fiber_g": 0,
+        "sugars_g": 1,
+        "protein_g": 1,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"OTHER\", row \"Slice Sauce\", serving \"1 cup\" (35 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-saputo-butter-cup",
+      "name": "Saputo Butter Cup",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 container /",
+        "serving_g": 7,
+        "calories": 50,
+        "fat_g": 5,
+        "saturated_fat_g": 4,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 15,
+        "sodium_mg": 45,
+        "carbs_g": 0,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 19, section \"OTHER\", row \"Saputo Butter Cup\", serving \"1 container /\" (7 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-regular-french-fries",
+      "name": "Regular French Fries",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 order",
+        "serving_g": 397,
+        "calories": 670,
+        "fat_g": 29,
+        "saturated_fat_g": 2.5,
+        "trans_fat_g": 0.3,
+        "cholesterol_mg": 0,
+        "sodium_mg": 2020,
+        "carbs_g": 98,
+        "fiber_g": 8,
+        "sugars_g": 0,
+        "protein_g": 10,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"FRIES\", row \"Regular French Fries\", serving \"1 order\" (397 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-large-french-fries",
+      "name": "Large French Fries",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1/2 order",
+        "serving_g": 354,
+        "calories": 600,
+        "fat_g": 26,
+        "saturated_fat_g": 2,
+        "trans_fat_g": 0.3,
+        "cholesterol_mg": 0,
+        "sodium_mg": 1810,
+        "carbs_g": 87,
+        "fiber_g": 7,
+        "sugars_g": 0,
+        "protein_g": 9,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"FRIES\", row \"Large French Fries\", serving \"1/2 order\" (354 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-classic-poutine-regular",
+      "name": "Classic Poutine, regular",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 order",
+        "serving_g": 369,
+        "calories": 580,
+        "fat_g": 31,
+        "saturated_fat_g": 11,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 55,
+        "sodium_mg": 2110,
+        "carbs_g": 58,
+        "fiber_g": 4,
+        "sugars_g": 1,
+        "protein_g": 19,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"REGULAR POUTINE\", row \"Classic Poutine\", serving \"1 order\" (369 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-bbq-steak-and-mushroom-poutine-regular",
+      "name": "BBQ Steak & Mushroom Poutine, regular",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 order",
+        "serving_g": 429,
+        "calories": 650,
+        "fat_g": 34,
+        "saturated_fat_g": 12,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 70,
+        "sodium_mg": 2590,
+        "carbs_g": 64,
+        "fiber_g": 4,
+        "sugars_g": 6,
+        "protein_g": 24,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"REGULAR POUTINE\", row \"BBQ Steak & Mushroom Poutine\", serving \"1 order\" (429 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-bacon-poutine-regular",
+      "name": "Bacon Poutine, regular",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 order",
+        "serving_g": 397,
+        "calories": 700,
+        "fat_g": 39,
+        "saturated_fat_g": 14,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 85,
+        "sodium_mg": 2620,
+        "carbs_g": 59,
+        "fiber_g": 4,
+        "sugars_g": 1,
+        "protein_g": 29,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"REGULAR POUTINE\", row \"Bacon Poutine\", serving \"1 order\" (397 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-spicy-bacon-poutine-regular",
+      "name": "Spicy Bacon Poutine, regular",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 order",
+        "serving_g": 408,
+        "calories": 700,
+        "fat_g": 39,
+        "saturated_fat_g": 14,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 85,
+        "sodium_mg": 3020,
+        "carbs_g": 60,
+        "fiber_g": 4,
+        "sugars_g": 1,
+        "protein_g": 29,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"REGULAR POUTINE\", row \"Spicy Bacon Poutine\", serving \"1 order\" (408 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-crispy-chicken-poutine-regular",
+      "name": "Crispy Chicken Poutine, regular",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 order",
+        "serving_g": 419,
+        "calories": 670,
+        "fat_g": 34,
+        "saturated_fat_g": 12,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 75,
+        "sodium_mg": 2560,
+        "carbs_g": 65,
+        "fiber_g": 4,
+        "sugars_g": 1,
+        "protein_g": 28,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"REGULAR POUTINE\", row \"Crispy Chicken Poutine\", serving \"1 order\" (419 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-buffalo-crispy-chicken-poutine-regular",
+      "name": "Buffalo Crispy Chicken Poutine, regular",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 order",
+        "serving_g": 430,
+        "calories": 670,
+        "fat_g": 34,
+        "saturated_fat_g": 12,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 75,
+        "sodium_mg": 2960,
+        "carbs_g": 66,
+        "fiber_g": 5,
+        "sugars_g": 1,
+        "protein_g": 28,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"REGULAR POUTINE\", row \"Buffalo Crispy Chicken Poutine\", serving \"1 order\" (430 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-mango-and-habanero-crispy-chicken-poutine-regular",
+      "name": "Mango & Habanero Crispy Chicken Poutine, regular",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1 order",
+        "serving_g": 430,
+        "calories": 690,
+        "fat_g": 34,
+        "saturated_fat_g": 12,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 75,
+        "sodium_mg": 2590,
+        "carbs_g": 71,
+        "fiber_g": 5,
+        "sugars_g": 5,
+        "protein_g": 28,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"REGULAR POUTINE\", row \"Mango & Habanero Crispy Chicken Poutine\", serving \"1 order\" (430 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-classic-poutine-large",
+      "name": "Classic Poutine, large",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1/2 order",
+        "serving_g": 298,
+        "calories": 500,
+        "fat_g": 28,
+        "saturated_fat_g": 11,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 55,
+        "sodium_mg": 1720,
+        "carbs_g": 46,
+        "fiber_g": 3,
+        "sugars_g": 0,
+        "protein_g": 18,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"LARGE POUTINE\", row \"Classic Poutine\", serving \"1/2 order\" (298 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-bbq-steak-and-mushroom-poutine-large",
+      "name": "BBQ Steak & Mushroom Poutine, large",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1/2 order",
+        "serving_g": 357,
+        "calories": 560,
+        "fat_g": 30,
+        "saturated_fat_g": 12,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 70,
+        "sodium_mg": 2180,
+        "carbs_g": 52,
+        "fiber_g": 4,
+        "sugars_g": 5,
+        "protein_g": 22,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"LARGE POUTINE\", row \"BBQ Steak & Mushroom Poutine\", serving \"1/2 order\" (357 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-bacon-poutine-large",
+      "name": "Bacon Poutine, large",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1/2 order",
+        "serving_g": 319,
+        "calories": 590,
+        "fat_g": 34,
+        "saturated_fat_g": 13,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 75,
+        "sodium_mg": 2100,
+        "carbs_g": 47,
+        "fiber_g": 3,
+        "sugars_g": 1,
+        "protein_g": 25,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"LARGE POUTINE\", row \"Bacon Poutine\", serving \"1/2 order\" (319 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-spicy-bacon-poutine-large",
+      "name": "Spicy Bacon Poutine, large",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1/2 order",
+        "serving_g": 329,
+        "calories": 590,
+        "fat_g": 34,
+        "saturated_fat_g": 13,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 75,
+        "sodium_mg": 2450,
+        "carbs_g": 47,
+        "fiber_g": 3,
+        "sugars_g": 1,
+        "protein_g": 25,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"LARGE POUTINE\", row \"Spicy Bacon Poutine\", serving \"1/2 order\" (329 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-crispy-chicken-poutine-large",
+      "name": "Crispy Chicken Poutine, large",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1/2 order",
+        "serving_g": 348,
+        "calories": 590,
+        "fat_g": 31,
+        "saturated_fat_g": 11,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 75,
+        "sodium_mg": 2170,
+        "carbs_g": 53,
+        "fiber_g": 4,
+        "sugars_g": 1,
+        "protein_g": 26,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"LARGE POUTINE\", row \"Crispy Chicken Poutine\", serving \"1/2 order\" (348 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-buffalo-crispy-chicken-poutine-large",
+      "name": "Buffalo Crispy Chicken Poutine, large",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1/2 order",
+        "serving_g": 358,
+        "calories": 590,
+        "fat_g": 31,
+        "saturated_fat_g": 11,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 75,
+        "sodium_mg": 2510,
+        "carbs_g": 53,
+        "fiber_g": 4,
+        "sugars_g": 1,
+        "protein_g": 26,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"LARGE POUTINE\", row \"Buffalo Crispy Chicken Poutine\", serving \"1/2 order\" (358 g), as published. Read 2026-11-15."
+    },
+    {
+      "key": "dominos-mango-and-habanero-crispy-chicken-poutine-large",
+      "name": "Mango & Habanero Crispy Chicken Poutine, large",
+      "brand": "Domino's",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "dominos",
+        "domino's",
+        "dominos pizza"
+      ],
+      "published": {
+        "serving_label": "1/2 order",
+        "serving_g": 358,
+        "calories": 610,
+        "fat_g": 31,
+        "saturated_fat_g": 11,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 75,
+        "sodium_mg": 2190,
+        "carbs_g": 58,
+        "fiber_g": 4,
+        "sugars_g": 4,
+        "protein_g": 26,
+        "url": "https://www.dominos.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Domino's Canada \"Nutrition Guide\" (PDF from Domino's, August 2026), page 20, section \"LARGE POUTINE\", row \"Mango & Habanero Crispy Chicken Poutine\", serving \"1/2 order\" (358 g), as published. Read 2026-11-15."
+    }
+  ]
+}

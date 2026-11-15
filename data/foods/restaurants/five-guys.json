@@ -1,0 +1,752 @@
+{
+  "about": "Five Guys Canada ingredients, fries and shake parts, nutrition per serving as Five Guys publishes it in its Canadian nutrition and allergen PDF. A burger is the sum of its parts. Rows with a \"<1\" value in a main nutrient are left out.",
+  "foods": [
+    {
+      "key": "five-guys-bacon-2-pieces",
+      "name": "Bacon (2 pieces)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 14,
+        "calories": 70,
+        "fat_g": 6,
+        "saturated_fat_g": 2,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 15,
+        "sodium_mg": 210,
+        "carbs_g": 0,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 5,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"MEAT\", row \"Bacon (2 pieces)\", serving 14 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-hot-dog",
+      "name": "Hot Dog",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 90,
+        "calories": 280,
+        "fat_g": 26,
+        "saturated_fat_g": 12,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 56,
+        "sodium_mg": 800,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 11,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"MEAT\", row \"Hot Dog\", serving 90 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-bun",
+      "name": "Bun",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 77,
+        "calories": 240,
+        "fat_g": 9,
+        "saturated_fat_g": 3.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 5,
+        "sodium_mg": 330,
+        "carbs_g": 39,
+        "fiber_g": 2,
+        "sugars_g": 8,
+        "protein_g": 7,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"BUN\", row \"Bun\", serving 77 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-little-fries-five-guys-style",
+      "name": "Little fries, Five Guys style",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 227,
+        "calories": 526,
+        "fat_g": 23,
+        "saturated_fat_g": 4,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 531,
+        "carbs_g": 72,
+        "fiber_g": 8,
+        "sugars_g": 2,
+        "protein_g": 8,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"FRIES - COOKED IN 100% PEANUT OIL\", row \"Little Five Guys Style\", serving 227 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-regular-fries-five-guys-style",
+      "name": "Regular fries, Five Guys style",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 411,
+        "calories": 953,
+        "fat_g": 41,
+        "saturated_fat_g": 7,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 962,
+        "carbs_g": 131,
+        "fiber_g": 15,
+        "sugars_g": 4,
+        "protein_g": 15,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"FRIES - COOKED IN 100% PEANUT OIL\", row \"Regular Five Guys Style\", serving 411 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-large-fries-five-guys-style",
+      "name": "Large fries, Five Guys style",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 567,
+        "calories": 1314,
+        "fat_g": 57,
+        "saturated_fat_g": 10,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 1327,
+        "carbs_g": 181,
+        "fiber_g": 21,
+        "sugars_g": 6,
+        "protein_g": 20,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"FRIES - COOKED IN 100% PEANUT OIL\", row \"Large Five Guys Style\", serving 567 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-regular-fries-cajun-style",
+      "name": "Regular fries, Cajun style",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 416,
+        "calories": 967,
+        "fat_g": 41,
+        "saturated_fat_g": 7,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 1293,
+        "carbs_g": 134,
+        "fiber_g": 15,
+        "sugars_g": 4,
+        "protein_g": 15,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"FRIES - COOKED IN 100% PEANUT OIL\", row \"Regular Cajun Style\", serving 416 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-large-fries-cajun-style",
+      "name": "Large fries, Cajun style",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 572,
+        "calories": 1328,
+        "fat_g": 57,
+        "saturated_fat_g": 10,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 1658,
+        "carbs_g": 184,
+        "fiber_g": 21,
+        "sugars_g": 6,
+        "protein_g": 20,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"FRIES - COOKED IN 100% PEANUT OIL\", row \"Large Cajun Style\", serving 572 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-green-peppers-topping",
+      "name": "Green Peppers (topping)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 25,
+        "calories": 3,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 1,
+        "carbs_g": 1,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"TOPPINGS\", row \"Green Peppers\", serving 25 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-grilled-mushrooms-topping",
+      "name": "Grilled Mushrooms (topping)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 21,
+        "calories": 6,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 50,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 1,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"TOPPINGS\", row \"Grilled Mushrooms\", serving 21 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-hot-sauce-topping",
+      "name": "Hot Sauce (topping)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 5,
+        "calories": 0,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 200,
+        "carbs_g": 0,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"TOPPINGS\", row \"Hot Sauce\", serving 5 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-lettuce-topping",
+      "name": "Lettuce (topping)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 30,
+        "calories": 3,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 3,
+        "carbs_g": 1,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"TOPPINGS\", row \"Lettuce\", serving 30 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-mayonnaise-topping",
+      "name": "Mayonnaise (topping)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 14,
+        "calories": 111,
+        "fat_g": 11,
+        "saturated_fat_g": 1.5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 10,
+        "sodium_mg": 70,
+        "carbs_g": 0,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"TOPPINGS\", row \"Mayonnaise\", serving 14 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-mustard-topping",
+      "name": "Mustard (topping)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 5,
+        "calories": 0,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 55,
+        "carbs_g": 0,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"TOPPINGS\", row \"Mustard\", serving 5 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-onions-grilled-onions-topping",
+      "name": "Onions / Grilled Onions (topping)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 26,
+        "calories": 11,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 1,
+        "carbs_g": 2,
+        "sugars_g": 1,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"TOPPINGS\", row \"Onions / Grilled Onions\", serving 26 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-pickles-topping",
+      "name": "Pickles (topping)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 28,
+        "calories": 4,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 260,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"TOPPINGS\", row \"Pickles\", serving 28 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-relish-topping",
+      "name": "Relish (topping)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 15,
+        "calories": 16,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 85,
+        "carbs_g": 4,
+        "fiber_g": 0,
+        "sugars_g": 3,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"TOPPINGS\", row \"Relish\", serving 15 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-vanilla-shake-base",
+      "name": "Vanilla Shake Base",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 396,
+        "calories": 670,
+        "fat_g": 32,
+        "saturated_fat_g": 21,
+        "trans_fat_g": 1,
+        "cholesterol_mg": 130,
+        "sodium_mg": 360,
+        "carbs_g": 84,
+        "fiber_g": 0,
+        "sugars_g": 82,
+        "protein_g": 13,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"MILKSHAKES\", row \"Vanilla Shake Base\", serving 396 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-whipped-cream",
+      "name": "Whipped Cream",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 7,
+        "calories": 20,
+        "fat_g": 1.5,
+        "saturated_fat_g": 1,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 5,
+        "sodium_mg": 0,
+        "carbs_g": 1,
+        "fiber_g": 0,
+        "sugars_g": 1,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"MILKSHAKES\", row \"Whipped Cream\", serving 7 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-milkshake-mix-in-bacon",
+      "name": "Milkshake mix-in, bacon",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 14,
+        "calories": 70,
+        "fat_g": 6,
+        "saturated_fat_g": 2,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 15,
+        "sodium_mg": 210,
+        "carbs_g": 0,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 5,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"MIX-INS\", row \"Bacon\", serving 14 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-milkshake-mix-in-candy-cane-crunch",
+      "name": "Milkshake mix-in, candy cane crunch",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 48,
+        "calories": 185,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 2,
+        "carbs_g": 48,
+        "fiber_g": 0,
+        "sugars_g": 33,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"MIX-INS\", row \"Candy Cane Crunch\", serving 48 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-milkshake-mix-in-oreo-cookie-pieces",
+      "name": "Milkshake mix-in, oreo cookie pieces",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 25,
+        "calories": 120,
+        "fat_g": 5,
+        "saturated_fat_g": 1,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 86,
+        "carbs_g": 18,
+        "sugars_g": 10,
+        "protein_g": 1,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"MIX-INS\", row \"Oreo® Cookie Pieces\", serving 25 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-milkshake-mix-in-peanut-butter",
+      "name": "Milkshake mix-in, peanut butter",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 50,
+        "calories": 322,
+        "fat_g": 29,
+        "saturated_fat_g": 5,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 218,
+        "carbs_g": 9,
+        "fiber_g": 3,
+        "sugars_g": 4,
+        "protein_g": 9,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"MIX-INS\", row \"Peanut Butter\", serving 50 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-bulk-peanuts-1oz",
+      "name": "Bulk Peanuts (1oz.)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 30,
+        "calories": 170,
+        "fat_g": 14,
+        "saturated_fat_g": 2,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 180,
+        "carbs_g": 5,
+        "fiber_g": 3,
+        "sugars_g": 1,
+        "protein_g": 7,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"OTHER ITEMS\", row \"Bulk Peanuts (1oz.)\", serving 30 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-poutine-gravy",
+      "name": "Poutine Gravy",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 180,
+        "calories": 54,
+        "fat_g": 1,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 1036,
+        "carbs_g": 10,
+        "sugars_g": 1,
+        "protein_g": 1,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"OTHER ITEMS\", row \"Poutine Gravy\", serving 180 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-cheese-curd",
+      "name": "Cheese Curd",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 100,
+        "calories": 366,
+        "fat_g": 28,
+        "saturated_fat_g": 17,
+        "trans_fat_g": 2,
+        "cholesterol_mg": 99,
+        "sodium_mg": 700,
+        "carbs_g": 4,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 24,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"CA 12-2023\", row \"Cheese Curd\", serving 100 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-malt-vinegar-1tbs",
+      "name": "Malt Vinegar (1tbs)",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 15,
+        "calories": 0,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "sodium_mg": 2,
+        "carbs_g": 0,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"CA 12-2023\", row \"Malt Vinegar (1tbs)\", serving 15 g, as published. Read 2026-11-15."
+    },
+    {
+      "key": "five-guys-white-vinegar",
+      "name": "White Vinegar",
+      "brand": "Five Guys",
+      "category": "Restaurant Foods",
+      "aliases": [
+        "five guys",
+        "5 guys"
+      ],
+      "published": {
+        "serving_label": "1 serving",
+        "serving_g": 7,
+        "calories": 1,
+        "fat_g": 0,
+        "saturated_fat_g": 0,
+        "trans_fat_g": 0,
+        "cholesterol_mg": 0,
+        "carbs_g": 0,
+        "fiber_g": 0,
+        "sugars_g": 0,
+        "protein_g": 0,
+        "url": "https://www.fiveguys.ca/",
+        "retrieved": "2026-11-15"
+      },
+      "basis": "Five Guys \"Nutrition & Allergen Information - CAN\" (PDF from Five Guys), section \"CA 12-2023\", row \"White Vinegar\", serving 7 g, as published. Read 2026-11-15."
+    }
+  ]
+}
