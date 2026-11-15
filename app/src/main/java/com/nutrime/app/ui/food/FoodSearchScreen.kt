@@ -79,7 +79,6 @@ import com.nutrime.app.ui.components.NTextField
 import com.nutrime.app.ui.components.SectionLabel
 import com.nutrime.app.ui.components.Spinner
 import com.nutrime.app.ui.components.StatusPill
-import com.nutrime.app.ui.components.formatQty
 import com.nutrime.app.ui.components.servingText
 import com.nutrime.app.ui.theme.DesignTokens.Space
 import com.nutrime.app.ui.theme.Lucide
@@ -368,15 +367,14 @@ fun FoodSearchScreen(nav: NavController, date: String, meal: Int, mode: String, 
                         }
                     }
                     val (mainResults, moreResults) = results
-                    val favIds = vm.profile.value?.favoriteFoodIds.orEmpty().toSet()
                     items(mainResults, key = { "f-" + it.id }) { f ->
-                        FoodResult(f, favorite = f.id in favIds, usual = usage[f.id], onAdd = if (logMode) ({ quickAdd(f) }) else null) { open(f) }
+                        FoodResult(f, onAdd = if (logMode) ({ quickAdd(f) }) else null) { open(f) }
                     }
                     if (moreResults.isNotEmpty()) {
                         // "More results" only below other results; alone, they are simply the results.
                         if (mainResults.isNotEmpty()) item(key = "more-header") { Header("More results") }
                         items(moreResults, key = { "f-" + it.id }) { f ->
-                            FoodResult(f, favorite = f.id in favIds, usual = usage[f.id], onAdd = if (logMode) ({ quickAdd(f) }) else null) { open(f) }
+                            FoodResult(f, onAdd = if (logMode) ({ quickAdd(f) }) else null) { open(f) }
                         }
                     }
                     if (onlineErrors.isNotEmpty()) {
@@ -464,7 +462,7 @@ private fun androidx.compose.foundation.lazy.LazyListScope.emptySearch(
     }
     if (favs.isNotEmpty()) {
         item { Header("Favourites") }
-        items(favs, key = { "fav-" + it.id }) { f -> FoodResult(f, favorite = true, usual = usage[f.id], onAdd = if (logMode) ({ onAddFood(f) }) else null) { onOpenFood(f) } }
+        items(favs, key = { "fav-" + it.id }) { f -> FoodResult(f, onAdd = if (logMode) ({ onAddFood(f) }) else null) { onOpenFood(f) } }
     }
     if (rest.isNotEmpty()) {
         item { Header("Recent") }
@@ -496,31 +494,30 @@ private fun Header(text: String) {
 }
 
 /**
- * A search result: the cleaned name; brand, default serving, how often it was logged and ★ below; energy for
- * the default serving (or per 100 g). The source is on the food's own screen; the "Complete data" filter finds full lab analyses.
+ * A search result, as in Cronometer: the name (brand first), the default serving and its weight below it
+ * ("1 container - 170 g", or "100 g"), and the source on the right. No calories: the food's own screen
+ * shows them for the amount chosen. Usage and favourites still order the results.
  */
 @Composable
-private fun FoodResult(f: Food, favorite: Boolean = false, usual: FoodUsage? = null, onAdd: (() -> Unit)? = null, onClick: () -> Unit) {
-    val serving = f.servings.firstOrNull()
-    val sub = listOfNotNull(
-        f.brand?.takeIf { it.isNotBlank() },
-        serving?.let { servingName(it.label) },
-        usual?.let { "logged ${it.count}×" },
-        "★".takeIf { favorite },
-    ).joinToString(" · ")
-    val kcal = if (serving != null) f.kcalPer100g * serving.grams / 100.0 else f.kcalPer100g
-    val unit = if (serving != null) "kcal · ${formatQty(serving.grams)} g" else "kcal/100g"
+private fun FoodResult(f: Food, onAdd: (() -> Unit)? = null, onClick: () -> Unit) {
+    val c = NutriTheme.colors
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.weight(1f)) {
-            ResultRow(FoodNames.display(f), sub, kcal, unit = unit, onClick = onClick)
+        Row(
+            Modifier.weight(1f).clickable(onClick = onClick).padding(horizontal = Space.S4, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(Modifier.weight(1f)) {
+                Text(FoodNames.withBrand(f), style = NutriTheme.type.body, color = c.text, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Text(FoodNames.servingLine(f), style = NutriTheme.type.caption, color = c.textTertiary, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            }
+            Spacer(Modifier.width(Space.S3))
+            Text(f.source.shortLabel, style = NutriTheme.type.caption, color = c.textTertiary, maxLines = 1)
         }
-        if (onAdd != null) NIconButton(Lucide.Plus, "Add ${f.name}", onAdd, tint = NutriTheme.colors.accent, modifier = Modifier.padding(end = Space.S2))
+        if (onAdd != null) NIconButton(Lucide.Plus, "Add ${f.name}", onAdd, tint = c.accent, modifier = Modifier.padding(end = Space.S2))
     }
 }
 
-/** A serving label as a row reads it: "slice" → "1 slice"; "1 cup" stays. */
-private fun servingName(label: String): String = if (label.firstOrNull()?.isDigit() == true) label else "1 $label"
-
+/** A recent food or saved meal on the empty search screen: name, details below, and energy on the right. */
 @Composable
 private fun ResultRow(name: String, subtitle: String, kcal: Double, unit: String = "kcal/100g", onClick: () -> Unit) {
     val c = NutriTheme.colors

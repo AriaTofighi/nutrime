@@ -9,7 +9,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Food, FoodSource } from "../src/lib/foods";
-import { countryName, displayName } from "../src/lib/foodNames";
+import { countryName, displayName, nameWithBrand, servingLine } from "../src/lib/foodNames";
 import { collapse, matchedWords, rank, splitMoreResults, words, type FoodUsage } from "../src/lib/searchRank";
 
 const FILE = join(dirname(fileURLToPath(import.meta.url)), "../../shared/testdata/search_rank.json");
@@ -71,6 +71,29 @@ const NAMES: [string, string | null, string][] = [
 for (const [name, brand, want] of NAMES) {
   const got = displayName(name, brand);
   if (got !== want) { console.log(`FAIL name ${JSON.stringify(name)}: ${JSON.stringify(got)}, expected ${JSON.stringify(want)}`); process.exitCode = 1; }
+}
+// Result rows: the same examples as SharedLogicTest.resultRowText.
+const ROWS: [string, string | null, string][] = [
+  ["Greek Yogurt", "Kirkland Signature", "Kirkland Signature, Greek Yogurt"],
+  ["Kirkland Signature Greek Yogurt", "Kirkland Signature", "Kirkland Signature, Greek Yogurt"],
+  ["Tim Hortons Everything Bagel", "Tim Hortons", "Tim Hortons, Everything Bagel"],
+  ["CHICKEN TENDERLOINS", "GREAT VALUE", "Great Value, Chicken tenderloins"],
+  ["Bananas, raw", null, "Bananas, raw"],
+];
+for (const [name, brand, want] of ROWS) {
+  const got = nameWithBrand(name, brand);
+  if (got !== want) { console.log(`FAIL row name ${JSON.stringify(name)}: ${JSON.stringify(got)}, expected ${JSON.stringify(want)}`); process.exitCode = 1; }
+}
+const SERVINGS: [[string, number][], string][] = [
+  [[["container", 170]], "1 container - 170 g"],
+  [[["1 cup, chopped", 128.04]], "1 cup, chopped - 128 g"],
+  [[["oz", 28.3495]], "1 oz - 28.3 g"],
+  [[["100 g", 100]], "100 g"],
+  [[], "100 g"],
+];
+for (const [servings, want] of SERVINGS) {
+  const got = servingLine(servings.map(([label, grams]) => ({ label, grams })));
+  if (got !== want) { console.log(`FAIL serving ${JSON.stringify(servings)}: ${JSON.stringify(got)}, expected ${JSON.stringify(want)}`); process.exitCode = 1; }
 }
 for (const [code, want] of [["CA", "canada"], ["us", "united-states"], ["XX1", undefined]] as const) {
   if (countryName(code) !== want) { console.log(`FAIL country ${code}: ${countryName(code)}`); process.exitCode = 1; }

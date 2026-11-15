@@ -59,6 +59,30 @@ export function displayName(name: string, brand?: string | null): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+/**
+ * The name on a search result row: the brand first when the shown name does not already contain it
+ * ("Kirkland Signature, Greek Yogurt"). A SHOUTED brand is shown in title case.
+ */
+export function nameWithBrand(name: string, brand?: string | null): string {
+  const shown = displayName(name, brand);
+  const b = brand?.replace(/\s+/g, " ").trim();
+  if (!b || shown.toLowerCase().includes(b.toLowerCase())) return shown;
+  return (isShouted(b) ? titleCase(b) : b) + ", " + shown;
+}
+
+/** Grams as a row shows them: at most one decimal ("170", "28.4"). */
+export const gramsText = (g: number) => String(Math.round(g * 10) / 10);
+
+/** The grey line under a result row's name: the default serving and its weight ("1 container - 170 g"), or "100 g". */
+export function servingLine(servings: { label: string; grams: number }[]): string {
+  const s = servings[0];
+  if (!s) return "100 g";
+  const weight = `${gramsText(s.grams)} g`;
+  const label = s.label.trim();
+  if (label === "g" || label.toLowerCase() === weight.toLowerCase()) return weight;
+  return (/^\d/.test(label) ? label : `1 ${label}`) + " - " + weight;
+}
+
 /** An ISO country code ("CA") as the country name Open Food Facts uses in its tags ("canada"). */
 export function countryName(code?: string | null): string | undefined {
   const c = code?.trim().toUpperCase();

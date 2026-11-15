@@ -5,6 +5,16 @@ import type { DiaryEntry, FoodKind, FoodRecord, RecipeIngredient, Serving } from
 
 export type FoodSource = "USDA" | "NutriMe" | "USDA Branded" | "Open Food Facts" | "Custom" | "Recipe";
 
+/** The short source on the right of a result row (FoodSource.shortLabel in the app). */
+export const SOURCE_SHORT: Record<FoodSource, string> = {
+  USDA: "USDA",
+  NutriMe: "NutriMe",
+  "USDA Branded": "Branded",
+  "Open Food Facts": "OFF",
+  Custom: "Custom",
+  Recipe: "Recipe",
+};
+
 export interface Food {
   /** "usda:<fdcId>", "nm:<key>" (curated), "off:<barcode>", or "custom:<uuid>" — same ids as the Android app. */
   id: string;

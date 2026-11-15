@@ -72,6 +72,34 @@ object FoodNames {
 
     fun display(food: Food): String = display(food.name, food.brand)
 
+    /**
+     * The name on a search result row: the brand first when the shown name does not already contain it
+     * ("Kirkland Signature, Greek Yogurt"). A SHOUTED brand is shown in title case.
+     */
+    fun withBrand(name: String, brand: String?): String {
+        val shown = display(name, brand)
+        val b = brand?.replace(SPACES, " ")?.trim()?.takeIf { it.isNotEmpty() } ?: return shown
+        if (shown.lowercase(Locale.ROOT).contains(b.lowercase(Locale.ROOT))) return shown
+        return (if (isShouted(b)) titleCase(b) else b) + ", " + shown
+    }
+
+    fun withBrand(food: Food): String = withBrand(food.name, food.brand)
+
+    /** Grams as a row shows them: at most one decimal ("170", "28.4"). */
+    fun grams(g: Double): String {
+        val r = Math.round(g * 10) / 10.0
+        return if (r % 1.0 == 0.0) r.toLong().toString() else r.toString()
+    }
+
+    /** The grey line under a result row's name: the default serving and its weight ("1 container - 170 g"), or "100 g". */
+    fun servingLine(food: Food): String {
+        val s = food.servings.firstOrNull() ?: return "100 g"
+        val weight = grams(s.grams) + " g"
+        val label = s.label.trim()
+        if (label == "g" || label.equals(weight, ignoreCase = true)) return weight
+        return (if (label.firstOrNull()?.isDigit() == true) label else "1 $label") + " - " + weight
+    }
+
     /** An ISO country code ("CA") as the country name Open Food Facts uses in its tags ("canada"), or null. */
     fun countryName(code: String?): String? {
         val c = code?.trim()?.uppercase(Locale.ROOT)?.takeIf { it.matches(Regex("[A-Z]{2}")) } ?: return null

@@ -11,6 +11,7 @@ import {
   searchMine,
   type BundledResults,
   searchOnline,
+  SOURCE_SHORT,
   type Food,
 } from "../lib/foods";
 import { N, fmtNum, forGrams, parseNutrients } from "../lib/nutrients";
@@ -19,44 +20,25 @@ import type { DiaryEntry, Serving } from "../lib/types";
 import { fmtQty, isoDate, toNum } from "../lib/util";
 import { encodeProfile, parseProfile } from "../lib/profile";
 import { amountLabel, collapse, foodUsage, isComplete, parseQueryAmount, rank, servingFor, splitMoreResults, textScore, usualFor, words } from "../lib/searchRank";
-import { countryName, displayName } from "../lib/foodNames";
+import { countryName, nameWithBrand, servingLine } from "../lib/foodNames";
 import { browserCountry } from "../lib/assistant";
 import { savedMeals, type SavedMeal } from "../lib/days";
 import { COLORS } from "../theme/theme";
 import { Empty, NutrientGrid, Ring } from "./ui";
 
-const SOURCE_TAG: Record<string, string> = {
-  USDA: "USDA",
-  NutriMe: "NutriMe",
-  "USDA Branded": "Branded",
-  "Open Food Facts": "OFF",
-  Custom: "Custom",
-  Recipe: "Recipe",
-};
-
 /**
- * A food row: the cleaned name; brand, default serving, how often it was logged and ★ below; energy for the
- * default serving (or per 100 g). The source is shown on the food's own screen; the "Complete data" filter finds full lab analyses.
+ * A food row, as in Cronometer: the name (brand first), the default serving and its weight below it
+ * ("1 container - 170 g", or "100 g"), and the source on the right. No calories: the amount form shows
+ * them for the amount chosen. Usage and favourites still order the results.
  */
-export function FoodRow({ food, onPick, usual, favorite }: { food: Food; onPick: (f: Food) => void; usual?: number; favorite?: boolean }) {
-  const s = food.servings[0];
-  const per100 = food.nutrients[N.ENERGY] ?? 0;
-  const kcal = s ? (per100 * s.grams) / 100 : per100;
+export function FoodRow({ food, onPick }: { food: Food; onPick: (f: Food) => void }) {
   return (
     <button className="food-row" onClick={() => onPick(food)}>
       <span className="food-main">
-        <span className="food-name">{displayName(food.name, food.brand)}</span>
-        <span className="food-meta">
-          {food.brand && <span>{food.brand}</span>}
-          {s && <span>{/^\d/.test(s.label) ? s.label : `1 ${s.label}`}</span>}
-          {usual != null && usual > 0 && <span className="dim">logged {usual}×</span>}
-          {favorite && <span title="Favourite">★</span>}
-        </span>
+        <span className="food-name">{nameWithBrand(food.name, food.brand)}</span>
+        <span className="food-meta"><span>{servingLine(food.servings)}</span></span>
       </span>
-      <span className="food-kcal num">
-        {Math.round(kcal)}
-        <small>{s ? `kcal · ${fmtQty(Math.round(s.grams * 10) / 10)} g` : "kcal/100g"}</small>
-      </span>
+      <span className="food-source">{SOURCE_SHORT[food.source] ?? food.source}</span>
     </button>
   );
 }
@@ -234,7 +216,7 @@ export function FoodSearch({
 
   const row = (f: Food, key?: string) => (
     <div key={key ?? f.id} className="food-row-wrap" style={{ display: "flex", alignItems: "center" }}>
-      <div style={{ flex: 1, minWidth: 0 }}><FoodRow food={f} onPick={pick} usual={usage.get(f.id)?.count} favorite={favorites.has(f.id)} /></div>
+      <div style={{ flex: 1, minWidth: 0 }}><FoodRow food={f} onPick={pick} /></div>
       {quick && (
         <button className="icon-btn sm food-row-add" aria-label={`Add ${f.name}`} title="Add with your usual amount" onClick={() => quick(f)}>
           <Plus size={16} />
@@ -419,7 +401,7 @@ export function AmountForm({
       }}
     >
       <div className="amount-meta">
-        <span className={`tag tag-${SOURCE_TAG[food.source]?.toLowerCase()}`}>{SOURCE_TAG[food.source] ?? food.source}</span>
+        <span className={`tag tag-${SOURCE_SHORT[food.source]?.toLowerCase()}`}>{SOURCE_SHORT[food.source] ?? food.source}</span>
         {food.brand && <span>{food.brand}</span>}
         {food.category && <span>{food.category}</span>}
         {usual && <span className="dim">Last time's amount</span>}

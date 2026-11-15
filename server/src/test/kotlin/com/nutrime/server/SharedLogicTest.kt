@@ -242,6 +242,25 @@ class SharedLogicTest {
         assertNull(names.countryName("XX1"))
     }
 
+    /** The same examples as the result rows in web/scripts/search_rank_vectors.ts. */
+    @Test
+    fun resultRowText() {
+        val names = com.nutrime.app.model.FoodNames
+        assertEquals("Kirkland Signature, Greek Yogurt", names.withBrand("Greek Yogurt", "Kirkland Signature"))
+        assertEquals("Kirkland Signature, Greek Yogurt", names.withBrand("Kirkland Signature Greek Yogurt", "Kirkland Signature"))
+        assertEquals("Tim Hortons, Everything Bagel", names.withBrand("Tim Hortons Everything Bagel", "Tim Hortons"))
+        assertEquals("Great Value, Chicken tenderloins", names.withBrand("CHICKEN TENDERLOINS", "GREAT VALUE"))
+        assertEquals("Bananas, raw", names.withBrand("Bananas, raw", null))
+        fun line(vararg s: Pair<String, Double>) = names.servingLine(Food("x", FoodSource.USDA, "x", nutrients = emptyMap(), servings = s.map { Serving(it.first, it.second) }))
+        assertEquals("1 container - 170 g", line("container" to 170.0))
+        assertEquals("1 cup, chopped - 128 g", line("1 cup, chopped" to 128.04))
+        assertEquals("1 oz - 28.3 g", line("oz" to 28.3495))
+        assertEquals("100 g", line("100 g" to 100.0))
+        assertEquals("100 g", line())
+        assertEquals("Branded", FoodSource.USDA_BRANDED.shortLabel)
+        assertEquals("OFF", FoodSource.OPEN_FOOD_FACTS.shortLabel)
+    }
+
     @Test
     fun typingCorrection() {
         assertEquals(1, Fuzzy.distance("chiken", "chicken"))

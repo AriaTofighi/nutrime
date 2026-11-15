@@ -5,14 +5,15 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Serving(val label: String, val grams: Double)
 
-enum class FoodSource(val label: String) {
-    USDA("USDA"),
+/** [label] names the source in full; [shortLabel] is the short form on the right of a search result row. */
+enum class FoodSource(val label: String, val shortLabel: String) {
+    USDA("USDA", "USDA"),
     /** NutriMe's own curated foods (data/foods), bundled with the USDA database. */
-    NUTRIME("NutriMe"),
-    USDA_BRANDED("USDA Branded"),
-    OPEN_FOOD_FACTS("Open Food Facts"),
-    CUSTOM("Custom"),
-    RECIPE("Recipe"),
+    NUTRIME("NutriMe", "NutriMe"),
+    USDA_BRANDED("USDA Branded", "Branded"),
+    OPEN_FOOD_FACTS("Open Food Facts", "OFF"),
+    CUSTOM("Custom", "Custom"),
+    RECIPE("Recipe", "Recipe"),
 }
 
 @Serializable
