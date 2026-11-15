@@ -1,0 +1,3066 @@
+{
+ "about": "Starbucks Canada menu items, nutrition per serving as Starbucks Canada publishes it on starbucks.ca product pages (standard recipe: default milk and syrups). Drinks: one entry per size, serving volume in ml stored as g.",
+ "foods": [
+  {
+   "key": "starbucks-pike-place-coffee-tall",
+   "name": "Pike Place Roast brewed coffee, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "drip coffee",
+    "black coffee",
+    "pike place",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 4,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.5,
+    "url": "https://www.starbucks.ca/menu/product/480/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Featured Medium Roast - Pike Place Roast\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-pike-place-coffee-grande",
+   "name": "Pike Place Roast brewed coffee, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "drip coffee",
+    "black coffee",
+    "pike place",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 5,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 1,
+    "url": "https://www.starbucks.ca/menu/product/480/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Featured Medium Roast - Pike Place Roast\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-pike-place-coffee-venti",
+   "name": "Pike Place Roast brewed coffee, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "drip coffee",
+    "black coffee",
+    "pike place",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 5,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 1,
+    "url": "https://www.starbucks.ca/menu/product/480/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Featured Medium Roast - Pike Place Roast\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-caffe-americano-tall",
+   "name": "Caffè Americano, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "caffe americano",
+    "americano",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 10,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 1,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 1,
+    "url": "https://www.starbucks.ca/menu/product/406/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caffè Americano\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-caffe-americano-grande",
+   "name": "Caffè Americano, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "caffe americano",
+    "americano",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 15,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 2,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 1,
+    "url": "https://www.starbucks.ca/menu/product/406/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caffè Americano\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-caffe-americano-venti",
+   "name": "Caffè Americano, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "caffe americano",
+    "americano",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 15,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 3,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 1,
+    "url": "https://www.starbucks.ca/menu/product/406/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caffè Americano\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-caffe-latte-tall",
+   "name": "Caffè Latte, 2% milk, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "caffe latte",
+    "latte",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 150,
+    "fat_g": 6,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 25,
+    "sodium_mg": 135,
+    "carbs_g": 15,
+    "fiber_g": 0,
+    "sugars_g": 14,
+    "protein_g": 10,
+    "url": "https://www.starbucks.ca/menu/product/407/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caffè Latte\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-caffe-latte-grande",
+   "name": "Caffè Latte, 2% milk, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "caffe latte",
+    "latte",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 190,
+    "fat_g": 7,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 30,
+    "sodium_mg": 170,
+    "carbs_g": 19,
+    "fiber_g": 0,
+    "sugars_g": 17,
+    "protein_g": 12,
+    "url": "https://www.starbucks.ca/menu/product/407/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caffè Latte\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-caffe-latte-venti",
+   "name": "Caffè Latte, 2% milk, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "caffe latte",
+    "latte",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 250,
+    "fat_g": 9,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 35,
+    "sodium_mg": 220,
+    "carbs_g": 24,
+    "fiber_g": 0,
+    "sugars_g": 22,
+    "protein_g": 16,
+    "url": "https://www.starbucks.ca/menu/product/407/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caffè Latte\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-cappuccino-tall",
+   "name": "Cappuccino, 2% milk, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 100,
+    "fat_g": 4,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 15,
+    "sodium_mg": 90,
+    "carbs_g": 10,
+    "fiber_g": 0,
+    "sugars_g": 9,
+    "protein_g": 7,
+    "url": "https://www.starbucks.ca/menu/product/409/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Cappuccino\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-cappuccino-grande",
+   "name": "Cappuccino, 2% milk, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 140,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 20,
+    "sodium_mg": 120,
+    "carbs_g": 14,
+    "fiber_g": 0,
+    "sugars_g": 12,
+    "protein_g": 9,
+    "url": "https://www.starbucks.ca/menu/product/409/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Cappuccino\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-cappuccino-venti",
+   "name": "Cappuccino, 2% milk, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 200,
+    "fat_g": 8,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 30,
+    "sodium_mg": 180,
+    "carbs_g": 20,
+    "fiber_g": 0,
+    "sugars_g": 19,
+    "protein_g": 13,
+    "url": "https://www.starbucks.ca/menu/product/409/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Cappuccino\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-flat-white-tall",
+   "name": "Flat White, whole milk, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 170,
+    "fat_g": 9,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 25,
+    "sodium_mg": 115,
+    "carbs_g": 14,
+    "fiber_g": 0,
+    "sugars_g": 13,
+    "protein_g": 9,
+    "url": "https://www.starbucks.ca/menu/product/565/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Flat White\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-flat-white-grande",
+   "name": "Flat White, whole milk, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 220,
+    "fat_g": 11,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 35,
+    "sodium_mg": 150,
+    "carbs_g": 18,
+    "fiber_g": 0,
+    "sugars_g": 17,
+    "protein_g": 12,
+    "url": "https://www.starbucks.ca/menu/product/565/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Flat White\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-flat-white-venti",
+   "name": "Flat White, whole milk, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 290,
+    "fat_g": 15,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 45,
+    "sodium_mg": 200,
+    "carbs_g": 24,
+    "fiber_g": 0,
+    "sugars_g": 22,
+    "protein_g": 15,
+    "url": "https://www.starbucks.ca/menu/product/565/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Flat White\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-caffe-mocha-tall",
+   "name": "Caffè Mocha, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "caffe mocha",
+    "mocha",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 290,
+    "fat_g": 13,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 40,
+    "sodium_mg": 120,
+    "carbs_g": 33,
+    "fiber_g": 3,
+    "sugars_g": 27,
+    "protein_g": 11,
+    "url": "https://www.starbucks.ca/menu/product/408/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caffè Mocha\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-caffe-mocha-grande",
+   "name": "Caffè Mocha, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "caffe mocha",
+    "mocha",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 370,
+    "fat_g": 15,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 45,
+    "sodium_mg": 150,
+    "carbs_g": 43,
+    "fiber_g": 4,
+    "sugars_g": 35,
+    "protein_g": 14,
+    "url": "https://www.starbucks.ca/menu/product/408/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caffè Mocha\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-caffe-mocha-venti",
+   "name": "Caffè Mocha, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "caffe mocha",
+    "mocha",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 450,
+    "fat_g": 18,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 55,
+    "sodium_mg": 190,
+    "carbs_g": 54,
+    "fiber_g": 5,
+    "sugars_g": 45,
+    "protein_g": 18,
+    "url": "https://www.starbucks.ca/menu/product/408/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caffè Mocha\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-white-chocolate-mocha-tall",
+   "name": "White Chocolate Mocha, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "white mocha",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 290,
+    "fat_g": 13,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 35,
+    "sodium_mg": 160,
+    "carbs_g": 35,
+    "fiber_g": 0,
+    "sugars_g": 34,
+    "protein_g": 10,
+    "url": "https://www.starbucks.ca/menu/product/420/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"White Chocolate Mocha\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-white-chocolate-mocha-grande",
+   "name": "White Chocolate Mocha, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "white mocha",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 390,
+    "fat_g": 17,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 50,
+    "sodium_mg": 220,
+    "carbs_g": 47,
+    "fiber_g": 0,
+    "sugars_g": 46,
+    "protein_g": 13,
+    "url": "https://www.starbucks.ca/menu/product/420/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"White Chocolate Mocha\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-white-chocolate-mocha-venti",
+   "name": "White Chocolate Mocha, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "white mocha",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 480,
+    "fat_g": 20,
+    "saturated_fat_g": 13,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 55,
+    "sodium_mg": 280,
+    "carbs_g": 59,
+    "fiber_g": 0,
+    "sugars_g": 58,
+    "protein_g": 17,
+    "url": "https://www.starbucks.ca/menu/product/420/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"White Chocolate Mocha\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-caramel-macchiato-tall",
+   "name": "Caramel Macchiato, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 190,
+    "fat_g": 6,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 20,
+    "sodium_mg": 120,
+    "carbs_g": 26,
+    "fiber_g": 0,
+    "sugars_g": 25,
+    "protein_g": 8,
+    "url": "https://www.starbucks.ca/menu/product/413/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caramel Macchiato\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-caramel-macchiato-grande",
+   "name": "Caramel Macchiato, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 250,
+    "fat_g": 7,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 25,
+    "sodium_mg": 150,
+    "carbs_g": 35,
+    "fiber_g": 0,
+    "sugars_g": 33,
+    "protein_g": 10,
+    "url": "https://www.starbucks.ca/menu/product/413/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caramel Macchiato\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-caramel-macchiato-venti",
+   "name": "Caramel Macchiato, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 310,
+    "fat_g": 9,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 35,
+    "sodium_mg": 190,
+    "carbs_g": 44,
+    "fiber_g": 0,
+    "sugars_g": 42,
+    "protein_g": 13,
+    "url": "https://www.starbucks.ca/menu/product/413/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caramel Macchiato\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-pumpkin-spice-latte-tall",
+   "name": "Pumpkin Spice Latte, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "psl",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 300,
+    "fat_g": 12,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 40,
+    "sodium_mg": 180,
+    "carbs_g": 39,
+    "fiber_g": 0,
+    "sugars_g": 38,
+    "protein_g": 11,
+    "url": "https://www.starbucks.ca/menu/product/418/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Pumpkin Spice Latte\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-pumpkin-spice-latte-grande",
+   "name": "Pumpkin Spice Latte, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "psl",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 390,
+    "fat_g": 14,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 50,
+    "sodium_mg": 230,
+    "carbs_g": 52,
+    "fiber_g": 0,
+    "sugars_g": 50,
+    "protein_g": 14,
+    "url": "https://www.starbucks.ca/menu/product/418/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Pumpkin Spice Latte\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-pumpkin-spice-latte-venti",
+   "name": "Pumpkin Spice Latte, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "psl",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 470,
+    "fat_g": 16,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 60,
+    "sodium_mg": 300,
+    "carbs_g": 65,
+    "fiber_g": 0,
+    "sugars_g": 63,
+    "protein_g": 18,
+    "url": "https://www.starbucks.ca/menu/product/418/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Pumpkin Spice Latte\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-chai-latte-tall",
+   "name": "Chai Tea Latte, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chai",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 130,
+    "fat_g": 3,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 10,
+    "sodium_mg": 75,
+    "carbs_g": 21,
+    "fiber_g": 0,
+    "sugars_g": 20,
+    "protein_g": 5,
+    "url": "https://www.starbucks.ca/menu/product/466/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Chai Latte\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-chai-latte-grande",
+   "name": "Chai Tea Latte, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chai",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 200,
+    "fat_g": 4.5,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 15,
+    "sodium_mg": 110,
+    "carbs_g": 33,
+    "fiber_g": 0,
+    "sugars_g": 31,
+    "protein_g": 7,
+    "url": "https://www.starbucks.ca/menu/product/466/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Chai Latte\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-chai-latte-venti",
+   "name": "Chai Tea Latte, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chai",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 270,
+    "fat_g": 6,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 25,
+    "sodium_mg": 160,
+    "carbs_g": 44,
+    "fiber_g": 0,
+    "sugars_g": 42,
+    "protein_g": 10,
+    "url": "https://www.starbucks.ca/menu/product/466/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Chai Latte\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-matcha-latte-tall",
+   "name": "Matcha Latte, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "matcha green tea latte",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 160,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 20,
+    "sodium_mg": 115,
+    "carbs_g": 22,
+    "fiber_g": 1,
+    "sugars_g": 21,
+    "protein_g": 8,
+    "url": "https://www.starbucks.ca/menu/product/468/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Matcha Latte\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-matcha-latte-grande",
+   "name": "Matcha Latte, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "matcha green tea latte",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 220,
+    "fat_g": 6,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 25,
+    "sodium_mg": 140,
+    "carbs_g": 31,
+    "fiber_g": 1,
+    "sugars_g": 29,
+    "protein_g": 11,
+    "url": "https://www.starbucks.ca/menu/product/468/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Matcha Latte\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-matcha-latte-venti",
+   "name": "Matcha Latte, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "matcha green tea latte",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 290,
+    "fat_g": 8,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 30,
+    "sodium_mg": 190,
+    "carbs_g": 41,
+    "fiber_g": 1,
+    "sugars_g": 39,
+    "protein_g": 14,
+    "url": "https://www.starbucks.ca/menu/product/468/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Matcha Latte\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-london-fog-tall",
+   "name": "London Fog Latte, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "london fog",
+    "earl grey latte",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 140,
+    "fat_g": 3,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 15,
+    "sodium_mg": 80,
+    "carbs_g": 22,
+    "fiber_g": 0,
+    "sugars_g": 22,
+    "protein_g": 5,
+    "url": "https://www.starbucks.ca/menu/product/477/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"London Fog Latte\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-london-fog-grande",
+   "name": "London Fog Latte, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "london fog",
+    "earl grey latte",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 180,
+    "fat_g": 4,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 15,
+    "sodium_mg": 105,
+    "carbs_g": 29,
+    "fiber_g": 0,
+    "sugars_g": 29,
+    "protein_g": 7,
+    "url": "https://www.starbucks.ca/menu/product/477/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"London Fog Latte\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-london-fog-venti",
+   "name": "London Fog Latte, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "london fog",
+    "earl grey latte",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 230,
+    "fat_g": 5,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 20,
+    "sodium_mg": 135,
+    "carbs_g": 37,
+    "fiber_g": 0,
+    "sugars_g": 37,
+    "protein_g": 9,
+    "url": "https://www.starbucks.ca/menu/product/477/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"London Fog Latte\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-hot-chocolate-tall",
+   "name": "Hot Chocolate, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 280,
+    "fat_g": 12,
+    "saturated_fat_g": 8,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 35,
+    "sodium_mg": 105,
+    "carbs_g": 32,
+    "fiber_g": 3,
+    "sugars_g": 27,
+    "protein_g": 10,
+    "url": "https://www.starbucks.ca/menu/product/471/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Hot Chocolate\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-hot-chocolate-grande",
+   "name": "Hot Chocolate, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 370,
+    "fat_g": 16,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 50,
+    "sodium_mg": 160,
+    "carbs_g": 43,
+    "fiber_g": 4,
+    "sugars_g": 37,
+    "protein_g": 14,
+    "url": "https://www.starbucks.ca/menu/product/471/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Hot Chocolate\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-hot-chocolate-venti",
+   "name": "Hot Chocolate, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (591 ml)",
+    "serving_g": 591,
+    "calories": 450,
+    "fat_g": 18,
+    "saturated_fat_g": 12,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 55,
+    "sodium_mg": 200,
+    "carbs_g": 54,
+    "fiber_g": 5,
+    "sugars_g": 46,
+    "protein_g": 17,
+    "url": "https://www.starbucks.ca/menu/product/471/hot",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Hot Chocolate\", size Venti (591 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 591 ml, stored as 591 g."
+  },
+  {
+   "key": "starbucks-iced-caffe-latte-tall",
+   "name": "Iced Caffè Latte, 2% milk, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "iced caffe latte",
+    "iced latte",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 100,
+    "fat_g": 3.5,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 15,
+    "sodium_mg": 90,
+    "carbs_g": 10,
+    "fiber_g": 0,
+    "sugars_g": 9,
+    "protein_g": 6,
+    "url": "https://www.starbucks.ca/menu/product/407/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Caffè Latte\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-iced-caffe-latte-grande",
+   "name": "Iced Caffè Latte, 2% milk, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "iced caffe latte",
+    "iced latte",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 130,
+    "fat_g": 4.5,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 20,
+    "sodium_mg": 115,
+    "carbs_g": 13,
+    "fiber_g": 0,
+    "sugars_g": 11,
+    "protein_g": 8,
+    "url": "https://www.starbucks.ca/menu/product/407/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Caffè Latte\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-iced-caffe-latte-venti",
+   "name": "Iced Caffè Latte, 2% milk, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "iced caffe latte",
+    "iced latte",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 180,
+    "fat_g": 6,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 25,
+    "sodium_mg": 160,
+    "carbs_g": 18,
+    "fiber_g": 0,
+    "sugars_g": 15,
+    "protein_g": 12,
+    "url": "https://www.starbucks.ca/menu/product/407/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Caffè Latte\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-iced-caramel-macchiato-tall",
+   "name": "Iced Caramel Macchiato, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 180,
+    "fat_g": 5,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 20,
+    "sodium_mg": 110,
+    "carbs_g": 26,
+    "fiber_g": 0,
+    "sugars_g": 24,
+    "protein_g": 7,
+    "url": "https://www.starbucks.ca/menu/product/413/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Caramel Macchiato\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-iced-caramel-macchiato-grande",
+   "name": "Iced Caramel Macchiato, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 250,
+    "fat_g": 7,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 25,
+    "sodium_mg": 150,
+    "carbs_g": 37,
+    "fiber_g": 0,
+    "sugars_g": 34,
+    "protein_g": 10,
+    "url": "https://www.starbucks.ca/menu/product/413/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Caramel Macchiato\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-iced-caramel-macchiato-venti",
+   "name": "Iced Caramel Macchiato, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 350,
+    "fat_g": 9,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 35,
+    "sodium_mg": 200,
+    "carbs_g": 53,
+    "fiber_g": 0,
+    "sugars_g": 49,
+    "protein_g": 13,
+    "url": "https://www.starbucks.ca/menu/product/413/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Caramel Macchiato\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-cold-brew-tall",
+   "name": "Cold Brew coffee, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "cold brew",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 3,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 10,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.1,
+    "url": "https://www.starbucks.ca/menu/product/2121255/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Cold Brew\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-cold-brew-grande",
+   "name": "Cold Brew coffee, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "cold brew",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 3,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 15,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.2,
+    "url": "https://www.starbucks.ca/menu/product/2121255/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Cold Brew\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-cold-brew-venti",
+   "name": "Cold Brew coffee, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "cold brew",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 5,
+    "fat_g": 0,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 20,
+    "carbs_g": 0,
+    "fiber_g": 0,
+    "sugars_g": 0,
+    "protein_g": 0.3,
+    "url": "https://www.starbucks.ca/menu/product/2121255/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Cold Brew\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-vanilla-sweet-cream-cold-brew-tall",
+   "name": "Vanilla Sweet Cream Cold Brew, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 90,
+    "fat_g": 5,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 15,
+    "sodium_mg": 20,
+    "carbs_g": 9,
+    "fiber_g": 0,
+    "sugars_g": 9,
+    "protein_g": 1,
+    "url": "https://www.starbucks.ca/menu/product/2121859/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Vanilla Sweet Cream Cold Brew\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-vanilla-sweet-cream-cold-brew-grande",
+   "name": "Vanilla Sweet Cream Cold Brew, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 110,
+    "fat_g": 5,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 15,
+    "sodium_mg": 20,
+    "carbs_g": 14,
+    "fiber_g": 0,
+    "sugars_g": 14,
+    "protein_g": 1,
+    "url": "https://www.starbucks.ca/menu/product/2121859/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Vanilla Sweet Cream Cold Brew\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-vanilla-sweet-cream-cold-brew-venti",
+   "name": "Vanilla Sweet Cream Cold Brew, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 200,
+    "fat_g": 11,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 35,
+    "sodium_mg": 35,
+    "carbs_g": 23,
+    "fiber_g": 0,
+    "sugars_g": 23,
+    "protein_g": 2,
+    "url": "https://www.starbucks.ca/menu/product/2121859/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Vanilla Sweet Cream Cold Brew\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-iced-brown-sugar-oat-shaken-espresso-tall",
+   "name": "Iced Brown Sugar Oat Shaken Espresso, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "brown sugar oatmilk shaken espresso",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 100,
+    "fat_g": 3,
+    "saturated_fat_g": 0.2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 95,
+    "carbs_g": 16,
+    "fiber_g": 1,
+    "sugars_g": 9,
+    "protein_g": 2,
+    "url": "https://www.starbucks.ca/menu/product/2123431/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Brown Sugar Oat Shaken Espresso\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-iced-brown-sugar-oat-shaken-espresso-grande",
+   "name": "Iced Brown Sugar Oat Shaken Espresso, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "brown sugar oatmilk shaken espresso",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 140,
+    "fat_g": 3.5,
+    "saturated_fat_g": 0.3,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 150,
+    "carbs_g": 25,
+    "fiber_g": 1,
+    "sugars_g": 16,
+    "protein_g": 2,
+    "url": "https://www.starbucks.ca/menu/product/2123431/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Brown Sugar Oat Shaken Espresso\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-iced-brown-sugar-oat-shaken-espresso-venti",
+   "name": "Iced Brown Sugar Oat Shaken Espresso, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "brown sugar oatmilk shaken espresso",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 200,
+    "fat_g": 5,
+    "saturated_fat_g": 0.4,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 220,
+    "carbs_g": 36,
+    "fiber_g": 2,
+    "sugars_g": 23,
+    "protein_g": 3,
+    "url": "https://www.starbucks.ca/menu/product/2123431/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Brown Sugar Oat Shaken Espresso\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-iced-chai-latte-tall",
+   "name": "Iced Chai Tea Latte, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "iced chai",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 130,
+    "fat_g": 2.5,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 10,
+    "sodium_mg": 75,
+    "carbs_g": 24,
+    "fiber_g": 0,
+    "sugars_g": 23,
+    "protein_g": 4,
+    "url": "https://www.starbucks.ca/menu/product/466/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Chai Latte\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-iced-chai-latte-grande",
+   "name": "Iced Chai Tea Latte, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "iced chai",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 180,
+    "fat_g": 3.5,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 15,
+    "sodium_mg": 100,
+    "carbs_g": 32,
+    "fiber_g": 0,
+    "sugars_g": 31,
+    "protein_g": 6,
+    "url": "https://www.starbucks.ca/menu/product/466/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Chai Latte\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-iced-chai-latte-venti",
+   "name": "Iced Chai Tea Latte, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "iced chai",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 270,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 20,
+    "sodium_mg": 140,
+    "carbs_g": 47,
+    "fiber_g": 0,
+    "sugars_g": 45,
+    "protein_g": 8,
+    "url": "https://www.starbucks.ca/menu/product/466/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Chai Latte\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-iced-matcha-latte-tall",
+   "name": "Iced Matcha Latte, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 120,
+    "fat_g": 3.5,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 15,
+    "sodium_mg": 80,
+    "carbs_g": 17,
+    "fiber_g": 1,
+    "sugars_g": 16,
+    "protein_g": 6,
+    "url": "https://www.starbucks.ca/menu/product/468/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Matcha Latte\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-iced-matcha-latte-grande",
+   "name": "Iced Matcha Latte, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 190,
+    "fat_g": 5,
+    "saturated_fat_g": 3,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 20,
+    "sodium_mg": 120,
+    "carbs_g": 27,
+    "fiber_g": 1,
+    "sugars_g": 25,
+    "protein_g": 9,
+    "url": "https://www.starbucks.ca/menu/product/468/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Matcha Latte\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-iced-matcha-latte-venti",
+   "name": "Iced Matcha Latte, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 230,
+    "fat_g": 6,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 25,
+    "sodium_mg": 150,
+    "carbs_g": 34,
+    "fiber_g": 1,
+    "sugars_g": 33,
+    "protein_g": 11,
+    "url": "https://www.starbucks.ca/menu/product/468/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Matcha Latte\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-pink-drink-tall",
+   "name": "Pink Drink, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "strawberry acai coconut",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 110,
+    "fat_g": 2,
+    "saturated_fat_g": 2,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 60,
+    "carbs_g": 22,
+    "fiber_g": 1,
+    "sugars_g": 19,
+    "protein_g": 0.4,
+    "url": "https://www.starbucks.ca/menu/product/2122275/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Pink Drink\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-pink-drink-grande",
+   "name": "Pink Drink, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "strawberry acai coconut",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 140,
+    "fat_g": 2.5,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 85,
+    "carbs_g": 28,
+    "fiber_g": 1,
+    "sugars_g": 25,
+    "protein_g": 0.4,
+    "url": "https://www.starbucks.ca/menu/product/2122275/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Pink Drink\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-pink-drink-venti",
+   "name": "Pink Drink, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "strawberry acai coconut",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 200,
+    "fat_g": 4,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 130,
+    "carbs_g": 40,
+    "fiber_g": 1,
+    "sugars_g": 36,
+    "protein_g": 1,
+    "url": "https://www.starbucks.ca/menu/product/2122275/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Pink Drink\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-strawberry-acai-refresher-tall",
+   "name": "Strawberry Açaí Refresher, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "strawberry acai refresher",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 70,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 25,
+    "carbs_g": 18,
+    "fiber_g": 1,
+    "sugars_g": 16,
+    "protein_g": 0.2,
+    "url": "https://www.starbucks.ca/menu/product/2121342/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Strawberry Açaí Refresher\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-strawberry-acai-refresher-grande",
+   "name": "Strawberry Açaí Refresher, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "strawberry acai refresher",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 90,
+    "fat_g": 0.1,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 40,
+    "carbs_g": 23,
+    "fiber_g": 1,
+    "sugars_g": 21,
+    "protein_g": 0.2,
+    "url": "https://www.starbucks.ca/menu/product/2121342/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Strawberry Açaí Refresher\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-strawberry-acai-refresher-venti",
+   "name": "Strawberry Açaí Refresher, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "strawberry acai refresher",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 130,
+    "fat_g": 0.2,
+    "saturated_fat_g": 0,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 55,
+    "carbs_g": 33,
+    "fiber_g": 1,
+    "sugars_g": 30,
+    "protein_g": 0.2,
+    "url": "https://www.starbucks.ca/menu/product/2121342/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Strawberry Açaí Refresher\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-mango-dragonfruit-lemonade-refresher-tall",
+   "name": "Mango Dragonfruit Lemonade Refresher, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mango dragonfruit",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 110,
+    "fat_g": 0.4,
+    "saturated_fat_g": 0.1,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 20,
+    "carbs_g": 27,
+    "fiber_g": 0,
+    "sugars_g": 24,
+    "protein_g": 0.4,
+    "url": "https://www.starbucks.ca/menu/product/2122726/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Mango Dragonfruit Lemonade Refresher\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-mango-dragonfruit-lemonade-refresher-grande",
+   "name": "Mango Dragonfruit Lemonade Refresher, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mango dragonfruit",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 140,
+    "fat_g": 0.5,
+    "saturated_fat_g": 0.1,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 35,
+    "carbs_g": 34,
+    "fiber_g": 1,
+    "sugars_g": 31,
+    "protein_g": 0.5,
+    "url": "https://www.starbucks.ca/menu/product/2122726/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Mango Dragonfruit Lemonade Refresher\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-mango-dragonfruit-lemonade-refresher-venti",
+   "name": "Mango Dragonfruit Lemonade Refresher, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "mango dragonfruit",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 200,
+    "fat_g": 0.5,
+    "saturated_fat_g": 0.1,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 0,
+    "sodium_mg": 55,
+    "carbs_g": 50,
+    "fiber_g": 1,
+    "sugars_g": 45,
+    "protein_g": 1,
+    "url": "https://www.starbucks.ca/menu/product/2122726/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Mango Dragonfruit Lemonade Refresher\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-caramel-frappuccino-tall",
+   "name": "Caramel Frappuccino, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "frappuccino",
+    "frap",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 260,
+    "fat_g": 11,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 35,
+    "sodium_mg": 160,
+    "carbs_g": 38,
+    "fiber_g": 0,
+    "sugars_g": 37,
+    "protein_g": 3,
+    "url": "https://www.starbucks.ca/menu/product/424/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caramel Frappuccino Blended Beverage\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-caramel-frappuccino-grande",
+   "name": "Caramel Frappuccino, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "frappuccino",
+    "frap",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 380,
+    "fat_g": 16,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 50,
+    "sodium_mg": 230,
+    "carbs_g": 55,
+    "fiber_g": 0,
+    "sugars_g": 54,
+    "protein_g": 4,
+    "url": "https://www.starbucks.ca/menu/product/424/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caramel Frappuccino Blended Beverage\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-caramel-frappuccino-venti",
+   "name": "Caramel Frappuccino, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "frappuccino",
+    "frap",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 470,
+    "fat_g": 17,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 55,
+    "sodium_mg": 310,
+    "carbs_g": 73,
+    "fiber_g": 0,
+    "sugars_g": 72,
+    "protein_g": 6,
+    "url": "https://www.starbucks.ca/menu/product/424/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Caramel Frappuccino Blended Beverage\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-mocha-frappuccino-tall",
+   "name": "Mocha Frappuccino, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "frappuccino",
+    "frap",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 250,
+    "fat_g": 10,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 30,
+    "sodium_mg": 160,
+    "carbs_g": 36,
+    "fiber_g": 1,
+    "sugars_g": 35,
+    "protein_g": 4,
+    "url": "https://www.starbucks.ca/menu/product/426/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Mocha Frappuccino Blended Beverage\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-mocha-frappuccino-grande",
+   "name": "Mocha Frappuccino, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "frappuccino",
+    "frap",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 370,
+    "fat_g": 15,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 45,
+    "sodium_mg": 220,
+    "carbs_g": 54,
+    "fiber_g": 1,
+    "sugars_g": 51,
+    "protein_g": 5,
+    "url": "https://www.starbucks.ca/menu/product/426/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Mocha Frappuccino Blended Beverage\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-mocha-frappuccino-venti",
+   "name": "Mocha Frappuccino, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "frappuccino",
+    "frap",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 470,
+    "fat_g": 17,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 50,
+    "sodium_mg": 300,
+    "carbs_g": 71,
+    "fiber_g": 2,
+    "sugars_g": 67,
+    "protein_g": 7,
+    "url": "https://www.starbucks.ca/menu/product/426/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Mocha Frappuccino Blended Beverage\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-mocha-cookie-crumble-frappuccino-tall",
+   "name": "Mocha Cookie Crumble Frappuccino, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "frappuccino",
+    "frap",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 350,
+    "fat_g": 17,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 45,
+    "sodium_mg": 200,
+    "carbs_g": 45,
+    "fiber_g": 2,
+    "sugars_g": 40,
+    "protein_g": 4,
+    "url": "https://www.starbucks.ca/menu/product/956/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Mocha Cookie Crumble Frappuccino Blended Beverage\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-mocha-cookie-crumble-frappuccino-grande",
+   "name": "Mocha Cookie Crumble Frappuccino, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "frappuccino",
+    "frap",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 480,
+    "fat_g": 24,
+    "saturated_fat_g": 15,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 60,
+    "sodium_mg": 270,
+    "carbs_g": 62,
+    "fiber_g": 2,
+    "sugars_g": 55,
+    "protein_g": 6,
+    "url": "https://www.starbucks.ca/menu/product/956/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Mocha Cookie Crumble Frappuccino Blended Beverage\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-mocha-cookie-crumble-frappuccino-venti",
+   "name": "Mocha Cookie Crumble Frappuccino, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "frappuccino",
+    "frap",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 590,
+    "fat_g": 27,
+    "saturated_fat_g": 17,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 65,
+    "sodium_mg": 360,
+    "carbs_g": 82,
+    "fiber_g": 3,
+    "sugars_g": 75,
+    "protein_g": 8,
+    "url": "https://www.starbucks.ca/menu/product/956/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Mocha Cookie Crumble Frappuccino Blended Beverage\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-vanilla-bean-frappuccino-tall",
+   "name": "Vanilla Bean Crème Frappuccino, tall",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "vanilla bean creme frappuccino",
+    "frappuccino",
+    "frap",
+    "tall",
+    "small",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Tall (354 ml)",
+    "serving_g": 354,
+    "calories": 260,
+    "fat_g": 12,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 35,
+    "sodium_mg": 170,
+    "carbs_g": 35,
+    "fiber_g": 0,
+    "sugars_g": 35,
+    "protein_g": 4,
+    "url": "https://www.starbucks.ca/menu/product/440/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Vanilla Bean Crème Frappuccino Blended Beverage\", size Tall (354 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 354 ml, stored as 354 g."
+  },
+  {
+   "key": "starbucks-vanilla-bean-frappuccino-grande",
+   "name": "Vanilla Bean Crème Frappuccino, grande",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "vanilla bean creme frappuccino",
+    "frappuccino",
+    "frap",
+    "grande",
+    "medium",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Grande (473 ml)",
+    "serving_g": 473,
+    "calories": 380,
+    "fat_g": 16,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 50,
+    "sodium_mg": 250,
+    "carbs_g": 53,
+    "fiber_g": 0,
+    "sugars_g": 52,
+    "protein_g": 5,
+    "url": "https://www.starbucks.ca/menu/product/440/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Vanilla Bean Crème Frappuccino Blended Beverage\", size Grande (473 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 473 ml, stored as 473 g."
+  },
+  {
+   "key": "starbucks-vanilla-bean-frappuccino-venti",
+   "name": "Vanilla Bean Crème Frappuccino, venti",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "vanilla bean creme frappuccino",
+    "frappuccino",
+    "frap",
+    "venti",
+    "large",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "Venti (709 ml)",
+    "serving_g": 709,
+    "calories": 470,
+    "fat_g": 18,
+    "saturated_fat_g": 11,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 55,
+    "sodium_mg": 330,
+    "carbs_g": 68,
+    "fiber_g": 0,
+    "sugars_g": 68,
+    "protein_g": 7,
+    "url": "https://www.starbucks.ca/menu/product/440/iced",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Vanilla Bean Crème Frappuccino Blended Beverage\", size Venti (709 ml), standard recipe, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15. Serving is the published 709 ml, stored as 709 g."
+  },
+  {
+   "key": "starbucks-bacon-gouda-egg-sandwich",
+   "name": "Bacon, Gouda & Egg Sandwich",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "bacon gouda",
+    "breakfast sandwich",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (120 g)",
+    "serving_g": 120,
+    "calories": 360,
+    "fat_g": 18,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 155,
+    "sodium_mg": 710,
+    "carbs_g": 35,
+    "fiber_g": 1,
+    "sugars_g": 2,
+    "protein_g": 18,
+    "url": "https://www.starbucks.ca/menu/product/369/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Bacon, Gouda & Egg Sandwich\", per 120 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-sausage-cheddar-egg-sandwich",
+   "name": "Sausage, Cheddar & Egg Sandwich",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "breakfast sandwich",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (157 g)",
+    "serving_g": 157,
+    "calories": 480,
+    "fat_g": 29,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 165,
+    "sodium_mg": 890,
+    "carbs_g": 34,
+    "fiber_g": 1,
+    "sugars_g": 2,
+    "protein_g": 18,
+    "url": "https://www.starbucks.ca/menu/product/367/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Sausage, Cheddar & Egg Sandwich\", per 157 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-turkey-bacon-egg-white-sandwich",
+   "name": "Bacon-Style Turkey, Cheddar & Egg White Sandwich",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "turkey bacon sandwich",
+    "breakfast sandwich",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (142 g)",
+    "serving_g": 142,
+    "calories": 260,
+    "fat_g": 9,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 25,
+    "sodium_mg": 600,
+    "carbs_g": 30,
+    "fiber_g": 2,
+    "sugars_g": 2,
+    "protein_g": 17,
+    "url": "https://www.starbucks.ca/menu/product/368/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Bacon-Style Turkey, Cheddar & Egg White Sandwich\", per 142 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-spinach-feta-egg-white-wrap",
+   "name": "Spinach, Feta & Egg White Wrap",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "spinach feta wrap",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (159 g)",
+    "serving_g": 159,
+    "calories": 290,
+    "fat_g": 8,
+    "saturated_fat_g": 3.5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 20,
+    "sodium_mg": 840,
+    "carbs_g": 34,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 20,
+    "url": "https://www.starbucks.ca/menu/product/371/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Spinach, Feta and Cage Free Egg White Wrap\", per 159 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-bacon-gruyere-egg-bites",
+   "name": "Bacon & Gruyère Egg Bites",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "bacon gruyere egg bites",
+    "sous vide egg bites",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (130 g)",
+    "serving_g": 130,
+    "calories": 320,
+    "fat_g": 24,
+    "saturated_fat_g": 13,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 280,
+    "sodium_mg": 660,
+    "carbs_g": 6,
+    "fiber_g": 1,
+    "sugars_g": 1,
+    "protein_g": 20,
+    "url": "https://www.starbucks.ca/menu/product/2122116/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Bacon & Gruyère Egg Bites\", per 130 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-egg-white-red-pepper-egg-bites",
+   "name": "Egg White & Roasted Red Pepper Egg Bites",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "egg bites",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (130 g)",
+    "serving_g": 130,
+    "calories": 170,
+    "fat_g": 8,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 25,
+    "sodium_mg": 470,
+    "carbs_g": 11,
+    "fiber_g": 0,
+    "sugars_g": 3,
+    "protein_g": 12,
+    "url": "https://www.starbucks.ca/menu/product/2122117/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Egg White & Roasted Red Pepper Egg Bites\", per 130 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-ham-swiss-croissant",
+   "name": "Ham & Swiss Croissant",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (102 g)",
+    "serving_g": 102,
+    "calories": 290,
+    "fat_g": 15,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 60,
+    "sodium_mg": 580,
+    "carbs_g": 27,
+    "fiber_g": 1,
+    "sugars_g": 4,
+    "protein_g": 13,
+    "url": "https://www.starbucks.ca/menu/product/2122132/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Ham & Swiss Croissant\", per 102 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-butter-croissant",
+   "name": "Butter Croissant",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "croissant",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (62 g)",
+    "serving_g": 62,
+    "calories": 260,
+    "fat_g": 15,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 1,
+    "cholesterol_mg": 40,
+    "sodium_mg": 320,
+    "carbs_g": 27,
+    "fiber_g": 1,
+    "sugars_g": 5,
+    "protein_g": 5,
+    "url": "https://www.starbucks.ca/menu/product/1033/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Butter Croissant\", per 62 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-chocolate-croissant",
+   "name": "Chocolate Croissant",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "pain au chocolat",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (80 g)",
+    "serving_g": 80,
+    "calories": 340,
+    "fat_g": 20,
+    "saturated_fat_g": 12,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 50,
+    "sodium_mg": 280,
+    "carbs_g": 38,
+    "fiber_g": 2,
+    "sugars_g": 13,
+    "protein_g": 5,
+    "url": "https://www.starbucks.ca/menu/product/1028/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Chocolate Croissant\", per 80 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-cheese-danish",
+   "name": "Cheese Danish",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (80 g)",
+    "serving_g": 80,
+    "calories": 310,
+    "fat_g": 17,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 50,
+    "sodium_mg": 360,
+    "carbs_g": 34,
+    "fiber_g": 1,
+    "sugars_g": 12,
+    "protein_g": 6,
+    "url": "https://www.starbucks.ca/menu/product/1040/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Cheese Danish\", per 80 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-iced-lemon-loaf",
+   "name": "Iced Lemon Loaf",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "lemon loaf",
+    "lemon pound cake",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (115 g)",
+    "serving_g": 115,
+    "calories": 430,
+    "fat_g": 20,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 75,
+    "sodium_mg": 290,
+    "carbs_g": 58,
+    "fiber_g": 1,
+    "sugars_g": 37,
+    "protein_g": 6,
+    "url": "https://www.starbucks.ca/menu/product/1254/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Iced Lemon Loaf\", per 115 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-banana-loaf",
+   "name": "Banana Loaf",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "banana bread",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (115 g)",
+    "serving_g": 115,
+    "calories": 360,
+    "fat_g": 17,
+    "saturated_fat_g": 2.5,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 70,
+    "sodium_mg": 320,
+    "carbs_g": 49,
+    "fiber_g": 2,
+    "sugars_g": 28,
+    "protein_g": 5,
+    "url": "https://www.starbucks.ca/menu/product/892/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Banana Loaf\", per 115 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-blueberry-muffin",
+   "name": "Blueberry Muffin with Yogurt & Honey",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "blueberry muffin",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (105 g)",
+    "serving_g": 105,
+    "calories": 360,
+    "fat_g": 16,
+    "saturated_fat_g": 4,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 40,
+    "sodium_mg": 240,
+    "carbs_g": 49,
+    "fiber_g": 1,
+    "sugars_g": 28,
+    "protein_g": 5,
+    "url": "https://www.starbucks.ca/menu/product/1036/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Blueberry Muffin with Yogurt & Honey\", per 105 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-cinnamon-coffee-cake",
+   "name": "Cinnamon Coffee Cake",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "coffee cake",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (109 g)",
+    "serving_g": 109,
+    "calories": 460,
+    "fat_g": 19,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 80,
+    "sodium_mg": 330,
+    "carbs_g": 66,
+    "fiber_g": 2,
+    "sugars_g": 42,
+    "protein_g": 6,
+    "url": "https://www.starbucks.ca/menu/product/1021/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Cinnamon Coffee Cake\", per 109 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-birthday-cake-pop",
+   "name": "Birthday Cake Pop",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "cake pop",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (38 g)",
+    "serving_g": 38,
+    "calories": 170,
+    "fat_g": 9,
+    "saturated_fat_g": 5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 10,
+    "sodium_mg": 110,
+    "carbs_g": 23,
+    "fiber_g": 0,
+    "sugars_g": 18,
+    "protein_g": 1,
+    "url": "https://www.starbucks.ca/menu/product/784/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Birthday Cake Pop\", per 38 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-chocolate-cake-pop",
+   "name": "Chocolate Cake Pop",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "cake pop",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (38 g)",
+    "serving_g": 38,
+    "calories": 160,
+    "fat_g": 8,
+    "saturated_fat_g": 4.5,
+    "trans_fat_g": 0.1,
+    "cholesterol_mg": 15,
+    "sodium_mg": 80,
+    "carbs_g": 23,
+    "fiber_g": 1,
+    "sugars_g": 18,
+    "protein_g": 2,
+    "url": "https://www.starbucks.ca/menu/product/1015/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Chocolate Cake Pop\", per 38 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-chocolate-chunk-cookie",
+   "name": "Chocolate Chunk Cookie",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "chocolate chip cookie",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (70 g)",
+    "serving_g": 70,
+    "calories": 320,
+    "fat_g": 16,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.3,
+    "cholesterol_mg": 35,
+    "sodium_mg": 260,
+    "carbs_g": 42,
+    "fiber_g": 2,
+    "sugars_g": 25,
+    "protein_g": 4,
+    "url": "https://www.starbucks.ca/menu/product/1030/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Chocolate Chunk Cookie\", per 70 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-double-chocolate-brownie",
+   "name": "Double Chocolate Brownie",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "brownie",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (104 g)",
+    "serving_g": 104,
+    "calories": 480,
+    "fat_g": 28,
+    "saturated_fat_g": 9,
+    "trans_fat_g": 0.4,
+    "cholesterol_mg": 75,
+    "sodium_mg": 220,
+    "carbs_g": 55,
+    "fiber_g": 3,
+    "sugars_g": 37,
+    "protein_g": 7,
+    "url": "https://www.starbucks.ca/menu/product/299/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Double Chocolate Brownie\", per 104 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-cranberry-bliss-bar",
+   "name": "Cranberry Bliss Bar",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (69 g)",
+    "serving_g": 69,
+    "calories": 290,
+    "fat_g": 15,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 45,
+    "sodium_mg": 240,
+    "carbs_g": 39,
+    "fiber_g": 1,
+    "sugars_g": 28,
+    "protein_g": 3,
+    "url": "https://www.starbucks.ca/menu/product/506/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Cranberry Bliss Bar\", per 69 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-grilled-cheese-sourdough",
+   "name": "Crispy Grilled Cheese on Sourdough",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "grilled cheese",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (132 g)",
+    "serving_g": 132,
+    "calories": 450,
+    "fat_g": 20,
+    "saturated_fat_g": 10,
+    "trans_fat_g": 0.5,
+    "cholesterol_mg": 50,
+    "sodium_mg": 950,
+    "carbs_g": 47,
+    "fiber_g": 4,
+    "sugars_g": 1,
+    "protein_g": 20,
+    "url": "https://www.starbucks.ca/menu/product/2122717/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Crispy Grilled Cheese on Sourdough\", per 132 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-turkey-provolone-pesto-ciabatta",
+   "name": "Turkey, Provolone & Pesto on Ciabatta",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "turkey pesto panini",
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (201 g)",
+    "serving_g": 201,
+    "calories": 520,
+    "fat_g": 18,
+    "saturated_fat_g": 6,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 70,
+    "sodium_mg": 1200,
+    "carbs_g": 53,
+    "fiber_g": 4,
+    "sugars_g": 3,
+    "protein_g": 33,
+    "url": "https://www.starbucks.ca/menu/product/2121962/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Turkey, Provolone & Pesto on Ciabatta\", per 201 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  },
+  {
+   "key": "starbucks-chicken-bacon-brioche",
+   "name": "Chicken & Bacon on Brioche",
+   "brand": "Starbucks",
+   "category": "Restaurant Foods",
+   "aliases": [
+    "starbucks",
+    "sbux"
+   ],
+   "published": {
+    "serving_label": "1 item (201 g)",
+    "serving_g": 201,
+    "calories": 620,
+    "fat_g": 27,
+    "saturated_fat_g": 7,
+    "trans_fat_g": 0.2,
+    "cholesterol_mg": 95,
+    "sodium_mg": 1400,
+    "carbs_g": 65,
+    "fiber_g": 4,
+    "sugars_g": 12,
+    "protein_g": 28,
+    "url": "https://www.starbucks.ca/menu/product/2121995/single",
+    "retrieved": "2026-11-15"
+   },
+   "basis": "Starbucks Canada published nutrition for \"Chicken & Bacon on Brioche\", per 201 g item, from the product page at the url (data from the starbucks.ca menu JSON it loads), read 2026-11-15."
+  }
+ ]
+}
