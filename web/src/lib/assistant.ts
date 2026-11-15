@@ -127,6 +127,8 @@ export interface TraceStep {
   name?: string;
   text?: string;
   data?: unknown;
+  /** How long a tool call took (results only; older traces don't have it). */
+  duration_ms?: number;
 }
 export const traceConversations = (token: string) => call<ConversationSummary[]>(token, "admin/ai/conversations");
 export const trace = (token: string, id: string) =>

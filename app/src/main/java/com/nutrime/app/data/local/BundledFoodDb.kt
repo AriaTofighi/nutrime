@@ -4,6 +4,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.nutrime.app.model.Food
 import com.nutrime.app.model.FoodSource
+import com.nutrime.app.model.FoodRows
+import com.nutrime.app.model.FoodSearchEngine
 import com.nutrime.app.model.Fuzzy
 import com.nutrime.app.model.Serving
 import kotlinx.coroutines.Dispatchers
@@ -48,30 +50,29 @@ class BundledFoodDb(private val context: Context) {
 
     /**
      * Search with synonyms ("yoghurt" also finds "yogurt") and, when few foods match, typing-error
-     * correction against the database's word list ("chiken" → "chicken").
+     * correction against the database's word list ("chiken" → "chicken"). See [FoodSearchEngine.candidates].
      */
     suspend fun searchDetailed(query: String, limit: Int = CANDIDATES): Results = withContext(Dispatchers.IO) {
-        val tokens = tokens(query)
-        if (tokens.isEmpty()) return@withContext Results(emptyList())
-        val db = open()
-        val found = LinkedHashMap<String, Food>()
-        (listOf(tokens) + synonymVariants(db, tokens)).forEach { v -> match(v, limit).forEach { found.putIfAbsent(it.id, it) } }
-        if (found.size >= 5) return@withContext Results(found.values.take(limit))
-        // Few results: correct words that match nothing in the word list.
-        var changed = false
-        val fixed = tokens.map { t ->
-            if (t.length < 4 || hasPrefix(db, t)) t
-            else Fuzzy.corrections(t, candidates(db, t)).firstOrNull()?.also { changed = true } ?: t
-        }
-        if (!changed) return@withContext Results(found.values.take(limit))
-        val corrected = LinkedHashSet<String>()
-        (listOf(fixed) + synonymVariants(db, fixed)).forEach { v ->
-            match(v, limit).forEach { f -> if (found.putIfAbsent(f.id, f) == null) corrected += f.id }
-        }
-        Results(found.values.take(limit), corrected, fixed.joinToString(" ").takeIf { corrected.isNotEmpty() })
+        val c = FoodSearchEngine.candidates(rows, query, limit)
+        Results(c.foods, c.corrected, c.correctedQuery)
     }
 
-    private fun tokens(q: String) = q.lowercase().split(Regex("[^\\p{L}\\p{N}]+")).filter { it.isNotBlank() }
+    /** The bundled rows for [FoodSearchEngine]: every query word must match (no partial matches). */
+    private val rows = object : FoodRows {
+        override suspend fun match(tokens: List<String>, limit: Int) = FoodRows.Match(this@BundledFoodDb.match(tokens, limit))
+
+        override suspend fun synonyms(phrase: String): List<String> {
+            val db = open()
+            if (!hasTable(db, "food_syn")) return emptyList()
+            return db.rawQuery("SELECT same FROM food_syn WHERE word = ?", arrayOf(phrase)).use { c ->
+                buildList { while (c.moveToNext()) add(c.getString(0)) }
+            }
+        }
+
+        override suspend fun hasPrefix(word: String): Boolean = this@BundledFoodDb.hasPrefix(open(), word)
+
+        override suspend fun nearWords(word: String): List<Pair<String, Int>> = this@BundledFoodDb.candidates(open(), word)
+    }
 
     /** Hidden duplicate id → the food shown in its place (foods.db `food_alias`; empty for an older db). */
     suspend fun aliases(): Map<String, String> {
@@ -101,25 +102,13 @@ class BundledFoodDb(private val context: Context) {
     private fun hasTable(db: SQLiteDatabase, name: String): Boolean =
         db.rawQuery("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?", arrayOf(name)).use { it.moveToFirst() }
 
-    /** The query with one word or two-word phrase replaced by a synonym (at most 4 variants). */
-    private fun synonymVariants(db: SQLiteDatabase, tokens: List<String>): List<List<String>> {
-        if (!hasTable(db, "food_syn")) return emptyList()
-        val out = ArrayList<List<String>>()
-        for (n in 1..2) for (i in 0..tokens.size - n) {
-            val phrase = tokens.subList(i, i + n).joinToString(" ")
-            db.rawQuery("SELECT same FROM food_syn WHERE word = ?", arrayOf(phrase)).use { c ->
-                while (c.moveToNext()) out += tokens.subList(0, i) + tokens(c.getString(0)) + tokens.subList(i + n, tokens.size)
-            }
-        }
-        return out.distinct().take(4)
-    }
-
     private fun hasPrefix(db: SQLiteDatabase, t: String): Boolean {
         if (!hasTable(db, "food_vocab")) return true
         return db.rawQuery("SELECT 1 FROM food_vocab WHERE word >= ? AND word < ? LIMIT 1", arrayOf(t, t + "\uffff")).use { it.moveToFirst() }
     }
 
     private fun candidates(db: SQLiteDatabase, t: String): List<Pair<String, Int>> {
+        if (!hasTable(db, "food_vocab")) return emptyList()
         val max = Fuzzy.maxDistance(t)
         return db.rawQuery(
             "SELECT word, n FROM food_vocab WHERE word >= ? AND word < ? AND length(word) BETWEEN ? AND ?",

@@ -253,16 +253,20 @@ class AssistantTest {
         assertEquals(listOf("banana raw", "yukon gold potatoes", "kirkland greek yogurt", "dal"), results.map { it["query"]!!.jsonPrimitive.content })
         fun names(r: JsonObject) = r["foods"]!!.jsonArray.map { it.jsonObject["name"]!!.jsonPrimitive.content }
         assertTrue(names(results[0]).first().contains("Banana", ignoreCase = true))
-        // "yukon" isn't in the database, but "gold potatoes" is.
-        assertTrue(names(results[1]).any { it.contains("gold", ignoreCase = true) && it.contains("Potatoes") }, names(results[1]).toString())
-        assertEquals(listOf("yukon"), results[1]["missing_words"]!!.jsonArray.map { it.jsonPrimitive.content })
+        // NutriMe has Yukon gold potatoes, so every word matches.
+        assertTrue(names(results[1]).first().contains("Yukon gold potatoes", ignoreCase = true), names(results[1]).toString())
+        assertTrue(!results[1].containsKey("missing_words"))
+        assertEquals("high", results[1]["confidence"]!!.jsonPrimitive.content)
         // The brand is missing, but plain Greek yogurt still comes back.
         assertEquals(listOf("kirkland"), results[2]["missing_words"]!!.jsonArray.map { it.jsonPrimitive.content })
         assertTrue(names(results[2]).any { it.contains("Greek", ignoreCase = true) }, names(results[2]).toString())
+        assertEquals("low", results[2]["confidence"]!!.jsonPrimitive.content)
+        assertTrue(results[2]["note"]!!.jsonPrimitive.content.contains("web_nutrition_lookup"))
+        assertTrue(results.all { r -> r["foods"]!!.jsonArray.size <= 6 })
+        assertTrue(results[0]["foods"]!!.jsonArray.first().jsonObject["match"]!!.jsonPrimitive.content in setOf("exact", "close"))
         assertTrue(results.none { it.containsKey("repeated") })
-        // Curated NutriMe foods come first and are found by their aliases.
-        val dal = results[3]["foods"]!!.jsonArray.first().jsonObject
-        assertEquals("nm:lentils-cooked", dal["food_id"]!!.jsonPrimitive.content)
+        // Curated NutriMe foods are found by their aliases ("dal" → cooked lentils).
+        val dal = results[3]["foods"]!!.jsonArray.map { it.jsonObject }.first { it["food_id"]!!.jsonPrimitive.content == "nm:lentils-cooked" }
         assertEquals("NutriMe", dal["source"]!!.jsonPrimitive.content)
         assertTrue(!results[3].containsKey("missing_words"))
 

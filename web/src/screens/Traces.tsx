@@ -80,7 +80,7 @@ export default function Traces({ token }: { token: string }) {
 
 function Step({ s }: { s: TraceStep }) {
   const head =
-    s.type === "call" ? `Call · ${s.name}` : s.type === "result" ? `Result · ${s.name}` : s.type === "image" ? `${s.role} · photo` : `${s.role === "user" ? "User" : "Model"} · text`;
+    s.type === "call" ? `Call · ${s.name}` : s.type === "result" ? `Result · ${s.name}${s.duration_ms != null ? ` · ${s.duration_ms} ms` : ""}` : s.type === "image" ? `${s.role} · photo` : `${s.role === "user" ? "User" : "Model"} · text`;
   return (
     <div className={`trace-step ${s.role === "user" && s.type !== "result" ? "user" : ""}`}>
       <div className="trace-step-head">{head}</div>

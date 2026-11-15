@@ -56,6 +56,7 @@ import com.nutrime.app.data.local.DiaryEntryEntity
 import com.nutrime.app.model.Food
 import com.nutrime.app.model.FoodNames
 import com.nutrime.app.model.FoodQuality
+import com.nutrime.app.model.FoodSearchEngine
 import com.nutrime.app.model.FoodSource
 import com.nutrime.app.model.FoodUsage
 import com.nutrime.app.model.Meal
@@ -158,8 +159,8 @@ class FoodSearchViewModel(private val c: AppContainer, val meal: Int) : ViewMode
     val results = combine(local, online, rankUsage, profile, filter) { l, o, u, p, f ->
         val favs = SearchRank.withAliases(p?.favoriteFoodIds.orEmpty().toSet(), aliases.value)
         val text = QueryAmount.parse(query.value)?.query ?: query.value
-        val ranked = SearchRank.rank(l.foods + o.orEmpty(), text, u, meal, favs, country, corrected = l.corrected)
-        val collapsed = SearchRank.collapse(ranked, u.keys, favs, country)
+        // u and favs already count hidden duplicates for the food shown in their place.
+        val collapsed = FoodSearchEngine.rank(l.foods + o.orEmpty(), text, u, meal, favs, country, corrected = l.corrected)
         val filtered = when (f) {
             SearchFilter.ALL -> collapsed
             SearchFilter.MINE -> collapsed.filter { it.source == FoodSource.CUSTOM || it.source == FoodSource.RECIPE || it.id in u }

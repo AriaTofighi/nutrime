@@ -135,13 +135,19 @@ class Agent(
                 emit(AgentEvent.Tool(name, toolLabel(name, args)))
                 Triple(call, name, args)
             }
+            val durations = java.util.concurrent.ConcurrentHashMap<Pair<String, JsonObject>, Long>()
             val results = coroutineScope {
                 named.map { (_, name, args) ->
                     async {
                         if (wrappingUp && !name.startsWith("propose_")) {
                             buildJsonObject { put("error", "No more searches or lookups this message. Propose with what you have.") } to null
-                        } else runCatching { runTool(ctx, name, args) }
-                            .getOrElse { e -> buildJsonObject { put("error", e.message ?: "Failed") } to null }
+                        } else {
+                            val started = System.nanoTime()
+                            val r = runCatching { runTool(ctx, name, args) }
+                                .getOrElse { e -> buildJsonObject { put("error", e.message ?: "Failed") } to null }
+                            durations[name to args] = (System.nanoTime() - started) / 1_000_000
+                            r
+                        }
                     }
                 }.awaitAll()
             }
@@ -162,7 +168,10 @@ class Agent(
             }
             val toolContent = buildJsonObject { put("role", "user"); put("parts", JsonArray(responses)) }
             contents += toolContent
-            persist("tool", toolContent)
+            // How long each tool took, for the admin trace only (removed before history goes to the model).
+            persist("tool", JsonObject(toolContent + (DURATIONS_KEY to buildJsonArray {
+                named.forEach { (_, name, args) -> add(JsonPrimitive(durations[name to args] ?: 0L)) }
+            })))
             if (startWrapUp) wrapUpRounds = 0 else if (wrappingUp) wrapUpRounds++
         }
         emit(AgentEvent.Text("\n\nI ran out of steps before finishing. Tell me what's still missing and I'll pick up from there."))
@@ -280,7 +289,8 @@ fun historyForModel(messages: List<StoredMessage>, maxMessages: Int = 60, keepIm
     val userIdx = window.indices.filter { window[it].kind == "user" }
     val imageCutoff = userIdx.takeLast(keepImages).firstOrNull() ?: 0
     return window.mapIndexed { i, m ->
-        if (m.kind != "user" || i >= imageCutoff) m.content else stripImages(m.content)
+        val content = if (DURATIONS_KEY in m.content) JsonObject(m.content - DURATIONS_KEY) else m.content
+        if (m.kind != "user" || i >= imageCutoff) content else stripImages(content)
     }
 }
 
@@ -424,9 +434,13 @@ fun withProposalStatus(messages: List<StoredMessage>, statuses: Map<String, Stri
  * Stored messages as a readable list of steps for the admin trace: user text, model text,
  * each function call with its arguments, and each result. Photos are replaced by a placeholder.
  */
+/** Key of a stored tool message's per-call durations in milliseconds (admin trace only). */
+const val DURATIONS_KEY = "durations_ms"
+
 fun traceSteps(messages: List<StoredMessage>): JsonArray = buildJsonArray {
     messages.forEach { m ->
-        (m.content["parts"] as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }.forEach { p ->
+        val durations = (m.content[DURATIONS_KEY] as? JsonArray).orEmpty()
+        (m.content["parts"] as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }.forEachIndexed { i, p ->
             val call = p["functionCall"] as? JsonObject
             val result = p["functionResponse"] as? JsonObject
             val text = (p["text"] as? JsonPrimitive)?.content
@@ -434,7 +448,10 @@ fun traceSteps(messages: List<StoredMessage>): JsonArray = buildJsonArray {
                 when {
                     p.containsKey("inlineData") -> { put("type", "image"); put("role", m.kind) }
                     call != null -> { put("type", "call"); put("name", call["name"] ?: JsonPrimitive("")); put("data", call["args"] ?: JsonObject(emptyMap())) }
-                    result != null -> { put("type", "result"); put("name", result["name"] ?: JsonPrimitive("")); put("data", result["response"] ?: JsonObject(emptyMap())) }
+                    result != null -> {
+                        put("type", "result"); put("name", result["name"] ?: JsonPrimitive("")); put("data", result["response"] ?: JsonObject(emptyMap()))
+                        durations.getOrNull(i)?.let { put("duration_ms", it) }
+                    }
                     text != null -> { put("type", "text"); put("role", m.kind); put("text", text) }
                     else -> { put("type", "other"); put("role", m.kind) }
                 }

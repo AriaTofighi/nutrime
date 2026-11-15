@@ -244,12 +244,34 @@ private fun foodSummary(f: Food): JsonObject = buildJsonObject {
 
 const val MAX_QUERIES = 15
 
+/** Foods per query in search_foods results. */
+const val SEARCH_RESULTS = 6
+
+/** One search_foods result: how well it matches, energy per default serving and per 100 g, servings and source. */
+private fun searchSummary(f: Food, match: MatchQuality?): JsonObject = buildJsonObject {
+    put("food_id", f.id)
+    put("name", com.nutrime.server.food.cleanFoodName(f.name, f.brand))
+    f.brand?.let { put("brand", it) }
+    put("source", f.source.label)
+    put("match", (match ?: MatchQuality.WEAK).name.lowercase())
+    val kcal = f.nutrients[N.ENERGY] ?: 0.0
+    put("kcal_per_100g", r(kcal, 0))
+    f.servings.firstOrNull()?.let { s ->
+        put("default_serving", "${s.label} = ${r(s.grams)} g")
+        put("kcal_per_serving", r(kcal * s.grams / 100, 0))
+    }
+    put("per_100g", macros(f.nutrients))
+    if (f.source == FoodSource.OPEN_FOOD_FACTS || f.source == FoodSource.USDA_BRANDED)
+        put("data", if (com.nutrime.app.model.FoodQuality.isComplete(f)) "full nutrients" else "label only (no vitamins/minerals)")
+    putJsonArray("servings") { f.servings.take(6).forEach { s -> add("${s.label} = ${r(s.grams)} g") } }
+}
+
 internal suspend fun searchFoods(ctx: ToolContext, queries: List<String>): JsonObject {
     if (queries.any { it.length > 200 }) throw ToolError("Food queries must be at most 200 characters")
     if (queries.size > MAX_QUERIES) throw ToolError("At most $MAX_QUERIES queries per call")
-    // Fewer results per query when searching many foods at once, to keep the response small.
-    val limit = if (queries.size == 1) 10 else 6
-    val results = coroutineScope { queries.map { q -> async { q to ctx.foods.searchDetailed(ctx.data, q, limit, ctx.country) } }.awaitAll() }
+    val results = coroutineScope {
+        queries.map { q -> async { q to ctx.foods.searchDetailed(ctx.data, q, SEARCH_RESULTS, ctx.country, ctx.today) } }.awaitAll()
+    }
     return buildJsonObject {
         putJsonArray("results") {
             results.forEach { (q, r) ->
@@ -258,14 +280,20 @@ internal suspend fun searchFoods(ctx: ToolContext, queries: List<String>): JsonO
                     if (!ctx.searched.add(normalizeQuery(q))) {
                         put("repeated", "You already searched this. Don't search it again: pick from these results or use a fallback.")
                     }
-                    putJsonArray("foods") { r.foods.forEach { add(foodSummary(it)) } }
+                    put("confidence", r.confidence)
+                    r.correctedQuery?.let { put("corrected_to", it) }
+                    putJsonArray("foods") { r.foods.forEach { add(searchSummary(it, r.matches[it.id])) } }
                     r.foods.forEach { f -> ctx.alternatives[f.id] = r.foods.filter { it.id != f.id }.take(3) }
+                    val notes = ArrayList<String>()
+                    if (r.foods.isEmpty()) notes += "No matches. Try one simpler name, or use a fallback."
                     if (r.missingWords.isNotEmpty()) {
                         putJsonArray("missing_words") { r.missingWords.forEach { add(it) } }
-                        put("note", "No result contains ${r.missingWords.joinToString(", ") { "'$it'" }}. If that's a brand, it isn't in the " +
-                            "database: use the closest plain food at the stated amount and tell the user it's a substitute, rather than searching again.")
+                        notes += "No result contains ${r.missingWords.joinToString(", ") { "'$it'" }}."
                     }
-                    if (r.foods.isEmpty()) put("note", "No matches. Try one simpler name, or use a fallback.")
+                    if (r.confidence != "high") notes += "No exact match. For a branded or restaurant food, use web_nutrition_lookup next; " +
+                        "for a plain food, pick the closest result and say it's a substitute."
+                    if (r.onlineTimedOut) notes += "Online providers did not answer in time. Use these results; do not retry this turn."
+                    if (notes.isNotEmpty()) put("note", notes.joinToString(" "))
                     if (r.warnings.isNotEmpty()) putJsonArray("provider_warnings") { r.warnings.forEach { add(it) } }
                     r.retryAfterSeconds?.let { put("retry_after_seconds", it) }
                     if (r.onlineFailed) put("online", "Some providers are unavailable or rate limited. Use these saved/local results; do not retry this turn.")

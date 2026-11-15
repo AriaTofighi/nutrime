@@ -5,6 +5,7 @@ import com.nutrime.app.model.FoodSource
 import com.nutrime.server.ai.recordJson
 import kotlinx.serialization.encodeToString
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.like
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.security.MessageDigest
@@ -45,6 +46,7 @@ data class QueryClaim(val key: String, val foods: List<Food>, val owner: Boolean
                       val error: String? = null, val retryAfter: Int? = null)
 
 class CatalogStore(private val db: Database) {
+
     fun get(id: String): Food? = transaction(db) {
         CatalogFoods.selectAll().where { CatalogFoods.id eq id }.singleOrNull()?.food()
     }
@@ -63,9 +65,22 @@ class CatalogStore(private val db: Database) {
         val words = all.filter { it.length >= 3 }.ifEmpty { all }
         if (words.isEmpty()) return@transaction emptyList()
         val condition = words.map { word -> CatalogFoods.searchText like "%$word%" }.compoundAnd()
-        CatalogFoods.selectAll().where { if (provider == null) condition else condition and (CatalogFoods.provider eq provider) }
-            .orderBy(CatalogFoods.searchText.charLength() to SortOrder.ASC, CatalogFoods.fetchedAt to SortOrder.DESC)
-            .limit(limit).map { it.food() }
+        val where = if (provider == null) condition else condition and (CatalogFoods.provider eq provider)
+        val length = CatalogFoods.searchText.charLength()
+        if (db.vendor != "postgresql") {
+            return@transaction CatalogFoods.selectAll().where { where }
+                .orderBy(length to SortOrder.ASC, CatalogFoods.fetchedAt to SortOrder.DESC)
+                .limit(limit).map { it.food() }
+        }
+        // With hundreds of thousands of imported foods, sorting every match of a common word ("milk") is slow:
+        // order a bounded set of matches (ids and lengths only), then load the payloads of the kept ones.
+        val sample = CatalogFoods.select(CatalogFoods.id, length, CatalogFoods.fetchedAt).where { where }
+            .limit((limit * 20).coerceIn(200, POSTGRES_SAMPLE))
+            .map { Triple(it[CatalogFoods.id], it[length] ?: Int.MAX_VALUE, it[CatalogFoods.fetchedAt]) }
+        val ids = sample.sortedWith(compareBy<Triple<String, Int, Long>> { it.second }.thenByDescending { it.third }).take(limit).map { it.first }
+        if (ids.isEmpty()) return@transaction emptyList()
+        val found = CatalogFoods.selectAll().where { CatalogFoods.id inList ids }.associate { it[CatalogFoods.id] to it.food() }
+        ids.mapNotNull(found::get)
     }
 
     /** Row locks and a lease also coalesce concurrent queries from separate server processes. */
@@ -121,6 +136,9 @@ class CatalogStore(private val db: Database) {
     }
 
     companion object {
+        /** At most this many matches are ordered per search on PostgreSQL. */
+        private const val POSTGRES_SAMPLE = 2000
+
         fun normalize(query: String) = query.lowercase(Locale.ROOT).replace(Regex("[^\\p{L}\\p{N}]+"), " ").trim()
         fun seconds(ms: Long) = ((ms.coerceAtLeast(0) + 999) / 1000).coerceAtMost(Int.MAX_VALUE.toLong()).toInt().coerceAtLeast(1)
         private fun ResultRow.food() = recordJson.decodeFromString<Food>(this[CatalogFoods.payload])
