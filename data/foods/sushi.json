@@ -1,0 +1,470 @@
+{
+  "about": "Sushi and Japanese restaurant foods under the names people order them. Each copies one USDA food (mostly FNDDS, which gives sushi as eaten) or is a recipe of USDA foods; the basis names them. See README.md.",
+  "foods": [
+    {
+      "key": "sushi-california-roll",
+      "name": "California roll (sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "california roll",
+        "california maki",
+        "crab roll",
+        "kani roll",
+        "sushi roll"
+      ],
+      "from": {
+        "fdc": 2708961
+      },
+      "basis": "USDA FNDDS 2021-2023 2708961: \"Sushi roll, California\". USDA has no analysis per roll; FNDDS gives the roll as eaten (rice, nori and filling) per 100 g, with its pieces as servings."
+    },
+    {
+      "key": "sushi-salmon-roll",
+      "name": "Salmon roll (sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "salmon roll",
+        "sake maki",
+        "salmon maki",
+        "sushi roll"
+      ],
+      "from": {
+        "fdc": 2708963
+      },
+      "basis": "USDA FNDDS 2021-2023 2708963: \"Sushi roll, salmon\". USDA has no analysis per roll; FNDDS gives the roll as eaten (rice, nori and filling) per 100 g, with its pieces as servings."
+    },
+    {
+      "key": "sushi-tuna-roll",
+      "name": "Tuna roll (sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "tuna roll",
+        "tekka maki",
+        "tuna maki",
+        "sushi roll"
+      ],
+      "from": {
+        "fdc": 2708965
+      },
+      "basis": "USDA FNDDS 2021-2023 2708965: \"Sushi roll tuna\". USDA has no analysis per roll; FNDDS gives the roll as eaten (rice, nori and filling) per 100 g, with its pieces as servings."
+    },
+    {
+      "key": "sushi-shrimp-roll",
+      "name": "Shrimp roll (sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "shrimp roll",
+        "ebi roll",
+        "ebi maki",
+        "prawn roll",
+        "sushi roll"
+      ],
+      "from": {
+        "fdc": 2708964
+      },
+      "basis": "USDA FNDDS 2021-2023 2708964: \"Sushi roll, shrimp\". USDA has no analysis per roll; FNDDS gives the roll as eaten (rice, nori and filling) per 100 g, with its pieces as servings."
+    },
+    {
+      "key": "sushi-eel-roll",
+      "name": "Eel roll (unagi sushi roll)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "eel roll",
+        "unagi roll",
+        "unagi maki",
+        "dragon roll",
+        "sushi roll"
+      ],
+      "from": {
+        "fdc": 2708962
+      },
+      "basis": "USDA FNDDS 2021-2023 2708962: \"Sushi roll, eel\". USDA has no analysis per roll; FNDDS gives the roll as eaten (rice, nori and filling) per 100 g, with its pieces as servings."
+    },
+    {
+      "key": "sushi-avocado-roll",
+      "name": "Avocado roll (sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "avocado roll",
+        "avocado maki",
+        "sushi roll"
+      ],
+      "from": {
+        "fdc": 2708960
+      },
+      "basis": "USDA FNDDS 2021-2023 2708960: \"Sushi roll, avocado\". USDA has no analysis per roll; FNDDS gives the roll as eaten (rice, nori and filling) per 100 g, with its pieces as servings."
+    },
+    {
+      "key": "sushi-vegetable-roll",
+      "name": "Vegetable roll (sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "vegetable roll",
+        "veggie roll",
+        "cucumber roll",
+        "kappa maki",
+        "oshinko roll",
+        "sushi roll"
+      ],
+      "from": {
+        "fdc": 2708966
+      },
+      "basis": "USDA FNDDS 2021-2023 2708966: \"Sushi roll, vegetable\". USDA has no analysis per roll; FNDDS gives the roll as eaten (rice, nori and filling) per 100 g, with its pieces as servings. Cucumber (kappa) and pickled radish rolls are vegetable rolls."
+    },
+    {
+      "key": "sushi-assorted",
+      "name": "Sushi, assorted",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "sushi",
+        "mixed sushi",
+        "sushi platter",
+        "maki"
+      ],
+      "from": {
+        "fdc": 2708959
+      },
+      "basis": "USDA FNDDS 2021-2023 2708959: \"Sushi, NFS\". FNDDS \"Sushi, NFS\" is the average of its sushi foods."
+    },
+    {
+      "key": "sushi-salmon-nigiri",
+      "name": "Salmon nigiri (sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "salmon nigiri",
+        "sake nigiri",
+        "nigiri"
+      ],
+      "from": {
+        "fdc": 2708969
+      },
+      "basis": "USDA FNDDS 2021-2023 2708969: \"Sushi, topped with salmon\". FNDDS \"Sushi, topped with …\" is nigiri: a rice ball topped with the fish or egg."
+    },
+    {
+      "key": "sushi-tuna-nigiri",
+      "name": "Tuna nigiri (sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "tuna nigiri",
+        "maguro nigiri",
+        "maguro",
+        "nigiri"
+      ],
+      "from": {
+        "fdc": 2708971
+      },
+      "basis": "USDA FNDDS 2021-2023 2708971: \"Sushi, topped with tuna\". FNDDS \"Sushi, topped with …\" is nigiri: a rice ball topped with the fish or egg."
+    },
+    {
+      "key": "sushi-shrimp-nigiri",
+      "name": "Shrimp nigiri (sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "shrimp nigiri",
+        "ebi nigiri",
+        "ebi",
+        "nigiri"
+      ],
+      "from": {
+        "fdc": 2708970
+      },
+      "basis": "USDA FNDDS 2021-2023 2708970: \"Sushi, topped with shrimp\". FNDDS \"Sushi, topped with …\" is nigiri: a rice ball topped with the fish or egg."
+    },
+    {
+      "key": "sushi-eel-nigiri",
+      "name": "Eel nigiri (unagi sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "eel nigiri",
+        "unagi nigiri",
+        "unagi",
+        "nigiri"
+      ],
+      "from": {
+        "fdc": 2708968
+      },
+      "basis": "USDA FNDDS 2021-2023 2708968: \"Sushi, topped with eel\". FNDDS \"Sushi, topped with …\" is nigiri: a rice ball topped with the fish or egg."
+    },
+    {
+      "key": "sushi-egg-nigiri",
+      "name": "Egg nigiri (tamago sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "tamago",
+        "tamagoyaki nigiri",
+        "egg sushi",
+        "nigiri"
+      ],
+      "from": {
+        "fdc": 2708972
+      },
+      "basis": "USDA FNDDS 2021-2023 2708972: \"Sushi, topped with egg\". FNDDS \"Sushi, topped with …\" is nigiri: a rice ball topped with the fish or egg."
+    },
+    {
+      "key": "sushi-crab-nigiri",
+      "name": "Crab nigiri (kani sushi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "crab nigiri",
+        "kani nigiri",
+        "kani",
+        "nigiri"
+      ],
+      "from": {
+        "fdc": 2708967
+      },
+      "basis": "USDA FNDDS 2021-2023 2708967: \"Sushi, topped with crab\". FNDDS \"Sushi, topped with …\" is nigiri: a rice ball topped with the fish or egg."
+    },
+    {
+      "key": "sashimi-yellowtail",
+      "name": "Yellowtail sashimi (hamachi)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "yellowtail",
+        "hamachi",
+        "sashimi",
+        "raw yellowtail"
+      ],
+      "from": {
+        "fdc": 175163
+      },
+      "basis": "USDA SR Legacy 175163: \"Fish, yellowtail, mixed species, raw\". Sashimi is the raw fish only."
+    },
+    {
+      "key": "miso-soup",
+      "name": "Miso soup",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "miso soup",
+        "miso"
+      ],
+      "from": {
+        "fdc": 2707455
+      },
+      "basis": "USDA FNDDS 2021-2023 2707455: \"Soup, miso or tofu\". FNDDS \"Soup, miso or tofu\" is miso soup with tofu."
+    },
+    {
+      "key": "gyoza-fried",
+      "name": "Gyoza (pan-fried dumplings)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "gyoza",
+        "potstickers",
+        "pot stickers",
+        "fried dumplings",
+        "dumplings"
+      ],
+      "from": {
+        "fdc": 2708705
+      },
+      "basis": "USDA FNDDS 2021-2023 2708705: \"Wonton, dumpling or pot sticker, fried\"."
+    },
+    {
+      "key": "vegetable-tempura",
+      "name": "Vegetable tempura",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "tempura",
+        "veggie tempura"
+      ],
+      "from": {
+        "fdc": 2710065
+      },
+      "basis": "USDA FNDDS 2021-2023 2710065: \"Vegetable tempura\"."
+    },
+    {
+      "key": "tempura-fish-tofu-vegetables",
+      "name": "Tempura, fish, tofu and vegetables",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "tempura",
+        "mixed tempura",
+        "fish tempura"
+      ],
+      "from": {
+        "fdc": 2706844
+      },
+      "basis": "USDA FNDDS 2021-2023 2706844: \"Fish, tofu, and vegetables, tempura\"."
+    },
+    {
+      "key": "teriyaki-chicken",
+      "name": "Teriyaki chicken",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "chicken teriyaki",
+        "teriyaki"
+      ],
+      "from": {
+        "fdc": 2706433
+      },
+      "basis": "USDA FNDDS 2021-2023 2706433: \"Chicken or turkey with teriyaki\". FNDDS \"Chicken or turkey with teriyaki\" is the chicken and its sauce, without rice."
+    },
+    {
+      "key": "teriyaki-beef",
+      "name": "Beef teriyaki",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "steak teriyaki",
+        "beef teriyaki",
+        "teriyaki"
+      ],
+      "from": {
+        "fdc": 2706387
+      },
+      "basis": "USDA FNDDS 2021-2023 2706387: \"Steak teriyaki\"."
+    },
+    {
+      "key": "wasabi-paste",
+      "name": "Wasabi paste",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "wasabi"
+      ],
+      "from": {
+        "fdc": 2710103
+      },
+      "basis": "USDA FNDDS 2021-2023 2710103: \"Wasabi paste\"."
+    },
+    {
+      "key": "soy-sauce",
+      "name": "Soy sauce",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "soy sauce",
+        "shoyu",
+        "soya sauce"
+      ],
+      "from": {
+        "fdc": 2707442
+      },
+      "basis": "USDA FNDDS 2021-2023 2707442: \"Soy sauce\"."
+    },
+    {
+      "key": "sushi-rice",
+      "name": "Sushi rice (seasoned)",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "sushi rice",
+        "shari",
+        "rice for sushi"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 168932,
+            "g": 300
+          },
+          {
+            "fdc": 2709351,
+            "g": 30
+          },
+          {
+            "fdc": 169655,
+            "g": 12
+          },
+          {
+            "fdc": 173468,
+            "g": 4
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 170
+        }
+      ],
+      "basis": "Recipe: USDA SR Legacy 168932: \"Rice, white, short-grain, cooked, unenriched\" 300 g; USDA FNDDS 2021-2023 2709351: \"Vinegar\" 30 g; USDA SR Legacy 169655: \"Sugars, granulated\" 12 g; USDA SR Legacy 173468: \"Salt, table\" 4 g. Short-grain white rice seasoned with rice vinegar, sugar and salt (about 2 Tbsp vinegar, 1 Tbsp sugar and 3/4 tsp salt per 2 cups cooked rice). A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients. FNDDS \"Vinegar\" stands in for rice vinegar."
+    },
+    {
+      "key": "poke-bowl-tuna",
+      "name": "Ahi tuna poke bowl",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "poke",
+        "poke bowl",
+        "tuna poke",
+        "ahi poke"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 175159,
+            "g": 100
+          },
+          {
+            "fdc": 168932,
+            "g": 200
+          },
+          {
+            "fdc": 2709223,
+            "g": 50
+          },
+          {
+            "fdc": 2707436,
+            "g": 30
+          },
+          {
+            "fdc": 2709784,
+            "g": 30
+          },
+          {
+            "fdc": 2707442,
+            "g": 15
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 bowl",
+          "g": 425
+        }
+      ],
+      "basis": "Recipe: USDA SR Legacy 175159: \"Fish, tuna, fresh, yellowfin, raw\" 100 g; USDA SR Legacy 168932: \"Rice, white, short-grain, cooked, unenriched\" 200 g; USDA FNDDS 2021-2023 2709223: \"Avocado, raw\" 50 g; USDA FNDDS 2021-2023 2707436: \"Edamame, cooked\" 30 g; USDA FNDDS 2021-2023 2709784: \"Cucumber, raw\" 30 g; USDA FNDDS 2021-2023 2707442: \"Soy sauce\" 15 g. Raw yellowfin tuna on short-grain rice with avocado, edamame, cucumber and soy sauce. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients. Sauces such as spicy mayo are not included; log them separately."
+    },
+    {
+      "key": "poke-bowl-salmon",
+      "name": "Salmon poke bowl",
+      "category": "Sushi and Japanese",
+      "aliases": [
+        "poke",
+        "poke bowl",
+        "salmon poke"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 175167,
+            "g": 100
+          },
+          {
+            "fdc": 168932,
+            "g": 200
+          },
+          {
+            "fdc": 2709223,
+            "g": 50
+          },
+          {
+            "fdc": 2707436,
+            "g": 30
+          },
+          {
+            "fdc": 2709784,
+            "g": 30
+          },
+          {
+            "fdc": 2707442,
+            "g": 15
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 bowl",
+          "g": 425
+        }
+      ],
+      "basis": "Recipe: USDA SR Legacy 175167: \"Fish, salmon, Atlantic, farmed, raw\" 100 g; USDA SR Legacy 168932: \"Rice, white, short-grain, cooked, unenriched\" 200 g; USDA FNDDS 2021-2023 2709223: \"Avocado, raw\" 50 g; USDA FNDDS 2021-2023 2707436: \"Edamame, cooked\" 30 g; USDA FNDDS 2021-2023 2709784: \"Cucumber, raw\" 30 g; USDA FNDDS 2021-2023 2707442: \"Soy sauce\" 15 g. Raw Atlantic salmon on short-grain rice with avocado, edamame, cucumber and soy sauce. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients. Sauces such as spicy mayo are not included; log them separately."
+    }
+  ]
+}

@@ -18,7 +18,12 @@ because diary entries point to them: fix an entry in place, and don't rename or 
 - `prepared.json`: everyday prepared foods (cooked rices, grilled chicken, steamed vegetables…).
 - `basics.json`: basic foods under the names people type (meat and poultry cuts raw and cooked, fish and
   seafood, eggs, dairy, common grains, fruit and vegetables whose USDA names are long). Each copies one USDA food.
+- `sushi.json`: sushi rolls, nigiri, poke bowls and other Japanese restaurant foods, under the names people type.
+- `dishes.json`: mixed dishes, sandwiches, soups, desserts, sides and breakfasts (Canadian dishes such as
+  poutine and tourtière, and common takeout). Most copy one USDA (FNDDS) food; a few are typical recipes.
 - `branded/*.json`: branded products, one file per brand or store (e.g. `branded/kirkland.json`).
+- `restaurants/*.json`: restaurant menu items, one file per chain (e.g. `restaurants/tim-hortons.json`),
+  with category `"Restaurant Foods"`, the chain as `brand`, and a `published` source (below).
 
 Each file is `{"about": "...", "foods": [ ...entries ]}`.
 
@@ -58,6 +63,10 @@ Exactly one of these says where the nutrients come from:
    "cholesterol_mg": 30, "sodium_mg": 130, "carbs_g": 3, "fiber_g": 0, "sugars_g": 1, "protein_g": 24}`.
    Other fields: `trans_fat_g`, `added_sugars_g`, `vitamin_d_mcg`, `calcium_mg`, `iron_mg`, `potassium_mg`.
    Needs a `brand` or `barcode`.
+4. **`published`**: the same fields as `label`, copied from a brand's own nutrition page (a restaurant's
+   menu nutrition, for example), plus `"url"` (the exact page) and `"retrieved"` (`YYYY-MM-DD`, the day
+   it was read). Needs a `brand`. Use the Canadian page for Canadian menus: recipes differ by country.
+   A recipe written by NutriMe (typical amounts, not a measured dish) is a `recipe`, and its `basis` says so.
 
 ## Rules (checked by the build)
 

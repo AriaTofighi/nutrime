@@ -1241,7 +1241,10 @@
       "aliases": [
         "salmon",
         "atlantic salmon",
-        "salmon fillet"
+        "salmon fillet",
+        "salmon sashimi",
+        "sashimi",
+        "sake sashimi"
       ],
       "from": {
         "fdc": 175167
@@ -1338,7 +1341,10 @@
         "tuna steak",
         "ahi tuna",
         "yellowfin tuna",
-        "ahi"
+        "ahi",
+        "tuna sashimi",
+        "sashimi",
+        "maguro"
       ],
       "from": {
         "fdc": 175159

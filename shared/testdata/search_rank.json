@@ -58,7 +58,9 @@
     { "id": "usda:169910", "source": "USDA", "name": "Mangos, raw", "category": "Fruits and Fruit Juices", "kcal": 61, "micros": 30, "servings": [["1 cup, pieces", 165]] },
     { "id": "usda:2709250", "source": "USDA", "name": "Mango, dried", "category": "Fruits", "kcal": 319, "micros": 20 },
     { "id": "off:0060", "source": "OPEN_FOOD_FACTS", "name": "Mango, raw", "kcal": 60, "micros": 0 },
-    { "id": "usda:170500", "source": "USDA", "name": "Cracker Barrel, chicken tenderloin platter, fried", "brand": "Cracker Barrel", "category": "Restaurant Foods", "kcal": 240, "micros": 20 }
+    { "id": "usda:170500", "source": "USDA", "name": "Cracker Barrel, chicken tenderloin platter, fried", "brand": "Cracker Barrel", "category": "Restaurant Foods", "kcal": 240, "micros": 20 },
+    { "id": "nm:poutine", "source": "NUTRIME", "name": "Poutine", "category": "Mixed dishes", "kcal": 230, "micros": 20 },
+    { "id": "nm:examplechain-poutine", "source": "NUTRIME", "name": "Poutine, regular", "brand": "Example Chain", "category": "Restaurant Foods", "kcal": 250, "micros": 6 }
   ],
   "cases": [
     {
@@ -174,6 +176,18 @@
       "query": "cracker barrel tenderloin",
       "before": [["usda:170500", "usda:170002"], ["usda:170500", "nm:chicken-tenderloin-raw"]],
       "note": "A SR Legacy restaurant row with its brand in the brand field: brand words count when the query names them."
+    },
+    {
+      "query": "poutine",
+      "first": "nm:poutine",
+      "before": [["nm:poutine", "nm:examplechain-poutine"]],
+      "shown": ["nm:examplechain-poutine"],
+      "note": "A NutriMe restaurant item (curated, category Restaurant Foods, chain as brand) comes after the generic dish when the query does not name the chain."
+    },
+    {
+      "query": "example chain poutine",
+      "first": "nm:examplechain-poutine",
+      "note": "When the query names the chain, its curated menu item comes first."
     }
   ]
 }

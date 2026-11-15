@@ -182,6 +182,13 @@
     {"query": "strawbery", "name_has": ["strawberr"]},
     {"query": "tomatoe", "name_has": ["tomato"]},
     {"query": "cofee", "name_has": ["coffee"]},
+    {"query": "poutine", "name_has": ["poutine"]},
+    {"query": "california roll", "name_has": ["california roll"]},
+    {"query": "nanaimo bar", "name_has": ["nanaimo"]},
+    {"query": "butter chicken", "name_has": ["butter chicken"]},
+    {"query": "pad thai", "name_has": ["pad thai"]},
+    {"query": "miso soup", "name_has": ["miso soup"]},
+    {"query": "tourtiere", "name_has": ["tourti"]},
     {"query": "kirkland greek yogurt", "confidence": "low"},
     {"query": "zzqx", "confidence": "none"}
   ]

@@ -10,7 +10,8 @@ ids already in people's diaries stay valid. This script replaces two layers on t
 - "fndds": USDA FNDDS (Food and Nutrient Database for Dietary Studies), about 5,400 foods as eaten
   (cooked dishes, prepared foods), public domain. --fndds is optional when the layer is already in the db.
 - "nutrime": NutriMe's own curated foods from data/foods/**/*.json (see data/foods/README.md). Each one
-  is derived from a USDA food, a recipe of USDA foods, or a package label, and is validated here.
+  is derived from a USDA food, a recipe of USDA foods, a package label, or a brand's published nutrition
+  page, and is validated here.
 
 Curated foods get stable string ids ("nm:<key>") stored in the `ref` column; USDA rows keep "usda:<id>".
 
@@ -132,9 +133,9 @@ def load_curated(base):
 
 def resolve(entry, usda):
     """Per-100 g nutrients for one curated entry, from its `from`, `recipe` or `label` basis."""
-    kinds = [k for k in ("from", "recipe", "label") if k in entry]
+    kinds = [k for k in ("from", "recipe", "label", "published") if k in entry]
     if len(kinds) != 1:
-        raise Invalid("needs exactly one of from / recipe / label")
+        raise Invalid("needs exactly one of from / recipe / label / published")
     if "from" in entry:
         base = usda.get(entry["from"]["fdc"])
         if base is None:
@@ -162,7 +163,16 @@ def resolve(entry, usda):
         if 1051 in n or cooked != raw_g:
             n[1051] = max(0.0, n.get(1051, 0.0) + (cooked - raw_g) * 100.0 / cooked)
         return n
-    lab = entry["label"]
+    if "published" in entry:
+        pub = entry["published"]
+        url = pub.get("url", "")
+        if not (url.startswith("https://") or url.startswith("http://")):
+            raise Invalid("published needs the url of the page the numbers come from")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(pub.get("retrieved", ""))):
+            raise Invalid("published needs retrieved (YYYY-MM-DD): the day the page was read")
+        lab = {k: v for k, v in pub.items() if k not in ("url", "retrieved")}
+    else:
+        lab = entry["label"]
     g = lab.get("serving_g")
     if not g or g <= 0:
         raise Invalid("label needs serving_g")
@@ -197,6 +207,8 @@ def validate(entry, n):
             raise Invalid(f"bad serving {s}")
     if "label" in entry and not entry.get("barcode") and not entry.get("brand"):
         raise Invalid("label-based foods need a brand or barcode")
+    if "published" in entry and not entry.get("brand"):
+        raise Invalid("published foods need a brand (the restaurant or maker)")
 
 
 def same(label):
@@ -225,8 +237,8 @@ def curated_rows(base, usda):
             # Then the base food's own USDA servings, unless a hand-written one has the same label.
             labels = {same(s["label"]) for s in servings}
             servings += [{"label": p["l"], "g": p["g"]} for p in usda[e["from"]["fdc"]][1] if same(p["l"]) not in labels]
-        if "label" in e:
-            lab = e["label"]
+        if "label" in e or "published" in e:
+            lab = e.get("label") or e["published"]
             servings.insert(0, {"label": lab.get("serving_label") or "serving", "g": lab["serving_g"]})
         rows.append({
             "from": e["from"]["fdc"] if "from" in e and not e["from"].get("override") else None,

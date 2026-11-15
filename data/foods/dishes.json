@@ -1,0 +1,2082 @@
+{
+  "about": "Dishes people eat at home, in restaurants and from take-out, including Canadian classics, under the names people order them. Each copies one USDA food (mostly FNDDS, which gives mixed dishes as eaten) or is a recipe of USDA foods with typical amounts; the basis names them. See README.md.",
+  "foods": [
+    {
+      "key": "poutine",
+      "name": "Poutine",
+      "category": "Mixed dishes",
+      "aliases": [
+        "poutine",
+        "fries gravy cheese curds",
+        "fries with gravy and curds"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 2709462,
+            "g": 200
+          },
+          {
+            "fdc": 173414,
+            "g": 80
+          },
+          {
+            "fdc": 2707145,
+            "g": 120
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 regular",
+          "g": 400
+        },
+        {
+          "label": "1 small",
+          "g": 280
+        },
+        {
+          "label": "1 large",
+          "g": 560
+        }
+      ],
+      "basis": "Recipe: USDA FNDDS 2021-2023 2709462: \"Potato, french fries, restaurant\" 200 g; USDA SR Legacy 173414: \"Cheese, cheddar\" 80 g; USDA FNDDS 2021-2023 2707145: \"Gravy, beef\" 120 g. Restaurant french fries with cheese curds and brown gravy. Cheese curds are fresh cheddar, so USDA cheddar stands in for them. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "tourtiere",
+      "name": "Tourtière (meat pie)",
+      "category": "Mixed dishes",
+      "aliases": [
+        "tourtiere",
+        "tourtière",
+        "meat pie",
+        "pork pie",
+        "french canadian meat pie"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 167903,
+            "g": 95
+          },
+          {
+            "fdc": 167930,
+            "g": 55
+          },
+          {
+            "fdc": 170440,
+            "g": 25
+          },
+          {
+            "fdc": 170000,
+            "g": 12
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 slice (1/6 of a 9-inch pie)",
+          "g": 187
+        }
+      ],
+      "basis": "Recipe: USDA SR Legacy 167903: \"Pork, fresh, ground, cooked\" 95 g; USDA SR Legacy 167930: \"Pie crust, refrigerated, regular, baked\" 55 g; USDA SR Legacy 170440: \"Potatoes, boiled, cooked without skin, flesh, without salt\" 25 g; USDA SR Legacy 170000: \"Onions, raw\" 12 g. Ground pork with potato and onion in a pastry crust. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "montreal-smoked-meat-sandwich",
+      "name": "Montreal smoked meat sandwich",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "smoked meat",
+        "smoked meat sandwich",
+        "montreal smoked meat",
+        "schwartz"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 170200,
+            "g": 150
+          },
+          {
+            "fdc": 172684,
+            "g": 64
+          },
+          {
+            "fdc": 2710085,
+            "g": 10
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 sandwich",
+          "g": 224
+        }
+      ],
+      "basis": "Recipe: USDA SR Legacy 170200: \"Beef, cured, corned beef, brisket, cooked\" 150 g; USDA SR Legacy 172684: \"Bread, rye\" 64 g; USDA FNDDS 2021-2023 2710085: \"Mustard\" 10 g. Smoked brisket on two slices of rye with yellow mustard. USDA has no analysis of Montreal smoked meat; cooked corned beef brisket, the same cured beef brisket, stands in for it. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "donair",
+      "name": "Donair (Halifax style)",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "donair",
+        "doner",
+        "halifax donair",
+        "donair wrap"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 2707616,
+            "g": 100
+          },
+          {
+            "fdc": 171800,
+            "g": 140
+          },
+          {
+            "fdc": 171275,
+            "g": 40
+          },
+          {
+            "fdc": 2709351,
+            "g": 8
+          },
+          {
+            "fdc": 170000,
+            "g": 25
+          },
+          {
+            "fdc": 2709719,
+            "g": 30
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 small donair",
+          "g": 343
+        }
+      ],
+      "basis": "Recipe: USDA FNDDS 2021-2023 2707616: \"Bread, pita\" 100 g; USDA SR Legacy 171800: \"Beef, ground, 80% lean meat / 20% fat, loaf, cooked, baked\" 140 g; USDA SR Legacy 171275: \"Milk, canned, condensed, sweetened\" 40 g; USDA FNDDS 2021-2023 2709351: \"Vinegar\" 8 g; USDA SR Legacy 170000: \"Onions, raw\" 25 g; USDA FNDDS 2021-2023 2709719: \"Tomatoes, raw\" 30 g. Spiced beef loaf, sliced, in a pita with sweet garlic sauce (condensed milk and vinegar), onion and tomato. USDA has no donair meat; baked ground beef loaf (80% lean) stands in for it. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "nanaimo-bar",
+      "name": "Nanaimo bar",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "nanaimo bar",
+        "nanaimo bars",
+        "nanaimo"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 173410,
+            "g": 190
+          },
+          {
+            "fdc": 169655,
+            "g": 50
+          },
+          {
+            "fdc": 169593,
+            "g": 30
+          },
+          {
+            "fdc": 171287,
+            "g": 50
+          },
+          {
+            "fdc": 2708133,
+            "g": 150
+          },
+          {
+            "fdc": 168586,
+            "g": 60
+          },
+          {
+            "fdc": 2346386,
+            "g": 40
+          },
+          {
+            "fdc": 169698,
+            "g": 15
+          },
+          {
+            "fdc": 169656,
+            "g": 250
+          },
+          {
+            "fdc": 170271,
+            "g": 115
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 bar (1/16 of an 8-inch pan)",
+          "g": 59
+        }
+      ],
+      "basis": "Recipe: USDA SR Legacy 173410: \"Butter, salted\" 190 g; USDA SR Legacy 169655: \"Sugars, granulated\" 50 g; USDA SR Legacy 169593: \"Cocoa, dry powder, unsweetened\" 30 g; USDA SR Legacy 171287: \"Egg, whole, raw, fresh\" 50 g; USDA FNDDS 2021-2023 2708133: \"Graham crackers\" 150 g; USDA SR Legacy 168586: \"Nuts, coconut meat, dried (desiccated), sweetened, shredded\" 60 g; USDA Foundation Foods 2346386: \"Cream, heavy\" 40 g; USDA SR Legacy 169698: \"Cornstarch\" 15 g; USDA SR Legacy 169656: \"Sugars, powdered\" 250 g; USDA SR Legacy 170271: \"Chocolate, dark, 45- 59% cacao solids\" 115 g. No-bake bar: graham crumb, coconut and cocoa base; custard butter icing (custard powder is mostly cornstarch); semisweet chocolate top. The amounts make one 8-inch pan of 16 bars. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "butter-tart",
+      "name": "Butter tart",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "butter tart",
+        "butter tarts",
+        "raisin butter tart"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 167930,
+            "g": 300
+          },
+          {
+            "fdc": 168833,
+            "g": 200
+          },
+          {
+            "fdc": 173410,
+            "g": 75
+          },
+          {
+            "fdc": 171287,
+            "g": 100
+          },
+          {
+            "fdc": 2710274,
+            "g": 80
+          },
+          {
+            "fdc": 2709212,
+            "g": 80
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 tart",
+          "g": 70
+        }
+      ],
+      "basis": "Recipe: USDA SR Legacy 167930: \"Pie crust, refrigerated, regular, baked\" 300 g; USDA SR Legacy 168833: \"Sugars, brown\" 200 g; USDA SR Legacy 173410: \"Butter, salted\" 75 g; USDA SR Legacy 171287: \"Egg, whole, raw, fresh\" 100 g; USDA FNDDS 2021-2023 2710274: \"Corn syrup\" 80 g; USDA FNDDS 2021-2023 2709212: \"Raisins\" 80 g. Pastry shells with a filling of brown sugar, butter, egg and corn syrup, with raisins. The amounts make 12 tarts. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "perogies",
+      "name": "Perogies (pierogi)",
+      "category": "Mixed dishes",
+      "aliases": [
+        "perogies",
+        "perogy",
+        "pierogi",
+        "pierogies",
+        "varenyky",
+        "potato cheese perogies"
+      ],
+      "from": {
+        "fdc": 2708720
+      },
+      "basis": "USDA FNDDS 2021-2023 2708720: \"Pierogi\"."
+    },
+    {
+      "key": "cabbage-rolls",
+      "name": "Cabbage rolls with beef and rice",
+      "category": "Mixed dishes",
+      "aliases": [
+        "cabbage rolls",
+        "holubtsi",
+        "golabki",
+        "stuffed cabbage"
+      ],
+      "from": {
+        "fdc": 2706620
+      },
+      "basis": "USDA FNDDS 2021-2023 2706620: \"Stuffed cabbage rolls with beef and rice\"."
+    },
+    {
+      "key": "borscht",
+      "name": "Borscht",
+      "category": "Soups",
+      "aliases": [
+        "borscht",
+        "borsch",
+        "beet soup"
+      ],
+      "from": {
+        "fdc": 2710105
+      },
+      "basis": "USDA FNDDS 2021-2023 2710105: \"Soup, borscht\"."
+    },
+    {
+      "key": "chicken-shawarma-wrap",
+      "name": "Chicken shawarma wrap",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "shawarma",
+        "chicken shawarma",
+        "shawarma wrap",
+        "shawarma pita"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 2707616,
+            "g": 90
+          },
+          {
+            "fdc": 172388,
+            "g": 120
+          },
+          {
+            "fdc": 2710169,
+            "g": 20
+          },
+          {
+            "fdc": 2709719,
+            "g": 30
+          },
+          {
+            "fdc": 2709789,
+            "g": 20
+          },
+          {
+            "fdc": 2710078,
+            "g": 20
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 wrap",
+          "g": 300
+        }
+      ],
+      "basis": "Recipe: USDA FNDDS 2021-2023 2707616: \"Bread, pita\" 90 g; USDA SR Legacy 172388: \"Chicken, broilers or fryers, thigh, meat only, cooked, roasted\" 120 g; USDA FNDDS 2021-2023 2710169: \"Garlic sauce\" 20 g; USDA FNDDS 2021-2023 2709719: \"Tomatoes, raw\" 30 g; USDA FNDDS 2021-2023 2709789: \"Lettuce, raw\" 20 g; USDA FNDDS 2021-2023 2710078: \"Pickles, dill\" 20 g. Pita with roast chicken thigh, garlic sauce (toum), tomato, lettuce and pickles. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "chicken-shawarma-plate",
+      "name": "Chicken shawarma plate",
+      "category": "Mixed dishes",
+      "aliases": [
+        "shawarma plate",
+        "chicken shawarma",
+        "shawarma rice"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 172388,
+            "g": 180
+          },
+          {
+            "fdc": 169753,
+            "g": 200
+          },
+          {
+            "fdc": 2710169,
+            "g": 30
+          },
+          {
+            "fdc": 2709789,
+            "g": 40
+          },
+          {
+            "fdc": 2709719,
+            "g": 40
+          },
+          {
+            "fdc": 2709784,
+            "g": 40
+          },
+          {
+            "fdc": 2707402,
+            "g": 60
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 plate",
+          "g": 590
+        }
+      ],
+      "basis": "Recipe: USDA SR Legacy 172388: \"Chicken, broilers or fryers, thigh, meat only, cooked, roasted\" 180 g; USDA SR Legacy 169753: \"Rice, white, long-grain, regular, cooked, enriched, with salt\" 200 g; USDA FNDDS 2021-2023 2710169: \"Garlic sauce\" 30 g; USDA FNDDS 2021-2023 2709789: \"Lettuce, raw\" 40 g; USDA FNDDS 2021-2023 2709719: \"Tomatoes, raw\" 40 g; USDA FNDDS 2021-2023 2709784: \"Cucumber, raw\" 40 g; USDA FNDDS 2021-2023 2707402: \"Hummus, plain\" 60 g. Roast chicken thigh on rice with garlic sauce, salad (lettuce, tomato, cucumber) and hummus. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "gyro-sandwich",
+      "name": "Gyro (pita sandwich)",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "gyro",
+        "gyros",
+        "gyro pita"
+      ],
+      "from": {
+        "fdc": 2706962
+      },
+      "basis": "USDA FNDDS 2021-2023 2706962: \"Gyro sandwich\"."
+    },
+    {
+      "key": "falafel",
+      "name": "Falafel",
+      "category": "Mixed dishes",
+      "aliases": [
+        "falafel",
+        "falafels"
+      ],
+      "from": {
+        "fdc": 2707408
+      },
+      "basis": "USDA FNDDS 2021-2023 2707408: \"Falafel\"."
+    },
+    {
+      "key": "falafel-wrap",
+      "name": "Falafel wrap (pita sandwich)",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "falafel wrap",
+        "falafel pita",
+        "falafel sandwich"
+      ],
+      "from": {
+        "fdc": 2707483
+      },
+      "basis": "USDA FNDDS 2021-2023 2707483: \"Falafel sandwich\"."
+    },
+    {
+      "key": "greek-salad",
+      "name": "Greek salad, no dressing",
+      "category": "Sides and snacks",
+      "aliases": [
+        "greek salad",
+        "horiatiki"
+      ],
+      "from": {
+        "fdc": 2709830
+      },
+      "basis": "USDA FNDDS 2021-2023 2709830: \"Greek Salad, no dressing\"."
+    },
+    {
+      "key": "caesar-salad",
+      "name": "Caesar salad, no dressing",
+      "category": "Sides and snacks",
+      "aliases": [
+        "caesar salad",
+        "caesar"
+      ],
+      "from": {
+        "fdc": 2709591
+      },
+      "basis": "USDA FNDDS 2021-2023 2709591: \"Caesar salad, with romaine, no dressing\"."
+    },
+    {
+      "key": "chicken-caesar-salad",
+      "name": "Chicken Caesar salad",
+      "category": "Mixed dishes",
+      "aliases": [
+        "chicken caesar",
+        "caesar salad with chicken",
+        "caesar"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 2709591,
+            "g": 150
+          },
+          {
+            "fdc": 2705956,
+            "g": 100
+          },
+          {
+            "fdc": 2710199,
+            "g": 30
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 salad",
+          "g": 280
+        }
+      ],
+      "basis": "Recipe: USDA FNDDS 2021-2023 2709591: \"Caesar salad, with romaine, no dressing\" 150 g; USDA FNDDS 2021-2023 2705956: \"Chicken breast, baked, broiled, or roasted, skin not eaten, from raw\" 100 g; USDA FNDDS 2021-2023 2710199: \"Caesar dressing\" 30 g. Caesar salad with grilled chicken breast and 2 Tbsp Caesar dressing. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "butter-chicken",
+      "name": "Butter chicken (murgh makhani)",
+      "category": "Mixed dishes",
+      "aliases": [
+        "butter chicken",
+        "murgh makhani",
+        "chicken makhani",
+        "chicken tikka masala"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 172388,
+            "g": 150
+          },
+          {
+            "fdc": 170054,
+            "g": 100
+          },
+          {
+            "fdc": 173410,
+            "g": 15
+          },
+          {
+            "fdc": 2346386,
+            "g": 40
+          },
+          {
+            "fdc": 170000,
+            "g": 30
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 230
+        },
+        {
+          "label": "1 restaurant portion (no rice)",
+          "g": 335
+        }
+      ],
+      "basis": "Recipe: USDA SR Legacy 172388: \"Chicken, broilers or fryers, thigh, meat only, cooked, roasted\" 150 g; USDA SR Legacy 170054: \"Tomato products, canned, sauce\" 100 g; USDA SR Legacy 173410: \"Butter, salted\" 15 g; USDA Foundation Foods 2346386: \"Cream, heavy\" 40 g; USDA SR Legacy 170000: \"Onions, raw\" 30 g. Chicken thigh in a tomato, butter and cream sauce with onion; spices add little. Tikka masala is a close variant. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "chicken-curry",
+      "name": "Chicken curry",
+      "category": "Mixed dishes",
+      "aliases": [
+        "chicken curry",
+        "curry chicken"
+      ],
+      "from": {
+        "fdc": 2706437
+      },
+      "basis": "USDA FNDDS 2021-2023 2706437: \"Chicken curry\"."
+    },
+    {
+      "key": "beef-curry",
+      "name": "Beef curry",
+      "category": "Mixed dishes",
+      "aliases": [
+        "beef curry",
+        "curry beef"
+      ],
+      "from": {
+        "fdc": 2706388
+      },
+      "basis": "USDA FNDDS 2021-2023 2706388: \"Beef curry\"."
+    },
+    {
+      "key": "dal",
+      "name": "Dal (lentil curry)",
+      "category": "Mixed dishes",
+      "aliases": [
+        "dal",
+        "daal",
+        "dhal",
+        "lentil curry",
+        "dal tadka"
+      ],
+      "from": {
+        "fdc": 2707427
+      },
+      "basis": "USDA FNDDS 2021-2023 2707427: \"Dal\"."
+    },
+    {
+      "key": "lentil-curry",
+      "name": "Lentil curry",
+      "category": "Mixed dishes",
+      "aliases": [
+        "lentil curry",
+        "masoor dal"
+      ],
+      "from": {
+        "fdc": 2707431
+      },
+      "basis": "USDA FNDDS 2021-2023 2707431: \"Lentil curry\"."
+    },
+    {
+      "key": "palak-paneer",
+      "name": "Palak paneer",
+      "category": "Mixed dishes",
+      "aliases": [
+        "palak paneer",
+        "saag paneer",
+        "spinach paneer"
+      ],
+      "from": {
+        "fdc": 2709631
+      },
+      "basis": "USDA FNDDS 2021-2023 2709631: \"Palak Paneer\"."
+    },
+    {
+      "key": "chicken-biryani",
+      "name": "Chicken biryani",
+      "category": "Mixed dishes",
+      "aliases": [
+        "biryani",
+        "chicken biryani",
+        "biriyani"
+      ],
+      "from": {
+        "fdc": 2706538
+      },
+      "basis": "USDA FNDDS 2021-2023 2706538: \"Biryani with chicken\"."
+    },
+    {
+      "key": "meat-biryani",
+      "name": "Biryani with meat (lamb or beef)",
+      "category": "Mixed dishes",
+      "aliases": [
+        "biryani",
+        "lamb biryani",
+        "mutton biryani",
+        "beef biryani"
+      ],
+      "from": {
+        "fdc": 2706490
+      },
+      "basis": "USDA FNDDS 2021-2023 2706490: \"Biryani with meat\"."
+    },
+    {
+      "key": "samosa",
+      "name": "Samosa",
+      "category": "Sides and snacks",
+      "aliases": [
+        "samosa",
+        "samosas"
+      ],
+      "from": {
+        "fdc": 2708730
+      },
+      "basis": "USDA FNDDS 2021-2023 2708730: \"Samosa\"."
+    },
+    {
+      "key": "roti-chapati",
+      "name": "Roti (chapati)",
+      "category": "Breakfast",
+      "aliases": [
+        "roti",
+        "chapati",
+        "chapatti",
+        "phulka"
+      ],
+      "from": {
+        "fdc": 2707713
+      },
+      "basis": "USDA FNDDS 2021-2023 2707713: \"Bread, chappatti or roti\"."
+    },
+    {
+      "key": "pad-thai",
+      "name": "Pad thai",
+      "category": "Mixed dishes",
+      "aliases": [
+        "pad thai",
+        "phad thai"
+      ],
+      "from": {
+        "fdc": 2708804
+      },
+      "basis": "USDA FNDDS 2021-2023 2708804: \"Pad Thai, NFS\"."
+    },
+    {
+      "key": "pad-thai-chicken",
+      "name": "Pad thai with chicken",
+      "category": "Mixed dishes",
+      "aliases": [
+        "chicken pad thai",
+        "pad thai"
+      ],
+      "from": {
+        "fdc": 2708806
+      },
+      "basis": "USDA FNDDS 2021-2023 2708806: \"Pad Thai with chicken\"."
+    },
+    {
+      "key": "pad-thai-shrimp",
+      "name": "Pad thai with shrimp",
+      "category": "Mixed dishes",
+      "aliases": [
+        "shrimp pad thai",
+        "prawn pad thai",
+        "pad thai"
+      ],
+      "from": {
+        "fdc": 2708807
+      },
+      "basis": "USDA FNDDS 2021-2023 2708807: \"Pad Thai with seafood\". FNDDS \"Pad Thai with seafood\"."
+    },
+    {
+      "key": "pad-thai-tofu",
+      "name": "Pad thai, vegetarian (tofu)",
+      "category": "Mixed dishes",
+      "aliases": [
+        "tofu pad thai",
+        "vegetarian pad thai",
+        "pad thai"
+      ],
+      "from": {
+        "fdc": 2708805
+      },
+      "basis": "USDA FNDDS 2021-2023 2708805: \"Pad Thai, meatless\"."
+    },
+    {
+      "key": "ramen",
+      "name": "Ramen (noodle soup bowl)",
+      "category": "Soups",
+      "aliases": [
+        "ramen",
+        "ramen bowl",
+        "tonkotsu",
+        "shoyu ramen",
+        "miso ramen"
+      ],
+      "from": {
+        "fdc": 2709153
+      },
+      "basis": "USDA FNDDS 2021-2023 2709153: \"Ramen bowl, NFS\". A restaurant-style bowl, not instant noodles."
+    },
+    {
+      "key": "ramen-chicken",
+      "name": "Ramen with chicken",
+      "category": "Soups",
+      "aliases": [
+        "chicken ramen",
+        "ramen"
+      ],
+      "from": {
+        "fdc": 2709155
+      },
+      "basis": "USDA FNDDS 2021-2023 2709155: \"Ramen bowl with chicken\"."
+    },
+    {
+      "key": "ramen-beef",
+      "name": "Ramen with beef",
+      "category": "Soups",
+      "aliases": [
+        "beef ramen",
+        "ramen"
+      ],
+      "from": {
+        "fdc": 2709154
+      },
+      "basis": "USDA FNDDS 2021-2023 2709154: \"Ramen bowl with beef\"."
+    },
+    {
+      "key": "ramen-pork-egg",
+      "name": "Ramen with pork and egg",
+      "category": "Soups",
+      "aliases": [
+        "pork ramen",
+        "tonkotsu ramen",
+        "chashu ramen",
+        "ramen"
+      ],
+      "from": {
+        "fdc": 2709158
+      },
+      "basis": "USDA FNDDS 2021-2023 2709158: \"Ramen bowl with meat and egg\". FNDDS \"Ramen bowl with meat and egg\"."
+    },
+    {
+      "key": "ramen-vegetarian",
+      "name": "Ramen, vegetarian",
+      "category": "Soups",
+      "aliases": [
+        "vegetarian ramen",
+        "veggie ramen",
+        "ramen"
+      ],
+      "from": {
+        "fdc": 2709157
+      },
+      "basis": "USDA FNDDS 2021-2023 2709157: \"Ramen bowl, vegetarian\"."
+    },
+    {
+      "key": "pho-beef",
+      "name": "Pho (beef noodle soup)",
+      "category": "Soups",
+      "aliases": [
+        "pho",
+        "beef pho",
+        "pho bo",
+        "vietnamese noodle soup"
+      ],
+      "from": {
+        "fdc": 2707124
+      },
+      "basis": "USDA FNDDS 2021-2023 2707124: \"Soup, pho, with meat\"."
+    },
+    {
+      "key": "lo-mein-vegetable",
+      "name": "Lo mein, vegetable",
+      "category": "Mixed dishes",
+      "aliases": [
+        "lo mein",
+        "vegetable lo mein"
+      ],
+      "from": {
+        "fdc": 2708799
+      },
+      "basis": "USDA FNDDS 2021-2023 2708799: \"Lo mein, meatless\"."
+    },
+    {
+      "key": "lo-mein-beef",
+      "name": "Lo mein with beef",
+      "category": "Mixed dishes",
+      "aliases": [
+        "beef lo mein",
+        "lo mein"
+      ],
+      "from": {
+        "fdc": 2708802
+      },
+      "basis": "USDA FNDDS 2021-2023 2708802: \"Lo mein, with beef\"."
+    },
+    {
+      "key": "lo-mein-pork",
+      "name": "Lo mein with pork",
+      "category": "Mixed dishes",
+      "aliases": [
+        "pork lo mein",
+        "lo mein"
+      ],
+      "from": {
+        "fdc": 2708801
+      },
+      "basis": "USDA FNDDS 2021-2023 2708801: \"Lo mein, with pork\"."
+    },
+    {
+      "key": "lo-mein-shrimp",
+      "name": "Lo mein with shrimp",
+      "category": "Mixed dishes",
+      "aliases": [
+        "shrimp lo mein",
+        "lo mein"
+      ],
+      "from": {
+        "fdc": 2708800
+      },
+      "basis": "USDA FNDDS 2021-2023 2708800: \"Lo mein, with shrimp\"."
+    },
+    {
+      "key": "chow-mein-beef",
+      "name": "Beef chow mein with noodles",
+      "category": "Mixed dishes",
+      "aliases": [
+        "chow mein",
+        "beef chow mein"
+      ],
+      "from": {
+        "fdc": 2706607
+      },
+      "basis": "USDA FNDDS 2021-2023 2706607: \"Beef chow mein or chop suey with noodles\"."
+    },
+    {
+      "key": "fried-rice-vegetable",
+      "name": "Fried rice (restaurant, no meat)",
+      "category": "Mixed dishes",
+      "aliases": [
+        "fried rice",
+        "vegetable fried rice",
+        "egg fried rice"
+      ],
+      "from": {
+        "fdc": 334536
+      },
+      "basis": "USDA Foundation Foods 334536: \"Restaurant, Chinese, fried rice, without meat\"."
+    },
+    {
+      "key": "general-tso-chicken",
+      "name": "General Tso chicken",
+      "category": "Mixed dishes",
+      "aliases": [
+        "general tso",
+        "general tao",
+        "general tao chicken",
+        "general tsos"
+      ],
+      "from": {
+        "fdc": 2706794
+      },
+      "basis": "USDA FNDDS 2021-2023 2706794: \"General Tso chicken\"."
+    },
+    {
+      "key": "orange-chicken",
+      "name": "Orange chicken",
+      "category": "Mixed dishes",
+      "aliases": [
+        "orange chicken"
+      ],
+      "from": {
+        "fdc": 2706443
+      },
+      "basis": "USDA FNDDS 2021-2023 2706443: \"Orange chicken\"."
+    },
+    {
+      "key": "kung-pao-chicken",
+      "name": "Kung pao chicken",
+      "category": "Mixed dishes",
+      "aliases": [
+        "kung pao",
+        "kung pao chicken",
+        "gong bao"
+      ],
+      "from": {
+        "fdc": 2706796
+      },
+      "basis": "USDA FNDDS 2021-2023 2706796: \"Kung pao chicken\"."
+    },
+    {
+      "key": "sweet-and-sour-pork",
+      "name": "Sweet and sour pork",
+      "category": "Mixed dishes",
+      "aliases": [
+        "sweet and sour pork",
+        "sweet sour pork"
+      ],
+      "from": {
+        "fdc": 2706401
+      },
+      "basis": "USDA FNDDS 2021-2023 2706401: \"Sweet and sour pork\"."
+    },
+    {
+      "key": "beef-and-broccoli",
+      "name": "Beef and broccoli",
+      "category": "Mixed dishes",
+      "aliases": [
+        "beef broccoli",
+        "beef and broccoli"
+      ],
+      "from": {
+        "fdc": 2706738
+      },
+      "basis": "USDA FNDDS 2021-2023 2706738: \"Beef and broccoli\"."
+    },
+    {
+      "key": "egg-roll-pork",
+      "name": "Egg roll with pork",
+      "category": "Sides and snacks",
+      "aliases": [
+        "egg roll",
+        "egg rolls",
+        "pork egg roll"
+      ],
+      "from": {
+        "fdc": 2708702
+      },
+      "basis": "USDA FNDDS 2021-2023 2708702: \"Egg roll, with beef and/or pork\"."
+    },
+    {
+      "key": "spring-roll-vegetable",
+      "name": "Vegetable egg roll (fried spring roll)",
+      "category": "Sides and snacks",
+      "aliases": [
+        "spring roll",
+        "spring rolls",
+        "vegetable spring roll",
+        "vegetable egg roll"
+      ],
+      "from": {
+        "fdc": 2708700
+      },
+      "basis": "USDA FNDDS 2021-2023 2708700: \"Egg roll, meatless\". FNDDS \"Egg roll, meatless\"; a fried spring roll is the same food."
+    },
+    {
+      "key": "dumplings-steamed",
+      "name": "Steamed dumplings (dim sum)",
+      "category": "Sides and snacks",
+      "aliases": [
+        "dumplings",
+        "steamed dumplings",
+        "dim sum",
+        "har gow",
+        "siu mai",
+        "wontons"
+      ],
+      "from": {
+        "fdc": 2708708
+      },
+      "basis": "USDA FNDDS 2021-2023 2708708: \"Wonton, dumpling or pot sticker, steamed\"."
+    },
+    {
+      "key": "wonton-soup",
+      "name": "Wonton soup",
+      "category": "Soups",
+      "aliases": [
+        "wonton soup",
+        "won ton soup"
+      ],
+      "from": {
+        "fdc": 2709160
+      },
+      "basis": "USDA FNDDS 2021-2023 2709160: \"Soup, wonton\"."
+    },
+    {
+      "key": "hot-and-sour-soup",
+      "name": "Hot and sour soup",
+      "category": "Soups",
+      "aliases": [
+        "hot and sour soup",
+        "hot sour soup"
+      ],
+      "from": {
+        "fdc": 2707136
+      },
+      "basis": "USDA FNDDS 2021-2023 2707136: \"Soup, hot and sour\"."
+    },
+    {
+      "key": "egg-foo-young",
+      "name": "Egg foo young",
+      "category": "Mixed dishes",
+      "aliases": [
+        "egg foo young",
+        "egg foo yung",
+        "egg fu yung"
+      ],
+      "from": {
+        "fdc": 2707193
+      },
+      "basis": "USDA FNDDS 2021-2023 2707193: \"Egg foo yung, NFS\"."
+    },
+    {
+      "key": "congee",
+      "name": "Congee (rice porridge)",
+      "category": "Mixed dishes",
+      "aliases": [
+        "congee",
+        "jook",
+        "rice porridge"
+      ],
+      "from": {
+        "fdc": 2708418
+      },
+      "basis": "USDA FNDDS 2021-2023 2708418: \"Congee\"."
+    },
+    {
+      "key": "bibimbap",
+      "name": "Bibimbap",
+      "category": "Mixed dishes",
+      "aliases": [
+        "bibimbap",
+        "bibimbab"
+      ],
+      "from": {
+        "fdc": 2708950
+      },
+      "basis": "USDA FNDDS 2021-2023 2708950: \"Bibimbap, Korean\"."
+    },
+    {
+      "key": "bao-bun",
+      "name": "Bao bun (steamed bun with meat)",
+      "category": "Sides and snacks",
+      "aliases": [
+        "bao",
+        "bao bun",
+        "char siu bao",
+        "pork bun",
+        "steamed bun"
+      ],
+      "from": {
+        "fdc": 2708724
+      },
+      "basis": "USDA FNDDS 2021-2023 2708724: \"Bao bun\"."
+    },
+    {
+      "key": "kimchi",
+      "name": "Kimchi",
+      "category": "Sides and snacks",
+      "aliases": [
+        "kimchi",
+        "kimchee"
+      ],
+      "from": {
+        "fdc": 2710077
+      },
+      "basis": "USDA FNDDS 2021-2023 2710077: \"Kimchi\"."
+    },
+    {
+      "key": "pizza-cheese-slice",
+      "name": "Cheese pizza (restaurant, regular crust)",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "cheese pizza",
+        "pizza",
+        "pizza slice"
+      ],
+      "from": {
+        "fdc": 2708616
+      },
+      "basis": "USDA FNDDS 2021-2023 2708616: \"Pizza, cheese, from restaurant or fast food, medium crust\"."
+    },
+    {
+      "key": "pizza-pepperoni-slice",
+      "name": "Pepperoni pizza (restaurant, regular crust)",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "pepperoni pizza",
+        "pizza",
+        "pizza slice"
+      ],
+      "from": {
+        "fdc": 2708640
+      },
+      "basis": "USDA FNDDS 2021-2023 2708640: \"Pizza with pepperoni, from restaurant or fast food,  medium crust\"."
+    },
+    {
+      "key": "lasagna-meat",
+      "name": "Lasagna with meat",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "lasagna",
+        "lasagne",
+        "meat lasagna"
+      ],
+      "from": {
+        "fdc": 2708750
+      },
+      "basis": "USDA FNDDS 2021-2023 2708750: \"Lasagna with meat\"."
+    },
+    {
+      "key": "lasagna-vegetarian",
+      "name": "Lasagna, vegetarian",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "vegetarian lasagna",
+        "veggie lasagna",
+        "cheese lasagna",
+        "lasagna"
+      ],
+      "from": {
+        "fdc": 2708758
+      },
+      "basis": "USDA FNDDS 2021-2023 2708758: \"Lasagna, meatless\"."
+    },
+    {
+      "key": "spaghetti-meat-sauce",
+      "name": "Spaghetti with meat sauce",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "spaghetti bolognese",
+        "spaghetti",
+        "bolognese",
+        "spag bol"
+      ],
+      "from": {
+        "fdc": 167680
+      },
+      "basis": "USDA SR Legacy 167680: \"Restaurant, Italian, spaghetti with meat sauce\". SR Legacy restaurant analysis."
+    },
+    {
+      "key": "fettuccine-alfredo",
+      "name": "Fettuccine Alfredo (pasta with cream sauce)",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "fettuccine alfredo",
+        "alfredo",
+        "pasta alfredo",
+        "cream pasta"
+      ],
+      "from": {
+        "fdc": 2708855
+      },
+      "basis": "USDA FNDDS 2021-2023 2708855: \"Pasta with cream sauce, restaurant\". FNDDS \"Pasta with cream sauce, restaurant\"."
+    },
+    {
+      "key": "mac-and-cheese",
+      "name": "Macaroni and cheese",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "mac and cheese",
+        "mac n cheese",
+        "macaroni and cheese",
+        "kraft dinner",
+        "kd"
+      ],
+      "from": {
+        "fdc": 2708811
+      },
+      "basis": "USDA FNDDS 2021-2023 2708811: \"Macaroni or noodles with cheese\". Homemade or restaurant style; boxed Kraft Dinner is close but check the box."
+    },
+    {
+      "key": "chicken-parmesan",
+      "name": "Chicken parmesan (no pasta)",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "chicken parm",
+        "chicken parmigiana",
+        "chicken parmesan"
+      ],
+      "from": {
+        "fdc": 168062
+      },
+      "basis": "USDA SR Legacy 168062: \"Restaurant, Italian, chicken parmesan without pasta\". SR Legacy restaurant analysis."
+    },
+    {
+      "key": "ravioli-cheese-tomato",
+      "name": "Cheese ravioli with tomato sauce",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "ravioli",
+        "cheese ravioli"
+      ],
+      "from": {
+        "fdc": 2708768
+      },
+      "basis": "USDA FNDDS 2021-2023 2708768: \"Ravioli, cheese-filled, with tomato sauce\"."
+    },
+    {
+      "key": "tortellini-cheese-cream",
+      "name": "Cheese tortellini with cream sauce",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "tortellini",
+        "cheese tortellini"
+      ],
+      "from": {
+        "fdc": 2708791
+      },
+      "basis": "USDA FNDDS 2021-2023 2708791: \"Tortellini, cheese-filled, with cream sauce\"."
+    },
+    {
+      "key": "gnocchi-potato",
+      "name": "Potato gnocchi",
+      "category": "Pizza and pasta",
+      "aliases": [
+        "gnocchi"
+      ],
+      "from": {
+        "fdc": 2708722
+      },
+      "basis": "USDA FNDDS 2021-2023 2708722: \"Gnocchi, potato\"."
+    },
+    {
+      "key": "hamburger",
+      "name": "Hamburger",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "hamburger",
+        "burger"
+      ],
+      "from": {
+        "fdc": 2706920
+      },
+      "basis": "USDA FNDDS 2021-2023 2706920: \"Hamburger, NFS\"."
+    },
+    {
+      "key": "cheeseburger",
+      "name": "Cheeseburger",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "cheeseburger",
+        "burger with cheese",
+        "burger"
+      ],
+      "from": {
+        "fdc": 2706888
+      },
+      "basis": "USDA FNDDS 2021-2023 2706888: \"Cheeseburger, NFS\"."
+    },
+    {
+      "key": "corn-dog",
+      "name": "Corn dog",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "corn dog",
+        "pogo"
+      ],
+      "from": {
+        "fdc": 2707044
+      },
+      "basis": "USDA FNDDS 2021-2023 2707044: \"Corn dog\". A Pogo is a corn dog."
+    },
+    {
+      "key": "club-sandwich",
+      "name": "Club sandwich (clubhouse)",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "club sandwich",
+        "clubhouse",
+        "clubhouse sandwich"
+      ],
+      "from": {
+        "fdc": 2706993
+      },
+      "basis": "USDA FNDDS 2021-2023 2706993: \"Club sandwich on white\"."
+    },
+    {
+      "key": "blt-sandwich",
+      "name": "BLT sandwich",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "blt",
+        "bacon lettuce tomato"
+      ],
+      "from": {
+        "fdc": 2706979
+      },
+      "basis": "USDA FNDDS 2021-2023 2706979: \"Bacon, lettuce, tomato sandwich on white\"."
+    },
+    {
+      "key": "grilled-cheese",
+      "name": "Grilled cheese sandwich",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "grilled cheese"
+      ],
+      "from": {
+        "fdc": 2705801
+      },
+      "basis": "USDA FNDDS 2021-2023 2705801: \"Grilled cheese sandwich, NFS\"."
+    },
+    {
+      "key": "egg-salad-sandwich",
+      "name": "Egg salad sandwich",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "egg salad sandwich",
+        "egg sandwich"
+      ],
+      "from": {
+        "fdc": 2707280
+      },
+      "basis": "USDA FNDDS 2021-2023 2707280: \"Egg salad sandwich on white\"."
+    },
+    {
+      "key": "tuna-salad-sandwich",
+      "name": "Tuna salad sandwich",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "tuna sandwich",
+        "tuna salad sandwich"
+      ],
+      "from": {
+        "fdc": 2707034
+      },
+      "basis": "USDA FNDDS 2021-2023 2707034: \"Tuna salad sandwich on white\"."
+    },
+    {
+      "key": "roast-beef-sandwich",
+      "name": "Roast beef sandwich",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "roast beef sandwich"
+      ],
+      "from": {
+        "fdc": 2706953
+      },
+      "basis": "USDA FNDDS 2021-2023 2706953: \"Roast beef sandwich on white\"."
+    },
+    {
+      "key": "meatball-sub",
+      "name": "Meatball sub",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "meatball sub",
+        "meatball sandwich"
+      ],
+      "from": {
+        "fdc": 2706945
+      },
+      "basis": "USDA FNDDS 2021-2023 2706945: \"Meatball sandwich or sub\"."
+    },
+    {
+      "key": "italian-sub",
+      "name": "Italian sub (restaurant)",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "italian sub",
+        "cold cut sub",
+        "italian sandwich"
+      ],
+      "from": {
+        "fdc": 2707052
+      },
+      "basis": "USDA FNDDS 2021-2023 2707052: \"Italian sandwich or sub, restaurant\"."
+    },
+    {
+      "key": "turkey-sub",
+      "name": "Turkey sub (restaurant)",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "turkey sub",
+        "turkey sandwich"
+      ],
+      "from": {
+        "fdc": 2706985
+      },
+      "basis": "USDA FNDDS 2021-2023 2706985: \"Turkey sandwich or sub, restaurant\"."
+    },
+    {
+      "key": "fish-sandwich-fried",
+      "name": "Fried fish sandwich",
+      "category": "Sandwiches and wraps",
+      "aliases": [
+        "fish sandwich",
+        "fish burger"
+      ],
+      "from": {
+        "fdc": 2707027
+      },
+      "basis": "USDA FNDDS 2021-2023 2707027: \"Fish sandwich, fried, on white bun\"."
+    },
+    {
+      "key": "chicken-nuggets",
+      "name": "Chicken nuggets (fast food)",
+      "category": "Sides and snacks",
+      "aliases": [
+        "chicken nuggets",
+        "nuggets",
+        "mcnuggets"
+      ],
+      "from": {
+        "fdc": 2706093
+      },
+      "basis": "USDA FNDDS 2021-2023 2706093: \"Chicken nuggets, from fast food\"."
+    },
+    {
+      "key": "chicken-wings-fried",
+      "name": "Chicken wings, breaded and fried (restaurant)",
+      "category": "Sides and snacks",
+      "aliases": [
+        "chicken wings",
+        "wings",
+        "fried wings"
+      ],
+      "from": {
+        "fdc": 2706068
+      },
+      "basis": "USDA FNDDS 2021-2023 2706068: \"Chicken wing, fried, coated, from restaurant\"."
+    },
+    {
+      "key": "chicken-wings-sauce",
+      "name": "Chicken wings with sauce (grilled or baked)",
+      "category": "Sides and snacks",
+      "aliases": [
+        "chicken wings",
+        "wings",
+        "buffalo wings",
+        "hot wings"
+      ],
+      "from": {
+        "fdc": 2706063
+      },
+      "basis": "USDA FNDDS 2021-2023 2706063: \"Chicken wing, grilled with sauce\"."
+    },
+    {
+      "key": "fish-and-chips",
+      "name": "Fish and chips",
+      "category": "Mixed dishes",
+      "aliases": [
+        "fish and chips",
+        "fish n chips",
+        "fish & chips"
+      ],
+      "recipe": {
+        "ingredients": [
+          {
+            "fdc": 169846,
+            "g": 150
+          },
+          {
+            "fdc": 2709462,
+            "g": 200
+          }
+        ]
+      },
+      "servings": [
+        {
+          "label": "1 piece of fish with fries",
+          "g": 350
+        }
+      ],
+      "basis": "Recipe: USDA SR Legacy 169846: \"Restaurant, family style, fish fillet, battered or breaded, fried\" 150 g; USDA FNDDS 2021-2023 2709462: \"Potato, french fries, restaurant\" 200 g. One battered fried fish fillet with restaurant fries. A typical recipe written by NutriMe, not a measured dish; the nutrients are the USDA values of the ingredients."
+    },
+    {
+      "key": "french-fries-fast-food",
+      "name": "French fries (fast food)",
+      "category": "Sides and snacks",
+      "aliases": [
+        "fries",
+        "french fries",
+        "chips"
+      ],
+      "from": {
+        "fdc": 2709461
+      },
+      "basis": "USDA FNDDS 2021-2023 2709461: \"Potato, french fries, fast food\"."
+    },
+    {
+      "key": "sweet-potato-fries",
+      "name": "Sweet potato fries (restaurant)",
+      "category": "Sides and snacks",
+      "aliases": [
+        "sweet potato fries"
+      ],
+      "from": {
+        "fdc": 2709713
+      },
+      "basis": "USDA FNDDS 2021-2023 2709713: \"Sweet potato fries, fast food / restaurant\"."
+    },
+    {
+      "key": "onion-rings",
+      "name": "Onion rings",
+      "category": "Sides and snacks",
+      "aliases": [
+        "onion rings"
+      ],
+      "from": {
+        "fdc": 2710055
+      },
+      "basis": "USDA FNDDS 2021-2023 2710055: \"Fried onion rings\"."
+    },
+    {
+      "key": "mozzarella-sticks",
+      "name": "Mozzarella sticks",
+      "category": "Sides and snacks",
+      "aliases": [
+        "mozzarella sticks",
+        "cheese sticks"
+      ],
+      "from": {
+        "fdc": 2705817
+      },
+      "basis": "USDA FNDDS 2021-2023 2705817: \"Mozzarella sticks, breaded, baked, or fried\"."
+    },
+    {
+      "key": "coleslaw",
+      "name": "Coleslaw",
+      "category": "Sides and snacks",
+      "aliases": [
+        "coleslaw",
+        "cole slaw",
+        "slaw"
+      ],
+      "from": {
+        "fdc": 2709815
+      },
+      "basis": "USDA FNDDS 2021-2023 2709815: \"Coleslaw\"."
+    },
+    {
+      "key": "potato-salad",
+      "name": "Potato salad",
+      "category": "Sides and snacks",
+      "aliases": [
+        "potato salad"
+      ],
+      "from": {
+        "fdc": 2709543
+      },
+      "basis": "USDA FNDDS 2021-2023 2709543: \"Potato salad, made with mayonnaise\"."
+    },
+    {
+      "key": "mashed-potatoes",
+      "name": "Mashed potatoes",
+      "category": "Sides and snacks",
+      "aliases": [
+        "mashed potatoes",
+        "mash"
+      ],
+      "from": {
+        "fdc": 2709492
+      },
+      "basis": "USDA FNDDS 2021-2023 2709492: \"Potato, mashed, NFS\"."
+    },
+    {
+      "key": "baked-beans",
+      "name": "Baked beans",
+      "category": "Sides and snacks",
+      "aliases": [
+        "baked beans",
+        "beans in tomato sauce"
+      ],
+      "from": {
+        "fdc": 2707390
+      },
+      "basis": "USDA FNDDS 2021-2023 2707390: \"Baked beans\"."
+    },
+    {
+      "key": "burrito",
+      "name": "Burrito",
+      "category": "Mixed dishes",
+      "aliases": [
+        "burrito"
+      ],
+      "from": {
+        "fdc": 2708534
+      },
+      "basis": "USDA FNDDS 2021-2023 2708534: \"Burrito, NFS\"."
+    },
+    {
+      "key": "burrito-bowl",
+      "name": "Burrito bowl",
+      "category": "Mixed dishes",
+      "aliases": [
+        "burrito bowl"
+      ],
+      "from": {
+        "fdc": 2708555
+      },
+      "basis": "USDA FNDDS 2021-2023 2708555: \"Burrito bowl, NFS\"."
+    },
+    {
+      "key": "taco",
+      "name": "Taco",
+      "category": "Mixed dishes",
+      "aliases": [
+        "taco",
+        "tacos"
+      ],
+      "from": {
+        "fdc": 2708514
+      },
+      "basis": "USDA FNDDS 2021-2023 2708514: \"Taco, NFS\"."
+    },
+    {
+      "key": "fish-taco",
+      "name": "Fish taco",
+      "category": "Mixed dishes",
+      "aliases": [
+        "fish taco",
+        "fish tacos"
+      ],
+      "from": {
+        "fdc": 2708529
+      },
+      "basis": "USDA FNDDS 2021-2023 2708529: \"Taco, fish\"."
+    },
+    {
+      "key": "quesadilla-chicken",
+      "name": "Chicken quesadilla",
+      "category": "Mixed dishes",
+      "aliases": [
+        "quesadilla",
+        "chicken quesadilla"
+      ],
+      "from": {
+        "fdc": 2708593
+      },
+      "basis": "USDA FNDDS 2021-2023 2708593: \"Quesadilla, chicken\"."
+    },
+    {
+      "key": "quesadilla-cheese",
+      "name": "Cheese quesadilla",
+      "category": "Mixed dishes",
+      "aliases": [
+        "quesadilla",
+        "cheese quesadilla"
+      ],
+      "from": {
+        "fdc": 2708591
+      },
+      "basis": "USDA FNDDS 2021-2023 2708591: \"Quesadilla, cheese only\"."
+    },
+    {
+      "key": "nachos",
+      "name": "Nachos",
+      "category": "Sides and snacks",
+      "aliases": [
+        "nachos"
+      ],
+      "from": {
+        "fdc": 2708576
+      },
+      "basis": "USDA FNDDS 2021-2023 2708576: \"Nachos, NFS\"."
+    },
+    {
+      "key": "enchilada-chicken",
+      "name": "Chicken enchilada",
+      "category": "Mixed dishes",
+      "aliases": [
+        "enchilada",
+        "enchiladas",
+        "chicken enchilada"
+      ],
+      "from": {
+        "fdc": 2708568
+      },
+      "basis": "USDA FNDDS 2021-2023 2708568: \"Enchilada, chicken\"."
+    },
+    {
+      "key": "fajita-chicken",
+      "name": "Chicken fajita",
+      "category": "Mixed dishes",
+      "aliases": [
+        "fajita",
+        "fajitas",
+        "chicken fajita"
+      ],
+      "from": {
+        "fdc": 2708604
+      },
+      "basis": "USDA FNDDS 2021-2023 2708604: \"Fajita, chicken\"."
+    },
+    {
+      "key": "empanada-beef",
+      "name": "Beef empanada",
+      "category": "Sides and snacks",
+      "aliases": [
+        "empanada",
+        "empanadas"
+      ],
+      "from": {
+        "fdc": 2708711
+      },
+      "basis": "USDA FNDDS 2021-2023 2708711: \"Empanada, beef\"."
+    },
+    {
+      "key": "pupusa",
+      "name": "Pupusa with meat",
+      "category": "Mixed dishes",
+      "aliases": [
+        "pupusa",
+        "pupusas"
+      ],
+      "from": {
+        "fdc": 2708610
+      },
+      "basis": "USDA FNDDS 2021-2023 2708610: \"Pupusa, meat\"."
+    },
+    {
+      "key": "guacamole",
+      "name": "Guacamole",
+      "category": "Sides and snacks",
+      "aliases": [
+        "guacamole",
+        "guac"
+      ],
+      "from": {
+        "fdc": 2709307
+      },
+      "basis": "USDA FNDDS 2021-2023 2709307: \"Guacamole, NFS\"."
+    },
+    {
+      "key": "shepherds-pie",
+      "name": "Shepherd's pie",
+      "category": "Mixed dishes",
+      "aliases": [
+        "shepherds pie",
+        "shepherd's pie",
+        "pate chinois",
+        "pâté chinois",
+        "cottage pie"
+      ],
+      "from": {
+        "fdc": 2706594
+      },
+      "basis": "USDA FNDDS 2021-2023 2706594: \"Shepherd's pie\"."
+    },
+    {
+      "key": "chicken-pot-pie",
+      "name": "Chicken pot pie",
+      "category": "Mixed dishes",
+      "aliases": [
+        "chicken pot pie",
+        "pot pie"
+      ],
+      "from": {
+        "fdc": 2706703
+      },
+      "basis": "USDA FNDDS 2021-2023 2706703: \"Pot pie, chicken\"."
+    },
+    {
+      "key": "meatloaf",
+      "name": "Meatloaf",
+      "category": "Mixed dishes",
+      "aliases": [
+        "meatloaf",
+        "meat loaf"
+      ],
+      "from": {
+        "fdc": 2706499
+      },
+      "basis": "USDA FNDDS 2021-2023 2706499: \"Meat loaf made with beef\". FNDDS \"Meat loaf made with beef\"."
+    },
+    {
+      "key": "jambalaya",
+      "name": "Jambalaya",
+      "category": "Mixed dishes",
+      "aliases": [
+        "jambalaya"
+      ],
+      "from": {
+        "fdc": 2706727
+      },
+      "basis": "USDA FNDDS 2021-2023 2706727: \"Jambalaya with meat and rice\"."
+    },
+    {
+      "key": "paella",
+      "name": "Paella",
+      "category": "Mixed dishes",
+      "aliases": [
+        "paella"
+      ],
+      "from": {
+        "fdc": 2706723
+      },
+      "basis": "USDA FNDDS 2021-2023 2706723: \"Paella, NFS\"."
+    },
+    {
+      "key": "quiche",
+      "name": "Quiche (cheese)",
+      "category": "Mixed dishes",
+      "aliases": [
+        "quiche",
+        "cheese quiche"
+      ],
+      "from": {
+        "fdc": 2708733
+      },
+      "basis": "USDA FNDDS 2021-2023 2708733: \"Cheese quiche, meatless\"."
+    },
+    {
+      "key": "quiche-lorraine",
+      "name": "Quiche with meat (quiche Lorraine)",
+      "category": "Mixed dishes",
+      "aliases": [
+        "quiche lorraine",
+        "quiche"
+      ],
+      "from": {
+        "fdc": 2708731
+      },
+      "basis": "USDA FNDDS 2021-2023 2708731: \"Quiche with meat, poultry or fish\"."
+    },
+    {
+      "key": "clam-chowder",
+      "name": "Clam chowder (New England)",
+      "category": "Soups",
+      "aliases": [
+        "clam chowder",
+        "chowder"
+      ],
+      "from": {
+        "fdc": 2707139
+      },
+      "basis": "USDA FNDDS 2021-2023 2707139: \"Soup, New England clam chowder\"."
+    },
+    {
+      "key": "minestrone",
+      "name": "Minestrone soup",
+      "category": "Soups",
+      "aliases": [
+        "minestrone"
+      ],
+      "from": {
+        "fdc": 2710114
+      },
+      "basis": "USDA FNDDS 2021-2023 2710114: \"Soup, minestrone\"."
+    },
+    {
+      "key": "pea-soup-ham",
+      "name": "Split pea soup with ham",
+      "category": "Soups",
+      "aliases": [
+        "pea soup",
+        "split pea soup",
+        "habitant pea soup",
+        "soupe aux pois"
+      ],
+      "from": {
+        "fdc": 171555
+      },
+      "basis": "USDA SR Legacy 171555: \"Soup, pea, split with ham, canned, chunky, ready-to-serve\"."
+    },
+    {
+      "key": "pancakes",
+      "name": "Pancakes",
+      "category": "Breakfast",
+      "aliases": [
+        "pancakes",
+        "pancake",
+        "flapjacks"
+      ],
+      "from": {
+        "fdc": 2708304
+      },
+      "basis": "USDA FNDDS 2021-2023 2708304: \"Pancakes, plain\"."
+    },
+    {
+      "key": "waffle",
+      "name": "Waffle",
+      "category": "Breakfast",
+      "aliases": [
+        "waffle",
+        "waffles"
+      ],
+      "from": {
+        "fdc": 2708325
+      },
+      "basis": "USDA FNDDS 2021-2023 2708325: \"Waffle, plain\"."
+    },
+    {
+      "key": "french-toast",
+      "name": "French toast",
+      "category": "Breakfast",
+      "aliases": [
+        "french toast",
+        "pain perdu"
+      ],
+      "from": {
+        "fdc": 2708335
+      },
+      "basis": "USDA FNDDS 2021-2023 2708335: \"French toast, plain\"."
+    },
+    {
+      "key": "hash-browns-fast-food",
+      "name": "Hash brown (fast food)",
+      "category": "Breakfast",
+      "aliases": [
+        "hash brown",
+        "hash browns",
+        "hashbrown"
+      ],
+      "from": {
+        "fdc": 2709478
+      },
+      "basis": "USDA FNDDS 2021-2023 2709478: \"Potato, hash brown, from fast food\"."
+    },
+    {
+      "key": "crepe",
+      "name": "Crepe",
+      "category": "Breakfast",
+      "aliases": [
+        "crepe",
+        "crepes",
+        "crêpe"
+      ],
+      "from": {
+        "fdc": 2708342
+      },
+      "basis": "USDA FNDDS 2021-2023 2708342: \"Crepe, plain\"."
+    },
+    {
+      "key": "doughnut",
+      "name": "Doughnut",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "donut",
+        "doughnut",
+        "donuts"
+      ],
+      "from": {
+        "fdc": 2708062
+      },
+      "basis": "USDA FNDDS 2021-2023 2708062: \"Doughnut, NFS\"."
+    },
+    {
+      "key": "cinnamon-bun",
+      "name": "Cinnamon bun, frosted",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "cinnamon bun",
+        "cinnamon roll",
+        "cinnabon"
+      ],
+      "from": {
+        "fdc": 2707668
+      },
+      "basis": "USDA FNDDS 2021-2023 2707668: \"Roll, sweet, cinnamon bun, frosted\"."
+    },
+    {
+      "key": "cheesecake",
+      "name": "Cheesecake",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "cheesecake"
+      ],
+      "from": {
+        "fdc": 2707861
+      },
+      "basis": "USDA FNDDS 2021-2023 2707861: \"Cheesecake, plain\"."
+    },
+    {
+      "key": "brownie",
+      "name": "Brownie",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "brownie",
+        "brownies"
+      ],
+      "from": {
+        "fdc": 2707903
+      },
+      "basis": "USDA FNDDS 2021-2023 2707903: \"Cookie, brownie, NS as to icing\"."
+    },
+    {
+      "key": "apple-pie",
+      "name": "Apple pie",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "apple pie"
+      ],
+      "from": {
+        "fdc": 2707995
+      },
+      "basis": "USDA FNDDS 2021-2023 2707995: \"Pie, apple\"."
+    },
+    {
+      "key": "pecan-pie",
+      "name": "Pecan pie",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "pecan pie"
+      ],
+      "from": {
+        "fdc": 2708015
+      },
+      "basis": "USDA FNDDS 2021-2023 2708015: \"Pie, pecan\"."
+    },
+    {
+      "key": "tiramisu",
+      "name": "Tiramisu",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "tiramisu"
+      ],
+      "from": {
+        "fdc": 2705702
+      },
+      "basis": "USDA FNDDS 2021-2023 2705702: \"Tiramisu\"."
+    },
+    {
+      "key": "churros",
+      "name": "Churros",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "churro",
+        "churros"
+      ],
+      "from": {
+        "fdc": 2708070
+      },
+      "basis": "USDA FNDDS 2021-2023 2708070: \"Churros\"."
+    },
+    {
+      "key": "sundae-hot-fudge",
+      "name": "Hot fudge sundae",
+      "category": "Desserts and sweets",
+      "aliases": [
+        "sundae",
+        "hot fudge sundae"
+      ],
+      "from": {
+        "fdc": 2705661
+      },
+      "basis": "USDA FNDDS 2021-2023 2705661: \"Ice cream sundae, hot fudge topping\"."
+    }
+  ]
+}
