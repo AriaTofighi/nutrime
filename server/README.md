@@ -90,6 +90,7 @@ Admin APIs (all require a signed-in account in `ADMIN_EMAILS`):
 | `GEMINI_MODEL` | `gemini-3.8-flash` | Gemini model id |
 | `GEMINI_THINKING_LEVEL` | model default | Optional `minimal`, `low`, `medium` or `high`; lower is faster and cheaper |
 | `AI_DAILY_MESSAGES` | `150` | Assistant messages each user can send per 24 hours |
+| `WEB_LOOKUP_DAILY_LIMIT` | `30` | Foods each user's assistant can look up on the web per 24 hours (`web_nutrition_lookup`); `0` turns the web lookup off |
 | `ADMIN_EMAILS` | (none) | Comma-separated owner/admin account emails; admins can manage invitations and list candidates for the curated food database at `GET /api/foods/candidates` (see `data/foods/README.md`) |
 | `FOODS_DB_PATH` | `/app/foods.db` | The bundled USDA food database (copied into the image from the Android app) |
 
@@ -137,7 +138,9 @@ and one conversation history. Each turn:
    `get_nutrient_report`, `get_weight_history`, `get_frequent_foods`, `search_foods` (several foods per
    call: the user's foods, the bundled USDA database, then the USDA API and Open Food Facts when local
    results are few or miss a word such as a brand), `get_food`, `get_my_foods` (custom foods and recipes with
-   their ingredients), and `search_diary` (foods logged on any day, by name).
+   their ingredients), `search_diary` (foods logged on any day, by name), and `web_nutrition_lookup`.
+   `search_foods` gives each result a match quality (`exact`, `close`, `weak`) and each query a
+   `confidence`; when it is not `high`, the note points the model to `web_nutrition_lookup`.
 3. The model calls tools (those in one step run in parallel), the server runs them and sends back the
    results. A turn may make 30 tool calls or 10 model calls; after that the model gets a few more calls
    with only the `propose_*` tools, so it still ends with a proposal rather than stopping. Text, tool
@@ -157,6 +160,20 @@ and one conversation history. Each turn:
    (`ai_proposal_undo`), so **Undo** (`POST /api/ai/proposals/{id}/undo`) puts them back and makes the card
    pending again; records changed since then are left as they are.
 
+**Web lookup.** `web_nutrition_lookup` finds published nutrition (a brand's or restaurant's own page, the
+Canadian page first) for up to 5 foods per call and 2 calls per message. Each food is a separate,
+non-streaming Gemini request with Google Search grounding that must answer with strict JSON; the server then
+checks the numbers (no negative values; calories within 15% or 20 kcal of 4/4/9 × protein, carbs and fat; at
+most 900 kcal per 100 g) and drops answers that fail. Results are cached for 90 days (not-found answers for
+one day) in `web_lookup_cache` under a hash of the request, and each user's lookups are counted in
+`web_lookup_uses` against `WEB_LOOKUP_DAILY_LIMIT`. Queries and answers are never logged. The model then
+uses `propose_create_food` with `source_url` and `source_note`; the card shows "From the web: <site>", and
+the admin's foods made this way appear in `GET /api/foods/candidates` with that page. Without a Gemini key the
+tool answers `unavailable`. The model's order for a food is: the user's own foods and history, NutriMe's
+curated foods and USDA, the stored catalog (Open Food Facts, USDA Branded), the web lookup, a recipe from
+ingredients, and an estimate (`propose_quick_add`) last. A plain food under a brand ("Kirkland blueberries")
+uses the plain database food with `substitute_for` instead of a web lookup.
+
 The apps send their region (`country`, an ISO code) with chat messages and online food searches. Results are
 ranked by `FoodQuality` (shared/): name match first, then how complete the data is (lab analyses list vitamins
 and minerals; most Open Food Facts and branded entries copy only the label), then the source, with a small lift
@@ -171,7 +188,7 @@ their own assistant chats: model text, each function call with its arguments, an
 are never shown.
 
 **Evaluation.** `evals/cases.json` holds fixed requests with the expected card (foods, calories, at
-most one card, no estimates). `GEMINI_API_KEY=... ./gradlew evalAssistant` runs them with the real
+most one card, no estimates, a food made from a web page or none). `GEMINI_API_KEY=... ./gradlew evalAssistant` runs them with the real
 model and prints what passed. It calls the Gemini API, so it is not part of `test`; run it only when
 needed. `EVAL_ONLINE=1` also lets food search call USDA and Open Food Facts.
 

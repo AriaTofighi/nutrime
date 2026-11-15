@@ -64,10 +64,22 @@ val TOOL_DECLARATIONS: JsonArray = buildJsonArray {
         obj("days" to int("How many days back to include. Default 90."))))
     add(fn("get_frequent_foods", "Foods the user logs most often recently, with the amount they usually have. Prefer these when they match.",
         obj("limit" to int("Default 15"))))
-    add(fn("search_foods", "Search foods: the user's own foods and recipes, the USDA database, and branded products (USDA, Open Food Facts). " +
-        "Pass every food you need in one call. For each query returns food_id, calories and macros per 100 g and serving sizes, " +
-        "plus missing_words: query words no result contains (usually a brand that isn't in the database).",
+    add(fn("search_foods", "Search foods: the user's own foods and recipes, NutriMe and USDA foods, saved catalog products, and (only " +
+        "when nothing matches every word) branded products online. Pass every food you need in one call. For each query returns up to 6 " +
+        "foods with food_id, match (exact, close or weak), calories per 100 g and per default serving, macros, servings and source, a " +
+        "confidence (high, low or none) and missing_words: query words no result contains (usually a brand that isn't in the database).",
         obj("queries" to arr(str(), "One query per food, e.g. ['greek yogurt plain', 'kirkland coconut water', 'basmati rice cooked']"), required = listOf("queries"))))
+    add(fn("web_nutrition_lookup", "Find published nutrition (official brand or restaurant page, package label) for branded or restaurant " +
+        "foods that search_foods didn't find (confidence low or none). Up to 5 items per call, at most 2 calls per message, and a daily " +
+        "limit. Returns per-serving calories and macros, serving size and source_url for each item, checked on the server; then use " +
+        "propose_create_food with source_url and source_note.",
+        obj("items" to arr(obj(
+            "name" to str("The food as sold, e.g. 'Big Mac' or 'Greek yogurt 0% plain'"),
+            "brand" to str("Brand of a packaged product"),
+            "restaurant" to str("Restaurant or chain, e.g. 'McDonald's'"),
+            "amount" to str("What they had, e.g. 'medium' or '2 pieces', to pick the size"),
+            required = listOf("name"),
+        )), required = listOf("items"))))
     add(fn("get_food", "All nutrients (per 100 g) and serving sizes of one food. For the user's recipes also the ingredients.",
         obj("food_id" to str(), required = listOf("food_id"))))
     add(fn("get_my_foods", "The user's own custom foods and recipes (recipes with their ingredients), and online foods they saved by logging them. " +
@@ -167,9 +179,12 @@ val TOOL_DECLARATIONS: JsonArray = buildJsonArray {
     add(fn("get_top_sources", "The foods that gave the most of one nutrient over a date range, with their share.",
         obj("nutrient" to str("Nutrient name, e.g. 'sodium', 'protein', 'vitamin D', 'fiber'"),
             "start_date" to str("YYYY-MM-DD"), "end_date" to str("YYYY-MM-DD"), required = listOf("nutrient"))))
-    add(fn("propose_create_food", "Propose saving a custom food from a nutrition label (amounts per serving as printed), optionally logging it too.",
+    add(fn("propose_create_food", "Propose saving a custom food from a nutrition label or a web_nutrition_lookup result (amounts per serving " +
+        "as published), optionally logging it too.",
         obj(
             "name" to str(), "brand" to str(),
+            "source_url" to str("The source_url of a web_nutrition_lookup result; omit for a label the user showed"),
+            "source_note" to str("Short note on the source, e.g. 'McDonald's Canada nutrition page'"),
             "serving_label" to str("e.g. '1 bar' or '2/3 cup'"),
             "serving_grams" to num("Serving size in grams (or ml for drinks)"),
             *LABEL_FIELDS.map { (k, _) -> k to num() }.toTypedArray(),
@@ -194,6 +209,13 @@ fun toolLabel(name: String, args: JsonObject): String = when (name) {
             0 -> "Searching foods"
             1 -> "Searching foods for “${q[0]}”"
             else -> "Searching ${q.size} foods"
+        }
+    }
+    "web_nutrition_lookup" -> ((args["items"] as? JsonArray)?.mapNotNull { (it as? JsonObject)?.s("name") }.orEmpty()).let { n ->
+        when (n.size) {
+            0 -> "Searching the web"
+            1 -> "Searching the web for “${n[0]}”"
+            else -> "Searching the web for ${n.size} foods"
         }
     }
     "get_food" -> "Looking up a food"

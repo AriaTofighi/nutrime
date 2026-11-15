@@ -63,6 +63,35 @@
       "message": "Review my last 7 days: calories against my target, my trend weight and daily burn, my three weakest nutrients and where they come from, and one suggestion for next week.",
       "localTime": "19:00",
       "expect": { "maxCards": 0 }
+    },
+    {
+      "name": "Restaurant item not in the database (web lookup)",
+      "message": "For lunch I had a Big Mary sandwich from Mary Brown's.",
+      "localTime": "13:10",
+      "expect": { "maxCards": 1, "noEstimates": true, "webSource": true, "items": [{ "name": "big mary" }] }
+    },
+    {
+      "name": "Branded snack not in the database (web lookup)",
+      "message": "Log one bag of Old Dutch Ripples Original potato chips, the 40 g snack bag, as a snack.",
+      "localTime": "16:00",
+      "expect": { "maxCards": 1, "noEstimates": true, "items": [{ "name": "chips" }] }
+    },
+    {
+      "name": "Plain foods stay in the database (no web lookup)",
+      "message": "Breakfast: 1 medium banana and 250 ml of 2% milk.",
+      "localTime": "08:00",
+      "expect": {
+        "maxCards": 1,
+        "noEstimates": true,
+        "noWeb": true,
+        "items": [{ "name": "banana", "kcal": 105 }, { "name": "milk", "kcal": 129, "tolerance": 0.2 }]
+      }
+    },
+    {
+      "name": "Plain food under a brand uses substitute_for",
+      "message": "I ate 1 cup of Kirkland frozen blueberries.",
+      "localTime": "10:30",
+      "expect": { "maxCards": 1, "noEstimates": true, "noWeb": true, "items": [{ "name": "blueberries" }] }
     }
   ]
 }

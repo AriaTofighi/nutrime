@@ -1,6 +1,9 @@
 package com.nutrime.server
 
 import com.nutrime.server.ai.LlmClient
+import com.nutrime.server.ai.WebAnswer
+import com.nutrime.server.ai.WebNutrition
+import com.nutrime.server.ai.WebNutritionClient
 import com.nutrime.server.ai.StoredMessage
 import com.nutrime.server.ai.historyForModel
 import io.ktor.client.call.body
@@ -76,12 +79,12 @@ class AssistantTest {
     )
 
     /** Registers a user, sends one chat message, and returns the SSE events. */
-    private fun chat(llm: FakeLlm, message: String): List<Pair<String, JsonObject>> {
+    private fun chat(llm: FakeLlm, message: String, web: WebNutritionClient? = null): List<Pair<String, JsonObject>> {
         val cfg = config()
         var out: List<Pair<String, JsonObject>> = emptyList()
         testApplication {
             val db = connectDatabase(cfg)
-            application { module(cfg, db, llm) }
+            application { module(cfg, db, llm, web) }
             val c = createClient { install(ContentNegotiation) { json() } }
             val auth = c.post("/api/auth/register") {
                 contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, "me@example.com", "password123"))
@@ -318,5 +321,110 @@ class AssistantTest {
         assertTrue(first["kcal_mismatches"]!!.jsonArray.single().jsonPrimitive.content.contains("expected 300"))
         assertEquals("pending", lastResponse(llm.requests[2])["status"]!!.jsonPrimitive.content)
         assertEquals(1, ev.count { it.first == "proposal" })
+    }
+
+    /** A web client that answers from a fixed map by item name and counts its calls. */
+    private class FakeWeb(private val answers: Map<String, WebAnswer>) : WebNutritionClient {
+        val calls = java.util.concurrent.atomic.AtomicInteger()
+        override suspend fun lookup(item: com.nutrime.server.ai.WebItem): WebAnswer {
+            calls.incrementAndGet()
+            return answers[item.name] ?: WebAnswer(problem = "Not found.")
+        }
+    }
+
+    private fun webItems(vararg names: String) = buildJsonObject {
+        putJsonArray("items") { names.forEach { n -> add(buildJsonObject { put("name", n); put("restaurant", "Example Diner") }) } }
+    }
+
+    // 4 × 30 + 4 × 40 + 9 × 20 = 460 kcal, 300 g.
+    private val burger = WebNutrition(
+        name = "Example Burger", brand = "Example Diner", servingLabel = "1 burger", servingGrams = 300.0,
+        calories = 460.0, proteinG = 30.0, carbsG = 40.0, fatG = 20.0, sodiumMg = 900.0,
+        sourceUrl = "https://www.example.com/nutrition/burger", sourceNote = "Nutrition guide, 2026",
+    )
+
+    @Test
+    fun webLookupFindsChecksAndCreatesFoodWithSource() {
+        // Fat is far too low for 900 kcal: the Atwater check rejects it.
+        val bad = burger.copy(name = "Bad Burger", calories = 900.0)
+        val web = FakeWeb(mapOf("Example Burger" to WebAnswer(burger), "Bad Burger" to WebAnswer(bad)))
+        val llm = FakeLlm(listOf(
+            { _ -> listOf(chunk(call("web_nutrition_lookup", webItems("Example Burger", "Bad Burger", "Mystery Wrap")))) },
+            { req ->
+                val r = lastResponse(req)["results"]!!.jsonArray.map { it.jsonObject }
+                val found = r.first { it["item"]!!.jsonPrimitive.content.contains("Example Burger") }
+                listOf(chunk(call("propose_create_food", buildJsonObject {
+                    put("name", found["name"]!!.jsonPrimitive.content); put("brand", "Example Diner")
+                    put("serving_label", "1 burger"); put("serving_grams", 300); put("calories", 460)
+                    put("protein_g", 30); put("carbs_g", 40); put("fat_g", 20)
+                    put("source_url", found["source_url"]!!.jsonPrimitive.content); put("source_note", "Nutrition guide, 2026")
+                    put("log_quantity", 1); put("log_meal", "lunch")
+                })))
+            },
+            { _ -> listOf(chunk(text("Made the burger from the diner's page."))) },
+        ))
+        val ev = chat(llm, "I had the Example Burger at Example Diner", web)
+        val results = lastResponse(llm.requests[1])["results"]!!.jsonArray.map { it.jsonObject }
+        fun status(name: String) = results.first { it["item"]!!.jsonPrimitive.content.contains(name) }["status"]!!.jsonPrimitive.content
+        assertEquals("found", status("Example Burger"))
+        assertEquals("not_found", status("Bad Burger"))
+        assertEquals("not_found", status("Mystery Wrap"))
+        val found = results.first { it["item"]!!.jsonPrimitive.content.contains("Example Burger") }
+        assertEquals("example.com", found["source_host"]!!.jsonPrimitive.content)
+        assertEquals(3, web.calls.get())
+        val proposal = ev.first { it.first == "proposal" }.second["proposal"]!!.jsonObject
+        val create = proposal["items"]!!.jsonArray.map { it.jsonObject }.first { it["kind"]!!.jsonPrimitive.content == "create_food" }
+        assertEquals("From the web: example.com", create["source"]!!.jsonPrimitive.content)
+        assertTrue(create["detail"]!!.jsonPrimitive.content.contains("From the web: example.com"))
+    }
+
+    @Test
+    fun webLookupLimitsAndUnavailable() {
+        val web = FakeWeb(mapOf("Example Burger" to WebAnswer(burger)))
+        val llm = FakeLlm(listOf(
+            { _ -> listOf(chunk(call("web_nutrition_lookup", webItems("A", "B", "C", "D", "E", "F")))) },
+            { _ -> listOf(chunk(call("web_nutrition_lookup", webItems("Example Burger")))) },
+            { _ -> listOf(chunk(call("web_nutrition_lookup", webItems("Example Burger")))) },
+            { _ -> listOf(chunk(call("web_nutrition_lookup", webItems("Mystery Wrap")))) },
+            { _ -> listOf(chunk(text("Done."))) },
+        ))
+        chat(llm, "look these up", web)
+        // More than 5 items is refused before any lookup.
+        assertTrue(lastResponse(llm.requests[1])["error"]!!.jsonPrimitive.content.contains("At most 5 items"))
+        assertEquals("found", lastResponse(llm.requests[2])["results"]!!.jsonArray.single().jsonObject["status"]!!.jsonPrimitive.content)
+        // The second lookup of the same item comes from the cache.
+        assertEquals("found", lastResponse(llm.requests[3])["results"]!!.jsonArray.single().jsonObject["status"]!!.jsonPrimitive.content)
+        assertEquals(1, web.calls.get())
+        // A third call in one message is refused.
+        assertTrue(lastResponse(llm.requests[4])["error"]!!.jsonPrimitive.content.contains("web lookups per message"))
+
+        // Without a web client (the test model has no Gemini key path), the tool says it is unavailable.
+        val plain = FakeLlm(listOf(
+            { _ -> listOf(chunk(call("web_nutrition_lookup", webItems("Example Burger")))) },
+            { _ -> listOf(chunk(text("Done."))) },
+        ))
+        chat(plain, "look it up")
+        assertEquals("unavailable", lastResponse(plain.requests[1])["status"]!!.jsonPrimitive.content)
+    }
+
+    @Test
+    fun webNutritionChecks() {
+        val v = com.nutrime.server.ai.WebLookup
+        assertEquals(null, v.validate(burger))
+        assertTrue(v.validate(burger.copy(calories = 900.0)) != null, "Atwater mismatch")
+        assertTrue(v.validate(burger.copy(servingGrams = 40.0)) != null, "more than 900 kcal per 100 g")
+        assertTrue(v.validate(burger.copy(sourceUrl = "ftp://example.com/x")) != null, "not an http(s) source")
+        assertTrue(v.validate(burger.copy(proteinG = -1.0)) != null, "negative value")
+        // The model's JSON answer may come in a code fence; the page comes from the answer or the search grounding.
+        val answer = JsonObject(Json.encodeToJsonElement(WebNutrition.serializer(), burger).jsonObject + ("found" to JsonPrimitive(true)))
+        val body = buildJsonObject {
+            putJsonArray("candidates") { add(buildJsonObject {
+                putJsonObject("content") { putJsonArray("parts") { add(buildJsonObject { put("text", "```json\n$answer\n```") }) } }
+            }) }
+        }.toString()
+        val client = com.nutrime.server.ai.GeminiWebNutritionClient("test", "test")
+        assertEquals(burger, client.parse(body).found)
+        val notFound = body.replace("\\\"found\\\":true", "\\\"found\\\":false")
+        assertEquals(null, client.parse(notFound).found)
     }
 }

@@ -301,6 +301,7 @@ private fun stepsSummary(steps: List<ChatBlock.Tool>): String {
     val names = steps.map { it.name }.toSet()
     val did = buildList {
         if (names.any { it in setOf("search_foods", "get_food", "get_frequent_foods") }) add("looked up foods")
+        if ("web_nutrition_lookup" in names) add("searched the web")
         if (names.any { it in setOf("get_day", "get_nutrient_report", "get_weight_history") }) add("checked your diary")
         if (names.any { it.startsWith("propose_") }) add("prepared changes")
     }.ifEmpty { listOf("worked") }
@@ -401,6 +402,10 @@ fun ProposalCard(
                 val detail = if (food) listOfNotNull(item.amount, item.kcal?.let { "${it.roundToInt()} kcal" },
                     if (meals.size == 1) null else item.meal?.let { MEAL_NAMES.getOrNull(it) }).joinToString(" · ") else item.detail
                 Text(detail, style = NutriTheme.type.small, color = c.textSecondary)
+                // A food made from a web page names the page's site ("From the web: example.com").
+                if (item.kind == "create_food") item.source?.takeIf { it !in detail }?.let {
+                    Text(it, style = NutriTheme.type.caption, color = c.textTertiary)
+                }
                 item.note?.let {
                     Text(it, style = NutriTheme.type.caption, color = if (item.badge == "match" || item.badge == null) c.textTertiary else c.warning)
                 }

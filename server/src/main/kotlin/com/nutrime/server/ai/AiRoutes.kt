@@ -62,10 +62,17 @@ private const val MAX_IMAGES = 4
 private const val MAX_IMAGE_BYTES = 4 * 1024 * 1024
 private const val MAX_TEXT = 4000
 
-class Assistant(private val config: Config, private val db: Database, llm: LlmClient?, catalog: com.nutrime.server.food.FoodCatalog = com.nutrime.server.food.FoodCatalog(config, db)) {
+class Assistant(
+    private val config: Config, private val db: Database, llm: LlmClient?,
+    catalog: com.nutrime.server.food.FoodCatalog = com.nutrime.server.food.FoodCatalog(config, db),
+    webClient: WebNutritionClient? = null,
+) {
     private val log = LoggerFactory.getLogger(Assistant::class.java)
     private val llm: LlmClient? = llm ?: config.geminiApiKey?.let { GeminiClient(it, config.geminiModel, config.geminiBaseUrl) }
     private val foods = FoodSearch(config.foodsDbPath, config.foodSearchOnline, catalog)
+    /** With a fake model (tests) only a given web client is used, never the real one. */
+    private val web = WebLookup(db, webClient ?: if (llm == null) config.geminiApiKey?.let { GeminiWebNutritionClient(it, config.geminiModel, config.geminiBaseUrl) } else null,
+        config.webLookupDailyLimit)
     private val proposals = ProposalStore(db)
     private val admin = com.nutrime.server.AdminAccess(config, db)
     private val generationConfig: JsonObject? = config.geminiThinkingLevel?.let { level ->
@@ -252,7 +259,7 @@ class Assistant(private val config: Config, private val db: Database, llm: LlmCl
             val statuses = proposals.views(uid, proposalIds(stored), today).mapValues { it.value.status }
             val history = historyForModel(withProposalStatus(stored, statuses))
             val data = UserData(db, uid)
-            val ctx = ToolContext(data, foods, proposals, conversationId, today, com.nutrime.server.food.countryName(req.country))
+            val ctx = ToolContext(data, foods, proposals, conversationId, today, com.nutrime.server.food.countryName(req.country), web)
 
             call.response.cacheControl(CacheControl.NoCache(null))
             // Tell nginx (and other proxies) not to buffer the stream.

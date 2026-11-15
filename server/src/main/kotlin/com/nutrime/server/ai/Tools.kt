@@ -28,7 +28,11 @@ class ToolContext(
     val today: String,
     /** The user's country as Open Food Facts names it ("canada"), from the app's region. */
     val country: String? = null,
+    /** web_nutrition_lookup; null when the server has none. */
+    val web: WebLookup? = null,
 ) {
+    /** web_nutrition_lookup calls in this message. */
+    val webCalls = java.util.concurrent.atomic.AtomicInteger()
     /** This message's card: every propose_* call in one turn adds to it. */
     @Volatile var draftId: String? = null
     val draftLock = kotlinx.coroutines.sync.Mutex()
@@ -60,6 +64,7 @@ suspend fun runTool(ctx: ToolContext, name: String, args: JsonObject): Pair<Json
             args.s("start_date")?.let { date(ctx, it) } ?: LocalDate.parse(ctx.today).minusDays(29).toString(), date(ctx, args.s("end_date"))) to null
         "get_frequent_foods" -> frequentFoods(ctx, args.n("limit")?.toInt() ?: 15) to null
         "search_foods" -> searchFoods(ctx, searchQueries(args).ifEmpty { throw ToolError("queries is required") }) to null
+        "web_nutrition_lookup" -> webNutritionLookup(ctx, args) to null
         "get_food" -> getFood(ctx, args.s("food_id") ?: throw ToolError("food_id is required")) to null
         "propose_log_foods" -> {
             val items = args.list("items")

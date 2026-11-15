@@ -429,6 +429,7 @@ function stepsSummary(steps: ToolBlock[]): string {
   const has = (...n: string[]) => n.some((x) => names.has(x));
   const did = [
     has("search_foods", "get_food", "get_frequent_foods") && "looked up foods",
+    has("web_nutrition_lookup") && "searched the web",
     has("get_day", "get_nutrient_report", "get_weight_history") && "checked your diary",
     [...names].some((n) => n.startsWith("propose_")) && "prepared changes",
   ].filter(Boolean) as string[];
@@ -517,6 +518,9 @@ function ProposalCard({ p, busy }: { p: Proposal; busy: boolean }) {
                   ? [item.amount, item.kcal != null ? `${Math.round(item.kcal)} kcal` : null, meals.size > 1 || single ? null : item.meal != null ? MEALS[item.meal] : null].filter(Boolean).join(" · ")
                   : item.detail}
               </span>
+              {item.kind === "create_food" && item.source && !item.detail.includes(item.source) && (
+                <span className="proposal-note">{item.source}</span>
+              )}
               {item.note && <span className={`proposal-note ${item.badge ?? ""}`}>{item.note}</span>}
             </button>
           ))}

@@ -33,11 +33,19 @@ import kotlin.system.exitProcess
  * It calls the Gemini API, so run it only when asked:
  *   cd server && GEMINI_API_KEY=... ./gradlew evalAssistant
  * EVAL_ONLINE=1 also lets food search call USDA and Open Food Facts (off by default, for repeatable runs).
- * EVAL_CASES=path picks another cases file.
+ * EVAL_CASES=path picks another cases file. Cases with "webSource" use web_nutrition_lookup (Gemini with
+ * Google Search), which counts against WEB_LOOKUP_DAILY_LIMIT for the eval user.
  */
 
 @Serializable private data class EvalItem(val name: String, val kcal: Double? = null, val tolerance: Double = 0.15)
-@Serializable private data class EvalExpect(val maxCards: Int = 1, val noEstimates: Boolean = false, val items: List<EvalItem> = emptyList())
+/**
+ * [webSource]: the card must create a food from a web page ("From the web: …"). [noWeb]: it must not
+ * (plain foods are in the database, and a plain food under a brand uses substitute_for).
+ */
+@Serializable private data class EvalExpect(
+    val maxCards: Int = 1, val noEstimates: Boolean = false, val items: List<EvalItem> = emptyList(),
+    val webSource: Boolean = false, val noWeb: Boolean = false,
+)
 @Serializable private data class EvalCase(val name: String, val message: String, val localTime: String = "12:00", val expect: EvalExpect = EvalExpect())
 @Serializable private data class EvalFile(val cases: List<EvalCase>)
 
@@ -95,6 +103,9 @@ private fun runCase(key: String, case: EvalCase): List<String> {
         val items = cards.flatMap { it["items"]!!.jsonArray.map { i -> i.jsonObject } }
         fun JsonObject.s(k: String) = this[k]?.jsonPrimitive?.content
         if (case.expect.noEstimates) items.filter { it.s("kind") == "quick_add" }.forEach { problems += "Estimate instead of a database food: ${it.s("title")}" }
+        val fromWeb = items.filter { it.s("kind") == "create_food" && it.s("source").orEmpty().startsWith("From the web") }
+        if (case.expect.webSource && fromWeb.isEmpty()) problems += "No food created from a web page"
+        if (case.expect.noWeb) fromWeb.forEach { problems += "Web food where the database has one: ${it.s("title")}" }
         case.expect.items.forEach { want ->
             val words = want.name.lowercase().split(' ').filter { it.isNotBlank() }
             val match = items.firstOrNull { item -> val t = (item.s("name") ?: item.s("title")).orEmpty().lowercase(); words.all { it in t } }

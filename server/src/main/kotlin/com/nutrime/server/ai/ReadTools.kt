@@ -414,3 +414,20 @@ internal fun searchDiary(ctx: ToolContext, queries: List<String>, from: String?,
         }
     }
 }
+
+/** web_nutrition_lookup: at most [WebLookup.MAX_ITEMS] items per call and [WebLookup.MAX_CALLS_PER_MESSAGE] calls per message. */
+internal suspend fun webNutritionLookup(ctx: ToolContext, args: JsonObject): JsonObject {
+    val items = args.list("items").map { o ->
+        val name = o.s("name")?.trim()?.takeIf { it.isNotEmpty() } ?: throw ToolError("Each item needs a name")
+        fun opt(k: String) = o.s(k)?.trim()?.takeIf { it.isNotEmpty() }?.take(120)
+        WebItem(name.take(160), opt("brand"), opt("restaurant"), opt("amount"))
+    }.distinct()
+    if (items.size > WebLookup.MAX_ITEMS) throw ToolError("At most ${WebLookup.MAX_ITEMS} items per call")
+    val web = ctx.web ?: return buildJsonObject {
+        put("status", "unavailable")
+        put("note", "Web lookup is not available. Use the closest database food (substitute_for), a recipe, or propose_quick_add.")
+    }
+    if (ctx.webCalls.incrementAndGet() > WebLookup.MAX_CALLS_PER_MESSAGE) throw ToolError(
+        "At most ${WebLookup.MAX_CALLS_PER_MESSAGE} web lookups per message. Use what you found, the closest database food, or propose_quick_add.")
+    return web.lookup(ctx.data.userId, items)
+}

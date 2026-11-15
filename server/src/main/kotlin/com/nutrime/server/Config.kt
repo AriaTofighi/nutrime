@@ -17,6 +17,8 @@ data class Config(
     val geminiThinkingLevel: String? = null,
     /** Assistant messages each user may send per rolling 24 hours. */
     val aiDailyLimit: Int = 150,
+    /** Web nutrition lookups (one Gemini request with Google Search each) per user per rolling 24 hours; 0 turns them off. */
+    val webLookupDailyLimit: Int = 30,
     /** USDA FoodData Central key for the shared catalog used by Android, web and the assistant. */
     val usdaApiKey: String = "DEMO_KEY",
     /** The bundled USDA food database (Android app's assets/foods.db). */
@@ -46,6 +48,7 @@ data class Config(
                 geminiBaseUrl = v("GEMINI_BASE_URL") ?: "https://generativelanguage.googleapis.com/v1beta",
                 geminiThinkingLevel = v("GEMINI_THINKING_LEVEL"),
                 aiDailyLimit = v("AI_DAILY_MESSAGES")?.toInt() ?: 150,
+                webLookupDailyLimit = v("WEB_LOOKUP_DAILY_LIMIT")?.toInt() ?: 30,
                 usdaApiKey = v("USDA_API_KEY")?.trim() ?: "DEMO_KEY",
                 foodsDbPath = v("FOODS_DB_PATH") ?: "/app/foods.db",
                 curatedFoodsPath = v("CURATED_FOODS_PATH") ?: "/app/curated-foods",

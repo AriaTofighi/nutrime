@@ -157,6 +157,9 @@ sealed class Action {
         val serving: Serving,
         /** Per 100 g. */
         val nutrients: Map<Int, Double>,
+        /** The page the numbers come from (web_nutrition_lookup), shown on the card as "From the web: <host>". */
+        val sourceUrl: String? = null,
+        val sourceNote: String? = null,
     ) : Action()
 }
 
@@ -222,6 +225,9 @@ data class ProposalItemEdit(
 
 val actionJson = Json { ignoreUnknownKeys = true; encodeDefaults = true; classDiscriminator = "type" }
 private val actionsSerializer = ListSerializer(Action.serializer())
+
+/** The actions stored in an [AiProposals] row, or an empty list when they cannot be read. */
+fun decodeActions(text: String): List<Action> = runCatching { actionJson.decodeFromString(actionsSerializer, text) }.getOrDefault(emptyList())
 
 private fun fmt1(d: Double) = if (d % 1.0 == 0.0) d.toLong().toString() else "%.1f".format(d).trimEnd('0').trimEnd('.')
 private fun kcalOf(per100: Map<Int, Double>, grams: Double) = (per100[N.ENERGY] ?: 0.0) * grams / 100.0
@@ -302,11 +308,17 @@ fun Action.item(today: String): ProposalItem = when (this) {
             (bodyFatPct?.let { " · ${fmt1(it)}% body fat" } ?: "") + dateSuffix(date, today),
         kind = "log_weight",
     )
-    is Action.CreateFood -> ProposalItem(
-        "New food: " + displayFoodName(name, brand),
-        "${serving.label} = ${fmt1(serving.grams)} g · ${kcalOf(nutrients, serving.grams).roundToInt()} kcal per serving",
-        kind = "create_food",
-    )
+    is Action.CreateFood -> {
+        val from = sourceUrl?.let { WebLookup.host(it) }?.let { "From the web: $it" }
+        ProposalItem(
+            "New food: " + displayFoodName(name, brand),
+            "${serving.label} = ${fmt1(serving.grams)} g · ${kcalOf(nutrients, serving.grams).roundToInt()} kcal per serving" +
+                (from?.let { " · $it" } ?: ""),
+            kind = "create_food",
+            source = from,
+            note = sourceNote?.take(200),
+        )
+    }
 }
 
 /** Calories within this share of what the user gave count as a match. */

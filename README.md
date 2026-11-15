@@ -36,7 +36,9 @@ app, and a small server that you host yourself for sync and an optional AI assis
 - **Your data**: export everything as CSV and JSON; import Cronometer, MyFitnessPal or NutriMe exports on
   the web.
 - **AI assistant** (optional, Gemini): ask about your diary and trends, or describe or photograph a meal
-  or a nutrition label to log it. It proposes changes; nothing is saved until you tap **Confirm**.
+  or a nutrition label to log it. When a restaurant or branded food is not in the database, it can look up
+  the published nutrition on the web and show the source site on the card. It proposes changes; nothing is
+  saved until you tap **Confirm**.
 - Material You dynamic colors, dark mode, metric or imperial units.
 
 ## Repository layout

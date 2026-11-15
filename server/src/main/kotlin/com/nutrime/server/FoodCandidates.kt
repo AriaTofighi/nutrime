@@ -6,7 +6,9 @@ import com.nutrime.server.food.CatalogFoods
 import com.nutrime.server.ai.encodeNutrients
 import com.nutrime.server.ai.encodeServings
 import com.nutrime.app.model.N
+import com.nutrime.server.ai.Action
 import com.nutrime.server.ai.DiaryRecord
+import com.nutrime.server.ai.decodeActions
 import com.nutrime.server.ai.FoodRecord
 import com.nutrime.server.ai.decodeNutrients
 import com.nutrime.server.ai.decodeServings
@@ -36,7 +38,8 @@ import kotlin.math.round
  *
  * Branded foods from USDA and Open Food Facts are public data, so every user's logs count toward the
  * ranking (only counts are returned, never who logged what). Custom foods are private: only the admin's
- * own custom foods (e.g. from label photos) are included.
+ * own custom foods (e.g. from label photos or from the assistant's web lookup) are included. A custom
+ * food made from a web page keeps that page as its `source_url`, with review status `unverified_web_lookup`.
  */
 class FoodCandidates(private val config: Config, private val db: Database) {
 
@@ -57,7 +60,14 @@ class FoodCandidates(private val config: Config, private val db: Database) {
         val logs = HashMap<String, Int>()
         val loggers = HashMap<String, MutableSet<String>>()
         val lastLogged = HashMap<String, String>()
+        val webSource = HashMap<String, Pair<String, String?>>()
         transaction(db) {
+            // Custom foods the admin made from a web page (applied web_nutrition_lookup → propose_create_food).
+            AiProposals.selectAll().where { (AiProposals.userId eq adminId) and (AiProposals.status eq "applied") }.forEach { row ->
+                decodeActions(row[AiProposals.actions]).filterIsInstance<Action.CreateFood>().forEach { a ->
+                    a.sourceUrl?.let { webSource[a.foodId] = it to a.sourceNote }
+                }
+            }
             Records.selectAll().where { (Records.collection eq "foods") and (Records.deleted eq false) }.forEach { row ->
                 val f = runCatching { recordJson.decodeFromString(FoodRecord.serializer(), row[Records.data]) }.getOrNull() ?: return@forEach
                 val owner = row[Records.userId]
@@ -103,6 +113,11 @@ class FoodCandidates(private val config: Config, private val db: Database) {
                             put("fetched_at", fetchedAt)
                             put("review_status", "unreviewed_provider_data")
                         }
+                        if (f.kind == "custom") webSource[f.id]?.let { (url, note) ->
+                            put("source_url", url)
+                            note?.let { put("source_note", it) }
+                            put("review_status", "unverified_web_lookup")
+                        }
                         put("name", f.name)
                         f.brand?.let { put("brand", it) }
                         f.barcode?.let { put("barcode", it) }
@@ -114,8 +129,10 @@ class FoodCandidates(private val config: Config, private val db: Database) {
                             flags(f, n).forEach { add(kotlinx.serialization.json.JsonPrimitive(it)) }
                             if (provenance[f.id] == null && f.kind != "custom")
                                 add(kotlinx.serialization.json.JsonPrimitive("user-saved copy; verify source and label"))
+                            if (f.kind == "custom" && f.id in webSource)
+                                add(kotlinx.serialization.json.JsonPrimitive("from a web lookup; check the page and the label"))
                         }
-                        put("draft", draft(f, n))
+                        put("draft", draft(f, n, webSource[f.id]?.first))
                     }
                 }
             }
@@ -133,7 +150,7 @@ class FoodCandidates(private val config: Config, private val db: Database) {
     }
 
     /** A curated entry built from the stored values, as the label would print them for one serving. */
-    private fun draft(f: FoodRecord, n: Map<Int, Double>): JsonObject {
+    private fun draft(f: FoodRecord, n: Map<Int, Double>, webUrl: String? = null): JsonObject {
         val serving = decodeServings(f.servingsJson).firstOrNull { it.grams > 0 }
         val g = serving?.grams ?: 100.0
         fun per(id: Int) = n[id]?.let { r(it * g / 100.0) }
@@ -148,7 +165,8 @@ class FoodCandidates(private val config: Config, private val db: Database) {
                 put("serving_g", r(g))
                 LABEL.forEach { (field, id) -> per(id)?.let { put(field, it) } }
             }
-            put("basis", "TODO: check against the package. Values from ${SOURCE[f.kind] ?: f.kind} ${f.id}.")
+            put("basis", "TODO: check against the package. Values from ${SOURCE[f.kind] ?: f.kind} ${f.id}" +
+                (webUrl?.let { " (web lookup: $it)" } ?: "") + ".")
         }
     }
 

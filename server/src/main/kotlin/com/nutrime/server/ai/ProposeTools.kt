@@ -272,7 +272,11 @@ internal fun createFood(ctx: ToolContext, o: JsonObject): List<Action> {
     val perServing = LABEL_FIELDS.mapNotNull { (k, id) -> o.n(k)?.let { id to it } }.toMap()
     if (perServing[N.ENERGY] == null) throw ToolError("calories is required")
     val serving = Serving(o.s("serving_label")?.takeIf { it.isNotBlank() } ?: "serving", grams)
-    val create = Action.CreateFood("custom:${UUID.randomUUID()}", name, o.s("brand")?.takeIf { it.isNotBlank() }, serving, per100(perServing, grams))
+    val sourceUrl = o.s("source_url")?.trim()?.takeIf { it.isNotEmpty() }?.also { url ->
+        if (WebLookup.host(url) == null || !(url.startsWith("https://") || url.startsWith("http://"))) throw ToolError("source_url must be an http(s) link")
+    }?.take(1000)
+    val create = Action.CreateFood("custom:${UUID.randomUUID()}", name, o.s("brand")?.takeIf { it.isNotBlank() }, serving, per100(perServing, grams),
+        sourceUrl, o.s("source_note")?.trim()?.takeIf { it.isNotEmpty() }?.take(200))
     val logQ = o.n("log_quantity")
     if (logQ == null || logQ <= 0) return listOf(create)
     return listOf(create, Action.LogFood(
