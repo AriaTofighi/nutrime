@@ -15,7 +15,8 @@ const LEVEL_LABEL: Record<string, string> = {
   minimal: "Minimal (fastest)",
   low: "Low",
   medium: "Medium",
-  high: "High (most careful)",
+  high: "High",
+  xhigh: "Extra high (most careful)",
 };
 
 interface Draft {

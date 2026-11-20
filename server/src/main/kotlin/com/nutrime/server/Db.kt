@@ -51,9 +51,10 @@ object AiConversations : Table("ai_conversations") {
 }
 
 /**
- * One Gemini `Content` per row, stored verbatim (including thought signatures, which Gemini
- * requires back on later turns). kind: "user" (a message typed by the user), "model", or "tool"
- * (function responses sent back to the model).
+ * One message per row: {"steps": [...]} in the Gemini Interactions API format, stored verbatim
+ * (thought steps carry signatures that Gemini needs back on later rounds). kind: "user" (a message
+ * typed by the user), "model", or "tool" (function results sent back to the model). Rows saved before
+ * the Interactions API hold a generateContent `Content` instead; see `steps` in Agent.kt.
  */
 object AiMessages : Table("ai_messages") {
     val id = long("id").autoIncrement()

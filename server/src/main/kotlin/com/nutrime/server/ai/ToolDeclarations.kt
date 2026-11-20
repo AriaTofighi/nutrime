@@ -14,7 +14,7 @@ import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.putJsonObject
 
 // ---------------------------------------------------------------------------------------------
-// Function declarations (Gemini's OpenAPI-style schema subset)
+// Function tools (Interactions API format: {type: "function", name, description, parameters as JSON Schema})
 // ---------------------------------------------------------------------------------------------
 
 private fun schema(type: String, description: String? = null) = buildJsonObject {
@@ -22,23 +22,24 @@ private fun schema(type: String, description: String? = null) = buildJsonObject 
     description?.let { put("description", it) }
 }
 
-private fun str(d: String? = null) = schema("STRING", d)
-private fun num(d: String? = null) = schema("NUMBER", d)
-private fun int(d: String? = null) = schema("INTEGER", d)
+private fun str(d: String? = null) = schema("string", d)
+private fun num(d: String? = null) = schema("number", d)
+private fun int(d: String? = null) = schema("integer", d)
 private fun enumStr(values: List<String>, d: String? = null) = buildJsonObject {
-    put("type", "STRING"); put("format", "enum"); d?.let { put("description", it) }
+    put("type", "string"); d?.let { put("description", it) }
     putJsonArray("enum") { values.forEach { add(it) } }
 }
 private fun arr(items: JsonObject, d: String? = null) = buildJsonObject {
-    put("type", "ARRAY"); d?.let { put("description", it) }; put("items", items)
+    put("type", "array"); d?.let { put("description", it) }; put("items", items)
 }
 private fun obj(vararg props: Pair<String, JsonObject>, required: List<String> = emptyList(), d: String? = null) = buildJsonObject {
-    put("type", "OBJECT"); d?.let { put("description", it) }
+    put("type", "object"); d?.let { put("description", it) }
     putJsonObject("properties") { props.forEach { (k, v) -> put(k, v) } }
     if (required.isNotEmpty()) putJsonArray("required") { required.forEach { add(it) } }
 }
 
 private fun fn(name: String, description: String, params: JsonObject? = null) = buildJsonObject {
+    put("type", "function")
     put("name", name)
     put("description", description)
     params?.let { put("parameters", it) }
@@ -102,7 +103,7 @@ val TOOL_DECLARATIONS: JsonArray = buildJsonArray {
             "expected_kcal" to num("Calories the user gave for this item (e.g. from a screenshot of another app), to check the entry against."),
             "substitute_for" to str("When this food stands in for something the user named that isn't in the database (usually a brand), the name they gave, e.g. 'Kirkland Signature Whole Strawberries'."),
             required = listOf("food_id", "meal"),
-        )), "allow_kcal_mismatch" to schema("BOOLEAN", "Propose even if entries differ from expected_kcal (only after you've checked and the difference is expected)."),
+        )), "allow_kcal_mismatch" to schema("boolean", "Propose even if entries differ from expected_kcal (only after you've checked and the difference is expected)."),
             required = listOf("items"))))
     add(fn("propose_quick_add", "Propose calorie/macro estimates for dishes with no reasonable database food (e.g. a restaurant dish). " +
         "Not for a brand that isn't found: log the closest plain food with substitute_for instead.",
@@ -122,7 +123,7 @@ val TOOL_DECLARATIONS: JsonArray = buildJsonArray {
         )), required = listOf("edits"))))
     add(fn("propose_copy_entries", "Propose copying existing diary entries (entry_id from get_day) to another day and/or meal, e.g. " +
         "'log yesterday's breakfast again'. Amounts stay the same.",
-        obj("entry_ids" to arr(str()), "date" to DATE, "meal" to schema("STRING", "Optional: put every copy in this meal (breakfast, lunch, dinner, snacks); default keeps each entry's meal"),
+        obj("entry_ids" to arr(str()), "date" to DATE, "meal" to schema("string", "Optional: put every copy in this meal (breakfast, lunch, dinner, snacks); default keeps each entry's meal"),
             required = listOf("entry_ids"))))
     add(fn("propose_delete_entries", "Propose removing diary entries (entry_id from get_day).",
         obj("entry_ids" to arr(str()), required = listOf("entry_ids"))))
@@ -142,7 +143,7 @@ val TOOL_DECLARATIONS: JsonArray = buildJsonArray {
                 required = listOf("food_id"),
             )),
             "replace_food_id" to str("A custom food or recipe of the user's that this recipe replaces (keeps its id)."),
-            "update_diary_entries" to schema("BOOLEAN", "With replace_food_id: also give the replaced food's diary entries the recipe's " +
+            "update_diary_entries" to schema("boolean", "With replace_food_id: also give the replaced food's diary entries the recipe's " +
                 "nutrients (their amounts stay). Use when the user wants past logs corrected."),
             "log_quantity" to num("Servings of the recipe to log as ONE diary entry (e.g. 1 for a dish they ate). Omit to only save the recipe."),
             "log_meal" to MEAL,
@@ -163,13 +164,13 @@ val TOOL_DECLARATIONS: JsonArray = buildJsonArray {
         "weekly weight goal, macro split, or activity level. The suggested calories follow from their body, activity and goal.",
         obj(
             "calorie_target" to int("Custom kcal/day (800–10000)"),
-            "use_suggested_calories" to schema("BOOLEAN", "Drop the custom calorie target and use the suggested one"),
+            "use_suggested_calories" to schema("boolean", "Drop the custom calorie target and use the suggested one"),
             "goal_kg_per_week" to num("Weekly change in kg: negative to lose (e.g. -0.5), 0 to maintain, positive to gain. From lb: × 0.4536"),
             "protein_pct" to int("Share of calories, with carbs_pct and fat_pct adding up to 100"),
             "carbs_pct" to int(), "fat_pct" to int(),
             "activity_level" to enumStr(com.nutrime.app.model.ActivityLevel.entries.map { it.name.lowercase() }),
             "goal_weight_kg" to num("Goal weight in kg (from lb: × 0.4536)"),
-            "clear_goal_weight" to schema("BOOLEAN", "Remove the goal weight"),
+            "clear_goal_weight" to schema("boolean", "Remove the goal weight"),
             "protein_g_per_kg" to num("Protein target in grams per kg of body weight (0.8–3.0). Sets protein_mode per_kg."),
             "protein_mode" to enumStr(listOf("percent", "per_kg"), "Protein as a share of calories, or g per kg (carbs then take the rest)"),
             "burn_mode" to enumStr(listOf("formula", "adaptive", "manual"), "Which daily burn the targets use: formula, the one learned from their log (adaptive), or manual_burn_kcal"),

@@ -32,7 +32,7 @@ object ServerSettings : Table("server_settings") {
     override val primaryKey = PrimaryKey(key)
 }
 
-val THINKING_LEVELS = listOf("minimal", "low", "medium", "high")
+val THINKING_LEVELS = listOf("minimal", "low", "medium", "high", "xhigh")
 
 /** The assistant settings in effect. Null fields in [AiSettingsPatch] keep the environment value. */
 @Serializable
@@ -90,9 +90,9 @@ class AiSettingsStore(private val config: Config, private val db: Database) {
         )
     }
 
-    /** The Gemini `generationConfig` for assistant turns, or null to use the model's defaults. */
+    /** The Interactions API `generation_config` for assistant turns, or null to use the model's defaults. */
     fun generationConfig(): JsonObject? = current().thinkingLevel?.let { level ->
-        buildJsonObject { putJsonObject("thinkingConfig") { put("thinkingLevel", level) } }
+        buildJsonObject { put("thinking_level", level) }
     }
 
     fun view() = AiSettingsView(current(), environment, overrides, config.geminiApiKey != null, updatedAt = load().second)

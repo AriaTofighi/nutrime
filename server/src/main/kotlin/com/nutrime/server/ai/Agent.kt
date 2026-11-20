@@ -1,21 +1,22 @@
 package com.nutrime.server.ai
 
+import com.nutrime.app.model.BurnMode
 import com.nutrime.app.model.N
 import com.nutrime.app.model.Profile
 import com.nutrime.app.model.Sex
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.booleanOrNull
+import kotlinx.serialization.json.add
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonArray
-import kotlinx.serialization.json.putJsonObject
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 import java.time.LocalDate
 import kotlin.math.roundToInt
 
@@ -33,17 +34,26 @@ const val MAX_ROUNDS = 10
 /** Extra model calls after the limit, with only the propose_* tools, to turn what it found into a proposal and a reply. */
 const val WRAP_UP_ROUNDS = 3
 
-private const val SIGNATURE = "thoughtSignature"
-
 private const val WRAP_UP_NOTE = "Step limit for this message reached: searching, web lookups and other lookups are now off. With what " +
     "you already have, call the propose_* functions now (best matches; propose_create_food for web results you found; generic " +
     "substitutes only for plain foods under a brand; propose_quick_add estimates for the rest), then tell the user in a short reply " +
     "which entries are substitutes, web results or estimates. If this wasn't a logging request, just answer."
 
+private val argsJson = Json { ignoreUnknownKeys = true }
+
+private fun JsonObject.str(key: String): String? = (this[key] as? JsonPrimitive)?.content
+private val JsonObject.type: String? get() = str("type")
+private fun JsonObject.steps(): List<JsonObject> = (this["steps"] as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }
+private fun stepsContent(steps: List<JsonObject>) = buildJsonObject { put("steps", JsonArray(steps)) }
+private fun textStep(text: String) = buildJsonObject {
+    put("type", "model_output"); putJsonArray("content") { add(buildJsonObject { put("type", "text"); put("text", text) }) }
+}
+
 /**
- * The tool loop: send the conversation to the model, stream its text, run the functions it calls,
- * send back the results, and repeat until it answers without calling anything.
- * Every new Content is handed to [persist] as soon as it's complete.
+ * The tool loop over the Gemini Interactions API, stateless (`store: false`): send the conversation as steps,
+ * stream the model's steps, run the functions it calls, send back the results, and repeat until it answers
+ * without calling anything. The model's steps go back exactly as received (thought steps carry the signatures
+ * Gemini needs). Every new message is handed to [persist] as soon as it's complete.
  *
  * Each turn has a budget ([MAX_TOOL_CALLS], [MAX_ROUNDS]). When it runs out the model isn't cut off:
  * it gets [WRAP_UP_ROUNDS] more calls in which only the propose_* tools run, so it still delivers a proposal.
@@ -51,10 +61,14 @@ private const val WRAP_UP_NOTE = "Step limit for this message reached: searching
 class Agent(
     private val llm: LlmClient,
     private val ctx: ToolContext,
+    /** The fixed instructions ([SYSTEM_PROMPT]); the same for every request, so Gemini can cache them. */
     private val system: String,
+    /** The Interactions `generation_config`, or null for the model's defaults. */
     private val generationConfig: JsonObject?,
     private val persist: (kind: String, content: JsonObject) -> Unit,
     private val emit: suspend (AgentEvent) -> Unit,
+    /** The app's context for this message (date, profile, today's totals), put before the user's last message. */
+    private val context: String? = null,
 ) {
     suspend fun run(history: List<JsonObject>) {
         try {
@@ -75,15 +89,10 @@ class Agent(
     }
 
     private suspend fun loop(history: List<JsonObject>) {
-        val contents = history.toMutableList()
+        val input = withContext(history).toMutableList()
         // Searches from earlier messages (e.g. before "continue") count as already done.
-        history.filter { (it["role"] as? JsonPrimitive)?.content == "model" }.forEach { c ->
-            (c["parts"] as? JsonArray).orEmpty().forEach { p ->
-                val call = (p as? JsonObject)?.get("functionCall") as? JsonObject ?: return@forEach
-                if ((call["name"] as? JsonPrimitive)?.content == "search_foods") {
-                    searchQueries(call["args"] as? JsonObject ?: JsonObject(emptyMap())).forEach { ctx.searched += normalizeQuery(it) }
-                }
-            }
+        history.filter { it.type == "function_call" && it.str("name") == "search_foods" }.forEach { call ->
+            searchQueries(call["arguments"] as? JsonObject ?: JsonObject(emptyMap())).forEach { ctx.searched += normalizeQuery(it) }
         }
         var toolCalls = 0
         var rounds = 0
@@ -91,75 +100,45 @@ class Agent(
         while (wrapUpRounds < WRAP_UP_ROUNDS) {
             val wrappingUp = wrapUpRounds >= 0
             val request = buildJsonObject {
-                putJsonObject("systemInstruction") { putJsonArray("parts") { add(buildJsonObject { put("text", system) }) } }
-                put("contents", JsonArray(contents.toList()))
-                // The same tools every round: Gemini rejects a turn whose tools change between its steps.
-                // While wrapping up, calls to other tools get an error result instead.
-                putJsonArray("tools") { add(buildJsonObject { put("functionDeclarations", TOOL_DECLARATIONS) }) }
-                generationConfig?.let { put("generationConfig", it) }
+                put("system_instruction", system)
+                // The same tools every round (they aren't stored with the interaction, and a turn's tools must not
+                // change). While wrapping up, calls to other tools get an error result instead.
+                put("tools", TOOL_DECLARATIONS)
+                put("input", JsonArray(input.toList()))
+                generationConfig?.let { put("generation_config", it) }
+                put("stream", true)
+                // Nothing is kept on Google's side: the conversation lives in our database.
+                put("store", false)
             }
-            val parts = mutableListOf<JsonObject>()
-            var blocked: String? = null
-            // A thought signature that came without a part to keep it on (a thought part, or an empty text part).
-            var looseSignature: JsonElement? = null
-            llm.stream(request).collect { chunk ->
-                (chunk["promptFeedback"] as? JsonObject)?.get("blockReason")?.let { blocked = (it as JsonPrimitive).content }
-                val candidate = (chunk["candidates"] as? JsonArray)?.firstOrNull() as? JsonObject ?: return@collect
-                val finish = (candidate["finishReason"] as? JsonPrimitive)?.content
-                if (finish != null && finish !in setOf("STOP", "MAX_TOKENS", "FINISH_REASON_UNSPECIFIED")) blocked = finish
-                val newParts = ((candidate["content"] as? JsonObject)?.get("parts") as? JsonArray).orEmpty()
-                for (p in newParts) {
-                    var part = p as? JsonObject ?: continue
-                    val signature = part[SIGNATURE]
-                    val text = (part["text"] as? JsonPrimitive)?.content
-                    // Thought text is not shown or kept, but its signature must go back to the model.
-                    if ((part["thought"] as? JsonPrimitive)?.booleanOrNull == true || (text == "" && part.keys.all { it == "text" || it == SIGNATURE })) {
-                        if (signature != null) looseSignature = signature
-                        continue
-                    }
-                    val firstCall = "functionCall" in part && parts.none { "functionCall" in it }
-                    if (signature == null && looseSignature != null && (text != null || firstCall)) {
-                        part = JsonObject(part + (SIGNATURE to looseSignature!!))
-                        looseSignature = null
-                    }
-                    if (text != null) {
-                        if (text.isNotEmpty()) emit(AgentEvent.Text(text))
-                        mergeText(parts, part, text)
-                    } else {
-                        parts += part
-                    }
-                }
-            }
-            looseSignature?.let { keepSignature(parts, it) }
-            if (parts.isEmpty()) {
-                emit(AgentEvent.Text(if (blocked != null) "Sorry, I can't help with that one." else "Sorry, I didn't get a response. Please try again."))
+            val (steps, status) = collectSteps(request)
+            val calls = steps.filter { it.type == "function_call" }
+            if (steps.none { it.type == "model_output" } && calls.isEmpty()) {
+                val blocked = status != null && status !in setOf("completed", "requires_action")
+                emit(AgentEvent.Text(if (blocked) "Sorry, I can't help with that one." else "Sorry, I didn't get a response. Please try again."))
                 return
             }
-            val modelContent = buildJsonObject { put("role", "model"); put("parts", JsonArray(parts)) }
-            contents += modelContent
-            persist("model", modelContent)
-
-            val calls = parts.mapNotNull { it["functionCall"] as? JsonObject }
+            input += steps
+            persist("model", stepsContent(steps))
             if (calls.isEmpty()) return
 
             // Show every step first, then run them all at once (they don't depend on each other).
             val named = calls.map { call ->
-                val name = (call["name"] as? JsonPrimitive)?.content.orEmpty()
-                val args = call["args"] as? JsonObject ?: JsonObject(emptyMap())
+                val name = call.str("name").orEmpty()
+                val args = call["arguments"] as? JsonObject ?: JsonObject(emptyMap())
                 emit(AgentEvent.Tool(name, toolLabel(name, args)))
                 Triple(call, name, args)
             }
-            val durations = java.util.concurrent.ConcurrentHashMap<Pair<String, JsonObject>, Long>()
+            val durations = LongArray(named.size)
             val results = coroutineScope {
-                named.map { (_, name, args) ->
+                named.mapIndexed { i, (_, name, args) ->
                     async {
                         if (wrappingUp && !name.startsWith("propose_")) {
-                            buildJsonObject { put("error", "No more searches or lookups this message. Propose with what you have.") } to null
+                            buildJsonObject { put("error", "No more searches or lookups this message. Propose with what you have.") }
                         } else {
                             val started = System.nanoTime()
-                            val r = runCatching { runTool(ctx, name, args) }
-                                .getOrElse { e -> buildJsonObject { put("error", e.message ?: "Failed") } to null }
-                            durations[name to args] = (System.nanoTime() - started) / 1_000_000
+                            val r = runCatching { runTool(ctx, name, args).first }
+                                .getOrElse { e -> buildJsonObject { put("error", e.message ?: "Failed") } }
+                            durations[i] = (System.nanoTime() - started) / 1_000_000
                             r
                         }
                     }
@@ -168,57 +147,95 @@ class Agent(
             toolCalls += calls.size
             rounds++
             val startWrapUp = !wrappingUp && (toolCalls >= MAX_TOOL_CALLS || rounds >= MAX_ROUNDS)
-            val responses = named.zip(results).mapIndexed { i, (n, r) ->
+            val resultSteps = named.zip(results).mapIndexed { i, (n, result) ->
                 val (call, name, _) = n
-                val (result, _) = r
-                val response = if (startWrapUp && i == named.lastIndex) JsonObject(result + ("system_note" to JsonPrimitive(WRAP_UP_NOTE))) else result
+                val r = if (startWrapUp && i == named.lastIndex) JsonObject(result + ("system_note" to JsonPrimitive(WRAP_UP_NOTE))) else result
                 buildJsonObject {
-                    putJsonObject("functionResponse") {
-                        put("name", name)
-                        call["id"]?.let { put("id", it) }
-                        put("response", response)
-                    }
+                    put("type", "function_result")
+                    put("name", name)
+                    put("call_id", call["id"] ?: JsonPrimitive(""))
+                    put("result", r)
+                    if ("error" in result) put("is_error", true)
                 }
             }
-            val toolContent = buildJsonObject { put("role", "user"); put("parts", JsonArray(responses)) }
-            contents += toolContent
+            input += resultSteps
             // How long each tool took, for the admin trace only (removed before history goes to the model).
-            persist("tool", JsonObject(toolContent + (DURATIONS_KEY to buildJsonArray {
-                named.forEach { (_, name, args) -> add(JsonPrimitive(durations[name to args] ?: 0L)) }
-            })))
+            persist("tool", JsonObject(stepsContent(resultSteps) + (DURATIONS_KEY to buildJsonArray { durations.forEach { add(it) } })))
             if (startWrapUp) wrapUpRounds = 0 else if (wrappingUp) wrapUpRounds++
         }
         emit(AgentEvent.Text("\n\nI ran out of steps before finishing. Tell me what's still missing and I'll pick up from there."))
     }
 
-    /**
-     * Streamed text arrives in many small parts; keep one part per run of text. A part with its own thought
-     * signature starts a new part when the run already has one, so no signature is lost.
-     */
-    private fun mergeText(parts: MutableList<JsonObject>, part: JsonObject, text: String) {
-        val last = parts.lastOrNull()
-        val lastText = (last?.get("text") as? JsonPrimitive)?.content
-        if (last != null && lastText != null && !(SIGNATURE in last && SIGNATURE in part)) {
-            val merged = last.toMutableMap()
-            merged["text"] = JsonPrimitive(lastText + text)
-            part[SIGNATURE]?.let { merged[SIGNATURE] = it }
-            parts[parts.size - 1] = JsonObject(merged)
-        } else {
-            parts += part
-        }
+    /** The app's context goes first in the last user message: only this request sees it, so the history before it stays cacheable. */
+    private fun withContext(history: List<JsonObject>): List<JsonObject> {
+        val text = context ?: return history
+        val i = history.indexOfLast { it.type == "user_input" }
+        if (i < 0) return history
+        val content = (history[i]["content"] as? JsonArray).orEmpty()
+        val note = buildJsonObject { put("type", "text"); put("text", text) }
+        return history.toMutableList().also { it[i] = JsonObject(history[i] + ("content" to JsonArray(listOf(note) + content))) }
     }
 
-    /**
-     * A signature that came after the parts it belongs to. Gemini needs it on the first function call of the
-     * step (and only there), so it goes there when no call has one; otherwise on the last text part.
-     */
-    private fun keepSignature(parts: MutableList<JsonObject>, signature: JsonElement) {
-        val calls = parts.indices.filter { "functionCall" in parts[it] }
-        val target = when {
-            calls.isNotEmpty() -> calls.first().takeIf { calls.none { i -> SIGNATURE in parts[i] } }
-            else -> parts.indices.lastOrNull { "text" in parts[it] && SIGNATURE !in parts[it] }
+    /** One model call: the steps it streamed (text is shown as it comes) and the interaction's final status. */
+    private suspend fun collectSteps(request: JsonObject): Pair<List<JsonObject>, String?> {
+        val builders = sortedMapOf<Int, StepBuilder>()
+        var status: String? = null
+        llm.stream(request).collect { event ->
+            when (event.str("event_type")) {
+                "step.start" -> {
+                    val index = (event["index"] as? JsonPrimitive)?.content?.toIntOrNull() ?: builders.size
+                    builders[index] = StepBuilder(event["step"] as? JsonObject ?: JsonObject(emptyMap()))
+                }
+                "step.delta" -> {
+                    val index = (event["index"] as? JsonPrimitive)?.content?.toIntOrNull() ?: return@collect
+                    val delta = event["delta"] as? JsonObject ?: return@collect
+                    val b = builders.getOrPut(index) { StepBuilder(JsonObject(emptyMap())) }
+                    b.add(delta)?.let { if (b.type == "model_output") emit(AgentEvent.Text(it)) }
+                }
+                "interaction.completed", "interaction.status_update" -> {
+                    val interaction = event["interaction"] as? JsonObject
+                    (interaction?.str("status") ?: event.str("status"))?.let { status = it }
+                }
+            }
         }
-        if (target != null) parts[target] = JsonObject(parts[target] + (SIGNATURE to signature))
+        return builders.values.mapNotNull { it.build() } to status
+    }
+}
+
+/** Puts one streamed step back together from its `step.start` and `step.delta` events. */
+private class StepBuilder(private val start: JsonObject) {
+    val type: String? = start.type
+    private val text = StringBuilder()
+    private val arguments = StringBuilder()
+    private var signature: JsonElement? = null
+    private val summary = mutableListOf<JsonElement>()
+
+    /** Adds a delta; returns the text it added to a model_output step, if any. */
+    fun add(delta: JsonObject): String? {
+        when (delta.type) {
+            "text" -> delta.str("text")?.let { text.append(it); return it }
+            "arguments_delta" -> delta.str("arguments")?.let { arguments.append(it) }
+            "thought_signature" -> delta["signature"]?.let { signature = it }
+            "thought_summary" -> delta["content"]?.let { summary += it }
+        }
+        return null
+    }
+
+    fun build(): JsonObject? = when (type) {
+        "model_output" -> if (text.isEmpty()) null else JsonObject(start + textStep(text.toString()))
+        "function_call" -> {
+            val args = arguments.toString().takeIf { it.isNotBlank() }
+                ?.let { runCatching { argsJson.parseToJsonElement(it) as? JsonObject }.getOrNull() }
+            JsonObject(start + ("arguments" to (args ?: start["arguments"] as? JsonObject ?: JsonObject(emptyMap()))))
+        }
+        "thought" -> {
+            val out = start.toMutableMap()
+            signature?.let { out["signature"] = it }
+            if (summary.isNotEmpty()) out["summary"] = JsonArray((start["summary"] as? JsonArray).orEmpty() + summary)
+            JsonObject(out)
+        }
+        null -> null
+        else -> start
     }
 }
 
@@ -226,7 +243,55 @@ class Agent(
 // System prompt
 // ---------------------------------------------------------------------------------------------
 
-fun systemPrompt(data: UserData, today: String, localTime: String?): String {
+/**
+ * The assistant's fixed instructions. They don't change between users or messages, so they form a
+ * prefix Gemini can cache; the user's data goes in [messageContext].
+ */
+val SYSTEM_PROMPT = """
+You are NutriMe's nutrition assistant inside the user's food-tracking app (Android and web). Functions let you read and change their food diary, foods, recipes, weights and targets. The user's last message starts with a context block from the app (date, profile, today's totals); the user didn't write it.
+
+## Steps
+- Get facts about their data from functions; don't guess. get_day lists a day's entries with the entry_id you need to edit or remove one.
+- Work in few steps. Call independent functions together. Put every food in ONE search_foods call (one query per food). Don't repeat a search (earlier results are in the conversation); reword a query at most once.
+- Food providers and web lookups have shared limits. If a result has provider_warnings, retry_after_seconds or a limit status, don't retry or reword it this turn.
+- Never say you can't do something these functions can do. If something truly isn't possible, say in one sentence what you can do instead.
+
+## Logging food
+Find each food in this order and stop at the first good match:
+1. Their own foods and history: in the first step, call search_foods (which covers their foods and recipes) together with search_diary or get_frequent_foods. Prefer a food they logged before.
+2. NutriMe and USDA foods, which search_foods ranks first. For whole foods (produce, meat, fish, eggs, grains, plain dairy) prefer them over branded "label only" products, unless the user names a packaged brand.
+3. Saved catalog products (branded foods others logged), when they name a brand.
+4. Branded or restaurant foods not found (confidence low or none, or missing_words is the brand): in the second step, ONE web_nutrition_lookup call for all of them, then propose_create_food with the per-serving numbers, serving_grams, source_url and source_note, and log it.
+5. A home-made dish with no match: find its ingredients and use propose_save_recipe.
+6. Only when nothing above worked: propose_quick_add (an estimate), with the amount in `amount`, not in the name.
+
+- Pick foods by NAME: the food must be what the user wrote, never another product or language because its calories fit better. Use realistic portions; when unsure, log by grams. A food with "weight: not published" is logged by serving and quantity, never by grams.
+- substitute_for is only for a PLAIN food under a brand that isn't found (e.g. "Strawberries, raw" for "Kirkland Signature Whole Strawberries"), never for prepared, packaged or restaurant foods: look those up on the web.
+- Copying a list or screenshot (e.g. another app's diary): keep each item's exact amount and serving, prefer the named brand, pass the calories shown as expected_kcal, and keep one entry per item. Use the food's own matching serving; never pick grams to make the calories match.
+- kcal_mismatches from propose_log_foods: check the serving and amount (cooked vs raw, the right serving). If the food and amount are right, propose again with allow_kcal_mismatch: true.
+- A dish you save as a recipe (e.g. a bowl built from a restaurant's ingredients) is logged with propose_save_recipe's log_quantity, as ONE entry; never also log its ingredients. Log the ingredients as separate entries (propose_log_foods, no recipe) only when they ask.
+- Meal photos: name each food, estimate grams, say how sure you are, then search and propose. Ask only when something important is truly unclear.
+- Label photos: propose_create_food with the per-serving values as printed (and log it if they ate it), without source_url.
+- Never invent nutrient values: they come from the database, a label, or web_nutrition_lookup. A quick add is an estimate, and the card says so.
+- The diary is one list. Each entry has a meal tag (breakfast, lunch, dinner, snacks) that the app uses only for suggestions. If no meal is given, pick one from the time of day, and don't mention meals unless the user does. Dates like "yesterday" are relative to today.
+
+## Proposals
+- Every change is a proposal. Each message has ONE card: all its propose_* calls add to it, and the app shows it under your reply, where the user can edit, remove or swap items and then tap Confirm. Find everything first, then propose it together.
+- After proposing, say in one or two short sentences what's on the card and which items are substitutes, web results or estimates. Don't list every item again, and never say it's already saved.
+
+## More you can do
+- Their foods and recipes: get_my_foods, propose_save_recipe, propose_update_food, propose_delete_foods. Diary entries: propose_edit_entries (amount, meal, day, or another food) and propose_copy_entries. search_diary finds foods logged on any day.
+- Recipes: find each ingredient (their own or past foods first, then search_foods, all in one step). Use the amounts they give; otherwise use realistic amounts that add up to the food being replaced (its serving weight and calories) and say so. To turn a custom food into a recipe, use replace_food_id (keeps its id); ask before update_diary_entries unless they asked to fix past logs.
+- Weight and burn: get_burn_estimate. Talk about the TREND weight, not single weigh-ins (which move about 1 kg with water and food). The learned burn comes from their log and trend weight: if they always log low, it is low by the same amount and their target is still right. get_trends gives averages over a period and the change from the period before; get_top_sources answers "where does my X come from".
+- Goals: propose_update_targets sets the goal weight, the weekly rate (lose up to 1 kg, gain up to 0.5 kg a week), protein in g per kg, and which burn the targets use (learned, formula, or a value they give). Warn when a rate is above 1% of body weight a week.
+
+## Answers
+- Short and specific to their numbers. Plain language, light markdown (short lists, **bold** key numbers), no tables.
+- You're not a doctor: for medical conditions, medications, pregnancy or eating disorders, suggest a professional. Never encourage eating under ~1200 kcal/day or extreme restriction.
+""".trim()
+
+/** The app's context for one message: the date and time, the user's profile and targets, and today's totals. */
+fun messageContext(data: UserData, today: String, localTime: String?): String {
     val p = data.profile
     val t = data.targets
     val date = LocalDate.parse(today)
@@ -236,71 +301,29 @@ fun systemPrompt(data: UserData, today: String, localTime: String?): String {
     val week = data.diary.filter { it.date > date.minusDays(7).toString() && it.date <= today }
     val weekDays = week.map { it.date }.distinct().size
     val weekTotals = data.totals(week)
-    val latestWeight = data.weights.lastOrNull()
     fun target(id: Int) = (t[id]?.min ?: 0.0).roundToInt()
 
     return buildString {
-        appendLine("You are NutriMe's nutrition assistant, inside the user's food-tracking app (Android and web).")
-        appendLine("You can see and act on their food diary, foods, weights and targets through functions.")
-        appendLine()
+        appendLine("[App context, not written by the user]")
         appendLine("Today is $today (${date.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }})" + (localTime?.let { ", local time $it" } ?: "") + ".")
-        appendLine()
-        appendLine("## The user")
-        if (!p.configured) appendLine("(They haven't set up their profile yet, so targets use defaults. Suggest Profile → Targets if relevant.)")
-        appendLine("- ${if (p.sex == Sex.MALE) "Male" else "Female"}, ${p.age} y, ${p.heightCm.roundToInt()} cm, ${"%.1f".format(p.weightKg)} kg, ${p.activity.label.lowercase()}")
-        appendLine("- Goal: ${goal(p)}; units: ${if (p.imperial) "imperial (lb, oz) — show weights in lb" else "metric"}")
-        appendLine("- Daily targets: ${target(N.ENERGY)} kcal, protein ${target(N.PROTEIN)} g, carbs ${target(N.CARBS)} g, fat ${target(N.FAT)} g, fiber ${target(N.FIBER)} g")
-        latestWeight?.let { appendLine("- Last weigh-in: ${"%.1f".format(it.weightKg)} kg on ${it.date}") }
-        p.goalWeightKg?.let { appendLine("- Goal weight: ${"%.1f".format(it)} kg") }
-        appendLine("- Daily burn used for targets: ${p.tdee.roundToInt()} kcal (${when (p.burnMode) {
-            com.nutrime.app.model.BurnMode.ADAPTIVE -> if (p.adaptiveBurnKcal != null) "learned from their log and weigh-ins" else "formula, until the learned value is accepted"
-            com.nutrime.app.model.BurnMode.MANUAL -> "typed by the user"
-            com.nutrime.app.model.BurnMode.FORMULA -> "Mifflin-St Jeor × activity"
+        if (!p.configured) appendLine("Profile not set up yet, so targets use defaults (suggest Profile → Targets if relevant).")
+        appendLine("User: ${if (p.sex == Sex.MALE) "male" else "female"}, ${p.age} y, ${p.heightCm.roundToInt()} cm, ${"%.1f".format(p.weightKg)} kg, ${p.activity.label.lowercase()}; " +
+            "goal: ${goal(p)}; units: ${if (p.imperial) "imperial (show weights in lb)" else "metric"}")
+        appendLine("Daily targets: ${target(N.ENERGY)} kcal, protein ${target(N.PROTEIN)} g, carbs ${target(N.CARBS)} g, fat ${target(N.FAT)} g, fiber ${target(N.FIBER)} g")
+        data.weights.lastOrNull()?.let { appendLine("Last weigh-in: ${"%.1f".format(it.weightKg)} kg on ${it.date}") }
+        p.goalWeightKg?.let { appendLine("Goal weight: ${"%.1f".format(it)} kg") }
+        appendLine("Daily burn used for targets: ${p.tdee.roundToInt()} kcal (${when (p.burnMode) {
+            BurnMode.ADAPTIVE -> if (p.adaptiveBurnKcal != null) "learned from their log and weigh-ins" else "formula, until the learned value is accepted"
+            BurnMode.MANUAL -> "typed by the user"
+            BurnMode.FORMULA -> "Mifflin-St Jeor × activity"
         }})")
-        appendLine()
-        appendLine("## Today so far")
-        if (todays.isEmpty()) appendLine("Nothing logged yet.") else {
-            appendLine("- ${totals.kcal().roundToInt()} kcal, protein ${(totals[N.PROTEIN] ?: 0.0).roundToInt()} g, carbs ${(totals[N.CARBS] ?: 0.0).roundToInt()} g, fat ${(totals[N.FAT] ?: 0.0).roundToInt()} g (${todays.size} entries)")
-            if (gaps.isNotEmpty()) appendLine("- Furthest below target: ${gaps.take(5).joinToString("; ")}")
-            if (over.isNotEmpty()) appendLine("- Over limit: ${over.joinToString("; ")}")
+        if (todays.isEmpty()) appendLine("Today so far: nothing logged.") else {
+            appendLine("Today so far: ${totals.kcal().roundToInt()} kcal, protein ${(totals[N.PROTEIN] ?: 0.0).roundToInt()} g, carbs ${(totals[N.CARBS] ?: 0.0).roundToInt()} g, fat ${(totals[N.FAT] ?: 0.0).roundToInt()} g (${todays.size} entries)")
+            if (gaps.isNotEmpty()) appendLine("Furthest below target: ${gaps.take(5).joinToString("; ")}")
+            if (over.isNotEmpty()) appendLine("Over limit: ${over.joinToString("; ")}")
         }
-        if (weekDays > 0) appendLine("- Last 7 days: $weekDays days logged, averaging ${(weekTotals.kcal() / weekDays).roundToInt()} kcal and ${((weekTotals[N.PROTEIN] ?: 0.0) / weekDays).roundToInt()} g protein")
-        appendLine()
-        appendLine(
-            """
-            ## How to work
-            - Use functions for facts about their data; don't guess. Call get_day for a specific day's entries (you need entry_id to edit or remove).
-            - Work in few steps. Call independent functions together in one step, and put every food in ONE search_foods call (one query per food). Don't search the same thing twice: earlier results are in the conversation.
-            - Logging food: find each food in this order and stop at the first good match.
-              1. Their own foods and history: in the FIRST step, call search_foods (every food in one call) together with search_diary (or get_frequent_foods); search_foods already includes their own foods and recipes. Prefer a food they logged before.
-              2. NutriMe and USDA foods (source "NutriMe": checked entries under everyday names; USDA analyses list vitamins and minerals). search_foods ranks these first.
-              3. Saved catalog products (branded foods others logged), also in search_foods results. Use branded ones when they name a brand.
-              4. Branded or restaurant foods search_foods didn't find (confidence low or none, or missing_words is the brand): in the SECOND step, ONE web_nutrition_lookup call with all of them, then propose_create_food with the per-serving numbers, serving_grams, source_url and source_note (and log it).
-              5. A home-made dish or recipe with no match: find the ingredients and use propose_save_recipe.
-            - A dish they ate that you save as a recipe (e.g. a bowl built from a restaurant's ingredients): log it with propose_save_recipe's log_quantity, as ONE diary entry. Never also log its ingredients one by one. To log the ingredients as separate entries instead, use propose_log_foods and don't save a recipe; do that only when they ask for it.
-              6. Last: propose_quick_add, only when the steps above found nothing (e.g. a web lookup without a serving weight, or a dish from a small restaurant), with the amount in `amount`, not in the name.
-            - substitute_for: only for a PLAIN food under a brand (e.g. "Strawberries, raw" with substitute_for "Kirkland Signature Whole Strawberries") when the brand isn't found; never for prepared, packaged or restaurant foods, where the numbers differ: look those up on the web.
-            - Pick foods by NAME: the food must be what the user wrote. Never pick a food in another language or a different product because its calories fit better. Use realistic portions; when unsure, log by grams. A food whose result says "weight: not published" (a restaurant item) is logged by its serving and a quantity, never by grams.
-            - Whole foods (produce, meat, fish, eggs, rice, grains, plain dairy): prefer NutriMe and USDA foods over branded products marked data "label only", unless the user names the brand of a packaged product. Results are already ordered this way.
-            - Work in few steps: put every food in ONE search_foods call (one query per food). Don't search the same thing twice: earlier results are in the conversation. Reword a query at most once.
-            - Provider requests share server-enforced limits across all users and tools: Open Food Facts search 8/minute and product lookups 12/minute; USDA 900/hour (demo key 30/hour and 50/day); web lookups have a daily limit per user. Saved results do not spend this budget. If a result has provider_warnings, retry_after_seconds or a limit status, do not retry or reword to evade the limit in this turn.
-            - Copying a list or screenshot (e.g. another app's diary): keep each item's exact amount and serving ("1 scoop", "2.5 × 1/2 cup", "520 g"), prefer the named brand, and pass the calories shown as expected_kcal. Use the food's own serving when it has a matching one; never pick grams just to make calories match. Keep one entry per item: don't split it across meals unless asked. If no meals are shown, use one meal that fits the time of day (or what they say).
-            - If propose_log_foods returns kcal_mismatches, check the serving and amount of those items first (cooked vs raw, the right serving). Keep a food whose name matches; if the amount is right too, propose again with allow_kcal_mismatch: true. The card shows the user both numbers.
-            - Never invent nutrient values. Numbers come from the database, a label the user shows, or web_nutrition_lookup; a quick add is an estimate and the card says so.
-            - All changes are proposals. Each message has ONE card: every propose_* call in a message adds to it, and the app shows it under your reply, where the user can edit, remove or swap items and then tap Confirm. Propose everything together once you've found it all. After proposing, say in one or two short sentences what's on the card and which items are substitutes or estimates; don't list every item again, and never claim it's already saved.
-            - Meal photos: name each food you see and estimate grams, say how confident you are, then search and propose entries. Ask only if something important is truly ambiguous.
-            - Nutrition label photos/screenshots: use propose_create_food with the per-serving values exactly as printed (and log it if they ate it), without source_url.
-            - You can manage more than the diary. Their own foods and recipes: get_my_foods, propose_save_recipe, propose_update_food, propose_delete_foods. Their history: search_diary finds foods they logged on any day. Their targets: propose_update_targets. Diary entries: propose_edit_entries (amount, meal, day, or switch to another food) and propose_copy_entries.
-            - Recipes: find each ingredient first, preferring foods they logged before (search_diary) or their own foods, then search_foods for the rest (all in one step). Use the amounts they give; if they give none, use realistic amounts that add up to the food being replaced (e.g. its serving weight and calories) and say so. To turn a custom food into a recipe, use replace_food_id (keeps its id); ask before update_diary_entries unless they asked to fix past logs.
-            - Weight and burn: use get_burn_estimate. Talk about the TREND weight (smoothed), not single weigh-ins, which move about 1 kg with water and food. The learned burn comes from their log and trend weight; if they always log low, it is low by the same amount and their target is still right. Use get_trends for averages over a period and the comparison with the period before, and get_top_sources for "where does my X come from".
-            - Goals: propose_update_targets can set a goal weight, the weekly rate (lose up to 1 kg, gain up to 0.5 kg a week), protein in g per kg, and which daily burn the targets use (learned, formula, or a value they give). Warn when a rate is above 1% of body weight a week.
-            - Never say you can't do something these functions can do. If something truly isn't possible, say what you can do instead in one sentence.
-            - The diary is one list. Each entry has a meal tag (breakfast, lunch, dinner, snacks) that the app uses only for suggestions; the user doesn't see meals. If no meal is given, pick it from the time of day, and don't mention meals in your answer unless the user does. Dates like "yesterday" are relative to today.
-            - Answers: short and specific to their numbers. Plain language, light markdown (short lists, **bold** key numbers). No tables.
-            - You're not a doctor: for medical conditions, medications, pregnancy or eating disorders, suggest a professional. Never encourage eating under ~1200 kcal/day or extreme restriction.
-            """.trimIndent()
-        )
-    }
+        if (weekDays > 0) appendLine("Last 7 days: $weekDays days logged, averaging ${(weekTotals.kcal() / weekDays).roundToInt()} kcal and ${((weekTotals[N.PROTEIN] ?: 0.0) / weekDays).roundToInt()} g protein")
+    }.trimEnd()
 }
 
 private fun goal(p: Profile): String = when {
@@ -310,61 +333,122 @@ private fun goal(p: Profile): String = when {
 }
 
 // ---------------------------------------------------------------------------------------------
+// Stored messages
+// ---------------------------------------------------------------------------------------------
+
+/**
+ * One stored message: kind "user", "model" or "tool", with content {"steps": [...]} in the Interactions
+ * format (user_input; thought, model_output and function_call; function_result).
+ * Messages saved before the Interactions API have content {"role", "parts"} instead; [steps] converts them.
+ */
+data class StoredMessage(val kind: String, val content: JsonObject) {
+    /** Saved in the old generateContent format. */
+    val legacy: Boolean get() = "parts" in content && "steps" !in content
+}
+
+/** The message as Interactions steps. Old messages are converted; their thought signatures are dropped. */
+fun steps(m: StoredMessage, index: Int = 0): List<JsonObject> {
+    if (!m.legacy) return m.content.steps()
+    val parts = (m.content["parts"] as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }
+    // Old function calls had no ids: number them by message and position, the same for the call and its response.
+    fun id(i: Int) = "legacy-${index - (if (m.kind == "tool") 1 else 0)}-$i"
+    return when (m.kind) {
+        "user" -> listOf(buildJsonObject {
+            put("type", "user_input")
+            putJsonArray("content") {
+                parts.forEach { p ->
+                    val inline = p["inlineData"] as? JsonObject
+                    when {
+                        inline != null -> add(buildJsonObject { put("type", "image"); put("mime_type", inline["mimeType"] ?: JsonPrimitive("image/jpeg")); put("data", inline["data"] ?: JsonPrimitive("")) })
+                        p["text"] != null -> add(buildJsonObject { put("type", "text"); put("text", p["text"]!!) })
+                    }
+                }
+            }
+        })
+        "model" -> buildList {
+            var calls = 0
+            parts.forEach { p ->
+                val text = p.str("text")
+                val call = p["functionCall"] as? JsonObject
+                when {
+                    (p["thought"] as? JsonPrimitive)?.content == "true" -> Unit
+                    call != null -> add(buildJsonObject {
+                        put("type", "function_call"); put("id", id(calls++)); put("name", call["name"] ?: JsonPrimitive(""))
+                        put("arguments", call["args"] as? JsonObject ?: JsonObject(emptyMap()))
+                    })
+                    !text.isNullOrEmpty() -> {
+                        val last = lastOrNull()
+                        if (last?.type == "model_output") set(size - 1, textStep(outputText(last) + text)) else add(textStep(text))
+                    }
+                }
+            }
+        }
+        "tool" -> parts.mapIndexedNotNull { i, p ->
+            val fr = p["functionResponse"] as? JsonObject ?: return@mapIndexedNotNull null
+            buildJsonObject {
+                put("type", "function_result"); put("name", fr["name"] ?: JsonPrimitive("")); put("call_id", id(i))
+                put("result", fr["response"] as? JsonObject ?: JsonObject(emptyMap()))
+            }
+        }
+        else -> emptyList()
+    }
+}
+
+private fun outputText(step: JsonObject): String =
+    (step["content"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonObject)?.takeIf { c -> c.type == "text" }?.str("text") }.joinToString("")
+
+// ---------------------------------------------------------------------------------------------
 // History shaping
 // ---------------------------------------------------------------------------------------------
 
-data class StoredMessage(val kind: String, val content: JsonObject)
-
 /**
- * What to send the model: the most recent messages (starting at a user message, so function calls
- * and responses stay paired), with images only kept for the last few user messages.
+ * What to send the model, as Interactions input steps: the most recent messages (starting at a user
+ * message, so function calls and results stay paired), with images only kept for the last few user messages.
+ * Messages in the old format keep only their text: their function calls can't be sent without the thoughts
+ * that came with them.
  */
 fun historyForModel(messages: List<StoredMessage>, maxMessages: Int = 60, keepImages: Int = 3): List<JsonObject> {
-    val clean = repair(messages)
+    val clean = repair(messages.mapIndexed { i, m -> m to steps(m, i) }
+        .map { (m, s) -> m.kind to if (m.legacy) s.filter { it.type == "user_input" || it.type == "model_output" } else s }
+        .filter { (_, s) -> s.isNotEmpty() })
     var start = (clean.size - maxMessages).coerceAtLeast(0)
-    while (start < clean.size && clean[start].kind != "user") start++
+    while (start < clean.size && clean[start].first != "user") start++
     val window = clean.subList(start, clean.size)
-    val userIdx = window.indices.filter { window[it].kind == "user" }
+    val userIdx = window.indices.filter { window[it].first == "user" }
     val imageCutoff = userIdx.takeLast(keepImages).firstOrNull() ?: 0
-    return window.mapIndexed { i, m ->
-        val content = if (DURATIONS_KEY in m.content) JsonObject(m.content - DURATIONS_KEY) else m.content
-        if (m.kind != "user" || i >= imageCutoff) content else stripImages(content)
-    }
+    return window.flatMapIndexed { i, (kind, s) -> if (kind != "user" || i >= imageCutoff) s else s.map(::stripImages) }
 }
 
 /**
  * Fix up history left by an interrupted turn (stopped reply, dropped connection, server error):
- * a function call whose response was never saved loses its calls, and consecutive user messages
- * are merged, so the model always gets a valid conversation.
+ * a model message whose function results were never saved keeps only its text, and consecutive
+ * user messages are merged, so the model always gets a valid conversation.
  */
-private fun repair(messages: List<StoredMessage>): List<StoredMessage> {
-    val out = mutableListOf<StoredMessage>()
-    messages.forEachIndexed { i, m ->
-        var msg = m
-        if (m.kind == "model" && messages.getOrNull(i + 1)?.kind != "tool") {
-            val parts = (m.content["parts"] as? JsonArray).orEmpty().filter { (it as? JsonObject)?.containsKey("functionCall") != true }
-            if (parts.size != (m.content["parts"] as? JsonArray).orEmpty().size) {
-                if (parts.isEmpty()) return@forEachIndexed
-                msg = m.copy(content = JsonObject(m.content + ("parts" to JsonArray(parts))))
-            }
+private fun repair(messages: List<Pair<String, List<JsonObject>>>): List<Pair<String, List<JsonObject>>> {
+    val out = mutableListOf<Pair<String, List<JsonObject>>>()
+    messages.forEachIndexed { i, (kind, s) ->
+        var steps = s
+        if (kind == "model" && steps.any { it.type == "function_call" } && messages.getOrNull(i + 1)?.first != "tool") {
+            steps = steps.filter { it.type == "model_output" }
+            if (steps.isEmpty()) return@forEachIndexed
         }
-        if (msg.kind == "tool" && out.lastOrNull()?.kind != "model") return@forEachIndexed
+        if (kind == "tool" && out.lastOrNull()?.first != "model") return@forEachIndexed
         val prev = out.lastOrNull()
-        if (msg.kind == "user" && prev?.kind == "user") {
-            val merged = (prev.content["parts"] as JsonArray) + (msg.content["parts"] as JsonArray)
-            out[out.size - 1] = prev.copy(content = JsonObject(prev.content + ("parts" to JsonArray(merged))))
+        if (kind == "user" && prev?.first == "user") {
+            val content = (prev.second + steps).flatMap { (it["content"] as? JsonArray).orEmpty() }
+            out[out.size - 1] = "user" to listOf(buildJsonObject { put("type", "user_input"); put("content", JsonArray(content)) })
         } else {
-            out += msg
+            out += kind to steps
         }
     }
     return out
 }
 
-private fun stripImages(content: JsonObject): JsonObject {
-    val parts = (content["parts"] as? JsonArray).orEmpty().map { p ->
-        if ((p as? JsonObject)?.containsKey("inlineData") == true) buildJsonObject { put("text", "[photo shared earlier]") } else p
+private fun stripImages(step: JsonObject): JsonObject {
+    val content = (step["content"] as? JsonArray ?: return step).map { c ->
+        if ((c as? JsonObject)?.type == "image") buildJsonObject { put("type", "text"); put("text", "[photo shared earlier]") } else c
     }
-    return JsonObject(content + ("parts" to JsonArray(parts)))
+    return JsonObject(step + ("content" to JsonArray(content)))
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -372,7 +456,7 @@ private fun stripImages(content: JsonObject): JsonObject {
 // ---------------------------------------------------------------------------------------------
 
 /**
- * Turn stored contents into chat messages: {role: "user"|"assistant", blocks: [...]}, where a block
+ * Turn stored messages into chat messages: {role: "user"|"assistant", blocks: [...]}, where a block
  * is {type: "text", text}, {type: "image", mimeType, data}, {type: "tool", name, label} or
  * {type: "proposal", proposal}. Model turns and tool results merge into one assistant message.
  */
@@ -391,16 +475,16 @@ fun displayMessages(messages: List<StoredMessage>, proposals: Map<String, Propos
         }
         assistant = null
     }
-    for (m in messages) {
-        val parts = (m.content["parts"] as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }
+    messages.forEachIndexed { index, m ->
+        val steps = steps(m, index)
         when (m.kind) {
             "user" -> {
                 flush()
-                val blocks = parts.mapNotNull { p ->
-                    val inline = p["inlineData"] as? JsonObject
-                    when {
-                        inline != null -> buildJsonObject { put("type", "image"); put("mimeType", inline["mimeType"]!!); put("data", inline["data"]!!) }
-                        p["text"] != null -> buildJsonObject { put("type", "text"); put("text", p["text"]!!) }
+                val blocks = steps.flatMap { (it["content"] as? JsonArray).orEmpty() }.mapNotNull { c ->
+                    val item = c as? JsonObject ?: return@mapNotNull null
+                    when (item.type) {
+                        "image" -> buildJsonObject { put("type", "image"); put("mimeType", item["mime_type"]!!); put("data", item["data"]!!) }
+                        "text" -> buildJsonObject { put("type", "text"); put("text", item["text"]!!) }
                         else -> null
                     }
                 }
@@ -408,33 +492,27 @@ fun displayMessages(messages: List<StoredMessage>, proposals: Map<String, Propos
             }
             "model" -> {
                 val blocks = assistant ?: mutableListOf<JsonElement>().also { assistant = it }
-                parts.forEach { p ->
-                    val text = (p["text"] as? JsonPrimitive)?.content
-                    val call = p["functionCall"] as? JsonObject
-                    when {
-                        text != null && text.isNotBlank() -> {
+                steps.forEach { s ->
+                    when (s.type) {
+                        "model_output" -> {
+                            val text = outputText(s)
+                            if (text.isBlank()) return@forEach
                             val last = blocks.lastOrNull() as? JsonObject
-                            if (last != null && (last["type"] as JsonPrimitive).content == "text") {
-                                blocks[blocks.size - 1] = buildJsonObject { put("type", "text"); put("text", (last["text"] as JsonPrimitive).content + text) }
+                            if (last != null && last.type == "text") {
+                                blocks[blocks.size - 1] = buildJsonObject { put("type", "text"); put("text", last.str("text").orEmpty() + text) }
                             } else blocks += buildJsonObject { put("type", "text"); put("text", text) }
                         }
-                        call != null -> {
-                            val name = (call["name"] as? JsonPrimitive)?.content.orEmpty()
+                        "function_call" -> {
+                            val name = s.str("name").orEmpty()
                             blocks += buildJsonObject {
                                 put("type", "tool"); put("name", name)
-                                put("label", toolLabel(name, call["args"] as? JsonObject ?: JsonObject(emptyMap())))
+                                put("label", toolLabel(name, s["arguments"] as? JsonObject ?: JsonObject(emptyMap())))
                             }
                         }
                     }
                 }
             }
-            "tool" -> {
-                parts.forEach { p ->
-                    val response = (p["functionResponse"] as? JsonObject)?.get("response") as? JsonObject ?: return@forEach
-                    val id = (response["proposal_id"] as? JsonPrimitive)?.content ?: return@forEach
-                    cards += id
-                }
-            }
+            "tool" -> steps.forEach { s -> (s["result"] as? JsonObject)?.str("proposal_id")?.let { cards += it } }
         }
     }
     flush()
@@ -442,58 +520,55 @@ fun displayMessages(messages: List<StoredMessage>, proposals: Map<String, Propos
 
 fun proposalJson(v: ProposalView): JsonElement = actionJson.encodeToJsonElement(ProposalView.serializer(), v)
 
-/** Proposal ids referenced by function responses in [messages]. */
-fun proposalIds(messages: List<StoredMessage>): List<String> = messages.filter { it.kind == "tool" }.flatMap { m ->
-    (m.content["parts"] as? JsonArray).orEmpty().mapNotNull { p ->
-        (((p as? JsonObject)?.get("functionResponse") as? JsonObject)?.get("response") as? JsonObject)
-            ?.get("proposal_id")?.let { (it as JsonPrimitive).content }
-    }
-}.distinct()
+/** Proposal ids referenced by function results in [messages]. */
+fun proposalIds(messages: List<StoredMessage>): List<String> = messages.withIndex().filter { it.value.kind == "tool" }
+    .flatMap { (i, m) -> steps(m, i).mapNotNull { (it["result"] as? JsonObject)?.str("proposal_id") } }
+    .distinct()
 
 /** Show the model each proposal's current status (the user may have confirmed or dismissed it since). */
 fun withProposalStatus(messages: List<StoredMessage>, statuses: Map<String, String>): List<StoredMessage> = messages.map { m ->
-    if (m.kind != "tool") return@map m
-    val parts = (m.content["parts"] as? JsonArray).orEmpty().map { p ->
-        val fr = (p as? JsonObject)?.get("functionResponse") as? JsonObject ?: return@map p
-        val response = fr["response"] as? JsonObject ?: return@map p
-        val id = (response["proposal_id"] as? JsonPrimitive)?.content ?: return@map p
+    if (m.kind != "tool" || m.legacy) return@map m
+    val steps = m.content.steps().map { s ->
+        val result = s["result"] as? JsonObject ?: return@map s
+        val id = result.str("proposal_id") ?: return@map s
         val status = when (statuses[id]) {
             "applied" -> "confirmed by the user and saved"
             "dismissed" -> "dismissed by the user; nothing was saved"
-            else -> return@map p
+            else -> return@map s
         }
-        val newResponse = JsonObject(response - "note" + ("status" to JsonPrimitive(status)))
-        JsonObject(p + ("functionResponse" to JsonObject(fr + ("response" to newResponse))))
+        JsonObject(s + ("result" to JsonObject(result - "note" + ("status" to JsonPrimitive(status)))))
     }
-    m.copy(content = JsonObject(m.content + ("parts" to JsonArray(parts))))
+    m.copy(content = JsonObject(m.content + ("steps" to JsonArray(steps))))
 }
+
+/** Key of a stored tool message's per-call durations in milliseconds (admin trace only). */
+const val DURATIONS_KEY = "durations_ms"
 
 /**
  * Stored messages as a readable list of steps for the admin trace: user text, model text,
  * each function call with its arguments, and each result. Photos are replaced by a placeholder.
  */
-/** Key of a stored tool message's per-call durations in milliseconds (admin trace only). */
-const val DURATIONS_KEY = "durations_ms"
-
 fun traceSteps(messages: List<StoredMessage>): JsonArray = buildJsonArray {
-    messages.forEach { m ->
+    messages.forEachIndexed { index, m ->
         val durations = (m.content[DURATIONS_KEY] as? JsonArray).orEmpty()
-        (m.content["parts"] as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }.forEachIndexed { i, p ->
-            val call = p["functionCall"] as? JsonObject
-            val result = p["functionResponse"] as? JsonObject
-            val text = (p["text"] as? JsonPrimitive)?.content
-            add(buildJsonObject {
-                when {
-                    p.containsKey("inlineData") -> { put("type", "image"); put("role", m.kind) }
-                    call != null -> { put("type", "call"); put("name", call["name"] ?: JsonPrimitive("")); put("data", call["args"] ?: JsonObject(emptyMap())) }
-                    result != null -> {
-                        put("type", "result"); put("name", result["name"] ?: JsonPrimitive("")); put("data", result["response"] ?: JsonObject(emptyMap()))
-                        durations.getOrNull(i)?.let { put("duration_ms", it) }
-                    }
-                    text != null -> { put("type", "text"); put("role", m.kind); put("text", text) }
-                    else -> { put("type", "other"); put("role", m.kind) }
+        var results = 0
+        steps(m, index).forEach { s ->
+            when (s.type) {
+                "user_input" -> (s["content"] as? JsonArray).orEmpty().mapNotNull { it as? JsonObject }.forEach { c ->
+                    add(buildJsonObject {
+                        if (c.type == "image") { put("type", "image"); put("role", m.kind) }
+                        else { put("type", "text"); put("role", m.kind); put("text", c.str("text").orEmpty()) }
+                    })
                 }
-            })
+                "model_output" -> add(buildJsonObject { put("type", "text"); put("role", m.kind); put("text", outputText(s)) })
+                "function_call" -> add(buildJsonObject { put("type", "call"); put("name", s["name"] ?: JsonPrimitive("")); put("data", s["arguments"] ?: JsonObject(emptyMap())) })
+                "function_result" -> add(buildJsonObject {
+                    put("type", "result"); put("name", s["name"] ?: JsonPrimitive("")); put("data", s["result"] ?: JsonObject(emptyMap()))
+                    durations.getOrNull(results++)?.let { put("duration_ms", it) }
+                })
+                "thought" -> Unit // only a signature; nothing to read
+                else -> add(buildJsonObject { put("type", "other"); put("role", m.kind) })
+            }
         }
     }
 }

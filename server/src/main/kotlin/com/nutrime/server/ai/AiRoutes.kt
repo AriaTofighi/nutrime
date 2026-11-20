@@ -272,10 +272,14 @@ class Assistant(
             if (runs.active(conversationId) != null) throw ApiException(HttpStatusCode.Conflict, "The assistant is still answering in this chat")
 
             val userContent = buildJsonObject {
-                put("role", "user")
-                putJsonArray("parts") {
-                    req.images.forEach { img -> add(buildJsonObject { putJsonObject("inlineData") { put("mimeType", img.mimeType); put("data", img.data) } }) }
-                    if (text.isNotEmpty()) add(buildJsonObject { put("text", text) })
+                putJsonArray("steps") {
+                    add(buildJsonObject {
+                        put("type", "user_input")
+                        putJsonArray("content") {
+                            req.images.forEach { img -> add(buildJsonObject { put("type", "image"); put("mime_type", img.mimeType); put("data", img.data) }) }
+                            if (text.isNotEmpty()) add(buildJsonObject { put("type", "text"); put("text", text) })
+                        }
+                    })
                 }
             }
             append(uid, conversationId, "user", userContent)
@@ -291,8 +295,9 @@ class Assistant(
                 run.add("conversation", buildJsonObject { put("id", conversationId); put("title", title) })
                 try {
                     val agent = Agent(
-                        llm, ctx, systemPrompt(data, today, req.localTime), settings.generationConfig(),
+                        llm, ctx, SYSTEM_PROMPT, settings.generationConfig(),
                         persist = { kind, content -> append(uid, conversationId, kind, content) },
+                        context = messageContext(data, today, req.localTime),
                         emit = { e ->
                             when (e) {
                                 is AgentEvent.Text -> run.add("text", buildJsonObject { put("delta", e.delta) })

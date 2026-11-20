@@ -38,29 +38,80 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-/** A model that replays scripted turns and records every request it gets. */
+/**
+ * A model that replays scripted turns and records every request it gets. A turn is a list of chunks
+ * ([chunk] of [text], [call] and [thought] pieces); they're streamed as Interactions API events.
+ */
 class FakeLlm(private val turns: List<(JsonObject) -> List<JsonObject>>) : LlmClient {
     val requests = mutableListOf<JsonObject>()
     override fun stream(request: JsonObject): Flow<JsonObject> {
         requests += request
-        return flowOf(*turns[requests.size - 1](request).toTypedArray())
+        return flowOf(*interactionEvents(turns[requests.size - 1](request)).toTypedArray())
     }
 }
 
-private fun chunk(vararg parts: JsonObject) = buildJsonObject {
-    putJsonArray("candidates") {
-        add(buildJsonObject { putJsonObject("content") { put("role", "model"); put("parts", JsonArray(parts.toList())) } })
+private fun event(type: String, body: kotlinx.serialization.json.JsonObjectBuilder.() -> Unit = {}) =
+    buildJsonObject { body(); put("event_type", type) }
+
+/**
+ * The events the Interactions API streams for these chunks: text continues an open model_output step,
+ * a thought is a step with its signature as the last delta, and a call is a function_call step whose
+ * arguments come in two pieces.
+ */
+private fun interactionEvents(chunks: List<JsonObject>): List<JsonObject> {
+    val out = mutableListOf(event("interaction.created") { put("interaction", buildJsonObject { put("id", "i-1"); put("status", "in_progress") }) })
+    var index = -1
+    var open: String? = null
+    var calls = 0
+    fun stop() { if (open != null) out += event("step.stop") { put("index", index) }; open = null }
+    fun start(step: JsonObject) { stop(); index++; open = step["type"]!!.jsonPrimitive.content; out += event("step.start") { put("index", index); put("step", step) } }
+    fun delta(d: JsonObject) { out += event("step.delta") { put("index", index); put("delta", d) } }
+    chunks.flatMap { it["pieces"]!!.jsonArray.map { p -> p.jsonObject } }.forEach { p ->
+        when (p["kind"]!!.jsonPrimitive.content) {
+            "text" -> {
+                if (open != "model_output") start(buildJsonObject { put("type", "model_output") })
+                delta(buildJsonObject { put("type", "text"); put("text", p["text"]!!) })
+            }
+            "thought" -> {
+                start(buildJsonObject { put("type", "thought") })
+                p["summary"]?.let { s -> delta(buildJsonObject { put("type", "thought_summary"); putJsonObject("content") { put("type", "text"); put("text", s) } }) }
+                delta(buildJsonObject { put("type", "thought_signature"); put("signature", p["signature"]!!) })
+                stop()
+            }
+            "call" -> {
+                p["signature"]?.let { sig -> start(buildJsonObject { put("type", "thought") }); delta(buildJsonObject { put("type", "thought_signature"); put("signature", sig) }) }
+                start(buildJsonObject { put("type", "function_call"); put("id", "call-${++calls}"); put("name", p["name"]!!); putJsonObject("arguments") {} })
+                val args = p["args"].toString()
+                val half = args.length / 2
+                delta(buildJsonObject { put("type", "arguments_delta"); put("arguments", args.substring(0, half)) })
+                delta(buildJsonObject { put("type", "arguments_delta"); put("arguments", args.substring(half)) })
+                stop()
+            }
+        }
     }
+    stop()
+    val status = if (chunks.any { c -> c["pieces"]!!.jsonArray.any { it.jsonObject["kind"]!!.jsonPrimitive.content == "call" } }) "requires_action" else "completed"
+    out += event("interaction.completed") { put("interaction", buildJsonObject { put("id", "i-1"); put("status", status) }) }
+    return out
 }
-private fun text(t: String) = buildJsonObject { put("text", t) }
+
+private fun chunk(vararg pieces: JsonObject) = buildJsonObject { put("pieces", JsonArray(pieces.toList())) }
+private fun text(t: String) = buildJsonObject { put("kind", "text"); put("text", t) }
+private fun thought(signature: String, summary: String? = null) = buildJsonObject {
+    put("kind", "thought"); put("signature", signature); summary?.let { put("summary", it) }
+}
+/** A function call; with [signature], a thought step with that signature comes first (as Gemini sends it). */
 private fun call(name: String, args: JsonObject, signature: String? = null) = buildJsonObject {
-    putJsonObject("functionCall") { put("name", name); put("args", args) }
-    signature?.let { put("thoughtSignature", it) }
+    put("kind", "call"); put("name", name); put("args", args)
+    signature?.let { put("signature", it) }
 }
 
-/** The response the fake model got back for its last function call. */
-private fun lastResponse(req: JsonObject): JsonObject = req["contents"]!!.jsonArray.last().jsonObject["parts"]!!.jsonArray
-    .first().jsonObject["functionResponse"]!!.jsonObject["response"]!!.jsonObject
+/** The input steps of a request. */
+private fun input(req: JsonObject) = req["input"]!!.jsonArray.map { it.jsonObject }
+private fun JsonObject.type() = this["type"]!!.jsonPrimitive.content
+
+/** The result the fake model got back for its last function call. */
+private fun lastResponse(req: JsonObject): JsonObject = input(req).last { it.type() == "function_result" }["result"]!!.jsonObject
 
 class AssistantTest {
     private val json = Json { ignoreUnknownKeys = true }
@@ -143,11 +194,18 @@ class AssistantTest {
             assertEquals("pending", proposal["status"]!!.jsonPrimitive.content)
             assertTrue(proposal["items"]!!.jsonArray.single().jsonObject["title"]!!.jsonPrimitive.content.contains("Banana", ignoreCase = true))
 
-            // Thought signatures go back to the model verbatim, and streamed text is merged into one part.
-            val modelTurn = llm.requests[1]["contents"]!!.jsonArray[1].jsonObject["parts"]!!.jsonArray
-            assertEquals("Let me look that up.", modelTurn[0].jsonObject["text"]!!.jsonPrimitive.content)
-            assertEquals("sig-1", modelTurn[1].jsonObject["thoughtSignature"]!!.jsonPrimitive.content)
-            assertTrue(llm.requests[0]["systemInstruction"].toString().contains("Today is $today"))
+            // The model's steps go back as received (thought signature included), streamed text is one step,
+            // and each function result answers its call by id.
+            val steps = input(llm.requests[1])
+            assertEquals(listOf("user_input", "model_output", "thought", "function_call", "function_result"), steps.map { it.type() })
+            assertEquals("Let me look that up.", steps[1]["content"]!!.jsonArray.single().jsonObject["text"]!!.jsonPrimitive.content)
+            assertEquals("sig-1", steps[2]["signature"]!!.jsonPrimitive.content)
+            assertEquals("banana raw", steps[3]["arguments"]!!.jsonObject["query"]!!.jsonPrimitive.content)
+            assertEquals(steps[3]["id"], steps[4]["call_id"])
+            assertEquals(false, llm.requests[0]["store"]!!.jsonPrimitive.content.toBoolean())
+            // The fixed instructions are the same for everyone; the app's context goes in the user's message.
+            assertTrue(!llm.requests[0]["system_instruction"].toString().contains(today))
+            assertTrue(input(llm.requests[0]).single()["content"].toString().contains("Today is $today"))
 
             // Nothing is written until the user confirms.
             fun pull() = SyncRequest(0, emptyList())
@@ -171,15 +229,17 @@ class AssistantTest {
             val msgs = conv["messages"]!!.jsonArray
             assertEquals(listOf("user", "assistant"), msgs.map { it.jsonObject["role"]!!.jsonPrimitive.content })
             val blocks = msgs[1].jsonObject["blocks"]!!.jsonArray.map { it.jsonObject }
-            assertEquals(listOf("text", "tool", "tool", "proposal", "text"), blocks.map { it["type"]!!.jsonPrimitive.content })
-            assertEquals("applied", blocks[3]["proposal"]!!.jsonObject["status"]!!.jsonPrimitive.content)
+            assertEquals(listOf("text", "tool", "tool", "text", "proposal"), blocks.map { it["type"]!!.jsonPrimitive.content })
+            assertEquals("applied", blocks[4]["proposal"]!!.jsonObject["status"]!!.jsonPrimitive.content)
 
             // Next turn: the model learns the proposal was saved.
             c.post("/api/ai/chat") {
                 bearerAuth(auth.token); contentType(ContentType.Application.Json)
                 setBody(buildJsonObject { put("conversationId", conversationId); put("text", "thanks"); put("today", today) })
             }.bodyAsText()
-            assertTrue(llm.requests[3]["contents"].toString().contains("confirmed by the user and saved"))
+            assertTrue(llm.requests[3]["input"].toString().contains("confirmed by the user and saved"))
+            // Only the newest message has the app's context.
+            assertEquals(1, input(llm.requests[3]).count { it.toString().contains("[App context") })
 
             val list = c.get("/api/ai/conversations") { bearerAuth(auth.token) }.body<JsonArray>()
             assertEquals(1, list.size)
@@ -216,12 +276,14 @@ class AssistantTest {
         })
         val model = StoredMessage("model", buildJsonObject { put("role", "model"); putJsonArray("parts") { add(buildJsonObject { put("text", "ok") }) } })
         val msgs = (1..5).flatMap { listOf(user(true), model) }
+        // Messages saved in the old format are converted to Interactions steps.
         val h = historyForModel(msgs, keepImages = 2)
-        val withImages = h.count { it.toString().contains("inlineData") }
+        val withImages = h.count { it.toString().contains("\"type\":\"image\"") }
         assertEquals(2, withImages)
-        assertTrue(h.first()["role"]!!.jsonPrimitive.content == "user")
+        assertEquals("user_input", h.first().type())
+        assertEquals("model_output", h[1].type())
         val trimmed = historyForModel(listOf(model) + msgs, maxMessages = 3)
-        assertEquals("user", (trimmed.first()["role"] as JsonPrimitive).content)
+        assertEquals("user_input", trimmed.first().type())
     }
 
     @Test
@@ -236,9 +298,25 @@ class AssistantTest {
             msg("model", "model", callOnly),                        // nothing left after dropping the call
             msg("user", "user", text("still there?")),
         ))
-        assertEquals(listOf("user", "model", "user"), h.map { it["role"]!!.jsonPrimitive.content })
-        assertEquals("[{\"text\":\"Let me check\"}]", h[1]["parts"].toString())
-        assertEquals(2, h[2]["parts"]!!.jsonArray.size)
+        assertEquals(listOf("user_input", "model_output", "user_input"), h.map { it.type() })
+        assertEquals("Let me check", h[1]["content"]!!.jsonArray.single().jsonObject["text"]!!.jsonPrimitive.content)
+        assertEquals(2, h[2]["content"]!!.jsonArray.size)
+
+        // The same in the Interactions format: a call without a saved result is dropped with its thought.
+        fun steps(kind: String, vararg s: JsonObject) = StoredMessage(kind, buildJsonObject { put("steps", JsonArray(s.toList())) })
+        fun user(t: String) = buildJsonObject { put("type", "user_input"); putJsonArray("content") { add(buildJsonObject { put("type", "text"); put("text", t) }) } }
+        val out = buildJsonObject { put("type", "model_output"); putJsonArray("content") { add(buildJsonObject { put("type", "text"); put("text", "Let me check") }) } }
+        val thoughtStep = buildJsonObject { put("type", "thought"); put("signature", "s") }
+        val callStep = buildJsonObject { put("type", "function_call"); put("id", "c1"); put("name", "get_day"); putJsonObject("arguments") {} }
+        val h2 = historyForModel(listOf(
+            steps("user", user("hi")),
+            steps("model", out, thoughtStep, callStep),
+            steps("user", user("hello?")),
+            steps("model", thoughtStep, callStep),
+            steps("user", user("still there?")),
+        ))
+        assertEquals(listOf("user_input", "model_output", "user_input"), h2.map { it.type() })
+        assertEquals(2, h2[2]["content"]!!.jsonArray.size)
     }
 
     @Test
@@ -279,23 +357,26 @@ class AssistantTest {
     }
 
     @Test
-    fun looseThoughtSignaturesStayWithTheFunctionCall() {
-        val thought = buildJsonObject { put("text", "planning"); put("thought", true); put("thoughtSignature", "sig-thought") }
-        val trailing = buildJsonObject { put("text", ""); put("thoughtSignature", "sig-late") }
+    fun thoughtStepsGoBackExactlyAsReceived() {
         val llm = FakeLlm(listOf(
-            // A signature on a thought part goes on the first call; a later sibling call gets none.
-            { _ -> listOf(chunk(thought), chunk(call("get_day", buildJsonObject {}), call("get_weight_history", buildJsonObject {}))) },
-            // A signature that arrives after the call, in an empty text part, goes on the call.
-            { _ -> listOf(chunk(call("get_day", buildJsonObject {})), chunk(trailing)) },
+            // A thought (with a summary) before two calls in one step.
+            { _ -> listOf(chunk(thought("sig-thought", "planning")), chunk(call("get_day", buildJsonObject {}), call("get_weight_history", buildJsonObject {}))) },
+            { _ -> listOf(chunk(call("get_day", buildJsonObject { put("date", today) }, "sig-2"))) },
             { _ -> listOf(chunk(text("All set."))) },
         ))
         val ev = chat(llm, "how am I doing")
         assertEquals("done", ev.last().first)
-        val contents = llm.requests[2]["contents"]!!.jsonArray.map { it.jsonObject }
-        val models = contents.filter { it["role"]!!.jsonPrimitive.content == "model" }.map { it["parts"]!!.jsonArray.map { p -> p.jsonObject } }
-        assertEquals(listOf("sig-thought", null), models[0].map { it["thoughtSignature"]?.jsonPrimitive?.content })
-        assertTrue(models[0].none { it.containsKey("thought") })
-        assertEquals(listOf("sig-late"), models[1].map { it["thoughtSignature"]?.jsonPrimitive?.content })
+        val steps = input(llm.requests[2])
+        assertEquals(listOf("user_input", "thought", "function_call", "function_call", "function_result", "function_result",
+            "thought", "function_call", "function_result"), steps.map { it.type() })
+        assertEquals("sig-thought", steps[1]["signature"]!!.jsonPrimitive.content)
+        assertTrue(steps[1]["summary"].toString().contains("planning"))
+        assertEquals("sig-2", steps[6]["signature"]!!.jsonPrimitive.content)
+        // Arguments streamed in pieces are put back together.
+        assertEquals(today, steps[7]["arguments"]!!.jsonObject["date"]!!.jsonPrimitive.content)
+        assertEquals(listOf(steps[2]["id"], steps[3]["id"]), listOf(steps[4]["call_id"], steps[5]["call_id"]))
+        // The thought text is not shown to the user.
+        assertEquals("All set.", ev.filter { it.first == "text" }.joinToString("") { it.second["delta"]!!.jsonPrimitive.content })
     }
 
     @Test
@@ -313,9 +394,9 @@ class AssistantTest {
         // 10 rounds of 2 calls hit the round limit; the model then gets a note. The tools stay the same
         // (Gemini rejects a turn whose tools change), but only propose_* calls run.
         val wrapUp = llm.requests[10]
-        val tools = { r: JsonObject -> r["tools"]!!.jsonArray.single().jsonObject["functionDeclarations"]!!.jsonArray.map { it.jsonObject["name"]!!.jsonPrimitive.content } }
+        val tools = { r: JsonObject -> r["tools"]!!.jsonArray.map { it.jsonObject["name"]!!.jsonPrimitive.content } }
         assertEquals(tools(llm.requests[0]), tools(wrapUp))
-        assertTrue(wrapUp["contents"].toString().contains("Step limit for this message reached"))
+        assertTrue(wrapUp["input"].toString().contains("Step limit for this message reached"))
         assertEquals(1, ev.count { it.first == "proposal" }, ev.map { it.first }.toString())
         val text = ev.filter { it.first == "text" }.joinToString("") { it.second["delta"]!!.jsonPrimitive.content }
         assertEquals("Proposed what I found.", text)

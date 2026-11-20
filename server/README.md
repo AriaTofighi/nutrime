@@ -184,8 +184,11 @@ ranked by `FoodQuality` (shared/): name match first, then how complete the data 
 and minerals; most Open Food Facts and branded entries copy only the label), then the source, with a small lift
 for products sold in that country (Open Food Facts `countries_tags`, USDA `marketCountry`).
 
-Conversations are stored in Postgres (`ai_conversations`, `ai_messages`, `ai_proposals`), including
-Gemini's thought signatures, which Gemini requires on later turns. The code is in `src/main/kotlin/…/ai/`.
+The assistant uses the Gemini Interactions API (`POST /v1beta/interactions`, streamed) without server-side
+storage (`store: false`): each request sends the conversation as steps, and the model's steps (with the
+thought signatures Gemini needs) are stored in Postgres (`ai_conversations`, `ai_messages`, `ai_proposals`)
+and sent back as received. The system instruction is fixed, so Gemini can cache it; the date, profile and
+today's totals go in the user's newest message. The code is in `src/main/kotlin/…/ai/`.
 
 **Traces.** Admins (see `ADMIN_EMAILS`) get a *Traces* page in the web app that shows every step of
 their own assistant chats: model text, each function call with its arguments, and each result
