@@ -144,6 +144,9 @@ val TOOL_DECLARATIONS: JsonArray = buildJsonArray {
             "replace_food_id" to str("A custom food or recipe of the user's that this recipe replaces (keeps its id)."),
             "update_diary_entries" to schema("BOOLEAN", "With replace_food_id: also give the replaced food's diary entries the recipe's " +
                 "nutrients (their amounts stay). Use when the user wants past logs corrected."),
+            "log_quantity" to num("Servings of the recipe to log as ONE diary entry (e.g. 1 for a dish they ate). Omit to only save the recipe."),
+            "log_meal" to MEAL,
+            "log_date" to DATE,
             required = listOf("ingredients"),
         )))
     add(fn("propose_update_food", "Propose changing one of the user's custom foods (not recipes or database foods): name, brand, serving, " +

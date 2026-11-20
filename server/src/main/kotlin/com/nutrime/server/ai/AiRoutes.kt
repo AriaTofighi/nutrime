@@ -191,8 +191,9 @@ class Assistant(
             val next = actions.toMutableList()
             if (changed == null) {
                 val removed = next.removeAt(index)
-                // A new food and the entry that logs it go together.
+                // A new food (or recipe) and the entry that logs it go together.
                 if (removed is Action.CreateFood) next.removeAll { it is Action.LogFood && it.foodId == removed.foodId }
+                if (removed is Action.SaveRecipe && removed.replaces == null) next.removeAll { it is Action.LogFood && it.foodId == removed.foodId }
             } else next[index] = changed
             if (!proposals.replace(uid, id, next)) throw ApiException(HttpStatusCode.Conflict, "This card was already confirmed or dismissed")
             call.respond(proposals.views(uid, listOf(id), today(call.request.queryParameters["today"])).getValue(id))

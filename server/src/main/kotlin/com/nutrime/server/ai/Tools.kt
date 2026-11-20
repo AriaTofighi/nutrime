@@ -97,7 +97,7 @@ suspend fun runTool(ctx: ToolContext, name: String, args: JsonObject): Pair<Json
         "search_diary" -> searchDiary(ctx, searchQueries(args).ifEmpty { throw ToolError("queries is required") },
             args.s("start_date")?.let { date(ctx, it) }, args.s("end_date")?.let { date(ctx, it) }) to null
         "propose_copy_entries" -> propose(ctx, copyEntries(ctx, args))
-        "propose_save_recipe" -> propose(ctx, listOf(saveRecipe(ctx, args)))
+        "propose_save_recipe" -> propose(ctx, saveRecipe(ctx, args))
         "propose_update_food" -> propose(ctx, listOf(updateFood(ctx, args)))
         "propose_delete_foods" -> propose(ctx, args.strings("food_ids").map { id ->
             val f = ctx.data.food(id)?.takeIf { it.kind == "custom" || it.kind == "recipe" } ?: throw ToolError("No custom food or recipe with id $id")

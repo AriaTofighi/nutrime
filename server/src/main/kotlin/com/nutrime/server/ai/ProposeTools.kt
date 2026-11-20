@@ -159,7 +159,8 @@ internal fun copyEntries(ctx: ToolContext, o: JsonObject): List<Action> {
     }
 }
 
-internal suspend fun saveRecipe(ctx: ToolContext, o: JsonObject): Action.SaveRecipe {
+/** A recipe, and (with log_quantity) one diary entry for it. */
+internal suspend fun saveRecipe(ctx: ToolContext, o: JsonObject): List<Action> {
     val replaceId = o.s("replace_food_id")?.trim()?.takeIf { it.isNotEmpty() }
     val replaced = replaceId?.let { id ->
         ctx.data.food(id)?.takeIf { it.kind == "custom" || it.kind == "recipe" }
@@ -179,7 +180,14 @@ internal suspend fun saveRecipe(ctx: ToolContext, o: JsonObject): Action.SaveRec
     if (ingredients.size > 60) throw ToolError("At most 60 ingredients")
     val updateEntries = if (replaceId != null && (o["update_diary_entries"] as? JsonPrimitive)?.content == "true")
         ctx.data.diary.filter { it.foodId == replaceId }.map { it.id } else emptyList()
-    return Action.SaveRecipe(replaceId ?: "custom:${UUID.randomUUID()}", name, servings, ingredients, replaced?.name, updateEntries)
+    val recipe = Action.SaveRecipe(replaceId ?: "custom:${UUID.randomUUID()}", name, servings, ingredients, replaced?.name, updateEntries)
+    val logQ = o.n("log_quantity")?.takeIf { it > 0 } ?: return listOf(recipe)
+    if (logQ > 100) throw ToolError("log_quantity out of range")
+    val serving = Serving("serving", recipe.totalGrams.coerceAtLeast(0.0001) / servings)
+    return listOf(recipe, Action.LogFood(
+        date(ctx, o.s("log_date")), meal(o.s("log_meal") ?: "snacks"), recipe.foodId, name, null,
+        serving.label, serving.grams, logQ, recipe.per100, source = "Your recipe",
+    ))
 }
 
 internal fun updateFood(ctx: ToolContext, o: JsonObject): Action.UpdateFood {

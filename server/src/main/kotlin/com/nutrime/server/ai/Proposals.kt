@@ -246,8 +246,8 @@ fun Action.item(today: String): ProposalItem = when (this) {
         )
         ProposalItem(
             title = shown,
-            detail = "${amount(quantity, servingLabel, servingGrams)} · ${kcal.roundToInt()} kcal · ${mealName(meal)}${dateSuffix(date, today)}",
-            kind = "log_food", name = shown, amount = amount(quantity, servingLabel, servingGrams) + dateSuffix(date, today), meal = meal,
+            detail = "${amount(quantity, servingLabel, servingGrams, foodId)} · ${kcal.roundToInt()} kcal · ${mealName(meal)}${dateSuffix(date, today)}",
+            kind = "log_food", name = shown, amount = amount(quantity, servingLabel, servingGrams, foodId) + dateSuffix(date, today), meal = meal,
             kcal = kcal, protein = (nutrients[N.PROTEIN] ?: 0.0) * grams / 100, carbs = (nutrients[N.CARBS] ?: 0.0) * grams / 100,
             fat = (nutrients[N.FAT] ?: 0.0) * grams / 100, quantity = quantity, servingLabel = servingLabel, servingGrams = servingGrams,
             source = source,
@@ -284,10 +284,16 @@ fun Action.item(today: String): ProposalItem = when (this) {
             replaces.equals(name, ignoreCase = true) -> "Make $name a recipe"
             else -> "Make $replaces a recipe: $name"
         },
-        "${ingredients.size} ingredients · ${fmt1(totalGrams)} g · ${kcalOf(per100, totalGrams).roundToInt()} kcal" +
+        "${ingredients.size} ingredients" +
+            // With a serving-only ingredient the total weight isn't known.
+            (if (ingredients.none { servingOnlyId(it.foodId) }) " · ${fmt1(totalGrams)} g" else "") +
+            " · ${kcalOf(per100, totalGrams).roundToInt()} kcal" +
             (if (servings != 1.0) " · ${fmt1(servings)} servings" else "") +
             (if (updateEntryIds.isNotEmpty()) " · updates ${updateEntryIds.size} diary ${if (updateEntryIds.size == 1) "entry" else "entries"}" else "") +
-            " · " + ingredients.joinToString(", ") { "${it.name} ${fmt1(it.grams)} g" },
+            " · " + ingredients.joinToString(", ") {
+                if (servingOnlyId(it.foodId) || it.servingLabel != "g") "${it.name} ${amount(it.quantity, it.servingLabel, it.servingGrams, it.foodId)}"
+                else "${it.name} ${fmt1(it.grams)} g"
+            },
         kind = "save_recipe",
     )
     is Action.UpdateFood -> ProposalItem(
@@ -341,8 +347,15 @@ fun proposalSummary(actions: List<Action>): String? {
     return "P ${p.roundToInt()} g · C ${c.roundToInt()} g · F ${f.roundToInt()} g"
 }
 
-private fun amount(quantity: Double, label: String, grams: Double): String =
-    if (label == "g") "${fmt1(quantity)} g" else "${fmt1(quantity)} × $label (${fmt1(grams * quantity)} g)"
+private fun amount(quantity: Double, label: String, grams: Double, foodId: String? = null): String = when {
+    label == "g" -> "${fmt1(quantity)} g"
+    // A food with no published weight: its grams are nominal, so don't show them.
+    foodId != null && servingOnlyId(foodId) -> "${fmt1(quantity)} × $label"
+    else -> "${fmt1(quantity)} × $label (${fmt1(grams * quantity)} g)"
+}
+
+/** Like [com.nutrime.app.model.Food.servingOnly]: a NutriMe food with no published weight. */
+private fun servingOnlyId(foodId: String) = foodId.startsWith("nm:") && foodId.endsWith("-serving")
 
 private fun dateSuffix(date: String, today: String) = if (date == today) "" else " · $date"
 
@@ -363,6 +376,8 @@ fun proposalTitle(actions: List<Action>): String {
         actions.all { it is Action.LogWeight } -> "Log weight"
         actions.any { it is Action.CreateFood } -> if (logs > 0) "Create food and log it" else "Create food"
         actions.all { it is Action.SaveRecipe } -> if (actions.size == 1) "Save recipe" else "Save ${actions.size} recipes"
+        actions.all { it is Action.SaveRecipe || it is Action.LogFood } && actions.count { it is Action.SaveRecipe } == 1 &&
+            actions.filterIsInstance<Action.LogFood>().all { l -> actions.any { it is Action.SaveRecipe && it.foodId == l.foodId } } -> "Save recipe and log it"
         actions.all { it is Action.UpdateProfile } -> "Update targets"
         actions.all { it is Action.UpdateFood || it is Action.DeleteFood } -> "Change your foods"
         else -> "Apply ${actions.size} changes"
