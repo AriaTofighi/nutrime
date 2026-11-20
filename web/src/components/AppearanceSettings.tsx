@@ -38,15 +38,15 @@ function Swatch({ label, background, on, onClick }: { label: string; background:
       type="button"
       onClick={onClick}
       aria-pressed={on}
-      className="flex w-14 cursor-pointer flex-col items-center gap-1 rounded-md border-0 bg-transparent p-1 text-[0.6875rem] text-muted-foreground hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/35 focus-visible:outline-none"
+      aria-label={label}
+      title={label}
+      className={cn(
+        "grid size-8 cursor-pointer place-items-center rounded-full border-0 p-0 text-white shadow-[inset_0_0_0_1px_rgb(0_0_0/0.1)] transition-transform outline-none hover:scale-110 focus-visible:ring-[3px] focus-visible:ring-ring/35",
+        on && "ring-2 ring-foreground ring-offset-2 ring-offset-card hover:scale-100",
+      )}
+      style={{ background }}
     >
-      <span
-        className={cn("grid size-8 place-items-center rounded-full text-white shadow-[inset_0_0_0_1px_rgb(0_0_0/0.1)] transition-transform", on && "ring-2 ring-foreground ring-offset-2 ring-offset-card")}
-        style={{ background }}
-      >
-        {on && <Check size={14} strokeWidth={3} />}
-      </span>
-      <span className={cn("truncate", on && "text-foreground")}>{label}</span>
+      {on && <Check size={14} strokeWidth={3} />}
     </button>
   );
 }
@@ -70,12 +70,12 @@ export function AppearanceSettings() {
         />
       </Field>
       {t.mode !== "light" && (
-        <Field label="Dark theme" hint="Black uses a true black background. It can save power on OLED screens.">
+        <Field label="Dark style">
           <Choice<DarkStyle> label="Dark theme" value={t.darkStyle} onChange={(darkStyle) => setTheme({ darkStyle })} options={[{ value: "dim", label: "Dim" }, { value: "black", label: "Black" }]} />
         </Field>
       )}
-      <Field label="Accent color">
-        <div className="flex flex-wrap gap-1">
+      <Field label="Color">
+        <div className="flex justify-between gap-1 py-1">
           {ACCENTS.map((a) => (
             <Swatch key={a.id} label={a.label} background={a.swatch} on={t.customHue == null && t.accent === a.id} onClick={() => setTheme({ accent: a.id, customHue: null })} />
           ))}
@@ -108,20 +108,15 @@ export function AppearanceSettings() {
 
       <Separator />
 
-      <div className="flex flex-col gap-1">
-        <h3 className="m-0 text-[15px] font-semibold text-foreground">Diary summary</h3>
-      </div>
-      <Field label="Number in the ring" hint="The ring always shows your daily target under the number.">
-        <Choice<RingValue> label="Number in the ring" value={t.ring} onChange={(ring) => setTheme({ ring })} options={[{ value: "remaining", label: "Calories left" }, { value: "consumed", label: "Calories eaten" }]} />
+      <h3 className="m-0 text-[0.9375rem] font-semibold text-foreground">Diary</h3>
+      <Field label="Calories">
+        <Choice<RingValue> label="Calories" value={t.ring} onChange={(ring) => setTheme({ ring })} options={[{ value: "remaining", label: "Left" }, { value: "consumed", label: "Eaten" }]} />
       </Field>
-      <Field label="Protein, carbs and fat">
-        <Choice<MacroValue> label="Protein, carbs and fat" value={t.macros} onChange={(macros) => setTheme({ macros })} options={[{ value: "consumed", label: "Eaten" }, { value: "remaining", label: "Left" }]} />
+      <Field label="Macros">
+        <Choice<MacroValue> label="Macros" value={t.macros} onChange={(macros) => setTheme({ macros })} options={[{ value: "remaining", label: "Left" }, { value: "consumed", label: "Eaten" }]} />
       </Field>
       <label className="flex cursor-pointer items-center justify-between gap-4">
-        <span className="flex flex-col">
-          <span className="text-sm text-foreground">Color the ring by macro</span>
-          <span className="text-xs text-subtle-foreground">Show protein, carbs and fat as parts of the ring</span>
-        </span>
+        <span className="text-sm text-foreground">Macro colors in the ring</span>
         <Switch checked={t.ringSplit} onCheckedChange={(ringSplit) => setTheme({ ringSplit })} />
       </label>
     </div>

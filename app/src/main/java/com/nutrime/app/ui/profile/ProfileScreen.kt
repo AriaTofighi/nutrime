@@ -36,6 +36,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -602,19 +605,15 @@ private fun AppearanceCard(appearance: Appearance, run: (suspend () -> Unit) -> 
     val colors = NutriTheme.colors
     NCard {
         FieldLabel("Theme")
-        Segmented(ThemeMode.entries.map { it to it.label }, appearance.mode, { m -> run { c.settings.setAppearance(mode = m) } }, fill = true)
+        Segmented(listOf(ThemeMode.LIGHT, ThemeMode.DARK, ThemeMode.SYSTEM).map { it to it.label }, appearance.mode, { m -> run { c.settings.setAppearance(mode = m) } }, fill = true)
         if (appearance.mode != ThemeMode.LIGHT) {
             Spacer(Modifier.height(Space.S4))
-            FieldLabel("Dark theme")
+            FieldLabel("Dark style")
             Segmented(listOf(DarkStyle.DIM to "Dim", DarkStyle.BLACK to "Black"), appearance.darkStyle, { d -> run { c.settings.setAppearance(darkStyle = d) } }, fill = true)
-            Text(
-                "Black uses a true black background. It can save power on OLED screens.",
-                style = NutriTheme.type.caption, color = colors.textTertiary, modifier = Modifier.padding(top = 6.dp),
-            )
         }
         Spacer(Modifier.height(Space.S5))
-        FieldLabel("Accent color")
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.S3), verticalArrangement = Arrangement.spacedBy(Space.S3)) {
+        FieldLabel("Color")
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             DesignTokens.Accent.entries.forEach { a ->
                 Swatch(a.label, Color.hsl(a.hue, a.saturation, a.swatchLightness), appearance.customHue == null && a == appearance.accent) {
                     run { c.settings.setAppearance(accent = a) }
@@ -646,23 +645,17 @@ private fun AppearanceCard(appearance: Appearance, run: (suspend () -> Unit) -> 
 
 @Composable
 private fun Swatch(label: String, color: Color, on: Boolean, rainbow: Boolean = false, onClick: () -> Unit) {
-    val colors = NutriTheme.colors
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.width(52.dp).clip(RoundedCornerShape(DesignTokens.Radius.Md)).clickable(onClick = onClick).padding(vertical = 2.dp),
-    ) {
-        val fill = if (rainbow) {
-            Modifier.background(androidx.compose.ui.graphics.Brush.sweepGradient((0..6).map { Color.hsl(it * 60f % 360f, CUSTOM_SATURATION, 0.55f) }))
-        } else Modifier.background(color)
-        Box(
-            Modifier.size(36.dp).clip(CircleShape)
-                .border(2.dp, if (on) color else Color.Transparent, CircleShape)
-                .padding(4.dp).clip(CircleShape).then(fill),
-            contentAlignment = Alignment.Center,
-        ) { if (on) Icon(Lucide.Check, null, tint = Color.White, modifier = Modifier.size(14.dp)) }
-        Spacer(Modifier.height(4.dp))
-        Text(label, style = NutriTheme.type.caption, color = if (on) colors.text else colors.textTertiary, maxLines = 1)
-    }
+    val fill = if (rainbow) {
+        Modifier.background(androidx.compose.ui.graphics.Brush.sweepGradient((0..6).map { Color.hsl(it * 60f % 360f, CUSTOM_SATURATION, 0.55f) }))
+    } else Modifier.background(color)
+    Box(
+        Modifier.size(34.dp).clip(CircleShape)
+            .border(2.dp, if (on) color else Color.Transparent, CircleShape)
+            .clickable(onClickLabel = label, onClick = onClick)
+            .semantics { contentDescription = label; selected = on }
+            .padding(3.dp).clip(CircleShape).then(fill),
+        contentAlignment = Alignment.Center,
+    ) { if (on) Icon(Lucide.Check, null, tint = Color.White, modifier = Modifier.size(14.dp)) }
 }
 
 /** A strip of all hues above the custom hue slider. */
@@ -679,23 +672,16 @@ private fun HueTrack() {
 private fun DisplayCard(display: DisplaySettings, save: (DisplaySettings) -> Unit) {
     val colors = NutriTheme.colors
     NCard {
-        Text("Diary summary", style = NutriTheme.type.title, color = colors.text)
+        Text("Diary", style = NutriTheme.type.title, color = colors.text)
         Spacer(Modifier.height(Space.S4))
-        FieldLabel("Number in the ring")
-        Segmented(RingValue.entries.map { it to it.label }, display.ring, { save(display.copy(ring = it)) }, fill = true)
-        Text(
-            "The ring always shows your daily target under the number.",
-            style = NutriTheme.type.caption, color = colors.textTertiary, modifier = Modifier.padding(top = 6.dp),
-        )
+        FieldLabel("Calories")
+        Segmented(listOf(RingValue.REMAINING to "Left", RingValue.CONSUMED to "Eaten"), display.ring, { save(display.copy(ring = it)) }, fill = true)
         Spacer(Modifier.height(Space.S4))
-        FieldLabel("Protein, carbs and fat")
-        Segmented(MacroValue.entries.map { it to it.label }, display.macros, { save(display.copy(macros = it)) }, fill = true)
+        FieldLabel("Macros")
+        Segmented(listOf(MacroValue.REMAINING to "Left", MacroValue.CONSUMED to "Eaten"), display.macros, { save(display.copy(macros = it)) }, fill = true)
         Spacer(Modifier.height(Space.S3))
         Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f).padding(end = Space.S3)) {
-                Text("Color the ring by macro", style = NutriTheme.type.body, color = colors.text)
-                Text("Show protein, carbs and fat as parts of the ring", style = NutriTheme.type.caption, color = colors.textTertiary)
-            }
+            Text("Macro colors in the ring", style = NutriTheme.type.body, color = colors.text, modifier = Modifier.weight(1f))
             androidx.compose.material3.Switch(display.ringSplit, { save(display.copy(ringSplit = it)) })
         }
     }
