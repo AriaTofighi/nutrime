@@ -627,7 +627,10 @@ private fun TodayCard(totals: NutrientMap, calorieTarget: Int, targets: Map<Int,
     val over = remaining < 0
     val showEaten = display.ring == RingValue.CONSUMED
     val fill = (consumed / target).toFloat().coerceAtMost(1f)
-    val segments = if (display.ringSplit && consumed > 0) {
+    // The colored arc always matches the number: what is left (it empties as you eat), or what you ate (it fills).
+    val segments = if (!showEaten) {
+        listOf((remaining / target).toFloat().coerceIn(0f, 1f) to c.accent)
+    } else if (display.ringSplit && consumed > 0) {
         // Calories from each macro, scaled so the segments fill the same part of the ring as the total.
         val parts = listOf(
             (totals[N.PROTEIN] ?: 0.0) * 4 to c.protein,
@@ -657,7 +660,7 @@ private fun TodayCard(totals: NutrientMap, calorieTarget: Int, targets: Map<Int,
                             style = NutriTheme.type.pageTitle.copy(fontFeatureSettings = "tnum"), color = c.text,
                         )
                         Text(
-                            when { showEaten -> "of %,d"; over -> "over %,d"; else -> "left of %,d" }.format(calorieTarget),
+                            (if (over && !showEaten) "over %,d" else "of %,d").format(calorieTarget),
                             style = NutriTheme.type.small.copy(fontFeatureSettings = "tnum"),
                             color = if (over && !showEaten) c.warning else c.textSecondary,
                         )

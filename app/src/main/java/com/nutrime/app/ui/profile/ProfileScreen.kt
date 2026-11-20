@@ -679,8 +679,7 @@ private fun DisplayCard(display: DisplaySettings, save: (DisplaySettings) -> Uni
         Spacer(Modifier.height(Space.S4))
         FieldLabel("Macros")
         Segmented(listOf(MacroValue.REMAINING to "Left", MacroValue.CONSUMED to "Eaten"), display.macros, { save(display.copy(macros = it)) }, fill = true)
-        Spacer(Modifier.height(Space.S3))
-        Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+        if (display.ring == RingValue.CONSUMED) Row(Modifier.fillMaxWidth().padding(top = Space.S3).padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
             Text("Macro colors in the ring", style = NutriTheme.type.body, color = colors.text, modifier = Modifier.weight(1f))
             androidx.compose.material3.Switch(display.ringSplit, { save(display.copy(ringSplit = it)) })
         }

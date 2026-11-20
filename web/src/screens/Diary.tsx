@@ -225,14 +225,17 @@ export default function Diary() {
                 stroke={10}
                 total={Math.max(kcalTarget, 1)}
                 segments={
-                  display.ringSplit && eaten > 0
+                  // The colored arc always matches the number: what is left (it empties as you eat), or what you ate.
+                  !showEaten
+                    ? [{ value: Math.max(0, remaining), color: COLORS.accent }]
+                    : display.ringSplit && eaten > 0
                     ? splitSegments(p, c, f, Math.min(eaten, kcalTarget))
                     : [{ value: Math.min(eaten, kcalTarget), color: remaining < 0 ? "var(--warning)" : COLORS.accent }]
                 }
               >
                 <b className="num">{fmtKcal(showEaten ? eaten : Math.abs(remaining))}</b>
                 <em className={`ring-target num ${remaining < 0 && !showEaten ? "warn-text" : ""}`}>
-                  {showEaten ? "of" : remaining < 0 ? "over" : "left of"} {kcalTarget.toLocaleString()}
+                  {remaining < 0 && !showEaten ? "over" : "of"} {kcalTarget.toLocaleString()}
                 </em>
               </Ring>
               <div className="today-macros">

@@ -115,10 +115,12 @@ export function AppearanceSettings() {
       <Field label="Macros">
         <Choice<MacroValue> label="Macros" value={t.macros} onChange={(macros) => setTheme({ macros })} options={[{ value: "remaining", label: "Left" }, { value: "consumed", label: "Eaten" }]} />
       </Field>
-      <label className="flex cursor-pointer items-center justify-between gap-4">
-        <span className="text-sm text-foreground">Macro colors in the ring</span>
-        <Switch checked={t.ringSplit} onCheckedChange={(ringSplit) => setTheme({ ringSplit })} />
-      </label>
+      {t.ring === "consumed" && (
+        <label className="flex cursor-pointer items-center justify-between gap-4">
+          <span className="text-sm text-foreground">Macro colors in the ring</span>
+          <Switch checked={t.ringSplit} onCheckedChange={(ringSplit) => setTheme({ ringSplit })} />
+        </label>
+      )}
     </div>
   );
 }
