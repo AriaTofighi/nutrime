@@ -293,7 +293,9 @@ class Assistant(
                         e is LlmException -> "The AI service returned an error. Please try again."
                         else -> "Something went wrong. Please try again."
                     }
-                    runCatching { send("error", buildJsonObject { put("message", msg) }) }
+                    // Admins also see the cause (for example the Gemini error text), to fix the setup.
+                    val detail = if (runCatching { admin.isAdmin(uid) }.getOrDefault(false)) "\n\n${e.message ?: e::class.simpleName}".take(600) else ""
+                    runCatching { send("error", buildJsonObject { put("message", msg + detail) }) }
                 }
             }
         }

@@ -279,6 +279,26 @@ class AssistantTest {
     }
 
     @Test
+    fun looseThoughtSignaturesStayWithTheFunctionCall() {
+        val thought = buildJsonObject { put("text", "planning"); put("thought", true); put("thoughtSignature", "sig-thought") }
+        val trailing = buildJsonObject { put("text", ""); put("thoughtSignature", "sig-late") }
+        val llm = FakeLlm(listOf(
+            // A signature on a thought part goes on the first call; a later sibling call gets none.
+            { _ -> listOf(chunk(thought), chunk(call("get_day", buildJsonObject {}), call("get_weight_history", buildJsonObject {}))) },
+            // A signature that arrives after the call, in an empty text part, goes on the call.
+            { _ -> listOf(chunk(call("get_day", buildJsonObject {})), chunk(trailing)) },
+            { _ -> listOf(chunk(text("All set."))) },
+        ))
+        val ev = chat(llm, "how am I doing")
+        assertEquals("done", ev.last().first)
+        val contents = llm.requests[2]["contents"]!!.jsonArray.map { it.jsonObject }
+        val models = contents.filter { it["role"]!!.jsonPrimitive.content == "model" }.map { it["parts"]!!.jsonArray.map { p -> p.jsonObject } }
+        assertEquals(listOf("sig-thought", null), models[0].map { it["thoughtSignature"]?.jsonPrimitive?.content })
+        assertTrue(models[0].none { it.containsKey("thought") })
+        assertEquals(listOf("sig-late"), models[1].map { it["thoughtSignature"]?.jsonPrimitive?.content })
+    }
+
+    @Test
     fun runningOutOfStepsStillEndsWithAProposal() {
         val busy: (JsonObject) -> List<JsonObject> = { _ -> listOf(chunk(call("get_day", buildJsonObject {}), call("get_weight_history", buildJsonObject {}))) }
         val llm = FakeLlm(List(10) { busy } + listOf(
@@ -290,10 +310,11 @@ class AssistantTest {
             { _ -> listOf(chunk(text("Proposed what I found."))) },
         ))
         val ev = chat(llm, "log my lunch")
-        // 10 rounds of 2 calls hit the round limit; the model then only gets propose_* tools and a note.
+        // 10 rounds of 2 calls hit the round limit; the model then gets a note. The tools stay the same
+        // (Gemini rejects a turn whose tools change), but only propose_* calls run.
         val wrapUp = llm.requests[10]
-        val tools = wrapUp["tools"]!!.jsonArray.single().jsonObject["functionDeclarations"]!!.jsonArray.map { it.jsonObject["name"]!!.jsonPrimitive.content }
-        assertTrue(tools.isNotEmpty() && tools.all { it.startsWith("propose_") }, tools.toString())
+        val tools = { r: JsonObject -> r["tools"]!!.jsonArray.single().jsonObject["functionDeclarations"]!!.jsonArray.map { it.jsonObject["name"]!!.jsonPrimitive.content } }
+        assertEquals(tools(llm.requests[0]), tools(wrapUp))
         assertTrue(wrapUp["contents"].toString().contains("Step limit for this message reached"))
         assertEquals(1, ev.count { it.first == "proposal" }, ev.map { it.first }.toString())
         val text = ev.filter { it.first == "text" }.joinToString("") { it.second["delta"]!!.jsonPrimitive.content }

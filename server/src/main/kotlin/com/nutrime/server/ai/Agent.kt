@@ -33,9 +33,7 @@ const val MAX_ROUNDS = 10
 /** Extra model calls after the limit, with only the propose_* tools, to turn what it found into a proposal and a reply. */
 const val WRAP_UP_ROUNDS = 3
 
-private val WRAP_UP_DECLARATIONS = JsonArray(TOOL_DECLARATIONS.filter {
-    ((it as JsonObject)["name"] as JsonPrimitive).content.startsWith("propose_")
-})
+private const val SIGNATURE = "thoughtSignature"
 
 private const val WRAP_UP_NOTE = "Step limit for this message reached: searching, web lookups and other lookups are now off. With what " +
     "you already have, call the propose_* functions now (best matches; propose_create_food for web results you found; generic " +
@@ -48,7 +46,7 @@ private const val WRAP_UP_NOTE = "Step limit for this message reached: searching
  * Every new Content is handed to [persist] as soon as it's complete.
  *
  * Each turn has a budget ([MAX_TOOL_CALLS], [MAX_ROUNDS]). When it runs out the model isn't cut off:
- * it gets [WRAP_UP_ROUNDS] more calls with only the propose_* tools, so it still delivers a proposal.
+ * it gets [WRAP_UP_ROUNDS] more calls in which only the propose_* tools run, so it still delivers a proposal.
  */
 class Agent(
     private val llm: LlmClient,
@@ -95,11 +93,15 @@ class Agent(
             val request = buildJsonObject {
                 putJsonObject("systemInstruction") { putJsonArray("parts") { add(buildJsonObject { put("text", system) }) } }
                 put("contents", JsonArray(contents.toList()))
-                putJsonArray("tools") { add(buildJsonObject { put("functionDeclarations", if (wrappingUp) WRAP_UP_DECLARATIONS else TOOL_DECLARATIONS) }) }
+                // The same tools every round: Gemini rejects a turn whose tools change between its steps.
+                // While wrapping up, calls to other tools get an error result instead.
+                putJsonArray("tools") { add(buildJsonObject { put("functionDeclarations", TOOL_DECLARATIONS) }) }
                 generationConfig?.let { put("generationConfig", it) }
             }
             val parts = mutableListOf<JsonObject>()
             var blocked: String? = null
+            // A thought signature that came without a part to keep it on (a thought part, or an empty text part).
+            var looseSignature: JsonElement? = null
             llm.stream(request).collect { chunk ->
                 (chunk["promptFeedback"] as? JsonObject)?.get("blockReason")?.let { blocked = (it as JsonPrimitive).content }
                 val candidate = (chunk["candidates"] as? JsonArray)?.firstOrNull() as? JsonObject ?: return@collect
@@ -107,9 +109,19 @@ class Agent(
                 if (finish != null && finish !in setOf("STOP", "MAX_TOKENS", "FINISH_REASON_UNSPECIFIED")) blocked = finish
                 val newParts = ((candidate["content"] as? JsonObject)?.get("parts") as? JsonArray).orEmpty()
                 for (p in newParts) {
-                    val part = p as? JsonObject ?: continue
-                    if ((part["thought"] as? JsonPrimitive)?.booleanOrNull == true) continue
+                    var part = p as? JsonObject ?: continue
+                    val signature = part[SIGNATURE]
                     val text = (part["text"] as? JsonPrimitive)?.content
+                    // Thought text is not shown or kept, but its signature must go back to the model.
+                    if ((part["thought"] as? JsonPrimitive)?.booleanOrNull == true || (text == "" && part.keys.all { it == "text" || it == SIGNATURE })) {
+                        if (signature != null) looseSignature = signature
+                        continue
+                    }
+                    val firstCall = "functionCall" in part && parts.none { "functionCall" in it }
+                    if (signature == null && looseSignature != null && (text != null || firstCall)) {
+                        part = JsonObject(part + (SIGNATURE to looseSignature!!))
+                        looseSignature = null
+                    }
                     if (text != null) {
                         if (text.isNotEmpty()) emit(AgentEvent.Text(text))
                         mergeText(parts, part, text)
@@ -118,6 +130,7 @@ class Agent(
                     }
                 }
             }
+            looseSignature?.let { keepSignature(parts, it) }
             if (parts.isEmpty()) {
                 emit(AgentEvent.Text(if (blocked != null) "Sorry, I can't help with that one." else "Sorry, I didn't get a response. Please try again."))
                 return
@@ -178,18 +191,34 @@ class Agent(
         emit(AgentEvent.Text("\n\nI ran out of steps before finishing. Tell me what's still missing and I'll pick up from there."))
     }
 
-    /** Streamed text arrives in many small parts; keep one part per run of text, with its thought signature. */
+    /**
+     * Streamed text arrives in many small parts; keep one part per run of text. A part with its own thought
+     * signature starts a new part when the run already has one, so no signature is lost.
+     */
     private fun mergeText(parts: MutableList<JsonObject>, part: JsonObject, text: String) {
         val last = parts.lastOrNull()
         val lastText = (last?.get("text") as? JsonPrimitive)?.content
-        if (last != null && lastText != null) {
+        if (last != null && lastText != null && !(SIGNATURE in last && SIGNATURE in part)) {
             val merged = last.toMutableMap()
             merged["text"] = JsonPrimitive(lastText + text)
-            part["thoughtSignature"]?.let { merged["thoughtSignature"] = it }
+            part[SIGNATURE]?.let { merged[SIGNATURE] = it }
             parts[parts.size - 1] = JsonObject(merged)
         } else {
             parts += part
         }
+    }
+
+    /**
+     * A signature that came after the parts it belongs to. Gemini needs it on the first function call of the
+     * step (and only there), so it goes there when no call has one; otherwise on the last text part.
+     */
+    private fun keepSignature(parts: MutableList<JsonObject>, signature: JsonElement) {
+        val calls = parts.indices.filter { "functionCall" in parts[it] }
+        val target = when {
+            calls.isNotEmpty() -> calls.first().takeIf { calls.none { i -> SIGNATURE in parts[i] } }
+            else -> parts.indices.lastOrNull { "text" in parts[it] && SIGNATURE !in parts[it] }
+        }
+        if (target != null) parts[target] = JsonObject(parts[target] + (SIGNATURE to signature))
     }
 }
 
