@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Logo } from "../components/Logo";
 import * as api from "../lib/api";
 import { store } from "../lib/store";
+import { Button } from "@/components/shadcn/button";
+import { Input } from "@/components/shadcn/input";
 
 export default function Auth() {
   const [mode, setMode] = useState<"login" | "register">("login");
@@ -45,12 +47,12 @@ export default function Auth() {
         <form className="form" onSubmit={submit}>
           <label className="field">
             <span>Email</span>
-            <input className="input-lg" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />
+            <Input className="h-10 text-[0.875rem]" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />
           </label>
           <label className="field">
             <span>Password</span>
-            <input
-              className="input-lg"
+            <Input
+              className="h-10 text-[0.875rem]"
               type="password"
               autoComplete={mode === "login" ? "current-password" : "new-password"}
               value={password}
@@ -63,16 +65,16 @@ export default function Auth() {
           {mode === "register" && (
             <label className="field">
               <span>Invitation code</span>
-              <input className="input-lg" value={invitationCode} onChange={(e) => setInvitationCode(e.target.value)}
+              <Input className="h-10 text-[0.875rem]" value={invitationCode} onChange={(e) => setInvitationCode(e.target.value)}
                 autoComplete="off" autoCapitalize="none" spellCheck={false} maxLength={100} required />
               <span className="hint">Ask the server owner for a code. Use the email address they invited.</span>
             </label>
           )}
           {error && <p className="hint danger">{error}</p>}
-          <button className="btn btn-primary btn-lg btn-block" disabled={busy}>
+          <Button size="lg" className="w-full" disabled={busy}>
             {busy && <LoaderCircle size={17} className="spin" />}
             {mode === "login" ? "Sign in" : "Create account"}
-          </button>
+          </Button>
         </form>
         {mode === "login" && registrationOpen && (
           <p className="auth-switch">

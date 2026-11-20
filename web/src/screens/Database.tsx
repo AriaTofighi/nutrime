@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Card, Empty, Modal, NutrientGrid, Segmented } from "../components/ui";
 import { adminGet, type AdminFood, type AdminFoodPage, type FoodCollection } from "../lib/adminFoods";
 import { N, fmtNum } from "../lib/nutrients";
+import { Button } from "@/components/shadcn/button";
 
 const COLLECTIONS: { value: FoodCollection; label: string }[] = [
   { value: "curated", label: "NutriMe curated" },
@@ -57,12 +58,12 @@ export default function Database({ token }: { token: string }) {
           <h1 className="page-title">Food database</h1>
           <p className="page-sub">Read-only access to NutriMe's food collections</p>
         </div>
-        <button className="btn btn-secondary" onClick={() => setAttempt((n) => n + 1)} disabled={loading}>
+        <Button variant="outline" onClick={() => setAttempt((n) => n + 1)} disabled={loading}>
           <RefreshCw size={15} /> Refresh
-        </button>
+        </Button>
       </header>
       <div className="toolbar catalog-toolbar">
-        <Segmented options={COLLECTIONS} value={collection} onChange={(next) => { setCollection(next); setPage(1); }} />
+        <Segmented options={COLLECTIONS} value={collection} onChange={(next) => { setCollection(next); setPage(1); }} className="max-[640px]:w-full" itemClassName="max-[640px]:h-auto max-[640px]:min-h-10 max-[640px]:whitespace-normal" />
         <label className="search-bar catalog-search">
           <Search size={16} aria-hidden />
           <input aria-label="Search food database" placeholder="Search names, brands or barcodes" value={query} maxLength={200}
@@ -74,7 +75,7 @@ export default function Database({ token }: { token: string }) {
         {loading ? <div className="catalog-message" role="status">Loading foods…</div> : current?.error ? (
           <div className="catalog-message" role="alert">
             <p>{current.error}</p>
-            <button className="btn btn-secondary" onClick={() => setAttempt((n) => n + 1)}>Try again</button>
+            <Button variant="outline" onClick={() => setAttempt((n) => n + 1)}>Try again</Button>
           </div>
         ) : data?.items.length ? (
           <div className="catalog-scroll">
@@ -102,8 +103,8 @@ export default function Database({ token }: { token: string }) {
       {data && <footer className="catalog-pagination">
         <span role="status">{data.total.toLocaleString()} foods{data.total > 0 && ` · Page ${page} of ${Math.max(1, Math.ceil(data.total / data.pageSize)).toLocaleString()}`}</span>
         <div className="catalog-page-buttons">
-          <button className="btn btn-secondary" disabled={page <= 1} onClick={() => setPage((n) => n - 1)}><ChevronLeft size={15} /> Previous</button>
-          <button className="btn btn-secondary" disabled={page * data.pageSize >= data.total} onClick={() => setPage((n) => n + 1)}>Next <ChevronRight size={15} /></button>
+          <Button variant="outline" disabled={page <= 1} onClick={() => setPage((n) => n - 1)}><ChevronLeft size={15} /> Previous</Button>
+          <Button variant="outline" disabled={page * data.pageSize >= data.total} onClick={() => setPage((n) => n + 1)}>Next <ChevronRight size={15} /></Button>
         </div>
       </footer>}
       {selected && <Modal title={selected.food.name} subtitle={`${selected.sourceLabel} · ${selected.reviewStatus}`} onClose={() => setSelected(null)} wide>

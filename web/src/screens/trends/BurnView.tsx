@@ -7,6 +7,8 @@ import { useStore } from "../../lib/store";
 import { burnEstimate, conv as convOf, profileNow, unitOf } from "../../lib/trends";
 import { isoDate } from "../../lib/util";
 import { saveProfile, signed, SubHead } from "./shared";
+import { Input } from "@/components/shadcn/input";
+import { Switch } from "@/components/shadcn/switch";
 
 export function BurnView({ onBack }: { onBack: () => void }) {
   useStore();
@@ -73,7 +75,7 @@ export function BurnView({ onBack }: { onBack: () => void }) {
             </p>
             <label className="toggle-row">
               <span>Update without asking</span>
-              <input type="checkbox" checked={profile.autoAcceptBurn} onChange={(ev) => saveProfile({ ...profile, autoAcceptBurn: ev.target.checked })} />
+              <Switch checked={profile.autoAcceptBurn} onCheckedChange={(on) => saveProfile({ ...profile, autoAcceptBurn: on })} />
             </label>
           </>
         )}
@@ -81,7 +83,7 @@ export function BurnView({ onBack }: { onBack: () => void }) {
         {profile.burnMode === "MANUAL" && (
           <label className="field">
             <span>Daily burn (kcal)</span>
-            <input className="input" inputMode="numeric" value={manual} onChange={(ev) => {
+            <Input inputMode="numeric" value={manual} onChange={(ev) => {
               setManual(ev.target.value);
               const v = Number(ev.target.value);
               saveProfile({ ...profile, manualBurnKcal: Number.isInteger(v) && v >= 1000 && v <= 6000 ? v : null });

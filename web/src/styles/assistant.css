@@ -434,9 +434,6 @@ button.msg-tool:disabled {
     font-weight: var(--weight-semibold);
     box-shadow: var(--shadow-lg);
   }
-  .head-actions .btn-primary {
-    display: none;
-  }
   .composer {
     bottom: calc(62px + env(safe-area-inset-bottom));
   }
@@ -464,15 +461,6 @@ button.msg-tool:disabled {
   .page-sub {
     font-size: var(--text-xs);
   }
-  .head-actions .btn {
-    padding: 0 var(--space-3);
-  }
-  .card {
-    padding: var(--space-4);
-  }
-  .card-flush {
-    padding: 0;
-  }
   .hide-sm {
     display: none;
   }
@@ -490,9 +478,6 @@ button.msg-tool:disabled {
   }
   .diary-rail {
     grid-template-columns: minmax(0, 1fr);
-  }
-  .diary-rail > .card:first-child {
-    display: none;
   }
   .energy-card {
     order: -1;
@@ -524,29 +509,6 @@ button.msg-tool:disabled {
   .search-bar-sm {
     max-width: none;
     margin-left: 0;
-  }
-  .overlay {
-    padding: 0;
-    align-items: flex-end;
-  }
-  .modal,
-  .modal-wide {
-    max-width: none;
-    max-height: 94vh;
-    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-    animation: sheet var(--duration-slow) var(--ease-out);
-  }
-  @keyframes sheet {
-    from {
-      transform: translateY(40px);
-      opacity: 0;
-    }
-  }
-  .modal-body {
-    padding: var(--space-1) var(--space-5) calc(var(--space-6) + env(safe-area-inset-bottom));
-  }
-  .modal-head {
-    padding-left: var(--space-5);
   }
   .auth-card {
     padding: var(--space-8) var(--space-5) var(--space-5);
@@ -651,8 +613,6 @@ button.msg-tool:disabled {
   border-bottom: 1px solid var(--border);
 }
 @media (max-width: 640px) {
-  .catalog-toolbar .segmented { width: 100%; }
-  .catalog-toolbar .segmented button { flex: 1; white-space: normal; justify-content: center; height: auto; min-height: var(--control-h-lg); }
   .catalog-search { width: 100%; min-width: 0; }
   .catalog-source { display: none; }
   .catalog-table th, .catalog-table td { padding: var(--space-3); }

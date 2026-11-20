@@ -15,7 +15,9 @@ import { store, useStore } from "../lib/store";
 import type { DiaryEntry, WeightRecord } from "../lib/types";
 import { addDays, amountLabel, defaultMealForNow, fmtWeight, friendlyDate, isoDate, parseIso } from "../lib/util";
 import { COLORS, useTheme } from "../theme/theme";
-import { Button } from "@/components/shadcn/button";
+import { Button, buttonVariants } from "@/components/shadcn/button";
+import { Textarea } from "@/components/shadcn/textarea";
+import { Input } from "@/components/shadcn/input";
 
 type Dialog =
   | { kind: "add"; food?: Food; amount?: PickedAmount }
@@ -46,13 +48,13 @@ function CheckIn({ profile, burn, learned, sd, onDone }: { profile: Profile; bur
           {limited ? ` The change is limited to ${Math.abs(value - Math.round(burn))} kcal this week.` : ""}
         </p>
         <div className="actions">
-          <button className="btn btn-primary btn-sm" onClick={() => {
+          <Button size="sm" onClick={() => {
             saveProfile({ ...next, burnModeChosen: true, adaptiveBurnDate: isoDate() });
             onDone("Target updated", () => saveProfile({ ...profile, adaptiveBurnDate: isoDate() }));
-          }}>{first ? "Use it" : "Update target"}</button>
-          <button className="btn btn-ghost btn-sm" onClick={() => saveProfile({ ...profile, adaptiveBurnDate: isoDate(), burnModeChosen: true, burnMode: profile.burnModeChosen ? profile.burnMode : "FORMULA" })}>Keep</button>
+          }}>{first ? "Use it" : "Update target"}</Button>
+          <Button variant="ghost" size="sm" onClick={() => saveProfile({ ...profile, adaptiveBurnDate: isoDate(), burnModeChosen: true, burnMode: profile.burnModeChosen ? profile.burnMode : "FORMULA" })}>Keep</Button>
           <span className="spacer" />
-          <a className="btn btn-ghost btn-sm" href="#/assistant" onClick={() => { try { sessionStorage.setItem("nutrime.assistantPrompt", WEEKLY_REVIEW); } catch { /* ignore */ } }}>Review my week</a>
+          <a className={buttonVariants({ variant: "ghost", size: "sm" })} href="#/assistant" onClick={() => { try { sessionStorage.setItem("nutrime.assistantPrompt", WEEKLY_REVIEW); } catch { /* ignore */ } }}>Review my week</a>
         </div>
       </div>
     </Card>
@@ -161,21 +163,21 @@ export default function Diary() {
     <div className="page">
       <header className="page-head diary-head">
         <div className="date-nav">
-          <button className="icon-btn" onClick={() => setDate(addDays(date, -1))} aria-label="Previous day">
+          <Button variant="ghost" size="icon" onClick={() => setDate(addDays(date, -1))} aria-label="Previous day">
             <ChevronLeft size={20} />
-          </button>
+          </Button>
           <label className="date-pick">
             <span className="page-title">{friendlyDate(date)}{day?.complete && <CircleCheck size={18} className="day-done" aria-label="Day complete" />}</span>
             <span className="page-sub">{dateLabel}</span>
             <input type="date" value={date} onChange={(e) => e.target.value && setDate(e.target.value)} aria-label="Pick date" />
           </label>
-          <button className="icon-btn" onClick={() => setDate(addDays(date, 1))} aria-label="Next day">
+          <Button variant="ghost" size="icon" onClick={() => setDate(addDays(date, 1))} aria-label="Next day">
             <ChevronRight size={20} />
-          </button>
+          </Button>
           {date !== isoDate() && (
-            <button className="btn btn-ghost btn-sm" onClick={() => setDate(isoDate())}>
+            <Button variant="ghost" size="sm" onClick={() => setDate(isoDate())}>
               Today
-            </button>
+            </Button>
           )}
         </div>
         <div className="head-actions">
@@ -211,8 +213,8 @@ export default function Diary() {
                 <strong>You reached your goal weight</strong>
                 <p className="hint">Change your plan to Maintain to keep it?</p>
                 <div className="actions">
-                  <button className="btn btn-primary btn-sm" onClick={() => saveProfile({ ...profile, goalKgPerWeek: 0 })}>Maintain</button>
-                  <button className="btn btn-ghost btn-sm" onClick={() => { try { localStorage.setItem(goalHiddenKey, String(profile.goalWeightKg)); } catch { /* ignore */ } setGoalHidden(String(profile.goalWeightKg)); }}>Not now</button>
+                  <Button size="sm" onClick={() => saveProfile({ ...profile, goalKgPerWeek: 0 })}>Maintain</Button>
+                  <Button variant="ghost" size="sm" onClick={() => { try { localStorage.setItem(goalHiddenKey, String(profile.goalWeightKg)); } catch { /* ignore */ } setGoalHidden(String(profile.goalWeightKg)); }}>Not now</Button>
                 </div>
               </div>
             </Card>
@@ -252,7 +254,7 @@ export default function Diary() {
             </Card>
           )}
 
-          <Card className="log-card" flush>
+          <Card className="log-card overflow-visible" flush>
             <div className="log-head">
               <span>Food</span>
               <span className="hide-sm">Amount</span>
@@ -278,8 +280,8 @@ export default function Diary() {
                 <span className="num log-kcal">
                   {fmtWeight(profile.imperial ? weight.weightKg * LB_PER_KG : weight.weightKg)} <span className="dim">{unit}</span>
                 </span>
-                <button
-                  className="icon-btn sm row-action"
+                <Button
+                  variant="ghost" size="icon-sm" className="row-action"
                   aria-label="Delete weight"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -288,7 +290,7 @@ export default function Diary() {
                   }}
                 >
                   <Trash2 size={15} />
-                </button>
+                </Button>
               </div>
             )}
             {entries.map((e) => {
@@ -349,8 +351,8 @@ export default function Diary() {
                   <span className="num hide-sm">{fmtNum(n[N.FAT] ?? 0)}</span>
                   <span className="num log-kcal">{fmtKcal(n[N.ENERGY] ?? 0)}</span>
                   <span className="row-menu-wrap">
-                    <button
-                      className="icon-btn sm row-action"
+                    <Button
+                      variant="ghost" size="icon-sm" className="row-action"
                       aria-label={`More actions for ${e.foodName}`}
                       aria-expanded={menu === e.id}
                       onClick={(ev) => {
@@ -359,7 +361,7 @@ export default function Diary() {
                       }}
                     >
                       <EllipsisVertical size={15} />
-                    </button>
+                    </Button>
                     {menu === e.id && (
                       <div className="row-menu" role="menu" onClick={(ev) => ev.stopPropagation()}>
                         <button role="menuitem" onClick={() => { setMenu(undefined); void openEdit(e); }}>
@@ -391,27 +393,27 @@ export default function Diary() {
             {entries.length === 0 ? (
               <Empty icon={<Apple size={26} strokeWidth={1.5} />} title="Nothing logged yet">
                 <div className="empty-actions">
-                  <button className="btn btn-primary btn-sm" onClick={() => setDialog({ kind: "add" })}>
+                  <Button size="sm" onClick={() => setDialog({ kind: "add" })}>
                     <Plus size={15} /> Add food
-                  </button>
-                  <button
-                    className="btn btn-secondary btn-sm"
+                  </Button>
+                  <Button
+                    variant="outline" size="sm"
                     onClick={() => {
                       const n = copyDay(addDays(date, -1), date);
                       flash(n ? `Copied ${n} item${n === 1 ? "" : "s"} from the previous day` : "Nothing logged the previous day");
                     }}
                   >
                     <Copy size={14} /> Copy previous day
-                  </button>
+                  </Button>
                 </div>
               </Empty>
             ) : (
               <div className="log-foot">
                 <span>
                   Total{" "}
-                  <button className="btn btn-ghost btn-sm" onClick={() => { setMealName(""); setDialog({ kind: "saveMeal" }); }}>
+                  <Button variant="ghost" size="sm" onClick={() => { setMealName(""); setDialog({ kind: "saveMeal" }); }}>
                     <Utensils size={14} /> Save as meal
-                  </button>
+                  </Button>
                 </span>
                 <span className="hide-sm" />
                 <span className="num hide-sm">{fmtNum(p)}</span>
@@ -426,9 +428,9 @@ export default function Diary() {
           <Card
             title="Nutrients"
             action={
-              <button className="btn btn-ghost btn-sm" onClick={() => setAllNutrients((v) => !v)}>
+              <Button variant="ghost" size="sm" onClick={() => setAllNutrients((v) => !v)}>
                 {allNutrients ? "Hide" : "Show all"}
-              </button>
+              </Button>
             }
           >
             <ScoreBar met={scoreMet} total={scored.length} />
@@ -447,7 +449,7 @@ export default function Diary() {
         </div>
 
         <aside className="diary-rail">
-          <Card>
+          <Card className="max-[640px]:hidden">
             <Calendar value={date} onChange={setDate} marked={loggedDays} />
           </Card>
           <Card title="Calorie sources">
@@ -563,12 +565,12 @@ export default function Diary() {
       )}
       {dialog?.kind === "note" && (
         <Modal title="Note for this day" onClose={() => setDialog(null)}>
-          <textarea className="input" rows={4} value={noteText} maxLength={500} placeholder="Ate out, felt hungry, training day…" onChange={(e) => setNoteText(e.target.value)} style={{ width: "100%" }} />
+          <Textarea rows={4} value={noteText} maxLength={500} placeholder="Ate out, felt hungry, training day…" onChange={(e) => setNoteText(e.target.value)} style={{ width: "100%" }} />
           <div className="actions">
-            {day?.note && <button className="btn btn-ghost" onClick={() => { setNote(date, null); setDialog(null); }}>Delete</button>}
+            {day?.note && <Button variant="ghost" onClick={() => { setNote(date, null); setDialog(null); }}>Delete</Button>}
             <span className="grow" />
-            <button className="btn btn-ghost" onClick={() => setDialog(null)}>Cancel</button>
-            <button className="btn btn-primary" onClick={() => { setNote(date, noteText); setDialog(null); }}>Save</button>
+            <Button variant="ghost" onClick={() => setDialog(null)}>Cancel</Button>
+            <Button onClick={() => { setNote(date, noteText); setDialog(null); }}>Save</Button>
           </div>
         </Modal>
       )}
@@ -576,18 +578,18 @@ export default function Diary() {
         <Modal title="Save as meal" subtitle={`${entries.length} foods · ${fmtKcal(eaten)} kcal`} onClose={() => setDialog(null)}>
           <label className="field">
             <span>Name</span>
-            <input className="input" value={mealName} maxLength={80} placeholder="Usual breakfast" onChange={(e) => setMealName(e.target.value)} autoFocus />
+            <Input value={mealName} maxLength={80} placeholder="Usual breakfast" onChange={(e) => setMealName(e.target.value)} autoFocus />
           </label>
           <p className="hint">{entries.map((e) => e.foodName).join(", ")}</p>
           <div className="actions">
             <span className="grow" />
-            <button className="btn btn-ghost" onClick={() => setDialog(null)}>Cancel</button>
-            <button className="btn btn-primary" disabled={!mealName.trim()} onClick={() => {
+            <Button variant="ghost" onClick={() => setDialog(null)}>Cancel</Button>
+            <Button disabled={!mealName.trim()} onClick={() => {
               const meals = new Set(entries.map((e) => e.meal));
               saveMeal(mealName, entries, meals.size === 1 ? [...meals][0] : undefined);
               setDialog(null);
               flash(`Saved “${mealName.trim()}”`);
-            }}>Save</button>
+            }}>Save</Button>
           </div>
         </Modal>
       )}
@@ -605,7 +607,7 @@ export default function Diary() {
       {toast && (
         <div className="toast">
           {toast}
-          {undo && <button className="btn btn-ghost btn-sm" onClick={() => { undo(); setToast(undefined); setUndo(undefined); }}>Undo</button>}
+          {undo && <Button variant="ghost" size="sm" onClick={() => { undo(); setToast(undefined); setUndo(undefined); }}>Undo</Button>}
         </div>
       )}
     </div>

@@ -27,6 +27,9 @@ import { browserCountry } from "../lib/assistant";
 import { savedMeals, type SavedMeal } from "../lib/days";
 import { COLORS } from "../theme/theme";
 import { Empty, NutrientGrid, Ring } from "./ui";
+import { Button } from "@/components/shadcn/button";
+import { Input } from "@/components/shadcn/input";
+import { NativeSelect } from "@/components/shadcn/native-select";
 
 /**
  * A food row, as in Cronometer: the name (brand first), the default serving and its weight below it
@@ -224,9 +227,9 @@ export function FoodSearch({
     <div key={key ?? f.id} className="food-row-wrap" style={{ display: "flex", alignItems: "center" }}>
       <div style={{ flex: 1, minWidth: 0 }}><FoodRow food={f} onPick={pick} /></div>
       {quick && (
-        <button className="icon-btn sm food-row-add" aria-label={`Add ${f.name}`} title="Add with your usual amount" onClick={() => quick(f)}>
+        <Button variant="ghost" size="icon-sm" className="food-row-add" aria-label={`Add ${f.name}`} title="Add with your usual amount" onClick={() => quick(f)}>
           <Plus size={16} />
-        </button>
+        </Button>
       )}
     </div>
   );
@@ -254,10 +257,12 @@ export function FoodSearch({
           autoFocus
           aria-label={barcodeMode ? "Barcode" : "Search foods"}
         />
-        {barcodeMode && query.trim() && <button className="btn btn-primary btn-sm">Look up</button>}
-        <button
+        {barcodeMode && query.trim() && <Button size="sm">Look up</Button>}
+        <Button
           type="button"
-          className={`icon-btn sm ${barcodeMode ? "on" : ""}`}
+          variant="ghost"
+          size="icon-sm"
+          className={barcodeMode ? "text-primary hover:text-primary" : undefined}
           title={barcodeMode ? "Search by name" : "Look up a barcode"}
           aria-pressed={barcodeMode}
           onClick={() => {
@@ -266,7 +271,7 @@ export function FoodSearch({
           }}
         >
           <ScanBarcode size={17} />
-        </button>
+        </Button>
       </form>
       {barcodeMsg && <p className="hint">{barcodeMsg}</p>}
       {!barcodeMode && (
@@ -335,10 +340,10 @@ export function FoodSearch({
               <p className="hint center"><LoaderCircle size={16} className="spin" /> Searching branded and online foods…</p>
             ) : (
               (!online || online.q !== q || online.errors.length > 0) && (
-                <button className="btn btn-secondary btn-block" onClick={() => void goOnline()}>
+                <Button variant="outline" className="w-full" onClick={() => void goOnline()}>
                   {online?.errors.length ? <RefreshCw size={16} /> : <Globe size={16} />}
                   {online?.errors.length ? "Try again" : "Search branded foods online"}
-                </button>
+                </Button>
               )
             )}
           </>
@@ -412,27 +417,27 @@ export function AmountForm({
         {food.category && <span>{food.category}</span>}
         {usual && <span className="dim">Last time's amount</span>}
         <span className="grow" />
-        <button type="button" className={`icon-btn sm ${fav ? "on" : ""}`} onClick={toggleFav} aria-pressed={fav} aria-label={fav ? "Remove from favourites" : "Add to favourites"} title="Favourite">
+        <Button type="button" variant="ghost" size="icon-sm" className={fav ? "text-primary hover:text-primary" : undefined} onClick={toggleFav} aria-pressed={fav} aria-label={fav ? "Remove from favourites" : "Add to favourites"} title="Favourite">
           <Star size={16} fill={fav ? "currentColor" : "none"} />
-        </button>
+        </Button>
       </div>
 
       <div className="amount-grid">
         <div className="amount-fields">
           <label className="field">
             <span>Amount</span>
-            <input className="input-lg num" inputMode="decimal" value={qty} onChange={(e) => setQty(e.target.value)} autoFocus aria-label="Quantity" />
+            <Input className="h-10 text-[0.875rem] num" inputMode="decimal" value={qty} onChange={(e) => setQty(e.target.value)} autoFocus aria-label="Quantity" />
           </label>
           <label className="field grow">
             <span>Serving</span>
-            <select className="input-lg" value={servingIdx} onChange={(e) => setServingIdx(Number(e.target.value))}>
+            <NativeSelect className="h-10 text-[0.875rem]" value={servingIdx} onChange={(e) => setServingIdx(Number(e.target.value))}>
               {servings.map((s, i) => (
                 <option key={s.label + i} value={i}>
                   {s.label}
                   {s.label === "g" || s.label === "100 g" || servingOnly(food) ? "" : ` · ${fmtNum(s.grams)} g`}
                 </option>
               ))}
-            </select>
+            </NativeSelect>
           </label>
         </div>
         <div className="amount-preview">
@@ -473,19 +478,19 @@ export function AmountForm({
 
       <div className="actions">
         {onBack && (
-          <button type="button" className="btn btn-ghost" onClick={onBack}>
+          <Button type="button" variant="ghost" onClick={onBack}>
             <ArrowLeft size={16} /> Back
-          </button>
+          </Button>
         )}
         {onDelete && (
-          <button type="button" className="btn btn-danger-ghost" onClick={onDelete}>
+          <Button type="button" variant="destructive-ghost" onClick={onDelete}>
             <Trash2 size={15} /> Delete
-          </button>
+          </Button>
         )}
         <span className="grow" />
-        <button className="btn btn-primary" disabled={!(q > 0)}>
+        <Button disabled={!(q > 0)}>
           {submitLabel}
-        </button>
+        </Button>
       </div>
     </form>
   );

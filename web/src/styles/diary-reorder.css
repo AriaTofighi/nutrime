@@ -55,9 +55,6 @@
   color: var(--danger);
 }
 /* The row menu may extend past the log card. */
-.log-card.card-flush {
-  overflow: visible;
-}
 
 /* The log card does not clip its content (drag handles), so its head and foot follow the card's corners. */
 .log-card .log-head {

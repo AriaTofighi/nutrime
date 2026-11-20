@@ -9,6 +9,7 @@ import { burnEstimate, conv as convOf, profileNow, unitOf } from "../../lib/tren
 import type { WeightRecord } from "../../lib/types";
 import { fmtWeight, fmtWeight1, isoDate, parseIso } from "../../lib/util";
 import { addDaysIso, signed, SubHead } from "./shared";
+import { Button } from "@/components/shadcn/button";
 
 export function WeightView({ onBack }: { onBack: () => void }) {
   useStore();
@@ -37,7 +38,7 @@ export function WeightView({ onBack }: { onBack: () => void }) {
   return (
     <div className="page page-trends">
       <SubHead title="Weight" onBack={onBack}>
-        <button className="btn btn-secondary btn-sm" onClick={() => setDialog({})}><Plus size={15} /> Log</button>
+        <Button variant="outline" size="sm" onClick={() => setDialog({})}><Plus size={15} /> Log</Button>
       </SubHead>
       {!est ? (
         <Card><Empty icon={<Scale size={22} />} title="No weigh-ins yet">Log your weight to see your trend. Daily weigh-ins in the morning give the best trend.</Empty></Card>
@@ -96,7 +97,7 @@ export function WeightView({ onBack }: { onBack: () => void }) {
       {removed && (
         <div className="toast">
           Removed weight
-          <button className="btn btn-ghost btn-sm" onClick={() => { restoreWeight(removed); setRemoved(undefined); }}>Undo</button>
+          <Button variant="ghost" size="sm" onClick={() => { restoreWeight(removed); setRemoved(undefined); }}>Undo</Button>
         </div>
       )}
     </div>

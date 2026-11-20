@@ -8,7 +8,10 @@ import { calorieTargetOn, encodeProfile } from "../lib/profile";
 import { store } from "../lib/store";
 import { burnEstimate, profileNow } from "../lib/trends";
 import { COLLECTION_NAMES } from "../lib/types";
+import { Card } from "../components/ui";
 import { isoDate, shortDate } from "../lib/util";
+import { Button } from "@/components/shadcn/button";
+import { Switch } from "@/components/shadcn/switch";
 
 /** "Export your data" (CSV files and a full copy) and "Import data" (Cronometer, MyFitnessPal, NutriMe). */
 export function ExportImport() {
@@ -64,20 +67,20 @@ export function ExportImport() {
       <div className="field">
         <span>Export your data</span>
         <p className="hint">A ZIP file with your diary, daily totals and weigh-ins as CSV files for a spreadsheet, and a full copy you can import again.</p>
-        <div><button className="btn btn-primary" onClick={exportAll}><Download size={15} /> Export</button></div>
+        <div><Button onClick={exportAll}><Download size={15} /> Export</Button></div>
       </div>
       <div className="field">
         <span>Import data</span>
         <p className="hint">From Cronometer (servings.csv, biometrics.csv), MyFitnessPal (nutrition summary and measurement CSV, or the ZIP), or a NutriMe export. You see a summary before anything is saved.</p>
         <div>
           <input ref={file} type="file" accept=".csv,.zip,text/csv,application/zip" hidden onChange={(e) => void pick(e.target.files?.[0])} />
-          <button className="btn btn-secondary" onClick={() => file.current?.click()}><Upload size={15} /> Choose file</button>
+          <Button variant="outline" onClick={() => file.current?.click()}><Upload size={15} /> Choose file</Button>
         </div>
       </div>
       {error && <p className="hint danger">{error}</p>}
       {done && <p className="hint">{done}</p>}
       {plan && (
-        <div className="card">
+        <Card>
           <h4 style={{ margin: 0 }}>{plan.label}</h4>
           <div className="sheet-lines">
             {plan.from && <div className="sheet-line"><span>Dates</span><span className="num">{shortDate(plan.from)} – {shortDate(plan.to!)}</span></div>}
@@ -87,23 +90,23 @@ export function ExportImport() {
           {plan.existingDays.length > 0 && (
             <label className="toggle-row">
               <span>Skip the {plan.existingDays.length} days that already have entries in NutriMe</span>
-              <input type="checkbox" checked={skip} onChange={(e) => setSkip(e.target.checked)} />
+              <Switch checked={skip} onCheckedChange={setSkip} />
             </label>
           )}
           {plan.needsWeightUnit && (
             <label className="toggle-row">
               <span>Weights in the file are in pounds</span>
-              <input type="checkbox" checked={lb} onChange={(e) => setLb(e.target.checked)} />
+              <Switch checked={lb} onCheckedChange={setLb} />
             </label>
           )}
           {plan.ignored.length > 0 && <p className="hint">Columns not imported: {plan.ignored.slice(0, 12).join(", ")}{plan.ignored.length > 12 ? ` and ${plan.ignored.length - 12} more` : ""}.</p>}
           <p className="hint">Imported foods show in your diary with their totals. Importing the same file again changes nothing.</p>
           <div className="actions">
             <span className="grow" />
-            <button className="btn btn-ghost" onClick={() => setPlan(null)}>Cancel</button>
-            <button className="btn btn-primary" onClick={apply} disabled={!plan.entries.length && !plan.weights.length}>Import</button>
+            <Button variant="ghost" onClick={() => setPlan(null)}>Cancel</Button>
+            <Button onClick={apply} disabled={!plan.entries.length && !plan.weights.length}>Import</Button>
           </div>
-        </div>
+        </Card>
       )}
     </div>
   );

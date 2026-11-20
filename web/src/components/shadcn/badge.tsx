@@ -9,6 +9,8 @@ const badgeVariants = cva("inline-flex w-fit shrink-0 items-center gap-1 rounded
       secondary: "bg-secondary text-muted-foreground",
       outline: "border border-border-strong text-muted-foreground",
       warning: "bg-warning/15 text-warning",
+      neutral: "bg-track text-foreground",
+      destructive: "bg-destructive-soft text-destructive",
     },
   },
   defaultVariants: { variant: "default" },

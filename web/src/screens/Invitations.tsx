@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Modal } from "../components/ui";
 import { invitationRequest, type CreatedInvitation, type Invitation } from "../lib/invitations";
 import { health } from "../lib/api";
+import { Button, buttonVariants } from "@/components/shadcn/button";
+import { Input } from "@/components/shadcn/input";
+import { NativeSelect } from "@/components/shadcn/native-select";
 
 const date = (value: number) => new Date(value).toLocaleString();
 const status = (invite: Invitation, now: number) => invite.usedAt ? "Used" : invite.revokedAt ? "Revoked" : invite.expiresAt <= now ? "Expired" : "Available";
@@ -76,27 +79,27 @@ export default function Invitations({ token }: { token: string }) {
     <div className="page page-narrow">
       <header className="page-head">
         <h1 className="page-title">Invitations</h1>
-        <a className="btn btn-secondary" href="#/profile">Back to profile</a>
+        <a className={buttonVariants({ variant: "outline" })} href="#/profile">Back to profile</a>
       </header>
       <p className="hint">Each code lets one person create an account with the email address you choose. Share codes privately.</p>
       {registrationPaused && <p className="warn-note" role="status">New accounts are paused on this server. Codes can be used after the owner enables invitation registration.</p>}
       <form className="form" onSubmit={(event) => void create(event)}>
         <label className="field">
           <span>Friend’s email</span>
-          <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} maxLength={320} autoComplete="off" required disabled={busy} />
+          <Input type="email" value={email} onChange={(event) => setEmail(event.target.value)} maxLength={320} autoComplete="off" required disabled={busy} />
         </label>
         <label className="field">
           <span>Expires in</span>
-          <select value={days} onChange={(event) => setDays(Number(event.target.value))} disabled={busy}>
+          <NativeSelect value={days} onChange={(event) => setDays(Number(event.target.value))} disabled={busy}>
             <option value={1}>1 day</option><option value={7}>7 days</option><option value={30}>30 days</option>
-          </select>
+          </NativeSelect>
         </label>
-        <div className="actions start"><button className="btn btn-primary" disabled={busy || !email.trim()}>Create invitation</button></div>
+        <div className="actions start"><Button disabled={busy || !email.trim()}>Create invitation</Button></div>
       </form>
       {error && <p className="hint danger" role="alert">{error}</p>}
       <div className="page-head invitation-history">
         <h2>Recent invitations</h2>
-        <button className="btn btn-secondary" disabled={busy || loading} onClick={() => { setError(undefined); setAttempt((value) => value + 1); }}>Refresh</button>
+        <Button variant="outline" disabled={busy || loading} onClick={() => { setError(undefined); setAttempt((value) => value + 1); }}>Refresh</Button>
       </div>
       {loading ? <p role="status">Loading invitations…</p> : items.length ? (
         <ul className="invitation-list">{items.map((invite) => (
@@ -105,18 +108,18 @@ export default function Invitations({ token }: { token: string }) {
               <div className="strong invitation-email">{invite.email}</div>
               <div className="hint">{status(invite, now)} · {invite.usedAt ? date(invite.usedAt) : invite.revokedAt ? date(invite.revokedAt) : `Expires ${date(invite.expiresAt)}`}</div>
             </div>
-            {status(invite, now) === "Available" && <button className="btn btn-ghost" disabled={busy} onClick={() => void revoke(invite)}>Revoke</button>}
+            {status(invite, now) === "Available" && <Button variant="ghost" disabled={busy} onClick={() => void revoke(invite)}>Revoke</Button>}
           </li>
         ))}</ul>
       ) : !error && <p className="hint">No invitations yet.</p>}
       {created && <Modal title="Invitation created" onClose={() => setCreated(undefined)}>
         <div className="form">
           <p className="hint">For {created.invitation.email}. Expires {date(created.invitation.expiresAt)}. Copy this code now; it cannot be shown again.</p>
-          <label className="field"><span>Invitation code</span><input readOnly value={created.code} autoComplete="off" spellCheck={false} onFocus={(event) => event.target.select()} /></label>
+          <label className="field"><span>Invitation code</span><Input readOnly value={created.code} autoComplete="off" spellCheck={false} onFocus={(event) => event.target.select()} /></label>
           {copyError && <p className="hint danger" role="alert">{copyError}</p>}
           <div className="actions">
-            <button className="btn btn-secondary" onClick={() => setCreated(undefined)}>Done</button>
-            <button className="btn btn-primary" onClick={() => void copyCode()}>{copied ? "Copied" : "Copy code"}</button>
+            <Button variant="outline" onClick={() => setCreated(undefined)}>Done</Button>
+            <Button onClick={() => void copyCode()}>{copied ? "Copied" : "Copy code"}</Button>
           </div>
         </div>
       </Modal>}

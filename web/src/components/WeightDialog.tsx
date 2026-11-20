@@ -4,6 +4,8 @@ import { newId, store } from "../lib/store";
 import type { WeightRecord } from "../lib/types";
 import { fmtWeight, isoDate, toNum } from "../lib/util";
 import { Modal } from "./ui";
+import { Button } from "@/components/shadcn/button";
+import { Input } from "@/components/shadcn/input";
 
 /** Keep the profile's weight (used for calorie targets) equal to the most recent log, like the app. */
 export function syncProfileWeight() {
@@ -70,29 +72,29 @@ export function WeightDialog({
       >
         <label className="field">
           <span>Date</span>
-          <input type="date" value={date} max={isoDate()} onChange={(e) => setDate(e.target.value)} />
+          <Input type="date" value={date} max={isoDate()} onChange={(e) => setDate(e.target.value)} />
         </label>
         <div className="row2">
           <label className="field">
             <span>Weight</span>
             <div className="input-affix">
-              <input inputMode="decimal" value={weight} onChange={(e) => setWeight(e.target.value)} autoFocus placeholder="0.0" />
+              <Input className="pr-11" inputMode="decimal" value={weight} onChange={(e) => setWeight(e.target.value)} autoFocus placeholder="0.0" />
               <em>{imperial ? "lb" : "kg"}</em>
             </div>
           </label>
           <label className="field">
             <span>Body fat (optional)</span>
             <div className="input-affix">
-              <input inputMode="decimal" value={bf} onChange={(e) => setBf(e.target.value)} placeholder="—" />
+              <Input className="pr-11" inputMode="decimal" value={bf} onChange={(e) => setBf(e.target.value)} placeholder="—" />
               <em>%</em>
             </div>
           </label>
         </div>
         <div className="actions">
           {existing && (
-            <button
+            <Button
               type="button"
-              className="btn btn-danger-ghost"
+              variant="destructive-ghost"
               onClick={() => {
                 const rec = deleteWeight(existing.id);
                 onClose();
@@ -100,15 +102,15 @@ export function WeightDialog({
               }}
             >
               Delete
-            </button>
+            </Button>
           )}
           <span className="grow" />
-          <button type="button" className="btn btn-ghost" onClick={onClose}>
+          <Button type="button" variant="ghost" onClick={onClose}>
             Cancel
-          </button>
-          <button className="btn btn-primary" disabled={!valid}>
+          </Button>
+          <Button disabled={!valid}>
             Save
-          </button>
+          </Button>
         </div>
       </form>
     </Modal>

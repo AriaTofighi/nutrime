@@ -8,7 +8,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   return <div data-slot="card-header" className={cn("grid auto-rows-min items-start gap-1 px-5 has-[[data-slot=card-action]]:grid-cols-[1fr_auto]", className)} {...props} />;
 }
 function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="card-title" className={cn("text-[15px] leading-tight font-semibold", className)} {...props} />;
+  return <div data-slot="card-title" className={cn("text-[0.9375rem] leading-tight font-semibold", className)} {...props} />;
 }
 function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   return <div data-slot="card-description" className={cn("text-[0.8125rem] text-muted-foreground", className)} {...props} />;

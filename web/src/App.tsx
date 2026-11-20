@@ -16,6 +16,8 @@ import Invitations from "./screens/Invitations";
 import AiSettings from "./screens/AiSettings";
 import { useAdminAccess } from "./lib/adminFoods";
 import { setTheme, useTheme, type ThemeMode } from "./theme/theme";
+import { Button } from "@/components/shadcn/button";
+import { cn } from "@/lib/cn";
 
 const TABS = [
   { id: "diary", label: "Diary", Icon: BookOpen },
@@ -41,14 +43,16 @@ function SyncStatus() {
   const Icon = s.running ? LoaderCircle : s.error ? CloudOff : Cloud;
   const label = s.running ? "Syncing" : s.error ? "Offline" : s.pending ? `${s.pending} to sync` : "Synced";
   return (
-    <button
-      className={`sync ${s.error ? "sync-err" : s.running || s.pending ? "sync-busy" : ""}`}
+    <Button
+      variant="outline"
+      size="sm"
+      className={cn("sync self-start border-border text-muted-foreground shadow-none max-[860px]:self-center", s.error ? "sync-err" : (s.running || s.pending) && "sync-busy")}
       onClick={() => void store.sync()}
       title={s.error ?? `Last synced ${timeAgo(s.lastSync)}. Click to sync now.`}
     >
       <Icon size={15} className={s.running ? "spin" : ""} />
       <span>{label}</span>
-    </button>
+    </Button>
   );
 }
 
@@ -141,21 +145,21 @@ export default function App() {
           <div className="page page-narrow">
             <h1 className="page-title">Assistant settings</h1>
             <p role="status">{admin.loading ? "Checking access…" : admin.error ?? "Administrator access is required."}</p>
-            {admin.error && <button className="btn btn-secondary" onClick={admin.retry}>Try again</button>}
+            {admin.error && <Button variant="outline" onClick={admin.retry}>Try again</Button>}
           </div>
         ))}
         {tab === "invitations" && (admin.allowed ? <Invitations key={s.account.token} token={s.account.token} /> : (
           <div className="page page-narrow">
             <h1 className="page-title">Invitations</h1>
             <p role="status">{admin.loading ? "Checking access…" : admin.error ?? "Administrator access is required."}</p>
-            {admin.error && <button className="btn btn-secondary" onClick={admin.retry}>Try again</button>}
+            {admin.error && <Button variant="outline" onClick={admin.retry}>Try again</Button>}
           </div>
         ))}
         {tab === "database" && (admin.allowed ? <Database key={s.account.token} token={s.account.token} /> : (
           <div className="page page-narrow">
             <h1 className="page-title">Food database</h1>
             <p role="status">{admin.loading ? "Checking access…" : admin.error ?? "This page is only available to the NutriMe administrator."}</p>
-            {admin.error && <button className="btn btn-secondary" onClick={admin.retry}>Try again</button>}
+            {admin.error && <Button variant="outline" onClick={admin.retry}>Try again</Button>}
           </div>
         ))}
       </main>

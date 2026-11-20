@@ -22,11 +22,13 @@ system modes, a dim or black dark theme, eight accent colors or a custom hue, an
 [`src/theme/theme.ts`](src/theme/theme.ts); the choice, and the diary summary options, are saved per browser
 (Profile → Appearance, or the toggle in the sidebar).
 
-New UI uses [shadcn/ui](https://ui.shadcn.com) components (`src/components/shadcn/`, config in `components.json`)
-with Tailwind CSS v4 ([`src/styles/tailwind.css`](src/styles/tailwind.css)). Tailwind's colors map to the same
-tokens, so both kinds of components follow the theme. Tailwind's preflight is not used; the existing CSS is in the
-`app` cascade layer, so utility classes override it. Shared building blocks (cards, rings, meters, calendar, modal, segmented
-controls) live in `src/components/ui.tsx`. Inter is bundled; icons are Lucide.
+The UI uses [shadcn/ui](https://ui.shadcn.com) components (`src/components/shadcn/`, config in `components.json`)
+with Tailwind CSS v4 ([`src/styles/tailwind.css`](src/styles/tailwind.css)): buttons, inputs, text areas, native
+selects, switches, sliders, toggle groups, badges, cards and dialogs (a bottom sheet on phones). Tailwind's colors,
+radii and shadows map to the design tokens, so the components follow the theme. Tailwind's preflight is not used;
+the older layout CSS is in the `app` cascade layer, so utility classes override it (use a Tailwind variant such as
+`max-[860px]:hidden`, not an `app` rule, to hide a component). Shared building blocks (`Card`, `Modal`, `Segmented`,
+rings, meters, calendar) live in `src/components/ui.tsx` and wrap the shadcn components. Inter is bundled; icons are Lucide.
 
 ## How it talks to the backend
 

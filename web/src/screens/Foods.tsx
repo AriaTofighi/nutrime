@@ -9,6 +9,8 @@ import { LABEL_NUTRIENTS, N, NUTRIENTS, NUTRIENT_BY_ID, fmtNum, sum } from "../l
 import { store, useStore } from "../lib/store";
 import type { FoodRecord, RecipeIngredient } from "../lib/types";
 import { fmtQty, toNum } from "../lib/util";
+import { Button } from "@/components/shadcn/button";
+import { Input } from "@/components/shadcn/input";
 
 type Editor = { kind: "custom"; record?: FoodRecord } | { kind: "recipe"; record?: FoodRecord } | { kind: "view"; record: FoodRecord } | null;
 
@@ -53,12 +55,12 @@ export default function Foods() {
           <p className="page-sub">Foods you made, recipes, and online foods you've logged</p>
         </div>
         <div className="head-actions">
-          <button className="btn btn-secondary" onClick={() => setEditor({ kind: "recipe" })}>
+          <Button variant="outline" onClick={() => setEditor({ kind: "recipe" })}>
             <RecipeIcon size={16} /> New recipe
-          </button>
-          <button className="btn btn-primary" onClick={() => setEditor({ kind: "custom" })}>
+          </Button>
+          <Button className="max-[860px]:hidden" onClick={() => setEditor({ kind: "custom" })}>
             <Plus size={17} /> Custom food
-          </button>
+          </Button>
         </div>
       </header>
       <div className="toolbar">
@@ -127,15 +129,15 @@ export default function Foods() {
         <Modal title={editor.record.name} subtitle={`${KIND_LABEL[editor.record.kind]} · per 100 g`} onClose={() => setEditor(null)} wide>
           <NutrientGrid totals={recordToFood(editor.record).nutrients} showEmpty={false} />
           <div className="actions">
-            <button
-              className="btn btn-danger-ghost"
+            <Button
+              variant="destructive-ghost"
               onClick={() => {
                 store.remove("foods", editor.record.id);
                 setEditor(null);
               }}
             >
               <Trash2 size={15} /> Remove from saved foods
-            </button>
+            </Button>
           </div>
         </Modal>
       )}
@@ -178,27 +180,27 @@ function CustomFoodEditor({ record, onClose }: { record?: FoodRecord; onClose: (
       <form className="form" onSubmit={save}>
         <label className="field">
           <span>Name</span>
-          <input value={name} onChange={(e) => setName(e.target.value)} required autoFocus />
+          <Input value={name} onChange={(e) => setName(e.target.value)} required autoFocus />
         </label>
         <div className="row2">
           <label className="field">
             <span>Brand (optional)</span>
-            <input value={brand} onChange={(e) => setBrand(e.target.value)} />
+            <Input value={brand} onChange={(e) => setBrand(e.target.value)} />
           </label>
           <label className="field">
             <span>Barcode (optional)</span>
-            <input inputMode="numeric" value={barcode} onChange={(e) => setBarcode(e.target.value.replace(/\D/g, ""))} />
+            <Input inputMode="numeric" value={barcode} onChange={(e) => setBarcode(e.target.value.replace(/\D/g, ""))} />
           </label>
         </div>
         <div className="eyebrow">Serving size</div>
         <div className="row2">
           <label className="field">
             <span>Name, e.g. 1 cup</span>
-            <input value={servingLabel} onChange={(e) => setServingLabel(e.target.value)} />
+            <Input value={servingLabel} onChange={(e) => setServingLabel(e.target.value)} />
           </label>
           <label className="field">
             <span>Grams</span>
-            <input inputMode="decimal" value={servingGrams} onChange={(e) => setServingGrams(e.target.value)} />
+            <Input inputMode="decimal" value={servingGrams} onChange={(e) => setServingGrams(e.target.value)} />
           </label>
         </div>
         <div className="eyebrow">Nutrition per serving</div>
@@ -206,30 +208,30 @@ function CustomFoodEditor({ record, onClose }: { record?: FoodRecord; onClose: (
           {defs.map((d) => (
             <label key={d.id} className="field">
               <span>{d.name} <em>{d.unit}</em></span>
-              <input inputMode="decimal" value={values[d.id] ?? ""} onChange={(e) => setValues({ ...values, [d.id]: e.target.value })} />
+              <Input inputMode="decimal" value={values[d.id] ?? ""} onChange={(e) => setValues({ ...values, [d.id]: e.target.value })} />
             </label>
           ))}
         </div>
-        <button type="button" className="btn btn-ghost btn-sm" onClick={() => setShowAll(!showAll)}>
+        <Button type="button" variant="ghost" size="sm" onClick={() => setShowAll(!showAll)}>
           {showAll ? "Show label nutrients only" : "Show all nutrients"}
-        </button>
+        </Button>
         <div className="actions">
           {record && (
-            <button
+            <Button
               type="button"
-              className="btn btn-danger-ghost"
+              variant="destructive-ghost"
               onClick={() => {
                 store.remove("foods", record.id);
                 onClose();
               }}
             >
               <Trash2 size={15} /> Delete
-            </button>
+            </Button>
           )}
           <span className="grow" />
-          <button className="btn btn-primary" disabled={!valid}>
+          <Button disabled={!valid}>
             Save
-          </button>
+          </Button>
         </div>
       </form>
     </Modal>
@@ -284,11 +286,11 @@ function RecipeEditor({ record, onClose }: { record?: FoodRecord; onClose: () =>
         <div className="row2">
           <label className="field">
             <span>Recipe name</span>
-            <input value={name} onChange={(e) => setName(e.target.value)} required autoFocus />
+            <Input value={name} onChange={(e) => setName(e.target.value)} required autoFocus />
           </label>
           <label className="field">
             <span>Number of servings</span>
-            <input inputMode="decimal" value={servings} onChange={(e) => setServings(e.target.value)} />
+            <Input inputMode="decimal" value={servings} onChange={(e) => setServings(e.target.value)} />
           </label>
         </div>
         <div className="eyebrow">Ingredients</div>
@@ -306,15 +308,15 @@ function RecipeEditor({ record, onClose }: { record?: FoodRecord; onClose: () =>
                 {Math.round(ingredientNutrients(i)[N.ENERGY] ?? 0)}
                 <small>kcal</small>
               </span>
-              <button type="button" className="icon-btn sm" aria-label={`Remove ${i.name}`} onClick={() => setIngredients(ingredients.filter((_, j) => j !== idx))}>
+              <Button type="button" variant="ghost" size="icon-sm" aria-label={`Remove ${i.name}`} onClick={() => setIngredients(ingredients.filter((_, j) => j !== idx))}>
                 <Trash2 size={15} />
-              </button>
+              </Button>
             </div>
           ))}
         </div>
-        <button type="button" className="btn btn-secondary" onClick={() => setAdding("search")}>
+        <Button type="button" variant="outline" onClick={() => setAdding("search")}>
           <Plus size={16} /> Add ingredient
-        </button>
+        </Button>
         {ingredients.length > 0 && (
           <div className="summary-strip">
             <span className="dim">Per serving</span>
@@ -337,21 +339,21 @@ function RecipeEditor({ record, onClose }: { record?: FoodRecord; onClose: () =>
         )}
         <div className="actions">
           {record && (
-            <button
+            <Button
               type="button"
-              className="btn btn-danger-ghost"
+              variant="destructive-ghost"
               onClick={() => {
                 store.remove("foods", record.id);
                 onClose();
               }}
             >
               <Trash2 size={15} /> Delete
-            </button>
+            </Button>
           )}
           <span className="grow" />
-          <button className="btn btn-primary" disabled={!valid}>
+          <Button disabled={!valid}>
             Save recipe
-          </button>
+          </Button>
         </div>
       </form>
     </Modal>
@@ -367,22 +369,22 @@ function MealEditor({ meal, onClose }: { meal: SavedMeal; onClose: () => void })
       <div className="form">
         <label className="field">
           <span>Name</span>
-          <input className="input" value={name} maxLength={80} onChange={(e) => setName(e.target.value)} />
+          <Input value={name} maxLength={80} onChange={(e) => setName(e.target.value)} />
         </label>
         <ul className="list">
           {items.map((i, k) => (
             <li key={k} className="list-row">
               <span>{i.name} <span className="dim">· {fmtQty(i.quantity)} {i.servingLabel}</span></span>
-              <button className="icon-btn sm" aria-label={`Remove ${i.name}`} onClick={() => setItems(items.filter((_, j) => j !== k))}>×</button>
+              <Button variant="ghost" size="icon-sm" aria-label={`Remove ${i.name}`} onClick={() => setItems(items.filter((_, j) => j !== k))}>×</Button>
             </li>
           ))}
         </ul>
       </div>
       <div className="actions">
-        <button className="btn btn-danger-ghost" onClick={() => { deleteMeal(meal.id); onClose(); }}>Delete</button>
+        <Button variant="destructive-ghost" onClick={() => { deleteMeal(meal.id); onClose(); }}>Delete</Button>
         <span className="grow" />
-        <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
-        <button className="btn btn-primary" disabled={!name.trim() || !items.length} onClick={() => { saveMeal(name, [], meal.defaultMeal, meal.id, items); onClose(); }}>Save</button>
+        <Button variant="ghost" onClick={onClose}>Cancel</Button>
+        <Button disabled={!name.trim() || !items.length} onClick={() => { saveMeal(name, [], meal.defaultMeal, meal.id, items); onClose(); }}>Save</Button>
       </div>
     </Modal>
   );

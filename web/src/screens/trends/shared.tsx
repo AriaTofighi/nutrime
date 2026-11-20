@@ -7,6 +7,8 @@ import { PRESETS, bounds, customRange, decodeRange, encodeRange, eachDay, previo
 import { store, useStore } from "../../lib/store";
 import { dayTotals, firstDate, profileNow } from "../../lib/trends";
 import { isoDate, parseIso, shortDate } from "../../lib/util";
+import { Button } from "@/components/shadcn/button";
+import { Input } from "@/components/shadcn/input";
 
 export function niceMax(v: number) {
   const step = v > 3000 ? 1000 : 500;
@@ -126,9 +128,9 @@ export function RangeControl({ range, onChange }: { range: TrendRange; onChange:
           </div>
           <h4 style={{ margin: "var(--space-4) 0 var(--space-2)" }}>Custom range</h4>
           <div className="range-custom">
-            <label>From<input className="input" type="date" value={from} max={today} onChange={(e) => setFrom(e.target.value)} /></label>
-            <label>To<input className="input" type="date" value={to} max={today} onChange={(e) => setTo(e.target.value)} /></label>
-            <button className="btn btn-primary" disabled={!custom || to > today} onClick={() => { onChange(custom!); setMore(false); }}>Show</button>
+            <label>From<Input type="date" value={from} max={today} onChange={(e) => setFrom(e.target.value)} /></label>
+            <label>To<Input type="date" value={to} max={today} onChange={(e) => setTo(e.target.value)} /></label>
+            <Button disabled={!custom || to > today} onClick={() => { onChange(custom!); setMore(false); }}>Show</Button>
           </div>
           {!custom && <p className="hint">Choose up to 730 days.</p>}
         </Modal>
@@ -147,7 +149,7 @@ export function SubHead({ title, onBack, children }: { title: string; onBack: ()
   return (
     <header className="page-head">
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <button className="icon-btn" onClick={onBack} aria-label="Back"><ArrowLeft size={18} /></button>
+        <Button variant="ghost" size="icon" onClick={onBack} aria-label="Back"><ArrowLeft size={18} /></Button>
         <h1 className="page-title">{title}</h1>
       </div>
       {children}

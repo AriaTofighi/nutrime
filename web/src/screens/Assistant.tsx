@@ -5,6 +5,8 @@ import { Empty, Modal } from "../components/ui";
 import * as ai from "../lib/assistant";
 import type { ChatBlock, ChatImage, ChatMessage, ConversationSummary, Proposal, ProposalItem, ProposalItemEdit } from "../lib/assistant";
 import { store } from "../lib/store";
+import { Button } from "@/components/shadcn/button";
+import { Input } from "@/components/shadcn/input";
 
 const MAX_PHOTOS = 4;
 
@@ -214,12 +216,12 @@ export default function Assistant() {
   return (
     <div className="page page-narrow chat-page">
       <div className="chat-actions">
-        <button className="icon-btn" aria-label="Past chats" title="Past chats" onClick={() => setHistory(true)}>
+        <Button variant="ghost" size="icon" aria-label="Past chats" title="Past chats" onClick={() => setHistory(true)}>
           <MessagesSquare size={18} />
-        </button>
-        <button className="icon-btn" aria-label="New chat" title="New chat" onClick={() => assistant.newChat()} disabled={!s.messages.length && !s.conversationId}>
+        </Button>
+        <Button variant="ghost" size="icon" aria-label="New chat" title="New chat" onClick={() => assistant.newChat()} disabled={!s.messages.length && !s.conversationId}>
           <SquarePen size={18} />
-        </button>
+        </Button>
       </div>
 
       {s.status?.enabled === false ? (
@@ -246,9 +248,9 @@ export default function Assistant() {
                   <span className="chat-history-title">{c.title}</span>
                   <span className="chat-history-time">{new Date(c.updatedAt).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })}</span>
                 </button>
-                <button className="icon-btn" aria-label="Delete chat" onClick={() => void assistant.remove(c.id)}>
+                <Button variant="ghost" size="icon" aria-label="Delete chat" onClick={() => void assistant.remove(c.id)}>
                   <Trash2 size={16} />
-                </button>
+                </Button>
               </div>
             ))}
           </div>
@@ -332,9 +334,9 @@ function Chat({ s }: { s: State }) {
         />
         <div className="composer-tools">
           <div className="composer-attach">
-            <button className="icon-btn" aria-label="Add photos" aria-expanded={attach} disabled={images.length >= MAX_PHOTOS} onClick={() => setAttach(!attach)}>
+            <Button variant="ghost" size="icon" aria-label="Add photos" aria-expanded={attach} disabled={images.length >= MAX_PHOTOS} onClick={() => setAttach(!attach)}>
               <Plus size={18} />
-            </button>
+            </Button>
             {attach && (
               <div className="composer-menu" role="menu" onMouseLeave={() => setAttach(false)}>
                 <button role="menuitem" onClick={() => { setAttach(false); fileInput.current?.click(); }}>
@@ -523,21 +525,21 @@ function ProposalCard({ p, busy }: { p: Proposal; busy: boolean }) {
             <span className="proposal-done">
               <Check size={15} /> Saved to your diary
             </span>
-            <button className="btn btn-ghost btn-sm" disabled={busy} onClick={() => void assistant.resolve(p.id, false, true)}>
+            <Button variant="ghost" size="sm" disabled={busy} onClick={() => void assistant.resolve(p.id, false, true)}>
               {busy && <LoaderCircle size={14} className="spin" />} Undo
-            </button>
+            </Button>
           </>
         )}
         {p.status === "dismissed" && <span className="muted">Dismissed</span>}
         {pending && (
           <>
             <span className="proposal-hint">Tap an item to change it</span>
-            <button className="btn btn-ghost btn-sm" disabled={busy} onClick={() => void assistant.resolve(p.id, false)}>
+            <Button variant="ghost" size="sm" disabled={busy} onClick={() => void assistant.resolve(p.id, false)}>
               Dismiss
-            </button>
-            <button className="btn btn-primary btn-sm" disabled={busy} onClick={() => void assistant.resolve(p.id, true)}>
+            </Button>
+            <Button size="sm" disabled={busy} onClick={() => void assistant.resolve(p.id, true)}>
               {busy ? <LoaderCircle size={14} className="spin" /> : <Check size={14} />} Confirm
-            </button>
+            </Button>
           </>
         )}
       </div>
@@ -578,7 +580,7 @@ function ItemEditor({ proposalId, index, item, busy, onClose }: { proposalId: st
           <label className="field">
             <span className="field-label">Amount</span>
             <div className="item-amount">
-              <input className="input num" inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} />
+              <Input className="num" inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} />
               <span className="muted">{byGrams ? "g" : `× ${item.servingLabel}`}</span>
             </div>
           </label>
@@ -597,16 +599,16 @@ function ItemEditor({ proposalId, index, item, busy, onClose }: { proposalId: st
           </div>
         )}
         <div className="actions">
-          <button className="btn btn-danger-ghost" disabled={busy} onClick={() => void remove()}>
+          <Button variant="destructive-ghost" disabled={busy} onClick={() => void remove()}>
             <Trash2 size={15} /> Remove
-          </button>
+          </Button>
           <span className="spacer" />
-          <button className="btn btn-secondary" onClick={onClose}>
+          <Button variant="outline" onClick={onClose}>
             Cancel
-          </button>
-          <button className="btn btn-primary" disabled={busy} onClick={() => void save()}>
+          </Button>
+          <Button disabled={busy} onClick={() => void save()}>
             {busy ? <LoaderCircle size={14} className="spin" /> : <Check size={14} />} Save
-          </button>
+          </Button>
         </div>
       </div>
     </Modal>

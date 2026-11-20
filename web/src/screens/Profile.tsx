@@ -1,6 +1,6 @@
 import { Activity as ActivityIcon, Bot, ChartPie, ChevronRight, CircleUserRound, Database, Download, Info, ListChecks, LogOut, Palette, RefreshCw, Ruler, Target as TargetIcon, Upload } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
-import { Hero, Modal, Segmented } from "../components/ui";
+import { Card, Hero, Modal, Segmented } from "../components/ui";
 import { GROUPS, N, NUTRIENTS, fmtNum } from "../lib/nutrients";
 import {
   ACTIVITIES,
@@ -26,6 +26,10 @@ import { ExportImport } from "./DataTools";
 import { isoDate, timeAgo, toNum } from "../lib/util";
 import { COLORS } from "../theme/theme";
 import { AppearanceSettings } from "../components/AppearanceSettings";
+import { Button } from "@/components/shadcn/button";
+import { Input } from "@/components/shadcn/input";
+import { Slider } from "@/components/shadcn/slider";
+import { NativeSelect } from "@/components/shadcn/native-select";
 
 const PRESETS: [number, number, number, string][] = [
   [25, 45, 30, "Balanced"],
@@ -48,7 +52,8 @@ function NumField({ label, value, onChange, suffix, digits = 1 }: { label: strin
     <label className="field">
       <span>{label}</span>
       <div className={suffix ? "input-affix" : undefined}>
-        <input
+        <Input
+          className={suffix ? "pr-11" : undefined}
           inputMode="decimal"
           value={text}
           onChange={(e) => {
@@ -137,12 +142,12 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
   const footer = (valid = true) => (
     <div className="actions">
       <span className="grow" />
-      <button className="btn btn-ghost" onClick={close}>
+      <Button variant="ghost" onClick={close}>
         Cancel
-      </button>
-      <button className="btn btn-primary" onClick={save} disabled={!valid}>
+      </Button>
+      <Button onClick={save} disabled={!valid}>
         Save
-      </button>
+      </Button>
     </div>
   );
 
@@ -156,7 +161,7 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
       </header>
 
       {/* Who you are: the account and its sync state. */}
-      <section className="card card-flush settings-list">
+      <Card flush className="settings-list">
         <SettingsRow
           icon={<CircleUserRound size={20} />}
           label={store.account?.email ?? "Sign in to sync"}
@@ -169,7 +174,7 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
           }
           onClick={() => setSection("account")}
         />
-      </section>
+      </Card>
 
       {/* The plan at a glance: the daily target, the goal, and the macro split. Each shows once. */}
       <button className="card plan-card card-button" onClick={() => open("goal")}>
@@ -194,7 +199,7 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
 
       <div>
         <div className="settings-head">Plan</div>
-        <section className="card card-flush settings-list">
+        <Card flush className="settings-list">
           <SettingsRow icon={<TargetIcon size={17} />} label="Goal & calories" onClick={() => open("goal")} />
           <SettingsRow
             icon={<ChartPie size={17} />}
@@ -204,12 +209,12 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
           />
           <SettingsRow icon={<ListChecks size={17} />} label="Nutrient targets" value={overrideCount ? `${overrideCount} custom` : undefined} onClick={() => open("targets")} />
           <SettingsRow icon={<Ruler size={17} />} label="Body & activity" onClick={() => open("body")} />
-        </section>
+        </Card>
       </div>
 
       <div>
         <div className="settings-head">App</div>
-        <section className="card card-flush settings-list">
+        <Card flush className="settings-list">
           <SettingsRow icon={<Palette size={17} />} label="Appearance" onClick={() => setSection("appearance")} />
           <SettingsRow icon={<Download size={17} />} label="Export and import" value={<><Upload size={13} /> Cronometer, MyFitnessPal</>} onClick={() => setSection("data")} />
           <SettingsRow icon={<Info size={17} />} label="About & data sources" onClick={() => setAbout(true)} />
@@ -217,7 +222,7 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
           {admin && <SettingsRow icon={<ActivityIcon size={17} />} label="Assistant traces" value="Admin" href="#/traces" />}
           {admin && <SettingsRow icon={<CircleUserRound size={17} />} label="Invitations" value="Admin" href="#/invitations" />}
           {admin && <SettingsRow icon={<Bot size={17} />} label="Assistant settings" value="Admin" href="#/ai" />}
-        </section>
+        </Card>
       </div>
 
       {about && (
@@ -267,17 +272,17 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
               onChange={(v) => update({ goalWeightKg: v != null && v >= 20 && v <= 700 ? (imp ? v / LB_PER_KG : v) : null })}
             />
             {dir !== "maintain" && (
-              <label className="field">
+              <div className="field">
                 <span>Rate: {+cv(rate).toFixed(2)} {unit} a week</span>
-                <input
-                  type="range" min={rateStep} max={dir === "lose" ? MAX_LOSS : MAX_GAIN} step={rateStep} value={rate}
-                  onChange={(e) => {
-                    const v = Math.round(Number(e.target.value) / rateStep) * rateStep;
+                <Slider
+                  aria-label="Rate a week" min={rateStep} max={dir === "lose" ? MAX_LOSS : MAX_GAIN} step={rateStep} value={[rate]}
+                  onValueChange={([x]) => {
+                    const v = Math.round(x / rateStep) * rateStep;
                     update({ goalKgPerWeek: dir === "lose" ? -v : v });
                   }}
                 />
                 <span className="hint">{((rate / p.weightKg) * 100).toFixed(1)}% of your body weight a week · {Math.round((rate * 7700) / 7).toLocaleString()} kcal a day</span>
-              </label>
+              </div>
             )}
             {p.goalWeightKg != null && (
               <p className="hint">
@@ -401,13 +406,13 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
             </div>
             <label className="field">
               <span>Activity level</span>
-              <select value={p.activity} onChange={(e) => update({ activity: e.target.value as Activity })}>
+              <NativeSelect value={p.activity} onChange={(e) => update({ activity: e.target.value as Activity })}>
                 {ACTIVITIES.map((a) => (
                   <option key={a.id} value={a.id}>
                     {a.label} — {a.description}
                   </option>
                 ))}
-              </select>
+              </NativeSelect>
             </label>
             <div className="field">
               <span>Units</span>
@@ -471,12 +476,12 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
           {status.error && <p className="hint danger">{status.error}</p>}
           <p className="hint">Your diary, foods, weights and profile sync with the NutriMe Android app when you sign in there with the same account.</p>
           <div className="actions start">
-            <button className="btn btn-secondary" onClick={() => void store.sync()} disabled={status.running}>
+            <Button variant="outline" onClick={() => void store.sync()} disabled={status.running}>
               <RefreshCw size={15} className={status.running ? "spin" : ""} /> Sync now
-            </button>
-            <button className="btn btn-ghost" onClick={() => setConfirmOut(true)}>
+            </Button>
+            <Button variant="ghost" onClick={() => setConfirmOut(true)}>
               <LogOut size={15} /> Sign out
-            </button>
+            </Button>
           </div>
         </Modal>
       )}
@@ -488,12 +493,12 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
           </p>
           <div className="actions">
             <span className="grow" />
-            <button className="btn btn-ghost" onClick={() => setConfirmOut(false)}>
+            <Button variant="ghost" onClick={() => setConfirmOut(false)}>
               Cancel
-            </button>
-            <button className="btn btn-danger" onClick={() => void store.signOut()}>
+            </Button>
+            <Button variant="destructive" onClick={() => void store.signOut()}>
               Sign out
-            </button>
+            </Button>
           </div>
         </Modal>
       )}

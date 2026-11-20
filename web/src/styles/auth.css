@@ -70,3 +70,9 @@
 .status-dot.err {
   background: var(--danger);
 }
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}

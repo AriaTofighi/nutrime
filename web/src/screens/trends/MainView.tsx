@@ -14,6 +14,7 @@ import { burnEstimate, burnSource, conv as convOf, loggedItems, unitOf } from ".
 import { isoDate, parseIso, shortDate } from "../../lib/util";
 import { COLORS } from "../../theme/theme";
 import { compareText, hasPrev, niceMax, openDay, type Period, RangeControl, rangeLabelFor, short, signed, watch, type View } from "./shared";
+import { Button } from "@/components/shadcn/button";
 
 const MACROS: [number, number, string, string][] = [
   [N.PROTEIN, 4, COLORS.protein, "Protein"],
@@ -133,7 +134,7 @@ export function MainView({ p, range, setRange, setView }: { p: Period; range: Tr
   const weightCard = (
     <Card
       title={<button className="card-button" onClick={() => setView({ kind: "weight" })}>Weight <ChevronRight size={14} /></button>}
-      action={<button className="btn btn-secondary btn-sm" onClick={() => setWeightDialog(true)}><Plus size={15} /> Log</button>}
+      action={<Button variant="outline" size="sm" onClick={() => setWeightDialog(true)}><Plus size={15} /> Log</Button>}
     >
       {!est || weights.length === 0 ? (
         <Empty icon={<Scale size={22} />} title="No weigh-ins yet">Log your weight to see your trend.</Empty>
@@ -206,7 +207,7 @@ export function MainView({ p, range, setRange, setView }: { p: Period; range: Tr
             )}
           </button>
         </Card>
-        <Card title="Nutrients" action={counted.length > 0 && <button className="btn btn-ghost btn-sm" onClick={() => setView({ kind: "nutrients" })}>All <ChevronRight size={14} /></button>}>
+        <Card title="Nutrients" action={counted.length > 0 && <Button variant="ghost" size="sm" onClick={() => setView({ kind: "nutrients" })}>All <ChevronRight size={14} /></Button>}>
           {counted.length === 0 ? (
             <p className="hint">Log a few days to see which vitamins and minerals you are short on.</p>
           ) : (

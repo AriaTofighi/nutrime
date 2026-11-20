@@ -20,9 +20,6 @@ body {
   font-feature-settings: "cv11", "ss01", "ss03";
   transition: background var(--duration) var(--ease-out);
 }
-body.modal-open {
-  overflow: hidden;
-}
 h1,
 h2,
 h3,

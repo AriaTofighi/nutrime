@@ -1,4 +1,10 @@
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Badge } from "@/components/shadcn/badge";
+import { Button } from "@/components/shadcn/button";
+import { Card as ShadCard, CardTitle } from "@/components/shadcn/card";
+import { Dialog, DialogBody, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/shadcn/dialog";
+import { ToggleGroup, ToggleGroupItem } from "@/components/shadcn/toggle-group";
+import { cn } from "@/lib/cn";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { GROUPS, N, NUTRIENTS, NUTRIENT_BY_ID, fmtNum, type NutrientMap } from "../lib/nutrients";
 import { parseProfile, targets as profileTargets, type Target } from "../lib/profile";
@@ -18,30 +24,16 @@ export function Modal({
   children: ReactNode;
   wide?: boolean;
 }) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    document.body.classList.add("modal-open");
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.classList.remove("modal-open");
-    };
-  }, [onClose]);
   return (
-    <div className="overlay" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div className={`modal ${wide ? "modal-wide" : ""}`} role="dialog" aria-modal="true" aria-label={title}>
-        <header className="modal-head">
-          <div>
-            <h2>{title}</h2>
-            {subtitle && <p className="modal-sub">{subtitle}</p>}
-          </div>
-          <button className="icon-btn" onClick={onClose} aria-label="Close">
-            <X size={18} />
-          </button>
-        </header>
-        <div className="modal-body">{children}</div>
-      </div>
-    </div>
+    <Dialog open onOpenChange={(open) => !open && onClose()}>
+      <DialogContent wide={wide} {...(subtitle ? {} : { "aria-describedby": undefined })}>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          {subtitle && <DialogDescription>{subtitle}</DialogDescription>}
+        </DialogHeader>
+        <DialogBody>{children}</DialogBody>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -61,18 +53,24 @@ export function Card({
   flush?: boolean;
 }) {
   return (
-    <section className={`card ${flush ? "card-flush" : ""} ${className ?? ""}`}>
+    <ShadCard
+      className={cn(
+        "card min-w-0 gap-0 rounded-2xl p-5 shadow-sm max-[640px]:p-4",
+        flush && "card-flush overflow-hidden p-0 max-[640px]:p-0",
+        className,
+      )}
+    >
       {(title || action || eyebrow) && (
-        <header className="card-head">
+        <header className="mb-4 flex items-center justify-between gap-3">
           <div>
             {eyebrow && <div className="eyebrow">{eyebrow}</div>}
-            {title && <h3 className="card-title">{title}</h3>}
+            {title && <CardTitle className="text-[0.8125rem] tracking-tight">{title}</CardTitle>}
           </div>
           {action}
         </header>
       )}
       {children}
-    </section>
+    </ShadCard>
   );
 }
 
@@ -228,27 +226,32 @@ export function Segmented<T extends string | number>({
   value,
   onChange,
   size,
+  className,
+  itemClassName,
 }: {
   options: { value: T; label: ReactNode }[];
   value: T;
   onChange: (v: T) => void;
   size?: "sm";
+  className?: string;
+  itemClassName?: string;
 }) {
   return (
-    <div className={`segmented ${size === "sm" ? "segmented-sm" : ""}`} role="radiogroup">
+    <ToggleGroup
+      type="single"
+      className={cn("segmented self-start overflow-x-auto", className)}
+      value={String(value)}
+      onValueChange={(v) => {
+        const o = options.find((x) => String(x.value) === v);
+        if (o) onChange(o.value);
+      }}
+    >
       {options.map((o) => (
-        <button
-          key={String(o.value)}
-          role="radio"
-          aria-checked={o.value === value}
-          className={o.value === value ? "on" : ""}
-          onClick={() => onChange(o.value)}
-          type="button"
-        >
+        <ToggleGroupItem key={String(o.value)} value={String(o.value)} className={cn(size === "sm" && "h-6 px-2 text-xs", itemClassName)}>
           {o.label}
-        </button>
+        </ToggleGroupItem>
       ))}
-    </div>
+    </ToggleGroup>
   );
 }
 
@@ -284,12 +287,12 @@ export function Calendar({ value, onChange, marked }: { value: string; onChange:
       <div className="cal-head">
         <span className="cal-title">{label}</span>
         <div className="cal-nav">
-          <button className="icon-btn sm" onClick={() => shift(-1)} aria-label="Previous month">
+          <Button variant="ghost" size="icon-sm" onClick={() => shift(-1)} aria-label="Previous month">
             <ChevronLeft size={16} />
-          </button>
-          <button className="icon-btn sm" onClick={() => shift(1)} aria-label="Next month">
+          </Button>
+          <Button variant="ghost" size="icon-sm" onClick={() => shift(1)} aria-label="Next month">
             <ChevronRight size={16} />
-          </button>
+          </Button>
         </div>
       </div>
       <div className="cal-grid">
@@ -326,7 +329,12 @@ export type Tone = "neutral" | "good" | "warn" | "bad";
 
 /** A short plain-language status ("526 under target") in a soft pill. */
 export function StatusPill({ children, tone = "neutral" }: { children: ReactNode; tone?: Tone }) {
-  return <span className={`status-pill tone-${tone}`}>{children}</span>;
+  const variant = { neutral: "neutral", good: "default", warn: "warning", bad: "destructive" } as const;
+  return (
+    <Badge variant={variant[tone]} className="status-pill px-2.5 py-1 text-[0.78125rem] font-semibold">
+      {children}
+    </Badge>
+  );
 }
 
 /** The one answer a card gives: a label, a large number with its unit, and an optional status. */

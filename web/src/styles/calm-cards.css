@@ -26,28 +26,6 @@
 .hero .status-pill {
   margin-top: var(--space-2);
 }
-.status-pill {
-  display: inline-block;
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  background: var(--track);
-  color: var(--text);
-  white-space: nowrap;
-}
-.status-pill.tone-good {
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-.status-pill.tone-warn {
-  background: color-mix(in srgb, var(--warning) 16%, transparent);
-  color: var(--warning);
-}
-.status-pill.tone-bad {
-  background: var(--danger-soft);
-  color: var(--danger);
-}
 .macro-tiles {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

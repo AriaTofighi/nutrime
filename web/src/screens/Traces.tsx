@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Card, Empty } from "../components/ui";
 import * as ai from "../lib/assistant";
 import type { ConversationSummary, TraceStep } from "../lib/assistant";
+import { Button } from "@/components/shadcn/button";
 
 /** Admin: every step of your own assistant conversations, to see why the assistant did something. */
 export default function Traces({ token }: { token: string }) {
@@ -43,9 +44,9 @@ export default function Traces({ token }: { token: string }) {
           <p className="page-sub">Every step of your own assistant chats: what the model called, with which arguments, and what came back.</p>
         </div>
         <div className="head-actions">
-          <button className="btn btn-secondary" onClick={() => setAttempt((n) => n + 1)}>
+          <Button variant="outline" onClick={() => setAttempt((n) => n + 1)}>
             <RefreshCw size={16} /> Refresh
-          </button>
+          </Button>
         </div>
       </header>
       {error && <p className="muted" role="alert">{error}</p>}
