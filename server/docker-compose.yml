@@ -35,7 +35,7 @@ services:
       PORT: 8080
       # AI assistant (optional): off unless GEMINI_API_KEY is set.
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
-      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.8-flash}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-4-hydrogen}
       GEMINI_THINKING_LEVEL: ${GEMINI_THINKING_LEVEL:-}
       ADMIN_EMAILS: ${ADMIN_EMAILS:-}
       AI_DAILY_MESSAGES: ${AI_DAILY_MESSAGES:-150}

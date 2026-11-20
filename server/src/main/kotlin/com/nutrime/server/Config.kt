@@ -11,7 +11,7 @@ data class Config(
     val tokenDays: Long = 365,
     /** Gemini API key for the AI assistant; the assistant is off without one. */
     val geminiApiKey: String? = null,
-    val geminiModel: String = "gemini-3.8-flash",
+    val geminiModel: String = "gemini-4-hydrogen",
     val geminiBaseUrl: String = "https://generativelanguage.googleapis.com/v1beta",
     /** Optional Gemini thinking level ("minimal", "low", "medium", "high"); the model's default when unset. */
     val geminiThinkingLevel: String? = null,
@@ -44,7 +44,7 @@ data class Config(
                 jwtSecret = secret,
                 allowRegistration = v("ALLOW_REGISTRATION")?.lowercase() !in setOf("false", "0", "no"),
                 geminiApiKey = v("GEMINI_API_KEY"),
-                geminiModel = v("GEMINI_MODEL") ?: "gemini-3.8-flash",
+                geminiModel = v("GEMINI_MODEL") ?: "gemini-4-hydrogen",
                 geminiBaseUrl = v("GEMINI_BASE_URL") ?: "https://generativelanguage.googleapis.com/v1beta",
                 geminiThinkingLevel = v("GEMINI_THINKING_LEVEL"),
                 aiDailyLimit = v("AI_DAILY_MESSAGES")?.toInt() ?: 150,

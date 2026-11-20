@@ -87,7 +87,7 @@ Admin APIs (all require a signed-in account in `ADMIN_EMAILS`):
 | `PORT` | `8080` | HTTP port |
 | `USDA_API_KEY` | `DEMO_KEY` | USDA FoodData Central key for the shared food catalog (Android, web and assistant) |
 | `GEMINI_API_KEY` | – | Gemini API key. The assistant is off without it |
-| `GEMINI_MODEL` | `gemini-3.8-flash` | Gemini model id |
+| `GEMINI_MODEL` | `gemini-4-hydrogen` | Gemini model id |
 | `GEMINI_THINKING_LEVEL` | model default | Optional `minimal`, `low`, `medium` or `high`; lower is faster and cheaper |
 | `AI_DAILY_MESSAGES` | `150` | Assistant messages each user can send per 24 hours |
 | `WEB_LOOKUP_DAILY_LIMIT` | `30` | Foods each user's assistant can look up on the web per 24 hours (`web_nutrition_lookup`); `0` turns the web lookup off |
