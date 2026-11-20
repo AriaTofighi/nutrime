@@ -163,9 +163,42 @@ fun StatusPill(text: String, tone: Tone = Tone.Neutral, modifier: Modifier = Mod
     )
 }
 
-/** The one answer a card gives: a label, a large number with its unit, and an optional status pill. */
+/** One labelled value under a card's main number ("Last 30 days" / "−1.7 lb"). */
+data class Stat(val label: String, val value: String, val tone: Tone = Tone.Neutral)
+
 @Composable
-fun Hero(label: String, value: String, unit: String?, status: String? = null, tone: Tone = Tone.Neutral, spoken: String? = null) {
+fun toneColor(tone: Tone): Color {
+    val c = NutriTheme.colors
+    return when (tone) { Tone.Neutral -> c.text; Tone.Good -> c.accent; Tone.Warn -> c.warning; Tone.Bad -> c.danger }
+}
+
+/**
+ * The details of a card's main number, side by side under a hairline: a small label over each value.
+ * Used instead of pills, so the card reads as one block of numbers.
+ */
+@Composable
+fun StatStrip(stats: List<Stat>, modifier: Modifier = Modifier) {
+    if (stats.isEmpty()) return
+    val c = NutriTheme.colors
+    Column(modifier.fillMaxWidth()) {
+        Hairline()
+        Row(Modifier.fillMaxWidth().padding(top = Space.S3), horizontalArrangement = Arrangement.spacedBy(Space.S4)) {
+            stats.forEach { s ->
+                Column(Modifier.weight(1f)) {
+                    Text(s.label, style = NutriTheme.type.caption, color = c.textTertiary, maxLines = 1)
+                    Text(
+                        s.value, style = NutriTheme.type.bodyMedium.copy(fontFeatureSettings = "tnum"), color = toneColor(s.tone),
+                        maxLines = 2, modifier = Modifier.padding(top = 1.dp),
+                    )
+                }
+            }
+        }
+    }
+}
+
+/** The one answer a card gives: a label, a large number with its unit, and its details in a [StatStrip]. */
+@Composable
+fun Hero(label: String, value: String, unit: String?, stats: List<Stat> = emptyList(), spoken: String? = null) {
     val c = NutriTheme.colors
     Column(Modifier.fillMaxWidth().then(if (spoken != null) Modifier.clearAndSetSemantics { contentDescription = spoken } else Modifier)) {
         Text(label, style = NutriTheme.type.small, color = c.textSecondary)
@@ -173,7 +206,7 @@ fun Hero(label: String, value: String, unit: String?, status: String? = null, to
             Text(value, style = NutriTheme.type.hero, color = c.text)
             if (unit != null) Text(" $unit", style = NutriTheme.type.body, color = c.textSecondary, modifier = Modifier.padding(bottom = 4.dp))
         }
-        if (status != null) StatusPill(status, tone, Modifier.padding(top = Space.S2))
+        StatStrip(stats, Modifier.padding(top = Space.S4))
     }
 }
 

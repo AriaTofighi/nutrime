@@ -36,6 +36,7 @@ import com.nutrime.app.ui.components.Card
 import com.nutrime.app.ui.components.CardTitle
 import com.nutrime.app.ui.components.GroupLabel
 import com.nutrime.app.ui.components.Hero
+import com.nutrime.app.ui.components.Stat
 import com.nutrime.app.ui.components.LB_PER_KG
 import com.nutrime.app.ui.components.NButton
 import com.nutrime.app.ui.components.NIconButton
@@ -108,11 +109,10 @@ fun TrendsWeightScreen(nav: NavController) {
                 Card {
                     Hero(
                         "Trend weight", fmtWeight1(conv(e.trendKg)), unit,
-                        status = change?.let { signed(it, unit) + " in 30 days" },
-                    )
-                    Text(
-                        "Rate now: " + (if (abs(e.ratePerWeekKg) < 0.02) "steady" else signed(conv(e.ratePerWeekKg), unit) + " a week"),
-                        style = NutriTheme.type.small, color = colors.textSecondary, modifier = Modifier.padding(top = 2.dp),
+                        stats = listOfNotNull(
+                            change?.let { Stat("Last 30 days", signed(it, unit)) },
+                            Stat("Rate now", if (abs(e.ratePerWeekKg) < 0.02) "Steady" else signed(conv(e.ratePerWeekKg), unit) + " a week"),
+                        ),
                     )
                     Spacer(Modifier.height(Space.S3))
                     Segmented(WEIGHT_RANGES, window, { window = it })

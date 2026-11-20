@@ -58,6 +58,42 @@
 .log-card.card-flush {
   overflow: visible;
 }
+
+/* The log card does not clip its content (drag handles), so its head and foot follow the card's corners. */
 .log-card .log-head {
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-radius: calc(var(--radius-2xl) - 1px) calc(var(--radius-2xl) - 1px) 0 0;
+}
+.log-card > :last-child {
+  border-bottom-left-radius: calc(var(--radius-2xl) - 1px);
+  border-bottom-right-radius: calc(var(--radius-2xl) - 1px);
+}
+
+/* Diary header on phones: the date on one row, the actions on the next row. */
+.date-pick .page-sub {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 640px) {
+  .page-head.diary-head {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .diary-head .date-nav {
+    width: 100%;
+    min-width: 0;
+  }
+  .diary-head .date-pick {
+    flex: 1;
+    text-align: center;
+  }
+  .diary-head .head-actions {
+    width: 100%;
+  }
+  .diary-head .head-actions > :last-child {
+    margin-left: auto;
+  }
+  .diary-head .btn-label {
+    display: none;
+  }
 }

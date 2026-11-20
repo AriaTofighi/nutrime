@@ -474,8 +474,11 @@ fun SwipeToDelete(key: Any, onDelete: () -> Unit, content: @Composable () -> Uni
             state = state,
             enableDismissFromStartToEnd = false,
             backgroundContent = {
-                Box(Modifier.fillMaxSize().background(colors.danger).padding(horizontal = Space.S5), contentAlignment = Alignment.CenterEnd) {
-                    Icon(Lucide.Trash2, "Delete", tint = Color.White, modifier = Modifier.size(18.dp))
+                // Draw the backdrop only during a swipe, so its color does not show at a row's rounded corners.
+                if (state.dismissDirection == androidx.compose.material3.SwipeToDismissBoxValue.EndToStart) {
+                    Box(Modifier.fillMaxSize().background(colors.danger).padding(horizontal = Space.S5), contentAlignment = Alignment.CenterEnd) {
+                        Icon(Lucide.Trash2, "Delete", tint = Color.White, modifier = Modifier.size(18.dp))
+                    }
                 }
             },
         ) { Box(Modifier.background(colors.surface)) { content() } }

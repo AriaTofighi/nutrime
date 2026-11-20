@@ -28,6 +28,7 @@ import com.nutrime.app.ui.components.Card
 import com.nutrime.app.ui.components.EmptyCard
 import com.nutrime.app.ui.components.GroupLabel
 import com.nutrime.app.ui.components.Hero
+import com.nutrime.app.ui.components.Stat
 import com.nutrime.app.ui.components.NutrientBreakdown
 import com.nutrime.app.ui.components.Page
 import com.nutrime.app.ui.components.ProgressBar
@@ -102,16 +103,11 @@ fun TrendsNutrientScreen(nav: NavController, nutrientId: Int, initialRange: Stri
                     Hero(
                         "Daily average · ${rangeName(range)}",
                         fmtAmount(avg), def.unit,
-                        status = when {
-                            target?.max != null && avg > target.max!! -> "Over the limit of ${fmtAmount(target.max!!)} ${def.unit}"
-                            pct != null -> "%.0f%% of target".format(pct)
-                            else -> null
-                        },
-                        tone = when {
-                            target?.max != null && avg > target.max!! -> Tone.Warn
-                            pct != null && pct >= 100 -> Tone.Good
-                            else -> Tone.Neutral
-                        },
+                        stats = listOfNotNull(
+                            target?.min?.let { Stat("Target", "${fmtAmount(it)} ${def.unit}") },
+                            pct?.let { Stat("Of target", "%.0f%%".format(it), if (it >= 100) Tone.Good else Tone.Neutral) },
+                            target?.max?.let { Stat("Limit", "${fmtAmount(it)} ${def.unit}", if (avg > it) Tone.Warn else Tone.Neutral) },
+                        ),
                     )
                     if (p.hasPrev) CompareLine(compareText(avg, p.prevAvg!![def.id] ?: 0.0, def.unit, p.prevLabel, if (avg < 10) 1 else 0))
                     Spacer(Modifier.height(Space.S4))

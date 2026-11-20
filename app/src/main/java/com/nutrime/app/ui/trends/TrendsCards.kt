@@ -47,6 +47,7 @@ import com.nutrime.app.ui.components.CardTitle
 import com.nutrime.app.ui.components.DetailSheet
 import com.nutrime.app.ui.components.EmptyCard
 import com.nutrime.app.ui.components.Hero
+import com.nutrime.app.ui.components.Stat
 import com.nutrime.app.ui.components.LB_PER_KG
 import com.nutrime.app.ui.components.MacroTiles
 import com.nutrime.app.ui.components.ScoreBar
@@ -78,9 +79,9 @@ internal fun CaloriesCard(p: Period, burn: BurnEstimate?, onOpenDay: (LocalDate)
     val (status, tone) = when {
         p.counted.isEmpty() -> "Nothing logged yet" to Tone.Neutral
         abs(diff) <= target * 0.05 -> "On target" to Tone.Good
-        diff < 0 -> "%,.0f under target".format(-diff) to Tone.Neutral
-        diff > target * 0.15 -> "%,.0f over target".format(diff) to Tone.Warn
-        else -> "%,.0f over target".format(diff) to Tone.Neutral
+        diff < 0 -> "%,.0f under".format(-diff) to Tone.Neutral
+        diff > target * 0.15 -> "%,.0f over".format(diff) to Tone.Warn
+        else -> "%,.0f over".format(diff) to Tone.Neutral
     }
     val buckets = remember(p.from, p.to) { TrendBuckets.buckets(p.from, p.to) }
     val size = buckets.firstOrNull()?.size ?: BucketSize.DAY
@@ -99,9 +100,8 @@ internal fun CaloriesCard(p: Period, burn: BurnEstimate?, onOpenDay: (LocalDate)
                 label = if (p.counted.isEmpty()) "Daily average" else "Daily average · ${p.counted.size} of ${p.length} days",
                 value = if (p.counted.isEmpty()) "—" else "%,.0f".format(avg),
                 unit = "kcal",
-                status = status,
-                tone = tone,
-                spoken = if (p.counted.isEmpty()) "Nothing logged yet" else "Daily average %,.0f kilocalories, %s".format(avg, status),
+                stats = if (p.counted.isEmpty()) emptyList() else listOf(Stat("Target", "%,.0f kcal".format(target.toDouble())), Stat("Difference", status, tone)),
+                spoken = if (p.counted.isEmpty()) "Nothing logged yet" else "Daily average %,.0f kilocalories, %s target".format(avg, status),
             )
             if (p.hasPrev && p.counted.isNotEmpty()) CompareLine(compareText(avg, p.prevAvg!![N.ENERGY] ?: 0.0, "kcal", p.prevLabel))
         }
@@ -210,7 +210,7 @@ internal fun BurnCard(profile: Profile, est: BurnEstimate?, onOpen: () -> Unit) 
                     Text("%,.0f".format(profile.tdee), style = NutriTheme.type.pageTitle.copy(fontFeatureSettings = "tnum"), color = colors.text)
                     Text(" kcal", style = NutriTheme.type.small, color = colors.textSecondary)
                     Spacer(Modifier.weight(1f))
-                    StatusPill("Learning")
+                    Text("Learning", style = NutriTheme.type.small, color = colors.textTertiary)
                 }
                 Text("Needs " + est.missing.joinToString(", ") + ".", style = NutriTheme.type.small, color = colors.textSecondary, modifier = Modifier.padding(top = 2.dp))
             }
@@ -219,7 +219,10 @@ internal fun BurnCard(profile: Profile, est: BurnEstimate?, onOpen: () -> Unit) 
                     Text("%,d".format(est.burnKcal), style = NutriTheme.type.pageTitle.copy(fontFeatureSettings = "tnum"), color = colors.text)
                     Text(" ± %d kcal".format(est.burnSd), style = NutriTheme.type.small, color = colors.textSecondary)
                     Spacer(Modifier.weight(1f))
-                    StatusPill(if (est.confidence == Confidence.HIGH) "Sure" else "Fairly sure", if (est.confidence == Confidence.HIGH) Tone.Good else Tone.Neutral)
+                    Text(
+                        if (est.confidence == Confidence.HIGH) "Sure" else "Fairly sure", style = NutriTheme.type.small,
+                        color = if (est.confidence == Confidence.HIGH) colors.accent else colors.textTertiary,
+                    )
                 }
                 val d = est.burnKcal - est.formulaKcal
                 Text(
@@ -355,7 +358,7 @@ internal fun WeightCard(p: Period, weights: List<WeightEntity>, est: BurnEstimat
             Text(fmtWeight1(conv(est.trendKg)), style = NutriTheme.type.pageTitle.copy(fontFeatureSettings = "tnum"), color = colors.text)
             Text(" $unit", style = NutriTheme.type.small, color = colors.textSecondary)
             Spacer(Modifier.weight(1f))
-            if (change != null) StatusPill(signed(change, unit))
+            if (change != null) Text(signed(change, unit), style = NutriTheme.type.bodyMedium.copy(fontFeatureSettings = "tnum"), color = colors.textSecondary)
             else Text("last on " + LocalDate.parse(latest.date).format(DateTimeFormatter.ofPattern("MMM d")), style = NutriTheme.type.small, color = colors.textTertiary)
         }
         val goal = p.profile.goalWeightKg

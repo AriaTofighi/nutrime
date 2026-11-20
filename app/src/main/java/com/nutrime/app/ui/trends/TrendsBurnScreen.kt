@@ -25,6 +25,7 @@ import com.nutrime.app.ui.components.Card
 import com.nutrime.app.ui.components.CardTitle
 import com.nutrime.app.ui.components.GroupLabel
 import com.nutrime.app.ui.components.Hero
+import com.nutrime.app.ui.components.Stat
 import com.nutrime.app.ui.components.LB_PER_KG
 import com.nutrime.app.ui.components.Page
 import com.nutrime.app.ui.components.RowGroup
@@ -63,8 +64,11 @@ fun TrendsBurnScreen(nav: NavController) {
                         Hero(
                             if (learning) "Learning your daily burn" else "Learned daily burn",
                             "%,d".format(e.burnKcal), "± %d kcal".format(e.burnSd),
-                            status = when (e.confidence) { Confidence.HIGH -> "Sure"; Confidence.MEDIUM -> "Fairly sure"; Confidence.LEARNING -> "Learning" },
-                            tone = if (e.confidence == Confidence.HIGH) Tone.Good else Tone.Neutral,
+                            stats = listOf(
+                                Stat("Confidence", when (e.confidence) { Confidence.HIGH -> "Sure"; Confidence.MEDIUM -> "Fairly sure"; Confidence.LEARNING -> "Learning" },
+                                    if (e.confidence == Confidence.HIGH) Tone.Good else Tone.Neutral),
+                                Stat("Formula", "%,d kcal".format(e.formulaKcal)),
+                            ),
                         )
                         if (learning) Text("Needs " + e.missing.joinToString(", ") + ".", style = NutriTheme.type.small, color = colors.textSecondary, modifier = Modifier.padding(top = 2.dp))
                         if (e.days.size >= 2) {

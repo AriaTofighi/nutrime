@@ -51,6 +51,7 @@ import com.nutrime.app.ui.components.NButton
 import com.nutrime.app.ui.components.BreakdownMode
 import com.nutrime.app.ui.components.Card
 import com.nutrime.app.ui.components.Hero
+import com.nutrime.app.ui.components.Stat
 import com.nutrime.app.ui.components.MacroTiles
 import com.nutrime.app.ui.components.RowGroup
 import com.nutrime.app.ui.theme.DesignTokens.Control
@@ -246,7 +247,10 @@ fun FoodDetailScreen(
             Card {
                 Hero(
                     "Energy", "%,.0f".format(kcal), "kcal",
-                    status = if (profile.calorieTarget > 0) "%.0f%% of your daily target".format(kcal / profile.calorieTarget * 100) else null,
+                    stats = if (profile.calorieTarget > 0) listOf(
+                        Stat("Of daily target", "%.0f%%".format(kcal / profile.calorieTarget * 100)),
+                        Stat("Daily target", "%,d kcal".format(profile.calorieTarget)),
+                    ) else emptyList(),
                     spoken = "%,.0f kilocalories for %s grams".format(kcal, formatQty(Math.round(grams * 10) / 10.0)),
                 )
                 Spacer(Modifier.height(Space.S4))
