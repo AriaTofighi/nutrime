@@ -95,13 +95,16 @@ object WebLookupUses : Table("web_lookup_uses") {
  * The web_nutrition_lookup tool: limits, the 90-day cache and server-side checks of the numbers.
  * Never logs the items or the responses.
  */
-class WebLookup(private val db: Database, private val client: WebNutritionClient?, private val dailyLimit: Int) {
+class WebLookup(private val db: Database, private val client: WebNutritionClient?, private val limit: () -> Int) {
+    constructor(db: Database, client: WebNutritionClient?, dailyLimit: Int) : this(db, client, { dailyLimit })
+    private val dailyLimit: Int get() = limit()
     private val log = LoggerFactory.getLogger(WebLookup::class.java)
 
     val available: Boolean get() = client != null && dailyLimit > 0
 
     suspend fun lookup(userId: String, items: List<WebItem>): JsonObject {
         val client = client
+        val dailyLimit = dailyLimit
         if (client == null || dailyLimit <= 0) return buildJsonObject {
             put("status", "unavailable")
             put("note", "Web lookup is not set up on this server. Use the closest database food (substitute_for), a recipe, or propose_quick_add.")
@@ -251,9 +254,11 @@ class WebLookup(private val db: Database, private val client: WebNutritionClient
  */
 class GeminiWebNutritionClient(
     private val apiKey: String,
-    private val model: String,
+    private val model: () -> String,
     private val baseUrl: String = "https://generativelanguage.googleapis.com/v1beta",
 ) : WebNutritionClient {
+    constructor(apiKey: String, model: String, baseUrl: String = "https://generativelanguage.googleapis.com/v1beta") : this(apiKey, { model }, baseUrl)
+
     private val http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(15)).build()
     private val json = Json { ignoreUnknownKeys = true; isLenient = true }
     private val log = LoggerFactory.getLogger(GeminiWebNutritionClient::class.java)
@@ -269,7 +274,7 @@ class GeminiWebNutritionClient(
             putJsonArray("tools") { addJsonObject { putJsonObject("google_search") {} } }
             putJsonObject("generationConfig") { put("temperature", 0) }
         }
-        val req = HttpRequest.newBuilder(URI("$baseUrl/models/$model:generateContent"))
+        val req = HttpRequest.newBuilder(URI("$baseUrl/models/${model()}:generateContent"))
             .header("Content-Type", "application/json")
             .header("x-goog-api-key", apiKey)
             .timeout(Duration.ofSeconds(40))

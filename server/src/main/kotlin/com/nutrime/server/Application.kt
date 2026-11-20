@@ -108,7 +108,8 @@ class RateLimiter(private val max: Int, private val windowMs: Long) {
 
 fun Application.module(config: Config, db: Database, llm: LlmClient? = null, webClient: com.nutrime.server.ai.WebNutritionClient? = null) {
     val catalog = FoodCatalog(config, db)
-    val assistant = Assistant(config, db, llm, catalog, webClient)
+    val aiSettings = AiSettingsStore(config, db)
+    val assistant = Assistant(config, db, llm, catalog, webClient, aiSettings)
     val invitations = InvitationStore(db)
     val algorithm = Algorithm.HMAC256(config.jwtSecret)
     val issuer = "nutrime"
@@ -204,6 +205,7 @@ fun Application.module(config: Config, db: Database, llm: LlmClient? = null, web
             AdminFoods(config, db).routes(this)
             InvitationRoutes(config, db).routes(this)
             assistant.routes(this)
+            aiSettings.routes(this, AdminAccess(config, db))
             FoodCandidates(config, db).routes(this)
         }
     }

@@ -94,6 +94,11 @@ Admin APIs (all require a signed-in account in `ADMIN_EMAILS`):
 | `ADMIN_EMAILS` | (none) | Comma-separated owner/admin account emails; admins can manage invitations and list candidates for the curated food database at `GET /api/foods/candidates` (see `data/foods/README.md`) |
 | `FOODS_DB_PATH` | `/app/foods.db` | The bundled USDA food database (copied into the image from the Android app) |
 
+An admin can change the model, thinking level, messages per day and web lookups per day at run time in the
+web app (Profile → Assistant settings, `#/ai`). The values are stored in the `server_settings` table and apply
+to the next message. A value that is not set there uses the environment variable above.
+`GET`, `PUT` and `DELETE /api/admin/ai-settings` (admin only) read, change and reset them.
+
 ## Run locally
 
 ```bash

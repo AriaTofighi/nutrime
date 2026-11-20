@@ -25,9 +25,12 @@ class LlmException(message: String, val retryable: Boolean = false) : RuntimeExc
 /** Gemini API `streamGenerateContent` over server-sent events. */
 class GeminiClient(
     private val apiKey: String,
-    private val model: String,
+    /** Read for each request, so an administrator can change the model without a restart. */
+    private val model: () -> String,
     private val baseUrl: String = "https://generativelanguage.googleapis.com/v1beta",
 ) : LlmClient {
+    constructor(apiKey: String, model: String, baseUrl: String = "https://generativelanguage.googleapis.com/v1beta") : this(apiKey, { model }, baseUrl)
+
     private val http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(15)).build()
     private val json = Json { ignoreUnknownKeys = true }
 
@@ -36,7 +39,7 @@ class GeminiClient(
         var attempt = 0
         while (true) {
             attempt++
-            val req = HttpRequest.newBuilder(URI("$baseUrl/models/$model:streamGenerateContent?alt=sse"))
+            val req = HttpRequest.newBuilder(URI("$baseUrl/models/${model()}:streamGenerateContent?alt=sse"))
                 .header("Content-Type", "application/json")
                 .header("x-goog-api-key", apiKey)
                 .timeout(Duration.ofSeconds(120))

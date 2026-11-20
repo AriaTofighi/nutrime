@@ -103,7 +103,7 @@ fun connectDatabase(config: Config): Database {
     }
     val db = Database.connect(HikariDataSource(hikari))
     transaction(db) { SchemaUtils.create(Users, Invitations, Records, AiConversations, AiMessages, AiProposals, AiProposalUndo, CatalogFoods, CatalogQueries, ProviderBudgets, CatalogImports,
-        com.nutrime.server.ai.WebLookupCache, com.nutrime.server.ai.WebLookupUses) }
+        com.nutrime.server.ai.WebLookupCache, com.nutrime.server.ai.WebLookupUses, ServerSettings) }
     createCatalogSearchIndex(db)
     return db
 }

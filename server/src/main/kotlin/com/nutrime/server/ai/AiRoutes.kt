@@ -66,18 +66,16 @@ class Assistant(
     private val config: Config, private val db: Database, llm: LlmClient?,
     catalog: com.nutrime.server.food.FoodCatalog = com.nutrime.server.food.FoodCatalog(config, db),
     webClient: WebNutritionClient? = null,
+    private val settings: com.nutrime.server.AiSettingsStore = com.nutrime.server.AiSettingsStore(config, db),
 ) {
     private val log = LoggerFactory.getLogger(Assistant::class.java)
-    private val llm: LlmClient? = llm ?: config.geminiApiKey?.let { GeminiClient(it, config.geminiModel, config.geminiBaseUrl) }
+    private val llm: LlmClient? = llm ?: config.geminiApiKey?.let { GeminiClient(it, { settings.current().model }, config.geminiBaseUrl) }
     private val foods = FoodSearch(config.foodsDbPath, config.foodSearchOnline, catalog)
     /** With a fake model (tests) only a given web client is used, never the real one. */
-    private val web = WebLookup(db, webClient ?: if (llm == null) config.geminiApiKey?.let { GeminiWebNutritionClient(it, config.geminiModel, config.geminiBaseUrl) } else null,
-        config.webLookupDailyLimit)
+    private val web = WebLookup(db, webClient ?: if (llm == null) config.geminiApiKey?.let { GeminiWebNutritionClient(it, { settings.current().model }, config.geminiBaseUrl) } else null,
+        { settings.current().webLookupDailyLimit })
     private val proposals = ProposalStore(db)
     private val admin = com.nutrime.server.AdminAccess(config, db)
-    private val generationConfig: JsonObject? = config.geminiThinkingLevel?.let { level ->
-        buildJsonObject { putJsonObject("thinkingConfig") { put("thinkingLevel", level) } }
-    }
 
     private fun usedToday(uid: String): Int = transaction(db) {
         val since = System.currentTimeMillis() - 24 * 3600 * 1000L
@@ -111,7 +109,8 @@ class Assistant(
     fun routes(route: Route) = with(route) {
         get("/api/ai/status") {
             val uid = call.uid()
-            call.respond(AiStatus(llm != null, config.geminiModel, config.aiDailyLimit, usedToday(uid)))
+            val s = settings.current()
+            call.respond(AiStatus(llm != null, s.model, s.dailyMessages, usedToday(uid)))
         }
 
         get("/api/ai/conversations") {
@@ -226,8 +225,9 @@ class Assistant(
                     ?: throw ApiException(HttpStatusCode.BadRequest, "Invalid image data")
                 if (bytes > MAX_IMAGE_BYTES) throw ApiException(HttpStatusCode.PayloadTooLarge, "Photo is too large")
             }
-            if (usedToday(uid) >= config.aiDailyLimit) {
-                throw ApiException(HttpStatusCode.TooManyRequests, "You've reached today's limit of ${config.aiDailyLimit} assistant messages")
+            val dailyLimit = settings.current().dailyMessages
+            if (usedToday(uid) >= dailyLimit) {
+                throw ApiException(HttpStatusCode.TooManyRequests, "You've reached today's limit of $dailyLimit assistant messages")
             }
             val today = today(req.today)
 
@@ -272,7 +272,7 @@ class Assistant(
                 send("conversation", buildJsonObject { put("id", conversationId); put("title", title) })
                 try {
                     val agent = Agent(
-                        llm, ctx, systemPrompt(data, today, req.localTime), generationConfig,
+                        llm, ctx, systemPrompt(data, today, req.localTime), settings.generationConfig(),
                         persist = { kind, content -> append(uid, conversationId, kind, content) },
                         emit = { e ->
                             when (e) {
