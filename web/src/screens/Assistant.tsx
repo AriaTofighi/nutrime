@@ -3,7 +3,8 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Markdown } from "../components/Markdown";
 import { Empty, Modal } from "../components/ui";
 import * as ai from "../lib/assistant";
-import type { ChatBlock, ChatImage, ChatMessage, ConversationSummary, Proposal, ProposalItem, ProposalItemEdit } from "../lib/assistant";
+import type { ChatBlock, ChatEvent, ChatImage, ChatMessage, ConversationSummary, Proposal, ProposalItem, ProposalItemEdit } from "../lib/assistant";
+import { ApiError } from "../lib/api";
 import { store } from "../lib/store";
 import { Button } from "@/components/shadcn/button";
 import { Input } from "@/components/shadcn/input";
@@ -22,9 +23,20 @@ interface State {
   busy: Set<string>;
 }
 
+/** A lost connection (the reply keeps running on the server), not an error from the server. */
+const offline = (e: unknown) => e instanceof ApiError && e.status === 0;
+
+function wait(ms: number, signal: AbortSignal) {
+  return new Promise<void>((resolve) => {
+    const t = setTimeout(resolve, ms);
+    signal.addEventListener("abort", () => (clearTimeout(t), resolve()), { once: true });
+  });
+}
+
 /**
  * Chat state lives outside React so a reply keeps streaming while you look at other tabs.
- * The server runs the agent; this keeps the conversation and talks to it.
+ * The server runs the agent in the background: if the connection drops, or you open the chat again
+ * later, this reconnects to the reply in progress.
  */
 class AssistantSession {
   state: State = { messages: [], streaming: false, loading: false, conversations: [], busy: new Set() };
@@ -58,21 +70,94 @@ class AssistantSession {
   }
 
   newChat() {
+    // The reply keeps running on the server; this only stops showing it.
     this.abort?.abort();
-    this.set({ conversationId: undefined, title: undefined, messages: [], error: undefined, loading: false });
+    this.abort = undefined;
+    this.set({ conversationId: undefined, title: undefined, messages: [], error: undefined, loading: false, streaming: false });
   }
 
   async open(id: string) {
     const t = this.token;
     if (!t) return;
     this.abort?.abort();
-    this.set({ conversationId: id, title: undefined, messages: [], loading: true, error: undefined });
+    this.abort = undefined;
+    this.set({ conversationId: id, title: undefined, messages: [], loading: true, error: undefined, streaming: false });
+    let c: Awaited<ReturnType<typeof ai.conversation>>;
     try {
-      const c = await ai.conversation(t, id);
-      if (this.state.conversationId === id) this.set({ messages: c.messages, title: c.title, loading: false });
+      c = await ai.conversation(t, id);
     } catch (e) {
       this.set({ loading: false, error: this.message(e) });
+      return;
     }
+    if (this.state.conversationId !== id) return;
+    if (!c.running) {
+      this.set({ messages: c.messages, title: c.title, loading: false });
+      return;
+    }
+    // The reply is still running on the server: show it as it comes.
+    const abort = new AbortController();
+    this.abort = abort;
+    this.set({ messages: [...c.messages, { role: "assistant", blocks: [] }], title: c.title, loading: false, streaming: true });
+    try {
+      await this.reattach(t, id, 0, abort.signal);
+    } finally {
+      this.finish(abort);
+    }
+  }
+
+  /** Follow a reply that runs on the server, from event `after`. Reconnects when the connection drops. */
+  private async reattach(token: string, id: string, after: number, signal: AbortSignal) {
+    let tries = 0;
+    while (!signal.aborted && this.state.conversationId === id) {
+      try {
+        for await (const e of ai.follow(token, id, after, signal)) {
+          after++;
+          tries = 0;
+          if (this.handle(e)) return;
+        }
+      } catch (e) {
+        if (!offline(e)) {
+          this.set({ error: this.message(e) });
+          return;
+        }
+      }
+      if (signal.aborted) return;
+      if (++tries > 30) {
+        this.set({ error: "Lost the connection. Open the chat again to see the reply." });
+        return;
+      }
+      await wait(Math.min(1000 * tries, 5000), signal);
+    }
+  }
+
+  /** Show one event of the reply. Returns true when the reply has ended. */
+  private handle(e: ChatEvent): boolean {
+    if (e.type === "conversation") this.set({ conversationId: e.id, title: e.title });
+    else if (e.type === "text")
+      this.updateReply((b) => {
+        const last = b[b.length - 1];
+        return last?.type === "text" ? [...b.slice(0, -1), { type: "text", text: last.text + e.delta }] : [...b, { type: "text", text: e.delta }];
+      });
+    else if (e.type === "tool") this.updateReply((b) => [...b, { type: "tool", name: e.name, label: e.label }]);
+    else if (e.type === "proposal")
+      // One card per message: replace it if it's already shown.
+      this.updateReply((b) =>
+        b.some((x) => x.type === "proposal" && x.proposal.id === e.proposal.id)
+          ? b.map((x) => (x.type === "proposal" && x.proposal.id === e.proposal.id ? { ...x, proposal: e.proposal } : x))
+          : [...b, { type: "proposal", proposal: e.proposal }],
+      );
+    else if (e.type === "error") this.set({ error: e.message });
+    return e.type === "done" || e.type === "error";
+  }
+
+  /** End the live reply (only if it is still the current one). */
+  private finish(abort: AbortController) {
+    if (this.abort !== abort) return;
+    this.abort = undefined;
+    const msgs = this.state.messages;
+    const last = msgs[msgs.length - 1];
+    this.set({ streaming: false, messages: last?.role === "assistant" && !last.blocks.length ? msgs.slice(0, -1) : msgs });
+    void this.refresh();
   }
 
   async remove(id: string) {
@@ -84,6 +169,10 @@ class AssistantSession {
   }
 
   stop() {
+    const t = this.token;
+    const id = this.state.conversationId;
+    // Stop the reply on the server too: closing the connection alone doesn't stop it.
+    if (t && id && this.state.streaming) void ai.stopReply(t, id).catch(() => undefined);
     this.abort?.abort();
   }
 
@@ -112,33 +201,27 @@ class AssistantSession {
     });
     const abort = new AbortController();
     this.abort = abort;
+    let received = 0;
+    let ended = false;
     try {
       // Push unsynced changes first, so the assistant sees what was just logged.
       await store.sync();
       for await (const e of ai.chat(t, { conversationId: this.state.conversationId, text: text.trim(), images }, abort.signal)) {
-        if (e.type === "conversation") this.set({ conversationId: e.id, title: e.title });
-        else if (e.type === "text")
-          this.updateReply((b) => {
-            const last = b[b.length - 1];
-            return last?.type === "text" ? [...b.slice(0, -1), { type: "text", text: last.text + e.delta }] : [...b, { type: "text", text: e.delta }];
-          });
-        else if (e.type === "tool") this.updateReply((b) => [...b, { type: "tool", name: e.name, label: e.label }]);
-        else if (e.type === "proposal")
-          // One card per message: replace it if it's already shown.
-          this.updateReply((b) =>
-            b.some((x) => x.type === "proposal" && x.proposal.id === e.proposal.id)
-              ? b.map((x) => (x.type === "proposal" && x.proposal.id === e.proposal.id ? { ...x, proposal: e.proposal } : x))
-              : [...b, { type: "proposal", proposal: e.proposal }],
-          );
-        else if (e.type === "error") this.set({ error: e.message });
+        received++;
+        if (this.handle(e)) {
+          ended = true;
+          break;
+        }
       }
+      // The connection closed before the reply ended (for example the phone slept): it still runs on the server.
+      const id = this.state.conversationId;
+      if (!ended && received > 0 && id && !abort.signal.aborted) await this.reattach(t, id, received, abort.signal);
     } catch (e) {
-      this.set({ error: this.message(e) });
+      const id = this.state.conversationId;
+      if (offline(e) && received > 0 && id && !abort.signal.aborted) await this.reattach(t, id, received, abort.signal);
+      else this.set({ error: this.message(e) });
     } finally {
-      const msgs = this.state.messages;
-      const last = msgs[msgs.length - 1];
-      this.set({ streaming: false, messages: last?.role === "assistant" && !last.blocks.length ? msgs.slice(0, -1) : msgs });
-      void this.refresh();
+      this.finish(abort);
     }
   }
 

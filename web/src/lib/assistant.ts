@@ -113,7 +113,9 @@ export const today = () => {
 export const status = (token: string) => call<AiStatus>(token, "ai/status");
 export const conversations = (token: string) => call<ConversationSummary[]>(token, "ai/conversations");
 export const conversation = (token: string, id: string) =>
-  call<{ id: string; title: string; messages: ChatMessage[] }>(token, `ai/conversations/${id}?today=${today()}`);
+  call<{ id: string; title: string; messages: ChatMessage[]; running?: boolean }>(token, `ai/conversations/${id}?today=${today()}`);
+/** Stop the reply that is running in a conversation. */
+export const stopReply = (token: string, id: string) => call<void>(token, `ai/conversations/${id}/stop`, "POST");
 export const deleteConversation = (token: string, id: string) => call<void>(token, `ai/conversations/${id}`, "DELETE");
 export const applyProposal = (token: string, id: string) => call<Proposal>(token, `ai/proposals/${id}/apply?today=${today()}`, "POST");
 export const editProposalItem = (token: string, id: string, index: number, edit: ProposalItemEdit) =>
@@ -159,6 +161,28 @@ export async function* chat(
     if (signal.aborted) return;
     throw new ApiError(0, "Can't reach the server. Check your connection.");
   }
+  yield* events(res, signal);
+}
+
+/**
+ * Reconnect to a reply that runs on the server: the events after the first `after`, then the new ones
+ * until the reply ends. The reply keeps running when the connection closes.
+ */
+export async function* follow(token: string, id: string, after: number, signal: AbortSignal): AsyncGenerator<ChatEvent> {
+  let res: Response;
+  try {
+    res = await fetch(`/api/ai/conversations/${id}/stream?after=${after}`, {
+      headers: { Accept: "text/event-stream", Authorization: `Bearer ${token}` },
+      signal,
+    });
+  } catch {
+    if (signal.aborted) return;
+    throw new ApiError(0, "Can't reach the server. Check your connection.");
+  }
+  yield* events(res, signal);
+}
+
+async function* events(res: Response, signal: AbortSignal): AsyncGenerator<ChatEvent> {
   if (!res.ok || !res.body) throw await apiError(res);
   const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
   let buf = "";
@@ -187,7 +211,9 @@ export async function* chat(
     }
   } catch (e) {
     if (signal.aborted) return;
-    throw e;
+    throw new ApiError(0, "Can't reach the server. Check your connection.");
+  } finally {
+    reader.cancel().catch(() => undefined);
   }
 }
 

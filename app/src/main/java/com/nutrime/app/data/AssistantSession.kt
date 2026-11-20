@@ -18,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -44,7 +45,8 @@ data class AssistantState(
 
 /**
  * The assistant chat, kept in the app container so a reply keeps streaming while you look at
- * other screens. The server runs the agent; this holds the conversation and talks to it.
+ * other screens. The server runs the agent in the background: if the connection drops, or you
+ * open the chat again later, this reconnects to the reply in progress.
  */
 class AssistantSession(
     private val settings: SettingsStore,
@@ -69,22 +71,100 @@ class AssistantSession(
         }
     }
 
-    fun newChat() {
+    /** Counts the replies shown, so an old reply that ends late doesn't change the current chat. */
+    private var generation = 0
+
+    /** Show a reply in the current chat: runs [block], then ends the live state (if it is still current). */
+    private fun launchReply(block: suspend () -> Unit) {
         job?.cancel()
+        val gen = ++generation
+        job = scope.launch {
+            try {
+                block()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                if (gen == generation) _state.update { it.copy(error = message(e)) }
+            } finally {
+                if (gen == generation) {
+                    _state.update { s ->
+                        // Drop an assistant message that never got content.
+                        val msgs = if (s.messages.lastOrNull()?.let { !it.isUser && it.blocks.isEmpty() } == true) s.messages.dropLast(1) else s.messages
+                        s.copy(messages = msgs, streaming = false, activity = null)
+                    }
+                    refresh()
+                }
+            }
+        }
+    }
+
+    /** Stop showing the current reply. It keeps running on the server. */
+    private fun detach() {
+        job?.cancel()
+        job = null
+        generation++
+    }
+
+    fun newChat() {
+        detach()
         _state.update { AssistantState(status = it.status, conversations = it.conversations) }
     }
 
     fun open(id: String) {
-        job?.cancel()
+        detach()
         _state.update { AssistantState(conversationId = id, loading = true, status = it.status, conversations = it.conversations) }
+        load(id)
+    }
+
+    /** The app came back to the front: show what happened to the open chat while it was away. */
+    fun resume() {
+        val s = _state.value
+        val id = s.conversationId ?: return
+        if (s.streaming || s.loading) return
+        load(id, quiet = true)
+    }
+
+    private fun load(id: String, quiet: Boolean = false) {
+        val gen = generation
         scope.launch {
             val token = token() ?: return@launch
             runCatching { client.conversation(base, token, id, today()) }
-                .onSuccess { msgs ->
-                    val title = _state.value.conversations.firstOrNull { it.id == id }?.title
-                    _state.update { if (it.conversationId == id) it.copy(messages = msgs, title = title, loading = false) else it }
+                .onSuccess { c ->
+                    if (gen != generation || _state.value.conversationId != id) return@onSuccess
+                    val title = _state.value.conversations.firstOrNull { it.id == id }?.title ?: _state.value.title
+                    if (!c.running) {
+                        _state.update { it.copy(messages = c.messages, title = title, loading = false) }
+                        return@onSuccess
+                    }
+                    // The reply is still running on the server: show it as it comes.
+                    _state.update {
+                        it.copy(messages = c.messages + ChatMessage("assistant", emptyList()), title = title, loading = false, streaming = true, activity = null)
+                    }
+                    launchReply { follow(token, id, 0) }
                 }
-                .onFailure { e -> _state.update { it.copy(loading = false, error = message(e)) } }
+                .onFailure { e -> if (gen == generation && !quiet) _state.update { it.copy(loading = false, error = message(e)) } }
+        }
+    }
+
+    /** Follow a reply that runs on the server, from event [after]. Reconnects when the connection drops. */
+    private suspend fun follow(token: String, id: String, after: Int) {
+        var next = after
+        var tries = 0
+        while (_state.value.conversationId == id) {
+            try {
+                var ended = false
+                client.follow(base, token, id, next).collect { e ->
+                    next++
+                    tries = 0
+                    handle(e)
+                    if (e is ChatEvent.Done || e is ChatEvent.Error) ended = true
+                }
+                if (ended) return
+            } catch (e: java.io.IOException) {
+                if (e is HttpException) throw e
+            }
+            if (++tries > 30) throw IllegalStateException("Lost the connection. Open the chat again to see the reply.")
+            delay(minOf(1000L * tries, 5000L))
         }
     }
 
@@ -98,6 +178,11 @@ class AssistantSession(
     }
 
     fun stop() {
+        val id = _state.value.conversationId
+        // Stop the reply on the server too: closing the connection alone doesn't stop it.
+        if (id != null && _state.value.streaming) {
+            scope.launch { token()?.let { t -> runCatching { client.stop(base, t, id) } } }
+        }
         job?.cancel()
     }
 
@@ -118,32 +203,33 @@ class AssistantSession(
                 streaming = true, activity = null, error = null,
             )
         }
-        job = scope.launch {
+        launchReply {
+            val token = token() ?: throw IllegalStateException("Sign in to use the assistant")
+            // Push unsynced changes first, so the assistant sees what was just logged.
+            sync.syncNow()
+            val request = ChatRequest(
+                conversationId = _state.value.conversationId,
+                text = text.trim(),
+                images = images,
+                today = today(),
+                localTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")),
+                country = java.util.Locale.getDefault().country.takeIf { it.length == 2 },
+            )
+            var received = 0
+            var ended = false
             try {
-                val token = token() ?: throw IllegalStateException("Sign in to use the assistant")
-                // Push unsynced changes first, so the assistant sees what was just logged.
-                sync.syncNow()
-                val request = ChatRequest(
-                    conversationId = _state.value.conversationId,
-                    text = text.trim(),
-                    images = images,
-                    today = today(),
-                    localTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")),
-                    country = java.util.Locale.getDefault().country.takeIf { it.length == 2 },
-                )
-                client.chat(base, token, request).collect { e -> handle(e) }
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                _state.update { it.copy(error = message(e)) }
-            } finally {
-                _state.update { s ->
-                    // Drop an assistant message that never got content.
-                    val msgs = if (s.messages.lastOrNull()?.let { !it.isUser && it.blocks.isEmpty() } == true) s.messages.dropLast(1) else s.messages
-                    s.copy(messages = msgs, streaming = false, activity = null)
+                client.chat(base, token, request).collect { e ->
+                    received++
+                    handle(e)
+                    if (e is ChatEvent.Done || e is ChatEvent.Error) ended = true
                 }
-                refresh()
+            } catch (e: java.io.IOException) {
+                // No event yet: the message may not have reached the server.
+                if (e is HttpException || received == 0) throw e
             }
+            // The connection closed before the reply ended (for example the phone slept): it still runs on the server.
+            val id = _state.value.conversationId
+            if (!ended && received > 0 && id != null) follow(token, id, received)
         }
     }
 

@@ -448,4 +448,35 @@ class AssistantTest {
         val notFound = body.replace("\\\"found\\\":true", "\\\"found\\\":false")
         assertEquals(null, client.parse(notFound).found)
     }
+
+    @Test
+    fun aReplyCanBeFollowedAgainAfterTheConnectionCloses() {
+        val llm = FakeLlm(listOf({ _ -> listOf(chunk(text("Hello ")), chunk(text("there."))) }))
+        val cfg = config()
+        testApplication {
+            val db = connectDatabase(cfg)
+            application { module(cfg, db, llm) }
+            val c = createClient { install(ContentNegotiation) { json() } }
+            val auth = c.post("/api/auth/register") {
+                contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, "me@example.com", "password123"))
+            }.body<AuthResponse>()
+            val live = events(c.post("/api/ai/chat") {
+                bearerAuth(auth.token); contentType(ContentType.Application.Json)
+                setBody(buildJsonObject { put("text", "Hi"); put("today", today) })
+            }.bodyAsText())
+            assertEquals(listOf("conversation", "text", "text", "done"), live.map { it.first })
+            val id = live.first().second["id"]!!.jsonPrimitive.content
+
+            // A client that lost the stream after two events gets the rest.
+            val rest = events(c.get("/api/ai/conversations/$id/stream?after=2") { bearerAuth(auth.token) }.bodyAsText())
+            assertEquals(live.drop(2), rest)
+            // The whole reply again, from the start.
+            assertEquals(live, events(c.get("/api/ai/conversations/$id/stream?after=0") { bearerAuth(auth.token) }.bodyAsText()))
+
+            val conv = c.get("/api/ai/conversations/$id?today=$today") { bearerAuth(auth.token) }.body<JsonObject>()
+            assertEquals("false", conv["running"]!!.jsonPrimitive.content)
+            assertEquals(2, conv["messages"]!!.jsonArray.size)
+            assertEquals(HttpStatusCode.NoContent, c.post("/api/ai/conversations/$id/stop") { bearerAuth(auth.token) }.status)
+        }
+    }
 }

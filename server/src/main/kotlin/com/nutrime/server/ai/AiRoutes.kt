@@ -76,6 +76,7 @@ class Assistant(
         { settings.current().webLookupDailyLimit })
     private val proposals = ProposalStore(db)
     private val admin = com.nutrime.server.AdminAccess(config, db)
+    private val runs = AssistantRuns()
 
     private fun usedToday(uid: String): Int = transaction(db) {
         val since = System.currentTimeMillis() - 24 * 3600 * 1000L
@@ -126,18 +127,40 @@ class Assistant(
         get("/api/ai/conversations/{id}") {
             val uid = call.uid()
             val conv = ownConversation(uid, call.parameters["id"]!!)
-            val msgs = messages(conv[AiConversations.id])
+            val run = runs.active(conv[AiConversations.id])
+            // While a reply is running, leave out its steps: the client gets them from /stream.
+            val msgs = messages(conv[AiConversations.id]).let { if (run != null) it.take(run.baseCount) else it }
             val views = proposals.views(uid, proposalIds(msgs), today(call.request.queryParameters["today"]))
             call.respond(buildJsonObject {
                 put("id", conv[AiConversations.id])
                 put("title", conv[AiConversations.title])
                 put("messages", displayMessages(msgs, views))
+                put("running", run != null)
             })
+        }
+
+        // Reconnect to a reply in progress: the events after the first `after`, then the new ones until it ends.
+        get("/api/ai/conversations/{id}/stream") {
+            val uid = call.uid()
+            val id = ownConversation(uid, call.parameters["id"]!!)[AiConversations.id]
+            val after = call.request.queryParameters["after"]?.toIntOrNull() ?: 0
+            val run = runs.get(id)?.takeIf { it.userId == uid }
+            streamEvents(call) { send ->
+                if (run == null) send("done", JsonObject(emptyMap())) else run.follow(after, send)
+            }
+        }
+
+        post("/api/ai/conversations/{id}/stop") {
+            val uid = call.uid()
+            val id = ownConversation(uid, call.parameters["id"]!!)[AiConversations.id]
+            runs.stop(id)
+            call.respond(HttpStatusCode.NoContent)
         }
 
         delete("/api/ai/conversations/{id}") {
             val uid = call.uid()
             val id = ownConversation(uid, call.parameters["id"]!!)[AiConversations.id]
+            runs.stop(id)
             transaction(db) {
                 AiMessages.deleteWhere { conversationId eq id }
                 AiProposals.deleteWhere { conversationId eq id }
@@ -245,6 +268,7 @@ class Assistant(
                 }
             }
             val title = ownConversation(uid, conversationId)[AiConversations.title]
+            if (runs.active(conversationId) != null) throw ApiException(HttpStatusCode.Conflict, "The assistant is still answering in this chat")
 
             val userContent = buildJsonObject {
                 put("role", "user")
@@ -261,30 +285,26 @@ class Assistant(
             val data = UserData(db, uid)
             val ctx = ToolContext(data, foods, proposals, conversationId, today, com.nutrime.server.food.countryName(req.country), web)
 
-            call.response.cacheControl(CacheControl.NoCache(null))
-            // Tell nginx (and other proxies) not to buffer the stream.
-            call.response.header("X-Accel-Buffering", "no")
-            call.respondTextWriter(ContentType.Text.EventStream) {
-                suspend fun send(event: String, payload: JsonObject) {
-                    write("event: $event\ndata: $payload\n\n")
-                    flush()
-                }
-                send("conversation", buildJsonObject { put("id", conversationId); put("title", title) })
+            // The reply runs in the background: closing the app or losing the connection doesn't stop it.
+            val run = runs.start(AssistantRun(uid, conversationId, stored.size)) { run ->
+                run.add("conversation", buildJsonObject { put("id", conversationId); put("title", title) })
                 try {
                     val agent = Agent(
                         llm, ctx, systemPrompt(data, today, req.localTime), settings.generationConfig(),
                         persist = { kind, content -> append(uid, conversationId, kind, content) },
                         emit = { e ->
                             when (e) {
-                                is AgentEvent.Text -> send("text", buildJsonObject { put("delta", e.delta) })
-                                is AgentEvent.Tool -> send("tool", buildJsonObject { put("name", e.name); put("label", e.label) })
-                                is AgentEvent.Proposal -> send("proposal", buildJsonObject { put("proposal", proposalJson(e.view)) })
+                                is AgentEvent.Text -> run.add("text", buildJsonObject { put("delta", e.delta) })
+                                is AgentEvent.Tool -> run.add("tool", buildJsonObject { put("name", e.name); put("label", e.label) })
+                                is AgentEvent.Proposal -> run.add("proposal", buildJsonObject { put("proposal", proposalJson(e.view)) })
                             }
                         },
                     )
                     agent.run(history)
-                    send("done", JsonObject(emptyMap()))
+                    run.add("done", JsonObject(emptyMap()))
                 } catch (e: CancellationException) {
+                    // Stopped by the user.
+                    run.add("done", JsonObject(emptyMap()))
                     throw e
                 } catch (e: Exception) {
                     log.warn("Assistant turn failed", e)
@@ -295,8 +315,23 @@ class Assistant(
                     }
                     // Admins also see the cause (for example the Gemini error text), to fix the setup.
                     val detail = if (runCatching { admin.isAdmin(uid) }.getOrDefault(false)) "\n\n${e.message ?: e::class.simpleName}".take(600) else ""
-                    runCatching { send("error", buildJsonObject { put("message", msg + detail) }) }
+                    run.add("error", buildJsonObject { put("message", msg + detail) })
                 }
+            } ?: throw ApiException(HttpStatusCode.Conflict, "The assistant is still answering in this chat")
+
+            streamEvents(call) { send -> run.follow(0, send) }
+        }
+    }
+
+    /** Sends server-sent events. A closed connection only ends the stream, not the run behind it. */
+    private suspend fun streamEvents(call: ApplicationCall, body: suspend (suspend (String, JsonObject) -> Unit) -> Unit) {
+        call.response.cacheControl(CacheControl.NoCache(null))
+        // Tell nginx (and other proxies) not to buffer the stream.
+        call.response.header("X-Accel-Buffering", "no")
+        call.respondTextWriter(ContentType.Text.EventStream) {
+            body { event, payload ->
+                write("event: $event\ndata: $payload\n\n")
+                flush()
             }
         }
     }

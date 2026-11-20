@@ -72,7 +72,10 @@ data class ChatMessage(val role: String, val blocks: List<ChatBlock>) {
     val isUser: Boolean get() = role == "user"
 }
 
-/** Server-sent events from POST /api/ai/chat. */
+/** A saved conversation. While [running], the reply in progress is left out: follow it with [AssistantClient.follow]. */
+data class ConversationDetail(val messages: List<ChatMessage>, val running: Boolean)
+
+/** Server-sent events from POST /api/ai/chat and GET /api/ai/conversations/{id}/stream. */
 sealed interface ChatEvent {
     data class Conversation(val id: String, val title: String) : ChatEvent
     data class Text(val delta: String) : ChatEvent
@@ -94,12 +97,18 @@ class AssistantClient {
     suspend fun conversations(base: String, token: String): List<ConversationSummary> =
         Http.json.decodeFromString(ListSerializer(ConversationSummary.serializer()), call(base, token, "api/ai/conversations"))
 
-    suspend fun conversation(base: String, token: String, id: String, today: String): List<ChatMessage> {
+    suspend fun conversation(base: String, token: String, id: String, today: String): ConversationDetail {
         val root = Http.json.parseToJsonElement(call(base, token, "api/ai/conversations/$id?today=$today")).jsonObject
-        return (root["messages"] as? JsonArray).orEmpty().mapNotNull { m ->
+        val messages = (root["messages"] as? JsonArray).orEmpty().mapNotNull { m ->
             val o = m as? JsonObject ?: return@mapNotNull null
             ChatMessage(o["role"].str() ?: return@mapNotNull null, (o["blocks"] as? JsonArray).orEmpty().mapNotNull { parseBlock(it.obj()) })
         }
+        return ConversationDetail(messages, root["running"].str() == "true")
+    }
+
+    /** Stop the reply that runs on the server. Closing the stream alone doesn't stop it. */
+    suspend fun stop(base: String, token: String, id: String) {
+        call(base, token, "api/ai/conversations/$id/stop", method = "POST")
     }
 
     suspend fun delete(base: String, token: String, id: String) {
@@ -128,6 +137,23 @@ class AssistantClient {
             .header("Accept", "text/event-stream")
             .post(Http.json.encodeToString(ChatRequest.serializer(), request).toRequestBody(jsonType))
             .build()
+        stream(req)
+    }.flowOn(Dispatchers.IO)
+
+    /**
+     * Reconnect to a reply that runs on the server: the events after the first [after], then the new ones
+     * until the reply ends.
+     */
+    fun follow(base: String, token: String, id: String, after: Int): Flow<ChatEvent> = flow {
+        val req = Request.Builder()
+            .url(url(base, "api/ai/conversations/$id/stream?after=$after"))
+            .header("Authorization", "Bearer $token")
+            .header("Accept", "text/event-stream")
+            .build()
+        stream(req)
+    }.flowOn(Dispatchers.IO)
+
+    private suspend fun FlowCollector<ChatEvent>.stream(req: Request) {
         val call = streaming.newCall(req)
         coroutineScope {
             // Reading the stream blocks a thread; cancel the call so stopping the reply takes effect at once.
@@ -138,7 +164,7 @@ class AssistantClient {
                 canceller.cancel()
             }
         }
-    }.flowOn(Dispatchers.IO)
+    }
 
     private suspend fun FlowCollector<ChatEvent>.read(r: Response) {
         if (!r.isSuccessful) throw error(r)

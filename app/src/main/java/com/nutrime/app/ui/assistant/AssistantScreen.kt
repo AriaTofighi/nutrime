@@ -116,6 +116,11 @@ fun AssistantScreen(nav: NavController, prompt: String? = null) {
     }
 
     LaunchedEffect(account?.loggedIn) { if (account?.loggedIn == true) session.refresh() }
+    // Back in the app: show a reply that finished (or is still running) while it was away.
+    androidx.lifecycle.compose.LifecycleResumeEffect(session) {
+        session.resume()
+        onPauseOrDispose { }
+    }
 
     SubPage(
         title = state.title.orEmpty(),
