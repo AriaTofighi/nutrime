@@ -1,0 +1,67 @@
+/*
+ * Tailwind CSS and shadcn/ui. The shadcn color names map to NutriMe's design tokens (theme/tokens.css),
+ * so shadcn components follow the light/dark mode and the accent color.
+ *
+ * Cascade layers: the app's component styles (styles/index.css) are in the "app" layer, below Tailwind
+ * utilities, so a utility class on a shadcn component always wins over an older element rule.
+ * Tailwind's preflight reset is not loaded: styles/base.css already sets the base element styles.
+ */
+@layer theme, base, app, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tw-animate-css";
+@import "./index.css" layer(app);
+
+/* NutriMe CSS uses these class names for its own components (the calorie ring). Do not generate the utility. */
+@source not inline("ring");
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--text);
+  --color-popover: var(--surface-raised);
+  --color-popover-foreground: var(--text);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--on-accent);
+  --color-secondary: var(--surface-raised);
+  --color-secondary-foreground: var(--text);
+  --color-muted: var(--surface-hover);
+  --color-muted-foreground: var(--text-secondary);
+  --color-subtle-foreground: var(--text-tertiary);
+  --color-accent: var(--surface-hover);
+  --color-accent-foreground: var(--text);
+  --color-destructive: var(--danger);
+  --color-destructive-soft: var(--danger-soft);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--border-strong);
+  --color-ring: var(--accent);
+  --color-brand-soft: var(--accent-soft);
+  --color-energy: var(--energy);
+  --color-protein: var(--protein);
+  --color-carbs: var(--carbs);
+  --color-fat: var(--fat);
+  --color-warning: var(--warning);
+  --color-track: var(--track);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+}
+
+/* Not in a layer, like theme/tokens.css, so that it overrides the dark tokens. */
+/* Black dark theme (Profile → Appearance): true black backgrounds for OLED screens. */
+[data-theme="dark"][data-dark="black"] {
+  --gray-0: #000000;
+  --bg: #000000;
+  --bg-sunken: #000000;
+  --surface: #0e0e10;
+  --surface-raised: #17171a;
+  --surface-hover: #17171a;
+  --surface-active: #212125;
+}

@@ -1,4 +1,4 @@
-import { Activity, BookOpen, ChartLine, CircleUserRound, Cloud, CloudOff, Database as DatabaseIcon, LoaderCircle, Monitor, Moon, Salad, Sun, UserRound } from "lucide-react";
+import { Activity, BookOpen, Bot, ChartLine, CircleUserRound, Cloud, CloudOff, Database as DatabaseIcon, LoaderCircle, Monitor, Moon, Salad, Sun, UserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AssistantIcon } from "./components/icons";
 import { Logo } from "./components/Logo";
@@ -13,6 +13,7 @@ import Trends from "./screens/Trends";
 import Database from "./screens/Database";
 import Traces from "./screens/Traces";
 import Invitations from "./screens/Invitations";
+import AiSettings from "./screens/AiSettings";
 import { useAdminAccess } from "./lib/adminFoods";
 import { setTheme, useTheme, type ThemeMode } from "./theme/theme";
 
@@ -25,7 +26,9 @@ const TABS = [
   { id: "database", label: "Database", Icon: DatabaseIcon },
   { id: "traces", label: "Traces", Icon: Activity },
   { id: "invitations", label: "Invitations", Icon: UserRound },
+  { id: "ai", label: "Assistant settings", Icon: Bot },
 ] as const;
+const ADMIN_TABS: readonly string[] = ["database", "traces", "invitations", "ai"];
 type Tab = (typeof TABS)[number]["id"];
 
 const tabFromHash = (): Tab => {
@@ -102,8 +105,8 @@ export default function App() {
         </div>
         <nav className="nav" aria-label="Main">
           {/* Admin pages open from Profile, not the main navigation. */}
-          {TABS.filter((t) => t.id !== "database" && t.id !== "traces" && t.id !== "invitations").map(({ id, label, Icon }) => (
-            <a key={id} href={`#/${id}`} className={tab === id || (id === "profile" && (tab === "database" || tab === "traces" || tab === "invitations")) ? "on" : ""} aria-current={tab === id ? "page" : undefined}>
+          {TABS.filter((t) => !ADMIN_TABS.includes(t.id)).map(({ id, label, Icon }) => (
+            <a key={id} href={`#/${id}`} className={tab === id || (id === "profile" && ADMIN_TABS.includes(tab)) ? "on" : ""} aria-current={tab === id ? "page" : undefined}>
               <Icon size={19} strokeWidth={tab === id ? 2.2 : 1.8} />
               <span>{label}</span>
             </a>
@@ -134,6 +137,13 @@ export default function App() {
         {tab === "foods" && <Foods />}
         {tab === "profile" && <Profile admin={admin.allowed} />}
         {tab === "traces" && admin.allowed && <Traces key={s.account.token} token={s.account.token} />}
+        {tab === "ai" && (admin.allowed ? <AiSettings key={s.account.token} token={s.account.token} /> : (
+          <div className="page page-narrow">
+            <h1 className="page-title">Assistant settings</h1>
+            <p role="status">{admin.loading ? "Checking access…" : admin.error ?? "Administrator access is required."}</p>
+            {admin.error && <button className="btn btn-secondary" onClick={admin.retry}>Try again</button>}
+          </div>
+        ))}
         {tab === "invitations" && (admin.allowed ? <Invitations key={s.account.token} token={s.account.token} /> : (
           <div className="page page-narrow">
             <h1 className="page-title">Invitations</h1>

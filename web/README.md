@@ -17,9 +17,15 @@ server as the Android app. Your diary, custom foods, recipes, weights and profil
 All styling goes through design tokens in [`src/theme/tokens.css`](src/theme/tokens.css): a gray scale and
 accent per theme, semantic colors (`--surface`, `--text-secondary`, `--protein`, …), type scale, spacing,
 radii, shadows and motion. Components in `src/styles/` (one file per area, imported in order by `index.css`) use only these variables. Light, dark and
-system modes and four accent colors are switched with `data-theme` / `data-accent` on `<html>`
-([`src/theme/theme.ts`](src/theme/theme.ts)); the choice is saved per browser (Profile → Appearance, or
-the toggle in the sidebar). Shared building blocks (cards, rings, meters, calendar, modal, segmented
+system modes, a dim or black dark theme, eight accent colors or a custom hue, and the text size are set on `<html>`
+(`data-theme`, `data-dark`, `data-accent`, `--accent-h`, `font-size`) by
+[`src/theme/theme.ts`](src/theme/theme.ts); the choice, and the diary summary options, are saved per browser
+(Profile → Appearance, or the toggle in the sidebar).
+
+New UI uses [shadcn/ui](https://ui.shadcn.com) components (`src/components/shadcn/`, config in `components.json`)
+with Tailwind CSS v4 ([`src/styles/tailwind.css`](src/styles/tailwind.css)). Tailwind's colors map to the same
+tokens, so both kinds of components follow the theme. Tailwind's preflight is not used; the existing CSS is in the
+`app` cascade layer, so utility classes override it. Shared building blocks (cards, rings, meters, calendar, modal, segmented
 controls) live in `src/components/ui.tsx`. Inter is bundled; icons are Lucide.
 
 ## How it talks to the backend

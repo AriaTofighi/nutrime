@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import { store } from "./lib/store";
 import "./theme/tokens.css";
-import "./styles/index.css";
+import "./styles/tailwind.css";
 import { initTheme } from "./theme/theme";
 
 initTheme();

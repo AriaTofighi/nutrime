@@ -1,4 +1,4 @@
-import { Activity as ActivityIcon, ChartPie, Check, ChevronRight, CircleUserRound, Database, Download, Info, ListChecks, LogOut, Monitor, Moon, Palette, RefreshCw, Ruler, Sun, Target as TargetIcon, Upload } from "lucide-react";
+import { Activity as ActivityIcon, Bot, ChartPie, ChevronRight, CircleUserRound, Database, Download, Info, ListChecks, LogOut, Palette, RefreshCw, Ruler, Target as TargetIcon, Upload } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Hero, Modal, Segmented } from "../components/ui";
 import { GROUPS, N, NUTRIENTS, fmtNum } from "../lib/nutrients";
@@ -24,7 +24,8 @@ import { MAX_GAIN, MAX_LOSS, WARNING_TEXT, editSchedule, higherWeekends, project
 import { burnSource } from "../lib/trends";
 import { ExportImport } from "./DataTools";
 import { isoDate, timeAgo, toNum } from "../lib/util";
-import { ACCENTS, COLORS, setTheme, useTheme, type ThemeMode } from "../theme/theme";
+import { COLORS } from "../theme/theme";
+import { AppearanceSettings } from "../components/AppearanceSettings";
 
 const PRESETS: [number, number, number, string][] = [
   [25, 45, 30, "Balanced"],
@@ -95,7 +96,6 @@ function goalLabel(kg: number, imperial: boolean) {
 
 export default function Profile({ admin = false }: { admin?: boolean }) {
   useStore();
-  const theme = useTheme();
   const rec = store.get("profile", "profile");
   const saved = parseProfile(rec?.json);
   const [draft, setDraft] = useState<P>(saved);
@@ -216,6 +216,7 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
           {admin && <SettingsRow icon={<Database size={17} />} label="Food database" value="Admin" href="#/database" />}
           {admin && <SettingsRow icon={<ActivityIcon size={17} />} label="Assistant traces" value="Admin" href="#/traces" />}
           {admin && <SettingsRow icon={<CircleUserRound size={17} />} label="Invitations" value="Admin" href="#/invitations" />}
+          {admin && <SettingsRow icon={<Bot size={17} />} label="Assistant settings" value="Admin" href="#/ai" />}
         </section>
       </div>
 
@@ -451,30 +452,7 @@ export default function Profile({ admin = false }: { admin?: boolean }) {
 
       {section === "appearance" && (
         <Modal title="Appearance" onClose={close}>
-          <div className="form">
-            <div className="field">
-              <span>Theme</span>
-              <Segmented<ThemeMode>
-                options={[
-                  { value: "light", label: <><Sun size={14} /> Light</> },
-                  { value: "dark", label: <><Moon size={14} /> Dark</> },
-                  { value: "system", label: <><Monitor size={14} /> System</> },
-                ]}
-                value={theme.mode}
-                onChange={(mode) => setTheme({ mode })}
-              />
-            </div>
-            <div className="field">
-              <span>Accent</span>
-              <div className="swatches">
-                {ACCENTS.map((a) => (
-                  <button key={a.id} className={`swatch ${theme.accent === a.id ? "on" : ""}`} style={{ background: a.swatch }} onClick={() => setTheme({ accent: a.id })} aria-label={a.label} title={a.label}>
-                    {theme.accent === a.id && <Check size={15} />}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+          <AppearanceSettings />
         </Modal>
       )}
 
