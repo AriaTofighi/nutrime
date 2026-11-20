@@ -39,7 +39,6 @@ import androidx.compose.ui.unit.sp
 import com.nutrime.app.data.remote.ProposalItem
 import com.nutrime.app.data.remote.ProposalItemEdit
 import com.nutrime.app.ui.components.NTextField
-import com.nutrime.app.ui.components.Segmented
 import com.nutrime.app.ui.components.formatQty
 import kotlin.math.roundToInt
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -339,7 +338,6 @@ private fun ToolSteps(steps: List<ChatBlock.Tool>, running: Boolean) {
     }
 }
 
-private val MEAL_NAMES = listOf("Breakfast", "Lunch", "Dinner", "Snacks")
 private const val COLLAPSE_AFTER = 6
 
 private fun badgeLabel(b: String) = when (b) { "substitute" -> "Substitute"; "estimate" -> "Estimate"; "match" -> "Matches"; "differs" -> "Check"; else -> b }
@@ -373,24 +371,14 @@ fun ProposalCard(
     var editing by remember(p.id) { mutableStateOf<Int?>(null) }
     val rows = p.items.withIndex().toList()
     val shown = if (expanded || rows.size <= COLLAPSE_AFTER) rows else rows.take(COLLAPSE_AFTER - 1)
-    val meals = rows.mapNotNull { it.value.meal }.toSet()
-    val single = meals.singleOrNull()?.let { MEAL_NAMES.getOrNull(it) }
     Column(Modifier.fillMaxWidth().clip(shape).border(1.dp, c.borderStrong, shape).background(c.surfaceRaised)) {
         Column(Modifier.padding(start = Space.S3, end = Space.S3, top = Space.S3, bottom = Space.S1)) {
             Text(p.title, style = NutriTheme.type.bodyMedium, color = c.text)
-            listOfNotNull(single, p.summary).joinToString(" · ").takeIf { it.isNotEmpty() }?.let {
+            p.summary?.takeIf { it.isNotEmpty() }?.let {
                 Text(it, style = NutriTheme.type.small, color = c.textSecondary)
             }
         }
-        var lastMeal: Int? = -1
         shown.forEach { (index, item) ->
-            if (meals.size > 1 && item.meal != lastMeal) {
-                lastMeal = item.meal
-                item.meal?.let { MEAL_NAMES.getOrNull(it) }?.let {
-                    Text(it.uppercase(), style = NutriTheme.type.caption.copy(fontWeight = FontWeight.SemiBold), color = c.textTertiary,
-                        modifier = Modifier.padding(start = Space.S3, end = Space.S3, top = Space.S2, bottom = 2.dp))
-                }
-            }
             Column(
                 Modifier.fillMaxWidth().clickable(enabled = pending && !busy) { editing = index }.padding(horizontal = Space.S3, vertical = 6.dp),
             ) {
@@ -399,8 +387,7 @@ fun ProposalCard(
                     item.badge?.let { Badge(it) }
                 }
                 val food = item.kind == "log_food" || item.kind == "quick_add"
-                val detail = if (food) listOfNotNull(item.amount, item.kcal?.let { "${it.roundToInt()} kcal" },
-                    if (meals.size == 1) null else item.meal?.let { MEAL_NAMES.getOrNull(it) }).joinToString(" · ") else item.detail
+                val detail = if (food) listOfNotNull(item.amount, item.kcal?.let { "${it.roundToInt()} kcal" }).joinToString(" · ") else item.detail
                 Text(detail, style = NutriTheme.type.small, color = c.textSecondary)
                 // A food made from a web page names the page's site ("From the web: example.com").
                 if (item.kind == "create_food") item.source?.takeIf { it !in detail }?.let {
@@ -441,14 +428,13 @@ fun ProposalCard(
     }
 }
 
-/** Change one row of a card: amount, meal, another match, or remove it. */
+/** Change one row of a card: amount, another match, or remove it. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ItemEditorSheet(item: ProposalItem, busy: Boolean, onClose: () -> Unit, onSave: (ProposalItemEdit) -> Unit) {
     val c = NutriTheme.colors
     val byGrams = item.servingLabel == "g"
     var amount by remember { mutableStateOf(item.quantity?.let { formatQty(Math.round(it * 100) / 100.0) }.orEmpty()) }
-    var meal by remember { mutableStateOf(item.meal ?: 0) }
     var foodId by remember { mutableStateOf<String?>(null) }
     val canAmount = item.editable && item.quantity != null
     ModalBottomSheet(
@@ -473,12 +459,6 @@ private fun ItemEditorSheet(item: ProposalItem, busy: Boolean, onClose: () -> Un
                     amount, { amount = it }, label = "Amount", suffix = if (byGrams) "g" else "× ${item.servingLabel}",
                     keyboardType = KeyboardType.Decimal,
                 )
-            }
-            if (item.editable && item.meal != null) {
-                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text("Meal", style = NutriTheme.type.small.copy(fontWeight = FontWeight.Medium), color = c.textSecondary)
-                    Segmented(MEAL_NAMES.mapIndexed { i, n -> i to n }, meal, { meal = it }, fill = true)
-                }
             }
             if (item.alternatives.isNotEmpty()) {
                 Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -505,7 +485,6 @@ private fun ItemEditorSheet(item: ProposalItem, busy: Boolean, onClose: () -> Un
                     val q = amount.replace(',', '.').toDoubleOrNull()
                     val changedAmount = canAmount && q != null && q > 0 && kotlin.math.abs(q - (item.quantity ?: 0.0)) > 1e-9
                     val edit = ProposalItemEdit(
-                        meal = meal.takeIf { item.editable && item.meal != null && it != item.meal },
                         quantity = q.takeIf { changedAmount && !byGrams },
                         grams = q.takeIf { changedAmount && byGrams },
                         foodId = foodId,

@@ -320,7 +320,7 @@ fun FoodSearchScreen(nav: NavController, date: String, meal: Int, mode: String, 
         }
     }
 
-    val title = if (mode == PickMode.INGREDIENT) "Add ingredient" else "Add to ${Meal.entries[meal.coerceIn(0, 3)].label.lowercase()}"
+    val title = if (mode == PickMode.INGREDIENT) "Add ingredient" else "Add food"
     SubPage(
         title, onBack = { nav.popBackStack() }, snackbar = snackbar, plain = true,
         actions = {
@@ -452,7 +452,7 @@ private fun androidx.compose.foundation.lazy.LazyListScope.emptySearch(
     val favs = if (filter != SearchFilter.COMPLETE) favorites else favorites.filter { FoodQuality.isComplete(it) }
     val rest = if (filter == SearchFilter.ALL || filter == SearchFilter.MINE) recent.filter { r -> usual.none { it.foodId == r.foodId } } else emptyList()
     if (usual.isNotEmpty()) {
-        item { Header("Usual for ${Meal.entries[meal.coerceIn(0, 3)].label.lowercase()}") }
+        item { Header("Usual at this time") }
         items(usual, key = { "u-" + it.foodId }) { r -> RecentRow(r, logMode, onOpenRecent, onAddRecent) }
     }
     if (shownMeals.isNotEmpty()) {

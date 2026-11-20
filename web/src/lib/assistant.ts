@@ -48,7 +48,6 @@ export interface ProposalItemEdit {
   grams?: number;
   foodId?: string;
 }
-export const MEALS = ["Breakfast", "Lunch", "Dinner", "Snacks"];
 export interface ChatImage {
   mimeType: string;
   /** base64 */

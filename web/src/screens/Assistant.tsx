@@ -1,9 +1,8 @@
 import { ArrowUp, Camera, Check, ChevronDown, ChevronUp, ImagePlus, LoaderCircle, MessagesSquare, Plus, Square, SquarePen, Trash2, X } from "lucide-react";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Markdown } from "../components/Markdown";
-import { Empty, Modal, Segmented } from "../components/ui";
+import { Empty, Modal } from "../components/ui";
 import * as ai from "../lib/assistant";
-import { MEALS } from "../lib/assistant";
 import type { ChatBlock, ChatImage, ChatMessage, ConversationSummary, Proposal, ProposalItem, ProposalItemEdit } from "../lib/assistant";
 import { store } from "../lib/store";
 
@@ -488,26 +487,14 @@ function ProposalCard({ p, busy }: { p: Proposal; busy: boolean }) {
   const pending = p.status === "pending";
   const rows = p.items.map((item, index) => ({ item, index }));
   const shown = expanded || rows.length <= COLLAPSE_AFTER ? rows : rows.slice(0, COLLAPSE_AFTER - 1);
-  // Group by meal when the card logs food for more than one meal.
-  const meals = new Set(rows.map((r) => r.item.meal).filter((m) => m != null));
-  const groups: { meal: number | null; rows: typeof rows }[] = [];
-  for (const r of shown) {
-    const meal = meals.size > 1 ? (r.item.meal ?? null) : null;
-    const g = groups.find((x) => x.meal === meal);
-    if (g) g.rows.push(r);
-    else groups.push({ meal, rows: [r] });
-  }
-  const single = meals.size === 1 ? MEALS[[...meals][0] as number] : null;
   return (
     <div className="proposal">
       <div className="proposal-head">
         <div className="proposal-title">{p.title}</div>
-        {(p.summary || single) && <div className="proposal-summary">{[single, p.summary].filter(Boolean).join(" · ")}</div>}
+        {p.summary && <div className="proposal-summary">{p.summary}</div>}
       </div>
-      {groups.map((g, gi) => (
-        <div key={gi} className="proposal-group">
-          {g.meal != null && <div className="proposal-meal">{MEALS[g.meal]}</div>}
-          {g.rows.map(({ item, index }) => (
+      <div className="proposal-group">
+          {shown.map(({ item, index }) => (
             <button key={index} type="button" className="proposal-item" disabled={!pending || busy} onClick={() => setEditing(index)}>
               <span className="proposal-name">
                 {item.name ?? item.title}
@@ -515,7 +502,7 @@ function ProposalCard({ p, busy }: { p: Proposal; busy: boolean }) {
               </span>
               <span className="proposal-detail">
                 {item.kind === "log_food" || item.kind === "quick_add"
-                  ? [item.amount, item.kcal != null ? `${Math.round(item.kcal)} kcal` : null, meals.size > 1 || single ? null : item.meal != null ? MEALS[item.meal] : null].filter(Boolean).join(" · ")
+                  ? [item.amount, item.kcal != null ? `${Math.round(item.kcal)} kcal` : null].filter(Boolean).join(" · ")
                   : item.detail}
               </span>
               {item.kind === "create_food" && item.source && !item.detail.includes(item.source) && (
@@ -524,8 +511,7 @@ function ProposalCard({ p, busy }: { p: Proposal; busy: boolean }) {
               {item.note && <span className={`proposal-note ${item.badge ?? ""}`}>{item.note}</span>}
             </button>
           ))}
-        </div>
-      ))}
+      </div>
       {rows.length > shown.length && (
         <button type="button" className="proposal-more" onClick={() => setExpanded(true)}>
           Show {rows.length - shown.length} more
@@ -565,7 +551,6 @@ function ProposalCard({ p, busy }: { p: Proposal; busy: boolean }) {
 function ItemEditor({ proposalId, index, item, busy, onClose }: { proposalId: string; index: number; item: ProposalItem; busy: boolean; onClose: () => void }) {
   const byGrams = item.servingLabel === "g";
   const [amount, setAmount] = useState(item.quantity != null ? String(Math.round(item.quantity * 100) / 100) : "");
-  const [meal, setMeal] = useState(item.meal ?? 0);
   const [foodId, setFoodId] = useState<string | null>(null);
   const editable = !!item.editable;
   const canAmount = editable && item.quantity != null;
@@ -577,7 +562,6 @@ function ItemEditor({ proposalId, index, item, busy, onClose }: { proposalId: st
       if (byGrams) edit.grams = q;
       else edit.quantity = q;
     }
-    if (editable && item.meal != null && meal !== item.meal) edit.meal = meal;
     if (foodId) edit.foodId = foodId;
     if (!Object.keys(edit).length) return onClose();
     if (await assistant.editItem(proposalId, index, edit)) onClose();
@@ -598,12 +582,6 @@ function ItemEditor({ proposalId, index, item, busy, onClose }: { proposalId: st
               <span className="muted">{byGrams ? "g" : `× ${item.servingLabel}`}</span>
             </div>
           </label>
-        )}
-        {editable && item.meal != null && (
-          <div className="field">
-            <span className="field-label">Meal</span>
-            <Segmented options={MEALS.map((m, i) => ({ value: i, label: m }))} value={meal} onChange={(v) => setMeal(v)} />
-          </div>
         )}
         {!!item.alternatives?.length && (
           <div className="field">

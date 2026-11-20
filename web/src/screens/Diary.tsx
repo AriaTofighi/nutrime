@@ -349,7 +349,7 @@ export default function Diary() {
                     {menu === e.id && (
                       <div className="row-menu" role="menu" onClick={(ev) => ev.stopPropagation()}>
                         <button role="menuitem" onClick={() => { setMenu(undefined); void openEdit(e); }}>
-                          <Pencil size={15} /> Edit amount or meal
+                          <Pencil size={15} /> Edit amount
                         </button>
                         <button role="menuitem" onClick={() => { setMenu(undefined); setDialog({ kind: "nutrition", entry: e }); }}>
                           <ChartColumn size={15} /> Show nutrition

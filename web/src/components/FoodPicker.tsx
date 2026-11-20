@@ -64,7 +64,6 @@ export interface PickedAmount {
 
 type Filter = "all" | "mine" | "favorites" | "complete";
 const FILTERS: [Filter, string][] = [["all", "All"], ["mine", "My foods"], ["favorites", "Favourites"], ["complete", "Complete data"]];
-const MEAL_NAMES = ["breakfast", "lunch", "dinner", "snacks"];
 
 /** A food from its newest diary entry (when it isn't in the catalog any more). */
 function entryFood(e: DiaryEntry): Food {
@@ -284,7 +283,7 @@ export function FoodSearch({
         {!q && !barcodeMode && (
           <>
             {usual.length > 0 && (
-              <Section icon={<History size={13} />} title={`Usual for ${MEAL_NAMES[meal ?? 0]}`}>{usual.map((e) => row(entryFood(e), "u" + e.foodId))}</Section>
+              <Section icon={<History size={13} />} title="Usual at this time">{usual.map((e) => row(entryFood(e), "u" + e.foodId))}</Section>
             )}
             {meals.length > 0 && (
               <Section icon={<Bookmark size={13} />} title="Saved meals">

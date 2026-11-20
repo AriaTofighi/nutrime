@@ -487,7 +487,7 @@ private fun EntrySheets(
     }
     menuFor?.let { item ->
         val actions = buildList {
-            add(EntryAction(Lucide.Pencil, "Edit amount or meal") {
+            add(EntryAction(Lucide.Pencil, "Edit amount") {
                 onMenuDone(); nav.navigate(Routes.food(item.entity.foodId, date.toString(), item.entity.meal, entryId = item.id))
             })
             add(EntryAction(Lucide.ChartColumn, "Show nutrition") { onMenuDone(); onNutrition(item) })
