@@ -657,15 +657,9 @@ private fun TodayCard(totals: NutrientMap, calorieTarget: Int, targets: Map<Int,
                             style = NutriTheme.type.pageTitle.copy(fontFeatureSettings = "tnum"), color = c.text,
                         )
                         Text(
-                            when { showEaten -> "kcal eaten"; over -> "kcal over"; else -> "kcal left" },
-                            style = NutriTheme.type.caption, color = if (over && !showEaten) c.warning else c.textSecondary,
-                        )
-                        Spacer(Modifier.height(2.dp))
-                        Hairline(Modifier.width(36.dp))
-                        Spacer(Modifier.height(3.dp))
-                        Text(
-                            "of %,d".format(calorieTarget),
-                            style = NutriTheme.type.caption.copy(fontFeatureSettings = "tnum"), color = c.textTertiary,
+                            when { showEaten -> "of %,d"; over -> "over %,d"; else -> "left of %,d" }.format(calorieTarget),
+                            style = NutriTheme.type.small.copy(fontFeatureSettings = "tnum"),
+                            color = if (over && !showEaten) c.warning else c.textSecondary,
                         )
                     }
                 }
@@ -677,16 +671,6 @@ private fun TodayCard(totals: NutrientMap, calorieTarget: Int, targets: Map<Int,
                 MacroLine("Fat", totals[N.FAT] ?: 0.0, targets[N.FAT]?.min, c.fat, display.macros)
             }
         }
-        // The value that the ring does not show.
-        Text(
-            when {
-                !showEaten -> "%,.0f kcal eaten".format(consumed)
-                over -> "%,.0f kcal over target".format(-remaining)
-                else -> "%,.0f kcal left".format(remaining)
-            },
-            style = NutriTheme.type.caption.copy(fontFeatureSettings = "tnum"), color = if (showEaten && over) c.warning else c.textTertiary,
-            modifier = Modifier.padding(top = Space.S3),
-        )
     }
 }
 

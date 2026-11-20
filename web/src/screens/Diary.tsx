@@ -231,14 +231,12 @@ export default function Diary() {
                 }
               >
                 <b className="num">{fmtKcal(showEaten ? eaten : Math.abs(remaining))}</b>
-                <span className={remaining < 0 && !showEaten ? "warn-text" : undefined}>{showEaten ? "kcal eaten" : remaining < 0 ? "kcal over" : "kcal left"}</span>
-                <em className="ring-target num">of {kcalTarget.toLocaleString()}</em>
+                <em className={`ring-target num ${remaining < 0 && !showEaten ? "warn-text" : ""}`}>
+                  {showEaten ? "of" : remaining < 0 ? "over" : "left of"} {kcalTarget.toLocaleString()}
+                </em>
               </Ring>
               <div className="today-macros">
                 <MacroTiles values={totals} targets={tgt} show={display.macros} />
-                <p className={`hint num ${showEaten && remaining < 0 ? "warn-text" : ""}`}>
-                  {!showEaten ? `${fmtKcal(eaten)} kcal eaten` : remaining < 0 ? `${fmtKcal(-remaining)} kcal over target` : `${fmtKcal(remaining)} kcal left`}
-                </p>
               </div>
             </div>
           </Card>

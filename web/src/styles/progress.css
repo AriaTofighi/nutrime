@@ -117,10 +117,12 @@
   font-weight: var(--weight-semibold);
 }
 .ring-center .ring-target {
-  margin-top: 5px;
-  padding-top: 4px;
-  border-top: 1px solid var(--border-strong);
+  margin-top: 3px;
   font-style: normal;
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   color: var(--text-secondary);
+}
+.today .ring-center b {
+  font-size: 1.75rem;
+  line-height: 1.05;
 }
