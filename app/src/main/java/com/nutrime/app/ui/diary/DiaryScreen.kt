@@ -58,6 +58,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.nutrime.app.AppContainer
 import com.nutrime.app.data.DiaryItem
+import com.nutrime.app.data.DisplaySettings
+import com.nutrime.app.data.MacroValue
+import com.nutrime.app.data.RingValue
 import com.nutrime.app.data.local.WeightEntity
 import com.nutrime.app.model.Dri
 import com.nutrime.app.model.Meal
@@ -217,6 +220,7 @@ fun DiaryScreen(nav: NavController) {
     }
 
     val goalReachedHidden by container.settings.goalReachedHidden.collectAsStateWithLifecycle(initialValue = null)
+    val display by container.settings.display.collectAsStateWithLifecycle(initialValue = DisplaySettings())
     val burn by vm.burn.collectAsStateWithLifecycle()
     val savedMeals by vm.meals.collectAsStateWithLifecycle()
     var noteDialog by remember { mutableStateOf(false) }
@@ -313,7 +317,7 @@ fun DiaryScreen(nav: NavController) {
                 }
             }
             item {
-                TodayCard(totals, s.profile.calorieTargetOn(date), targets, onOpen = { nav.navigate(Routes.nutrients(date.toString())) })
+                TodayCard(totals, s.profile.calorieTargetOn(date), targets, display, onOpen = { nav.navigate(Routes.nutrients(date.toString())) })
             }
             s.day?.note?.takeIf { it.isNotBlank() }?.let { note ->
                 item(key = "note") {
@@ -615,52 +619,92 @@ private fun DayBar(
  * against their targets. Tap it for every nutrient.
  */
 @Composable
-private fun TodayCard(totals: NutrientMap, calorieTarget: Int, targets: Map<Int, Target>, onOpen: () -> Unit) {
+private fun TodayCard(totals: NutrientMap, calorieTarget: Int, targets: Map<Int, Target>, display: DisplaySettings, onOpen: () -> Unit) {
     val c = NutriTheme.colors
     val target = calorieTarget.toDouble().coerceAtLeast(1.0)
     val consumed = totals[N.ENERGY] ?: 0.0
     val remaining = calorieTarget - consumed
     val over = remaining < 0
+    val showEaten = display.ring == RingValue.CONSUMED
+    val fill = (consumed / target).toFloat().coerceAtMost(1f)
+    val segments = if (display.ringSplit && consumed > 0) {
+        // Calories from each macro, scaled so the segments fill the same part of the ring as the total.
+        val parts = listOf(
+            (totals[N.PROTEIN] ?: 0.0) * 4 to c.protein,
+            (totals[N.CARBS] ?: 0.0) * 4 to c.carbs,
+            (totals[N.FAT] ?: 0.0) * 9 to c.fat,
+        )
+        val sum = parts.sumOf { it.first }.coerceAtLeast(1.0)
+        parts.map { (kcal, color) -> (fill * kcal / sum).toFloat() to color }
+    } else {
+        listOf(fill to if (over) c.warning else c.accent)
+    }
     Card(onClick = onOpen, onClickLabel = "Show all nutrients") {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(
                 Modifier.clearAndSetSemantics {
-                    contentDescription = if (over) "%,.0f kilocalories over target".format(-remaining) else "%,.0f kilocalories left of %,d".format(remaining, calorieTarget)
+                    contentDescription = when {
+                        showEaten -> "%,.0f of %,d kilocalories eaten".format(consumed, calorieTarget)
+                        over -> "%,.0f kilocalories over target of %,d".format(-remaining, calorieTarget)
+                        else -> "%,.0f kilocalories left of %,d".format(remaining, calorieTarget)
+                    }
                 },
             ) {
-                Ring(
-                    listOf((consumed / target).toFloat().coerceAtMost(1f) to if (over) c.warning else c.accent),
-                    size = 112.dp, stroke = 9.dp,
-                ) {
+                Ring(segments, size = 124.dp, stroke = 9.dp) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("%,.0f".format(kotlin.math.abs(remaining)), style = NutriTheme.type.pageTitle.copy(fontFeatureSettings = "tnum"), color = c.text)
-                        Text(if (over) "kcal over" else "kcal left", style = NutriTheme.type.caption, color = if (over) c.warning else c.textSecondary)
+                        Text(
+                            "%,.0f".format(if (showEaten) consumed else kotlin.math.abs(remaining)),
+                            style = NutriTheme.type.pageTitle.copy(fontFeatureSettings = "tnum"), color = c.text,
+                        )
+                        Text(
+                            when { showEaten -> "kcal eaten"; over -> "kcal over"; else -> "kcal left" },
+                            style = NutriTheme.type.caption, color = if (over && !showEaten) c.warning else c.textSecondary,
+                        )
+                        Spacer(Modifier.height(2.dp))
+                        Hairline(Modifier.width(36.dp))
+                        Spacer(Modifier.height(3.dp))
+                        Text(
+                            "of %,d".format(calorieTarget),
+                            style = NutriTheme.type.caption.copy(fontFeatureSettings = "tnum"), color = c.textTertiary,
+                        )
                     }
                 }
             }
             Spacer(Modifier.width(Space.S5))
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                MacroLine("Protein", totals[N.PROTEIN] ?: 0.0, targets[N.PROTEIN]?.min, c.protein)
-                MacroLine("Carbs", totals[N.CARBS] ?: 0.0, targets[N.CARBS]?.min, c.carbs)
-                MacroLine("Fat", totals[N.FAT] ?: 0.0, targets[N.FAT]?.min, c.fat)
+                MacroLine("Protein", totals[N.PROTEIN] ?: 0.0, targets[N.PROTEIN]?.min, c.protein, display.macros)
+                MacroLine("Carbs", totals[N.CARBS] ?: 0.0, targets[N.CARBS]?.min, c.carbs, display.macros)
+                MacroLine("Fat", totals[N.FAT] ?: 0.0, targets[N.FAT]?.min, c.fat, display.macros)
             }
         }
+        // The value that the ring does not show.
         Text(
-            "%,.0f eaten · target %,d".format(consumed, calorieTarget),
-            style = NutriTheme.type.caption.copy(fontFeatureSettings = "tnum"), color = c.textTertiary,
+            when {
+                !showEaten -> "%,.0f kcal eaten".format(consumed)
+                over -> "%,.0f kcal over target".format(-remaining)
+                else -> "%,.0f kcal left".format(remaining)
+            },
+            style = NutriTheme.type.caption.copy(fontFeatureSettings = "tnum"), color = if (showEaten && over) c.warning else c.textTertiary,
             modifier = Modifier.padding(top = Space.S3),
         )
     }
 }
 
 @Composable
-private fun MacroLine(name: String, grams: Double, target: Double?, color: Color) {
+private fun MacroLine(name: String, grams: Double, target: Double?, color: Color, mode: MacroValue) {
     val c = NutriTheme.colors
+    val left = mode == MacroValue.REMAINING && target != null
     Column {
         Row(verticalAlignment = Alignment.Bottom) {
             Text(name, style = NutriTheme.type.small, color = c.textSecondary, modifier = Modifier.weight(1f))
-            Text("%.0f".format(grams), style = NutriTheme.type.numeric.copy(fontSize = NutriTheme.type.small.fontSize), color = c.text)
-            if (target != null) Text(" / %.0f g".format(target), style = NutriTheme.type.caption.copy(fontFeatureSettings = "tnum"), color = c.textTertiary)
+            if (left) {
+                val rest = target!! - grams
+                Text("%.0f".format(kotlin.math.abs(rest)), style = NutriTheme.type.numeric.copy(fontSize = NutriTheme.type.small.fontSize), color = c.text)
+                Text(if (rest < 0) " g over" else " g left", style = NutriTheme.type.caption, color = c.textTertiary)
+            } else {
+                Text("%.0f".format(grams), style = NutriTheme.type.numeric.copy(fontSize = NutriTheme.type.small.fontSize), color = c.text)
+                if (target != null) Text(" / %.0f g".format(target), style = NutriTheme.type.caption.copy(fontFeatureSettings = "tnum"), color = c.textTertiary)
+            }
         }
         Spacer(Modifier.height(4.dp))
         ProgressBar(if (target != null && target > 0) (grams / target).toFloat() else 0f, color, height = 5.dp)

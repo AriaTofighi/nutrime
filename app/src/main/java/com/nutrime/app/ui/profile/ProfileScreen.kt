@@ -42,6 +42,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.nutrime.app.BuildConfig
 import com.nutrime.app.data.Appearance
+import com.nutrime.app.data.DisplaySettings
+import com.nutrime.app.data.MacroValue
+import com.nutrime.app.data.RingValue
+import com.nutrime.app.ui.theme.CUSTOM_SATURATION
+import com.nutrime.app.ui.theme.DarkStyle
+import com.nutrime.app.ui.theme.TextScale
 import com.nutrime.app.model.ActivityLevel
 import com.nutrime.app.model.BurnMode
 import com.nutrime.app.model.Goal
@@ -64,6 +70,7 @@ import com.nutrime.app.ui.components.ButtonKind
 import com.nutrime.app.ui.components.Card
 import com.nutrime.app.ui.components.GroupLabel
 import com.nutrime.app.ui.components.Hero
+import com.nutrime.app.ui.components.Stat
 import com.nutrime.app.ui.components.NavRow
 import com.nutrime.app.ui.components.Page
 import com.nutrime.app.ui.components.PageTitle
@@ -177,8 +184,7 @@ fun ProfileScreen(nav: NavController) {
             Card(onClick = { open(ProfileSection.GOAL) }, onClickLabel = "Change goal") {
                 Hero(
                     "Daily target", "%,d".format(profile.calorieTarget), "kcal",
-                    status = goalLabel(profile.goalKgPerWeek, profile.imperial).let { if (it.startsWith("Maintain")) it else it.replace(" / week", " a week") },
-                    tone = Tone.Good,
+                    stats = listOf(Stat("Plan", goalLabel(profile.goalKgPerWeek, profile.imperial).let { if (it.startsWith("Maintain")) it else it.replace(" / week", " a week") })),
                 )
                 Spacer(Modifier.height(Space.S4))
                 val split = Dri.macroGrams(profile)
@@ -263,6 +269,7 @@ fun ProfileSectionScreen(nav: NavController, route: String) {
     val c = appContainer()
     val (draft, update) = rememberProfileEditor()
     val appearance by c.settings.appearance.collectAsStateWithLifecycle(initialValue = Appearance(ThemeMode.SYSTEM, DesignTokens.Accent.Default))
+    val display by c.settings.display.collectAsStateWithLifecycle(initialValue = DisplaySettings())
     val scope = rememberCoroutineScope()
     var editTarget by remember { mutableStateOf<NutrientDef?>(null) }
     val colors = NutriTheme.colors
@@ -316,29 +323,9 @@ fun ProfileSectionScreen(nav: NavController, route: String) {
                         }
                     }
                 }
-                ProfileSection.APPEARANCE -> item {
-                    NCard {
-                        FieldLabel("Theme")
-                        Segmented(ThemeMode.entries.map { it to it.label }, appearance.mode, { m -> scope.launch { c.settings.setAppearance(mode = m) } })
-                        Spacer(Modifier.height(Space.S5))
-                        FieldLabel("Accent")
-                        Row(horizontalArrangement = Arrangement.spacedBy(Space.S3)) {
-                            DesignTokens.Accent.entries.forEach { a ->
-                                val swatch = Color.hsl(a.hue, a.saturation, a.swatchLightness)
-                                val on = a == appearance.accent
-                                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.clickable { scope.launch { c.settings.setAppearance(accent = a) } }) {
-                                    Box(
-                                        Modifier.size(34.dp).clip(CircleShape)
-                                            .border(2.dp, if (on) swatch else Color.Transparent, CircleShape)
-                                            .padding(4.dp).clip(CircleShape).background(swatch),
-                                        contentAlignment = Alignment.Center,
-                                    ) { if (on) Icon(Lucide.Check, null, tint = colors.onAccent, modifier = Modifier.size(14.dp)) }
-                                    Spacer(Modifier.height(4.dp))
-                                    Text(a.label, style = NutriTheme.type.caption, color = if (on) colors.text else colors.textTertiary)
-                                }
-                            }
-                        }
-                    }
+                ProfileSection.APPEARANCE -> {
+                    item { AppearanceCard(appearance) { block -> scope.launch { block() } } }
+                    item { DisplayCard(display) { d -> scope.launch { c.settings.setDisplay(d) } } }
                 }
             }
         }
@@ -381,7 +368,7 @@ private fun LazyListScope.goalSection(p: Profile, update: (Profile) -> Unit, ope
         // How the target is made: daily burn (formula, learned or typed), then the weekly goal.
         val goalKcal = p.goalKcalPerDay
         Card {
-            Hero("Daily target", "%,d".format(p.calorieTarget), "kcal", status = if (p.calorieOverride != null) "Custom target" else null, tone = Tone.Neutral)
+            Hero("Daily target", "%,d".format(p.calorieTarget), "kcal", stats = if (p.calorieOverride != null) listOf(Stat("Source", "Custom target")) else emptyList())
             Spacer(Modifier.height(Space.S3))
             if (p.burnMode == BurnMode.FORMULA || p.tdee == p.formulaTdee) {
                 SheetLine("Resting burn", "%,.0f kcal".format(p.bmr))
@@ -603,6 +590,113 @@ private fun BodySection(p: Profile, update: (Profile) -> Unit) {
             )
             FieldLabel("Units")
             Segmented(listOf(false to "Metric (kg, cm)", true to "Imperial (lb, in)"), p.imperial, { update(p.copy(imperial = it)) })
+        }
+    }
+}
+
+/** Theme, dark style, accent color and text size. */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun AppearanceCard(appearance: Appearance, run: (suspend () -> Unit) -> Unit) {
+    val c = appContainer()
+    val colors = NutriTheme.colors
+    NCard {
+        FieldLabel("Theme")
+        Segmented(ThemeMode.entries.map { it to it.label }, appearance.mode, { m -> run { c.settings.setAppearance(mode = m) } }, fill = true)
+        if (appearance.mode != ThemeMode.LIGHT) {
+            Spacer(Modifier.height(Space.S4))
+            FieldLabel("Dark theme")
+            Segmented(listOf(DarkStyle.DIM to "Dim", DarkStyle.BLACK to "Black"), appearance.darkStyle, { d -> run { c.settings.setAppearance(darkStyle = d) } }, fill = true)
+            Text(
+                "Black uses a true black background. It can save power on OLED screens.",
+                style = NutriTheme.type.caption, color = colors.textTertiary, modifier = Modifier.padding(top = 6.dp),
+            )
+        }
+        Spacer(Modifier.height(Space.S5))
+        FieldLabel("Accent color")
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.S3), verticalArrangement = Arrangement.spacedBy(Space.S3)) {
+            DesignTokens.Accent.entries.forEach { a ->
+                Swatch(a.label, Color.hsl(a.hue, a.saturation, a.swatchLightness), appearance.customHue == null && a == appearance.accent) {
+                    run { c.settings.setAppearance(accent = a) }
+                }
+            }
+            val hue = appearance.customHue ?: 190f
+            Swatch("Custom", Color.hsl(hue, CUSTOM_SATURATION, 0.5f), appearance.customHue != null, rainbow = appearance.customHue == null) {
+                run { c.settings.setAppearance(customHue = hue) }
+            }
+        }
+        appearance.customHue?.let { hue ->
+            var h by remember(hue) { mutableStateOf(hue) }
+            Spacer(Modifier.height(Space.S4))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Hue", style = NutriTheme.type.small, color = colors.textSecondary, modifier = Modifier.weight(1f))
+                Text("%.0f°".format(h), style = NutriTheme.type.small.copy(fontFeatureSettings = "tnum"), color = colors.textTertiary)
+            }
+            HueTrack()
+            Slider(
+                value = h, onValueChange = { h = it }, valueRange = 0f..359f,
+                onValueChangeFinished = { run { c.settings.setAppearance(customHue = h) } },
+            )
+        }
+        Spacer(Modifier.height(Space.S5))
+        FieldLabel("Text size")
+        Segmented(TextScale.entries.map { it to it.label }, appearance.textScale, { t -> run { c.settings.setAppearance(textScale = t) } }, fill = true)
+    }
+}
+
+@Composable
+private fun Swatch(label: String, color: Color, on: Boolean, rainbow: Boolean = false, onClick: () -> Unit) {
+    val colors = NutriTheme.colors
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.width(52.dp).clip(RoundedCornerShape(DesignTokens.Radius.Md)).clickable(onClick = onClick).padding(vertical = 2.dp),
+    ) {
+        val fill = if (rainbow) {
+            Modifier.background(androidx.compose.ui.graphics.Brush.sweepGradient((0..6).map { Color.hsl(it * 60f % 360f, CUSTOM_SATURATION, 0.55f) }))
+        } else Modifier.background(color)
+        Box(
+            Modifier.size(36.dp).clip(CircleShape)
+                .border(2.dp, if (on) color else Color.Transparent, CircleShape)
+                .padding(4.dp).clip(CircleShape).then(fill),
+            contentAlignment = Alignment.Center,
+        ) { if (on) Icon(Lucide.Check, null, tint = Color.White, modifier = Modifier.size(14.dp)) }
+        Spacer(Modifier.height(4.dp))
+        Text(label, style = NutriTheme.type.caption, color = if (on) colors.text else colors.textTertiary, maxLines = 1)
+    }
+}
+
+/** A strip of all hues above the custom hue slider. */
+@Composable
+private fun HueTrack() {
+    Box(
+        Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 4.dp).height(6.dp).clip(RoundedCornerShape(DesignTokens.Radius.Full))
+            .background(androidx.compose.ui.graphics.Brush.horizontalGradient((0..12).map { Color.hsl(it * 30f % 360f, CUSTOM_SATURATION, 0.5f) })),
+    )
+}
+
+/** What the diary's summary card shows. */
+@Composable
+private fun DisplayCard(display: DisplaySettings, save: (DisplaySettings) -> Unit) {
+    val colors = NutriTheme.colors
+    NCard {
+        Text("Diary summary", style = NutriTheme.type.title, color = colors.text)
+        Spacer(Modifier.height(Space.S4))
+        FieldLabel("Number in the ring")
+        Segmented(RingValue.entries.map { it to it.label }, display.ring, { save(display.copy(ring = it)) }, fill = true)
+        Text(
+            "The ring always shows your daily target under the number.",
+            style = NutriTheme.type.caption, color = colors.textTertiary, modifier = Modifier.padding(top = 6.dp),
+        )
+        Spacer(Modifier.height(Space.S4))
+        FieldLabel("Protein, carbs and fat")
+        Segmented(MacroValue.entries.map { it to it.label }, display.macros, { save(display.copy(macros = it)) }, fill = true)
+        Spacer(Modifier.height(Space.S3))
+        Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f).padding(end = Space.S3)) {
+                Text("Color the ring by macro", style = NutriTheme.type.body, color = colors.text)
+                Text("Show protein, carbs and fat as parts of the ring", style = NutriTheme.type.caption, color = colors.textTertiary)
+            }
+            androidx.compose.material3.Switch(display.ringSplit, { save(display.copy(ringSplit = it)) })
         }
     }
 }

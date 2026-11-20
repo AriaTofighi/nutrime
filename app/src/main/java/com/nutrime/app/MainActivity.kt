@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
                 enableEdgeToEdge(statusBarStyle = style, navigationBarStyle = style)
             }
             val pending by link.collectAsStateWithLifecycle()
-            NutriMeTheme(appearance.mode, appearance.accent) { NutriMeNavHost(link = pending, onLinkHandled = { link.value = null }) }
+            NutriMeTheme(appearance.mode, appearance.accent, appearance.customHue, appearance.darkStyle, appearance.textScale) { NutriMeNavHost(link = pending, onLinkHandled = { link.value = null }) }
         }
     }
 

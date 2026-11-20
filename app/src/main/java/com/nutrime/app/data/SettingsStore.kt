@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import com.nutrime.app.ui.theme.DesignTokens
+import com.nutrime.app.ui.theme.DarkStyle
+import com.nutrime.app.ui.theme.TextScale
 import com.nutrime.app.ui.theme.ThemeMode
 
 private val Context.dataStore by preferencesDataStore("settings")
@@ -38,7 +40,28 @@ data class HealthSettings(
     val any: Boolean get() = importWeights || importActivity || writeNutrition
 }
 
-data class Appearance(val mode: ThemeMode, val accent: DesignTokens.Accent)
+data class Appearance(
+    val mode: ThemeMode,
+    val accent: DesignTokens.Accent,
+    /** A custom accent hue (0..360); null uses [accent]. */
+    val customHue: Float? = null,
+    val darkStyle: DarkStyle = DarkStyle.DIM,
+    val textScale: TextScale = TextScale.DEFAULT,
+)
+
+/** What the diary ring shows in its center. */
+enum class RingValue(val label: String) { REMAINING("Calories left"), CONSUMED("Calories eaten") }
+
+/** What the diary's macro lines show. */
+enum class MacroValue(val label: String) { CONSUMED("Eaten"), REMAINING("Left") }
+
+/** Diary display options. */
+data class DisplaySettings(
+    val ring: RingValue = RingValue.REMAINING,
+    val macros: MacroValue = MacroValue.CONSUMED,
+    /** Show the calorie split (protein, carbs, fat) as colored segments in the ring. */
+    val ringSplit: Boolean = false,
+)
 
 data class Account(
     val email: String?,
@@ -51,6 +74,8 @@ data class Account(
     val loggedIn: Boolean get() = !token.isNullOrBlank()
 }
 
+private const val CUSTOM = "CUSTOM"
+
 class SettingsStore(private val context: Context) {
     private object K {
         val server = stringPreferencesKey("server_url")
@@ -62,6 +87,12 @@ class SettingsStore(private val context: Context) {
         val lastError = stringPreferencesKey("last_error")
         val themeMode = stringPreferencesKey("theme_mode")
         val accent = stringPreferencesKey("accent")
+        val customHue = intPreferencesKey("custom_hue")
+        val darkStyle = stringPreferencesKey("dark_style")
+        val textScale = stringPreferencesKey("text_scale")
+        val ringValue = stringPreferencesKey("ring_value")
+        val macroValue = stringPreferencesKey("macro_value")
+        val ringSplit = booleanPreferencesKey("ring_split")
         val trendsRange = stringPreferencesKey("trends_range")
         val goalReachedHidden = stringPreferencesKey("goal_reached_hidden")
         val mealReminders = stringPreferencesKey("meal_reminders")
@@ -137,13 +168,42 @@ class SettingsStore(private val context: Context) {
         Appearance(
             mode = ThemeMode.entries.firstOrNull { it.name == p[K.themeMode] } ?: ThemeMode.SYSTEM,
             accent = DesignTokens.Accent.entries.firstOrNull { it.name == p[K.accent] } ?: DesignTokens.Accent.Default,
+            customHue = p[K.customHue]?.takeIf { p[K.accent] == CUSTOM }?.toFloat(),
+            darkStyle = DarkStyle.entries.firstOrNull { it.name == p[K.darkStyle] } ?: DarkStyle.DIM,
+            textScale = TextScale.entries.firstOrNull { it.name == p[K.textScale] } ?: TextScale.DEFAULT,
         )
     }
 
-    suspend fun setAppearance(mode: ThemeMode? = null, accent: DesignTokens.Accent? = null) {
+    /** Pass [customHue] to use a custom accent color; pass [accent] to go back to a preset. */
+    suspend fun setAppearance(
+        mode: ThemeMode? = null,
+        accent: DesignTokens.Accent? = null,
+        customHue: Float? = null,
+        darkStyle: DarkStyle? = null,
+        textScale: TextScale? = null,
+    ) {
         context.dataStore.edit {
             mode?.let { m -> it[K.themeMode] = m.name }
             accent?.let { a -> it[K.accent] = a.name }
+            customHue?.let { h -> it[K.accent] = CUSTOM; it[K.customHue] = h.toInt().coerceIn(0, 359) }
+            darkStyle?.let { d -> it[K.darkStyle] = d.name }
+            textScale?.let { t -> it[K.textScale] = t.name }
+        }
+    }
+
+    val display: Flow<DisplaySettings> = context.dataStore.data.map { p ->
+        DisplaySettings(
+            ring = RingValue.entries.firstOrNull { it.name == p[K.ringValue] } ?: RingValue.REMAINING,
+            macros = MacroValue.entries.firstOrNull { it.name == p[K.macroValue] } ?: MacroValue.CONSUMED,
+            ringSplit = p[K.ringSplit] ?: false,
+        )
+    }
+
+    suspend fun setDisplay(d: DisplaySettings) {
+        context.dataStore.edit {
+            it[K.ringValue] = d.ring.name
+            it[K.macroValue] = d.macros.name
+            it[K.ringSplit] = d.ringSplit
         }
     }
 

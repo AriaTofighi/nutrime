@@ -344,7 +344,7 @@ export function Hero({ label, value, unit, status, tone }: { label: ReactNode; v
 }
 
 /** Protein, carbs and fat side by side: grams (against a target when given) and a thin bar. */
-export function MacroTiles({ values, targets }: { values: NutrientMap; targets?: Record<number, Target> }) {
+export function MacroTiles({ values, targets, show = "consumed" }: { values: NutrientMap; targets?: Record<number, Target>; show?: "consumed" | "remaining" }) {
   const rows: [number, string, string][] = [
     [MACRO_IDS.protein, "Protein", "var(--protein)"],
     [MACRO_IDS.carbs, "Carbs", "var(--carbs)"],
@@ -361,10 +361,17 @@ export function MacroTiles({ values, targets }: { values: NutrientMap; targets?:
               <i className="dot" style={{ background: color }} />
               {label}
             </span>
-            <span className="macro-tile-value num">
-              {Math.round(v)}
-              <small>{t ? ` / ${Math.round(t)} g` : " g"}</small>
-            </span>
+            {show === "remaining" && t ? (
+              <span className="macro-tile-value num">
+                {Math.abs(Math.round(t - v))}
+                <small>{v > t ? " g over" : " g left"}</small>
+              </span>
+            ) : (
+              <span className="macro-tile-value num">
+                {Math.round(v)}
+                <small>{t ? ` / ${Math.round(t)} g` : " g"}</small>
+              </span>
+            )}
             {targets && (
               <div className="track">
                 <div className="track-fill" style={{ width: `${Math.min(100, t ? (v / t) * 100 : 0)}%`, background: color }} />

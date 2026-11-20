@@ -112,3 +112,21 @@ button {
 .link:hover {
   text-decoration: underline;
 }
+
+/* Thumb of the custom accent hue slider. */
+.hue-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.2);
+}
+.hue-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid #fff;
+}

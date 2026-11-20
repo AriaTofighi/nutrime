@@ -7,7 +7,7 @@
  *   2. Semantic tokens (--bg, --surface, --text, --accent, --protein, ...) used by components.
  *
  * Theme: <html data-theme="light|dark"> (set from the user's choice or the OS, see theme.ts).
- * Accent: <html data-accent="emerald|indigo|rose|amber">.
+ * Accent: <html data-accent="emerald|indigo|rose|amber|sky|teal|violet|coral">.
  */
 
 :root {
@@ -83,6 +83,22 @@
 [data-accent="amber"] {
   --accent-h: 32;
   --accent-s: 90%;
+}
+[data-accent="sky"] {
+  --accent-h: 204;
+  --accent-s: 82%;
+}
+[data-accent="teal"] {
+  --accent-h: 178;
+  --accent-s: 70%;
+}
+[data-accent="violet"] {
+  --accent-h: 266;
+  --accent-s: 70%;
+}
+[data-accent="coral"] {
+  --accent-h: 12;
+  --accent-s: 84%;
 }
 
 /* ---------- light ---------- */

@@ -75,7 +75,11 @@ object DesignTokens {
         EMERALD("Emerald", 158f, 0.64f, 0.4f),
         INDIGO("Indigo", 238f, 0.72f, 0.58f),
         ROSE("Rose", 346f, 0.74f, 0.52f),
-        AMBER("Amber", 32f, 0.9f, 0.48f);
+        AMBER("Amber", 32f, 0.9f, 0.48f),
+        SKY("Sky", 204f, 0.82f, 0.5f),
+        TEAL("Teal", 178f, 0.7f, 0.38f),
+        VIOLET("Violet", 266f, 0.7f, 0.6f),
+        CORAL("Coral", 12f, 0.84f, 0.58f);
 
         companion object {
             val Default = EMERALD

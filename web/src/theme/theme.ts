@@ -3,9 +3,28 @@ import { ACCENTS, DEFAULT_ACCENT, THEME_COLOR, type Accent } from "./tokens";
 
 export { ACCENTS, type Accent };
 
-/** Theme preferences: color mode and accent. Applied as data attributes on <html> (see tokens.css). */
+/**
+ * Display preferences, stored in this browser: color mode, dark style, accent (a preset or a custom hue),
+ * text size, and what the diary summary shows. Theme values are applied as data attributes and CSS variables
+ * on <html> (see tokens.css and tailwind.css).
+ */
 
 export type ThemeMode = "system" | "light" | "dark";
+export type DarkStyle = "dim" | "black";
+export type TextSize = "small" | "default" | "large" | "larger";
+export type RingValue = "remaining" | "consumed";
+export type MacroValue = "consumed" | "remaining";
+
+export const TEXT_SIZES: { value: TextSize; label: string; scale: number }[] = [
+  { value: "small", label: "Small", scale: 0.9 },
+  { value: "default", label: "Default", scale: 1 },
+  { value: "large", label: "Large", scale: 1.12 },
+  { value: "larger", label: "Larger", scale: 1.25 },
+];
+
+/** Saturation for a custom accent hue. */
+export const CUSTOM_SATURATION = 70;
+
 /** Macro colors, as CSS variables so charts follow the theme. */
 export const COLORS = {
   energy: "var(--energy)",
@@ -18,17 +37,41 @@ export const COLORS = {
 };
 
 const KEY = "nutrime.theme";
-interface Prefs {
+export interface Prefs {
   mode: ThemeMode;
   accent: Accent;
+  /** A custom accent hue (0..359); null uses [accent]. */
+  customHue: number | null;
+  darkStyle: DarkStyle;
+  textSize: TextSize;
+  ring: RingValue;
+  macros: MacroValue;
+  /** Color the diary ring by protein, carbs and fat. */
+  ringSplit: boolean;
 }
+
+const DEFAULTS: Prefs = {
+  mode: "system",
+  accent: DEFAULT_ACCENT,
+  customHue: null,
+  darkStyle: "dim",
+  textSize: "default",
+  ring: "remaining",
+  macros: "consumed",
+  ringSplit: false,
+};
 
 function read(): Prefs {
   try {
-    const p = JSON.parse(localStorage.getItem(KEY) ?? "{}");
-    return { mode: p.mode ?? "system", accent: p.accent ?? DEFAULT_ACCENT };
+    const p = JSON.parse(localStorage.getItem(KEY) ?? "{}") as Partial<Prefs>;
+    return {
+      ...DEFAULTS,
+      ...p,
+      accent: ACCENTS.some((a) => a.id === p.accent) ? (p.accent as Accent) : DEFAULT_ACCENT,
+      customHue: typeof p.customHue === "number" ? Math.round(p.customHue) % 360 : null,
+    };
   } catch {
-    return { mode: "system", accent: DEFAULT_ACCENT };
+    return { ...DEFAULTS };
   }
 }
 
@@ -42,9 +85,23 @@ function resolved(): "light" | "dark" {
 
 function apply() {
   const root = document.documentElement;
-  root.dataset.theme = resolved();
+  const mode = resolved();
+  root.dataset.theme = mode;
   root.dataset.accent = prefs.accent;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", THEME_COLOR[resolved()]);
+  if (mode === "dark" && prefs.darkStyle === "black") root.dataset.dark = "black";
+  else delete root.dataset.dark;
+  if (prefs.customHue == null) {
+    root.style.removeProperty("--accent-h");
+    root.style.removeProperty("--accent-s");
+  } else {
+    root.style.setProperty("--accent-h", String(prefs.customHue));
+    root.style.setProperty("--accent-s", `${CUSTOM_SATURATION}%`);
+  }
+  const scale = TEXT_SIZES.find((t) => t.value === prefs.textSize)?.scale ?? 1;
+  if (scale === 1) root.style.removeProperty("font-size");
+  else root.style.fontSize = `${scale * 100}%`;
+  const color = mode === "dark" && prefs.darkStyle === "black" ? "#000000" : THEME_COLOR[mode];
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", color);
 }
 
 export function initTheme() {
@@ -76,8 +133,9 @@ export function useTheme() {
       return () => listeners.delete(fn);
     },
     () => {
-      if (snapshot.mode !== prefs.mode || snapshot.accent !== prefs.accent || snapshot.resolved !== resolved())
-        snapshot = { ...prefs, resolved: resolved() };
+      const r = resolved();
+      if ((Object.keys(prefs) as (keyof Prefs)[]).some((k) => snapshot[k] !== prefs[k]) || snapshot.resolved !== r)
+        snapshot = { ...prefs, resolved: r };
       return snapshot;
     },
   );

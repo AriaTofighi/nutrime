@@ -116,3 +116,11 @@
   letter-spacing: var(--tracking-wide);
   font-weight: var(--weight-semibold);
 }
+.ring-center .ring-target {
+  margin-top: 5px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border-strong);
+  font-style: normal;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}

@@ -14,6 +14,8 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -27,6 +29,24 @@ import com.nutrime.app.ui.theme.DesignTokens.TextSize
 import com.nutrime.app.ui.theme.DesignTokens.Tracking
 
 enum class ThemeMode(val label: String) { SYSTEM("System"), LIGHT("Light"), DARK("Dark") }
+
+/** Text size, as a factor on the system font size. */
+enum class TextScale(val label: String, val factor: Float) { SMALL("Small", 0.9f), DEFAULT("Default", 1f), LARGE("Large", 1.12f), LARGER("Larger", 1.25f) }
+
+/** Dark mode backgrounds: soft dark gray, or black (saves power on OLED screens). */
+enum class DarkStyle(val label: String) { DIM("Dim"), BLACK("Black") }
+
+/** Dark tokens with black backgrounds and slightly lifted surfaces. */
+private val BlackTokens: ThemeTokens by lazy {
+    DesignTokens.Dark.copy(
+        bg = Color(0xFF000000),
+        bgSunken = Color(0xFF000000),
+        surface = Color(0xFF0E0E10),
+        surfaceRaised = Color(0xFF17171A),
+        surfaceHover = Color(0xFF17171A),
+        surfaceActive = Color(0xFF212125),
+    )
+}
 
 /** Theme colors: the generated tokens plus the accent resolved for the chosen hue. */
 @Immutable
@@ -64,8 +84,11 @@ data class NutriColors(
     val success get() = t.success
 
     companion object {
-        fun of(tokens: ThemeTokens, accent: Accent): NutriColors {
-            fun hsl(l: Float, alpha: Float = 1f) = Color.hsl(accent.hue, accent.saturation, l, alpha)
+        fun of(tokens: ThemeTokens, accent: Accent): NutriColors = of(tokens, accent.hue, accent.saturation)
+
+        /** Any accent hue (0..360), for a custom color. */
+        fun of(tokens: ThemeTokens, hue: Float, saturation: Float): NutriColors {
+            fun hsl(l: Float, alpha: Float = 1f) = Color.hsl(hue.coerceIn(0f, 359.9f), saturation, l, alpha)
             return NutriColors(
                 t = tokens,
                 accent = hsl(tokens.accentLightness),
@@ -144,6 +167,10 @@ object NutriTheme {
 fun NutriMeTheme(
     mode: ThemeMode = ThemeMode.SYSTEM,
     accent: Accent = Accent.Default,
+    /** A custom accent hue; overrides [accent] when set. */
+    customHue: Float? = null,
+    darkStyle: DarkStyle = DarkStyle.DIM,
+    textScale: TextScale = TextScale.DEFAULT,
     content: @Composable () -> Unit,
 ) {
     val dark = when (mode) {
@@ -151,7 +178,10 @@ fun NutriMeTheme(
         ThemeMode.LIGHT -> false
         ThemeMode.DARK -> true
     }
-    val colors = remember(dark, accent) { NutriColors.of(if (dark) DesignTokens.Dark else DesignTokens.Light, accent) }
+    val colors = remember(dark, accent, customHue, darkStyle) {
+        val tokens = if (!dark) DesignTokens.Light else if (darkStyle == DarkStyle.BLACK) BlackTokens else DesignTokens.Dark
+        if (customHue != null) NutriColors.of(tokens, customHue, CUSTOM_SATURATION) else NutriColors.of(tokens, accent)
+    }
     // Material components (text fields, dialogs, menus, pickers) take their colors from the same tokens.
     val scheme = if (dark) darkColorScheme() else lightColorScheme()
     val materialColors = scheme.copy(
@@ -199,7 +229,11 @@ fun NutriMeTheme(
             labelLarge = t.bodyMedium, labelMedium = t.caption, labelSmall = d.labelSmall.copy(fontFamily = Inter),
         )
     }
-    CompositionLocalProvider(LocalNutriColors provides colors) {
+    val density = LocalDensity.current
+    CompositionLocalProvider(
+        LocalNutriColors provides colors,
+        LocalDensity provides Density(density.density, density.fontScale * textScale.factor),
+    ) {
         MaterialTheme(
             colorScheme = materialColors,
             typography = materialType,
@@ -214,3 +248,6 @@ fun NutriMeTheme(
         )
     }
 }
+
+/** Saturation for a custom accent hue: strong enough to read as a color in both themes. */
+const val CUSTOM_SATURATION = 0.7f

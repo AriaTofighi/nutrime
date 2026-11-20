@@ -14,7 +14,8 @@ import { saveProfile } from "./Trends";
 import { store, useStore } from "../lib/store";
 import type { DiaryEntry, WeightRecord } from "../lib/types";
 import { addDays, amountLabel, defaultMealForNow, fmtWeight, friendlyDate, isoDate, parseIso } from "../lib/util";
-import { COLORS } from "../theme/theme";
+import { COLORS, useTheme } from "../theme/theme";
+import { Button } from "@/components/shadcn/button";
 
 type Dialog =
   | { kind: "add"; food?: Food; amount?: PickedAmount }
@@ -124,6 +125,8 @@ export default function Diary() {
   const kcalTarget = calorieTargetOn(profile, date);
   const eaten = totals[N.ENERGY] ?? 0;
   const remaining = kcalTarget - eaten;
+  const display = useTheme();
+  const showEaten = display.ring === "consumed";
   const p = totals[N.PROTEIN] ?? 0, c = totals[N.CARBS] ?? 0, f = totals[N.FAT] ?? 0, a = totals[N.ALCOHOL] ?? 0;
   const macroKcal = p * 4 + c * 4 + f * 9 + a * 7;
   const unit = profile.imperial ? "lb" : "kg";
@@ -156,7 +159,7 @@ export default function Diary() {
 
   return (
     <div className="page">
-      <header className="page-head">
+      <header className="page-head diary-head">
         <div className="date-nav">
           <button className="icon-btn" onClick={() => setDate(addDays(date, -1))} aria-label="Previous day">
             <ChevronLeft size={20} />
@@ -176,24 +179,24 @@ export default function Diary() {
           )}
         </div>
         <div className="head-actions">
-          <button className={`btn ${day?.complete ? "btn-secondary" : "btn-ghost"}`} onClick={() => setComplete(date, !day?.complete)} title="Mark the day complete when you logged everything. The learned daily burn uses only complete days.">
-            <CircleCheck size={16} />
-            {day?.complete ? "Complete" : "Mark complete"}
-          </button>
-          <button className="btn btn-ghost" onClick={() => { setNoteText(day?.note ?? ""); setDialog({ kind: "note" }); }} aria-label={day?.note ? "Edit note" : "Add note"}>
-            <NotebookPen size={16} />
-          </button>
-          <button className="btn btn-ghost" onClick={() => setDialog({ kind: "meals" })} title="Add saved meal">
-            <Bookmark size={16} />
-          </button>
-          <button className="btn btn-secondary" onClick={() => setDialog({ kind: "weight", existing: weight })}>
-            <Scale size={16} />
+          <Button variant={day?.complete ? "secondary" : "ghost"} onClick={() => setComplete(date, !day?.complete)} title="Mark the day complete when you logged everything. The learned daily burn uses only complete days.">
+            <CircleCheck />
+            <span className="btn-label">{day?.complete ? "Complete" : "Mark complete"}</span>
+          </Button>
+          <Button variant="ghost" size="icon" onClick={() => { setNoteText(day?.note ?? ""); setDialog({ kind: "note" }); }} aria-label={day?.note ? "Edit note" : "Add note"} title={day?.note ? "Edit note" : "Add note"}>
+            <NotebookPen />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={() => setDialog({ kind: "meals" })} aria-label="Add saved meal" title="Add saved meal">
+            <Bookmark />
+          </Button>
+          <Button variant="outline" onClick={() => setDialog({ kind: "weight", existing: weight })}>
+            <Scale />
             Weight
-          </button>
-          <button className="btn btn-primary" onClick={() => setDialog({ kind: "add" })}>
-            <Plus size={17} />
+          </Button>
+          <Button className="add-food max-[860px]:hidden" onClick={() => setDialog({ kind: "add" })}>
+            <Plus />
             Add food
-          </button>
+          </Button>
         </div>
       </header>
 
@@ -217,14 +220,24 @@ export default function Diary() {
           {/* The day at a glance: calories left, and the three macros against their targets. */}
           <Card className="today-card">
             <div className="today">
-              <Ring size={120} stroke={10} total={Math.max(kcalTarget, 1)} segments={[{ value: Math.min(eaten, kcalTarget), color: remaining < 0 ? "var(--warning)" : COLORS.accent }]}>
-                <b className="num">{fmtKcal(Math.abs(remaining))}</b>
-                <span className={remaining < 0 ? "warn-text" : undefined}>{remaining < 0 ? "kcal over" : "kcal left"}</span>
+              <Ring
+                size={128}
+                stroke={10}
+                total={Math.max(kcalTarget, 1)}
+                segments={
+                  display.ringSplit && eaten > 0
+                    ? splitSegments(p, c, f, Math.min(eaten, kcalTarget))
+                    : [{ value: Math.min(eaten, kcalTarget), color: remaining < 0 ? "var(--warning)" : COLORS.accent }]
+                }
+              >
+                <b className="num">{fmtKcal(showEaten ? eaten : Math.abs(remaining))}</b>
+                <span className={remaining < 0 && !showEaten ? "warn-text" : undefined}>{showEaten ? "kcal eaten" : remaining < 0 ? "kcal over" : "kcal left"}</span>
+                <em className="ring-target num">of {kcalTarget.toLocaleString()}</em>
               </Ring>
               <div className="today-macros">
-                <MacroTiles values={totals} targets={tgt} />
-                <p className="hint num">
-                  {fmtKcal(eaten)} eaten · target {kcalTarget.toLocaleString()}
+                <MacroTiles values={totals} targets={tgt} show={display.macros} />
+                <p className={`hint num ${showEaten && remaining < 0 ? "warn-text" : ""}`}>
+                  {!showEaten ? `${fmtKcal(eaten)} kcal eaten` : remaining < 0 ? `${fmtKcal(-remaining)} kcal over target` : `${fmtKcal(remaining)} kcal left`}
                 </p>
               </div>
             </div>
@@ -616,4 +629,15 @@ export function SavedMealList({ onPick }: { onPick: (m: SavedMeal) => void }) {
       ))}
     </ul>
   );
+}
+
+/** The ring's filled part, split by the calories from protein, carbs and fat. */
+function splitSegments(protein: number, carbs: number, fat: number, filled: number) {
+  const parts = [
+    { kcal: protein * 4, color: COLORS.protein },
+    { kcal: carbs * 4, color: COLORS.carbs },
+    { kcal: fat * 9, color: COLORS.fat },
+  ];
+  const sum = Math.max(1, parts.reduce((t, x) => t + x.kcal, 0));
+  return parts.map((x) => ({ value: (filled * x.kcal) / sum, color: x.color }));
 }
