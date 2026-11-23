@@ -13,7 +13,7 @@ import { store } from "../../lib/store";
 import { burnEstimate, burnSource, conv as convOf, loggedItems, unitOf } from "../../lib/trends";
 import { isoDate, parseIso, shortDate } from "../../lib/util";
 import { COLORS } from "../../theme/theme";
-import { compareText, hasPrev, niceMax, openDay, type Period, RangeControl, rangeLabelFor, short, signed, watch, type View } from "./shared";
+import { hasPrev, niceMax, openDay, type Period, RangeControl, rangeLabelFor, short, signed, watch, type View } from "./shared";
 import { Button } from "@/components/shadcn/button";
 
 const MACROS: [number, number, string, string][] = [
@@ -99,7 +99,7 @@ export function MainView({ p, range, setRange, setView }: { p: Period; range: Tr
   const kcalTarget = p.calorieTarget;
   const avgKcal = avg[N.ENERGY] ?? 0;
   const diff = Math.round(avgKcal - kcalTarget);
-  const [status, tone]: [string, Tone] =
+  const [status]: [string, Tone] =
     counted.length === 0 ? ["Nothing logged yet", "neutral"]
       : Math.abs(diff) <= kcalTarget * 0.05 ? ["On target", "good"]
         : diff < 0 ? [`${(-diff).toLocaleString()} under target`, "neutral"]
@@ -111,9 +111,15 @@ export function MainView({ p, range, setRange, setView }: { p: Period; range: Tr
   const kcalByDay = new Map([...p.totals].map(([d, n]) => [d, n[N.ENERGY] ?? 0]));
   const values = size === "DAY" ? bs.map((b) => (p.totals.has(b.from) ? kcalByDay.get(b.from)! : null)) : bucketAverage(bs, kcalByDay, countedSet, (xs) => xs.reduce((a, b) => a + b, 0) / xs.length);
   const barTargets = profile.calorieSchedule?.length === 7 ? bs.map((b) => { const ds = eachDay(b.from, b.to); return ds.reduce((s, d) => s + calorieTargetOn(profile, d), 0) / ds.length; }) : undefined;
-  const lastIdx = values.map((v) => v != null).lastIndexOf(true);
-  const sel = selected ?? (lastIdx >= 0 ? lastIdx : null);
+  const sel = selected;
   const selB = sel != null ? bs[sel] : null;
+  const selV = sel != null ? values[sel] : null;
+  const selT = sel != null ? (barTargets?.[sel] ?? kcalTarget) : kcalTarget;
+  const isToday = selB?.size === "DAY" && selB.from === isoDate();
+  const selLine = selV == null ? "Not logged"
+    : isToday && selV < selT ? `${Math.round(selT - selV).toLocaleString()} left`
+      : Math.abs(selV - selT) <= selT * 0.05 ? "On target"
+        : `${Math.round(Math.abs(selV - selT)).toLocaleString()} ${selV > selT ? "over" : "under"} target`;
 
   const unit = unitOf(profile);
   const conv = convOf(profile);
@@ -168,27 +174,21 @@ export function MainView({ p, range, setRange, setView }: { p: Period; range: Tr
       <Card>
         <button className="card-button" onClick={() => counted.length && setSheet("balance")} aria-label="Explain the average">
           <Hero
-            label={counted.length ? `Daily average · ${counted.length} of ${p.days.length} days` : "Daily average"}
-            value={counted.length ? Math.round(avgKcal).toLocaleString() : "—"}
-            unit="kcal" status={status} tone={tone}
+            label={selB ? (isToday ? "Today" : rangeLabelFor(selB)) : "Average"}
+            value={selB ? (selV == null ? "—" : Math.round(selV).toLocaleString()) : counted.length ? Math.round(avgKcal).toLocaleString() : "—"}
+            unit="kcal" status={selB ? selLine : status}
           />
-          {hasPrev(p) && counted.length > 0 && <p className="compare">{compareText(avgKcal, p.prevAvg![N.ENERGY] ?? 0, "kcal", p.prevLabel)}</p>}
         </button>
         <MiniBars
           values={values}
           labels={bs.map((b) => (size === "DAY" ? (p.days.length <= 7 ? parseIso(b.from).toLocaleDateString(undefined, { weekday: "narrow" }) : shortDate(b.from)) : bucketLabel(b)))}
-          target={kcalTarget} targets={barTargets} selected={sel} onSelect={setSelected}
+          target={kcalTarget} targets={barTargets} selected={sel}
+          onSelect={(i) => {
+            if (i !== sel) return setSelected(i);
+            const b = bs[i];
+            if (b.size === "DAY") openDay(b.from); else setRange(customRange(b.from, b.to)!);
+          }}
         />
-        <div className="card-foot">
-          {selB ? (
-            <button className="day-link" onClick={() => (selB.size === "DAY" ? openDay(selB.from) : setRange(customRange(selB.from, selB.to)!))}>
-              <b>{rangeLabelFor(selB)}</b>
-              <span className="num">{values[sel!] == null ? "Not logged" : `${Math.round(values[sel!]!).toLocaleString()} kcal${selB.size === "DAY" ? "" : " a day"}`}</span>
-              <ChevronRight size={14} />
-            </button>
-          ) : <span>No days logged</span>}
-          <span className="num">Target {Math.round(kcalTarget).toLocaleString()}</span>
-        </div>
       </Card>
 
       <div className="trends-grid">

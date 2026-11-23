@@ -94,63 +94,55 @@ internal fun CaloriesCard(p: Period, burn: BurnEstimate?, onOpenDay: (LocalDate)
     val barTargets = if (!schedule) null else buckets.map { b ->
         generateSequence(b.from) { it.plusDays(1) }.takeWhile { !it.isAfter(b.to) }.map { p.profile.calorieTargetOn(it).toDouble() }.average()
     }
+    val labelFmt = DateTimeFormatter.ofPattern(
+        when (size) { BucketSize.DAY -> if (p.length <= 7) "EEEEE" else "MMM d"; BucketSize.WEEK -> "MMM d"; BucketSize.MONTH -> "MMM" },
+    )
+    // A selected bar takes over the headline; tapping it again opens that day or period.
+    val b = selected?.let { buckets.getOrNull(it) }
+    val v = selected?.let { values.getOrNull(it) }
+    fun verdict(x: Double, t: Double): String = when {
+        abs(x - t) <= t * 0.05 -> "On target"
+        x < t -> "%,.0f under target".format(t - x)
+        else -> "%,.0f over target".format(x - t)
+    }
+    val label = when {
+        b == null -> "Average"
+        b.from == LocalDate.now() && b.size == BucketSize.DAY -> "Today"
+        b.size == BucketSize.DAY -> b.from.format(DateTimeFormatter.ofPattern("EEEE, MMM d"))
+        b.size == BucketSize.WEEK -> "Week of " + b.from.format(DateTimeFormatter.ofPattern("MMM d"))
+        else -> b.from.format(DateTimeFormatter.ofPattern("MMMM yyyy"))
+    }
+    val bTarget = selected?.let { barTargets?.getOrNull(it) } ?: target.toDouble()
+    val line = when {
+        b == null -> if (p.counted.isEmpty()) "Nothing logged yet" else status.replace(Regex(" (over|under)$"), " $1 target")
+        v == null -> "Not logged"
+        b.from == LocalDate.now() && b.size == BucketSize.DAY && v < bTarget -> "%,.0f left".format(bTarget - v)
+        else -> verdict(v, bTarget)
+    }
     Card {
         Column(Modifier.fillMaxWidth().clickable(enabled = p.counted.isNotEmpty(), onClickLabel = "Explain") { sheet = true }) {
             Hero(
-                label = if (p.counted.isEmpty()) "Daily average" else "Daily average · ${p.counted.size} of ${p.length} days",
-                value = if (p.counted.isEmpty()) "—" else "%,.0f".format(avg),
+                label = label,
+                value = if (b == null) (if (p.counted.isEmpty()) "—" else "%,.0f".format(avg)) else v?.let { "%,.0f".format(it) } ?: "—",
                 unit = "kcal",
-                stats = if (p.counted.isEmpty()) emptyList() else listOf(Stat("Target", "%,.0f kcal".format(target.toDouble())), Stat("Difference", status, tone)),
-                spoken = if (p.counted.isEmpty()) "Nothing logged yet" else "Daily average %,.0f kilocalories, %s target".format(avg, status),
+                spoken = "$label ${if (b == null) "%,.0f".format(avg) else v?.let { "%,.0f".format(it) } ?: ""} kilocalories, $line",
             )
-            if (p.hasPrev && p.counted.isNotEmpty()) CompareLine(compareText(avg, p.prevAvg!![N.ENERGY] ?: 0.0, "kcal", p.prevLabel))
+            Text(line, style = NutriTheme.type.body, color = colors.textSecondary)
         }
-        Spacer(Modifier.height(Space.S4))
-        val defaultSel = values.indexOfLast { it != null }.takeIf { it >= 0 }
-        val sel = selected ?: defaultSel
-        val labelFmt = DateTimeFormatter.ofPattern(
-            when (size) { BucketSize.DAY -> if (p.length <= 7) "EEEEE" else "MMM d"; BucketSize.WEEK -> "MMM d"; BucketSize.MONTH -> "MMM" },
-        )
+        Spacer(Modifier.height(Space.S5))
         MiniBarChart(
             values = values,
             labels = buckets.map { it.from.format(labelFmt) },
             target = target,
             targets = barTargets,
-            selected = sel,
-            onSelect = { selected = it },
+            selected = selected,
+            onSelect = { i ->
+                if (i == selected) {
+                    val bb = buckets[i]
+                    if (bb.size == BucketSize.DAY) onOpenDay(bb.from) else TrendRange.custom(bb.from, bb.to)?.let(onZoom)
+                } else selected = i
+            },
         )
-        Spacer(Modifier.height(Space.S2))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            val b = sel?.let { buckets.getOrNull(it) }
-            if (b != null) {
-                val v = values[sel]
-                val title = when (b.size) {
-                    BucketSize.DAY -> b.from.format(DateTimeFormatter.ofPattern("EEE, MMM d"))
-                    BucketSize.WEEK -> "Week of " + b.from.format(DateTimeFormatter.ofPattern("MMM d"))
-                    BucketSize.MONTH -> b.from.format(DateTimeFormatter.ofPattern("MMMM yyyy"))
-                }
-                Row(
-                    Modifier.weight(1f).clickable(onClickLabel = if (b.size == BucketSize.DAY) "Open day" else "Show this period") {
-                        if (b.size == BucketSize.DAY) onOpenDay(b.from) else TrendRange.custom(b.from, b.to)?.let(onZoom)
-                    }.padding(vertical = 6.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(title, style = NutriTheme.type.bodyMedium, color = colors.text)
-                    Text(
-                        when {
-                            v == null -> "  Not logged"
-                            b.size == BucketSize.DAY -> "  %,.0f kcal".format(v)
-                            else -> "  %,.0f kcal a day".format(v)
-                        },
-                        style = NutriTheme.type.small.copy(fontFeatureSettings = "tnum"), color = colors.textSecondary,
-                    )
-                    Icon(Lucide.ChevronRight, null, tint = colors.textTertiary, modifier = Modifier.size(16.dp))
-                }
-            } else {
-                Text("No days logged", style = NutriTheme.type.small, color = colors.textTertiary, modifier = Modifier.weight(1f))
-            }
-            Text("Target %,.0f".format(target), style = NutriTheme.type.small.copy(fontFeatureSettings = "tnum"), color = colors.textTertiary)
-        }
     }
     if (sheet) BalanceSheet(p, burn, onOpenBurn) { sheet = false }
 }

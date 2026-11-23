@@ -120,7 +120,7 @@ class ScreenshotTest {
         rule.activityRule.scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
 
         click("Trends")
-        waitForText("Daily average")
+        waitForText("Average")
         shot("04-trends")
         click("Weight")
         waitForText("Current")
@@ -151,7 +151,7 @@ class ScreenshotTest {
         waitForText("Remaining")
         shot("07-diary-dark")
         click("Trends")
-        waitForText("Daily average")
+        waitForText("Average")
         shot("08-trends-dark")
         click("Profile")
         waitForText("Daily target")
