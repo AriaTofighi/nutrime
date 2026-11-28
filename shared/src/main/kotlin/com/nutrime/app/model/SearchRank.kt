@@ -38,9 +38,9 @@ object SearchRank {
     /** The same word, ignoring a plural ("tenderloins" = "tenderloin"). */
     fun sameWord(t: String, w: String): Boolean = singular(t) == singular(w)
 
-    /** Descriptors that plain foods carry ("raw", "cooked", "no added fat"): not counted unless the query has them. */
+    /** Descriptors that plain foods carry ("raw", "fresh", "cooked", "no added fat"): not counted unless the query has them. */
     private val NEUTRAL = setOf(
-        "raw", "fresh", "plain", "whole", "nfs", "ns", "cooked", "boiled", "unsalted", "without", "salt", "no", "added", "fat",
+        "raw", "fresh", "plain", "whole", "cooked", "boiled", "unsalted", "without", "salt", "no", "added", "fat",
         "prepared", "unprepared", "regular",
     )
 
@@ -51,25 +51,28 @@ object SearchRank {
 
     /**
      * Name words that count for the fit, each once: details in brackets are left out, and brand words and
-     * neutral descriptors are left out unless the query has them.
+     * neutral descriptors are left out unless the query has them. For an unasked restaurant item, brand
+     * words are kept so single-word toppings ("Chicken [Chipotle]") do not get a full 1.0 fit.
      */
-    private fun fitWords(name: String, brand: String?, q: List<String>): List<String> {
-        val b = words(brand.orEmpty()).map { singular(it) }.toSet()
-        val all = words(withoutBrackets(name)).map { singular(it) }.distinct()
-        val kept = all.filter { w -> (w !in b && w !in NEUTRAL) || q.any { t -> sameWord(t, w) } }
+    private fun fitWords(food: Food, q: List<String>, unaskedRestaurant: Boolean): List<String> {
+        val b = words(food.brand.orEmpty()).map { singular(it) }.toSet()
+        val base = words(withoutBrackets(food.name)).map { singular(it) }
+        val all = (if (unaskedRestaurant && b.isNotEmpty()) base + b else base).distinct()
+        val kept = all.filter { w -> ((!b.contains(w) || unaskedRestaurant) && w !in NEUTRAL) || q.any { t -> sameWord(t, w) } }
         return kept.ifEmpty { all }
     }
 
     /** 0..1: share of the name's words that are query words. "Chicken tenderloin" → 1; "Cracker Barrel, chicken tenderloin platter, fried" → 2/6. */
     fun nameFit(q: List<String>, food: Food): Double {
-        val ws = fitWords(food.name, food.brand, q)
+        val unasked = q.isNotEmpty() && isRestaurant(food) && !asksForRestaurant(q, food)
+        val ws = fitWords(food, q, unasked)
         if (q.isEmpty() || ws.isEmpty()) return 0.0
         return ws.count { w -> q.any { t -> sameWord(t, w) } }.toDouble() / ws.size
     }
 
     /** Query words found as whole words (not only as the start of a longer word: "egg" in "eggplant"). */
     fun wholeWords(q: List<String>, food: Food): Int {
-        val ws = words("${food.name} ${food.brand.orEmpty()}")
+        val ws = words("${food.name} ${food.brand.orEmpty()} ${food.keywords.orEmpty()}")
         return q.count { t -> ws.any { w -> sameWord(t, w) } }
     }
 
@@ -80,35 +83,86 @@ object SearchRank {
         return x.isNotEmpty() && x == y
     }
 
-    private val RESTAURANT_CATEGORIES = setOf("Restaurant Foods", "Fast Foods")
+    private val RESTAURANT_CATEGORIES = FoodQuality.RESTAURANT_CATEGORIES
     private val RESTAURANT_NAME = Regex("\\b(fast ?foods?|restaurant)", RegexOption.IGNORE_CASE)
+    private val VAGUE_SURVEY = Regex("\\b(nfs|ns as to)\\b", RegexOption.IGNORE_CASE)
+    private val POSSESSIVE_S = Regex("['’]s\\b", RegexOption.IGNORE_CASE)
+
+    /** Generic words inside restaurant chain names that must not trigger restaurant matching on their own. */
+    private val GENERIC_BRAND_WORDS = setOf(
+        "burger", "pizza", "chicken", "chick", "dairy", "queen", "king", "fresh", "burrito", "coffee", "taco",
+        "bell", "olive", "garden", "italian", "grill", "caesar", "little", "border", "cracker", "barrel",
+        "five", "guy", "papa", "mary", "brown", "hut", "chain", "example",
+    )
+
+    private val SPECIALTY_QUERY_WORDS = setOf("baby", "infant", "formula", "toddler", "native")
 
     /** A restaurant or fast-food item: the USDA categories, or a name that says so ("…, from fast food"). */
     fun isRestaurant(food: Food): Boolean = food.category in RESTAURANT_CATEGORIES || RESTAURANT_NAME.containsMatchIn(food.name)
 
-    /** True when the query names the restaurant: a word of a SHOUTED leading brand ("CRACKER BARREL, …") or of the brand, or "restaurant"/"fast". */
-    private fun asksForRestaurant(q: List<String>, food: Food): Boolean {
+    /** Vague FNDDS survey placeholders ("Rice, NFS", "Yogurt, Greek, NS as to type of milk"). */
+    fun isVagueSurvey(food: Food): Boolean = VAGUE_SURVEY.containsMatchIn(food.name)
+
+    /** Baby food, infant formula, and specialty Native database categories. */
+    fun isSpecialtyCategory(food: Food): Boolean {
+        val cat = food.category ?: return false
+        return cat == "Baby Foods" || cat.startsWith("Baby ") || cat.startsWith("Formula,") || cat == "American Indian/Alaska Native Foods"
+    }
+
+    private fun asksForSpecialty(q: List<String>): Boolean = q.any { singular(it) in SPECIALTY_QUERY_WORDS }
+
+    private fun brandTokens(s: String): List<String> = words(s.replace(POSSESSIVE_S, ""))
+
+    private fun brandMatches(q: List<String>, bWords: List<String>): Boolean {
+        if (bWords.isEmpty()) return false
+        if (bWords.size >= 2 && bWords.all { bw -> q.any { t -> sameWord(t, bw) } }) return true
+        return bWords.any { bw -> singular(bw) !in GENERIC_BRAND_WORDS && q.any { t -> sameWord(t, bw) } }
+    }
+
+    /** True when the query names the restaurant: full multi-word brand, a distinctive brand token, or "restaurant"/"fast". */
+    fun asksForRestaurant(q: List<String>, food: Food): Boolean {
+        if (q.any { sameWord(it, "restaurant") || sameWord(it, "fast") }) return true
+        if (brandMatches(q, brandTokens(food.brand.orEmpty()))) return true
         val lead = food.name.substringBefore(",")
-        val part = (if (FoodNames.isShouted(lead)) words(lead) else emptyList()) + words(food.brand.orEmpty()) + listOf("restaurant", "fast")
-        return q.any { t -> part.any { w -> FoodQuality.wordMatches(t, w) } }
+        if (FoodNames.isShouted(lead) && brandMatches(q, brandTokens(lead))) return true
+        return false
     }
 
     /**
-     * Penalties that are not about the words: restaurant items the query did not ask for, and products
-     * without a brand. Foods the user has logged get none (the caller leaves them out).
+     * Penalties that are not about the words: restaurant items the query did not ask for, vague FNDDS
+     * NFS/NS rows, baby/specialty categories not requested, and unbranded Open Food Facts rows.
+     * Foods the user has logged get none (the caller leaves them out).
      */
     fun penalties(q: List<String>, food: Food): Double =
-        (if (q.isNotEmpty() && isRestaurant(food) && !asksForRestaurant(q, food)) 0.20 else 0.0) +
+        (if (q.isNotEmpty() && isRestaurant(food) && !asksForRestaurant(q, food)) 0.40 else 0.0) +
+            (if (isVagueSurvey(food)) 0.12 else 0.0) +
+            (if (q.isNotEmpty() && isSpecialtyCategory(food) && !asksForSpecialty(q)) 0.35 else 0.0) +
             (if (food.source == FoodSource.OPEN_FOOD_FACTS && food.brand.isNullOrBlank()) 0.10 else 0.0)
 
     /** Name match: share of query words found, the first word leading, the same words, whole words, and the fit. */
     fun textScore(queryWords: List<String>, food: Food, query: String): Double {
         if (queryWords.isEmpty()) return 0.0
-        var s = FoodQuality.matchedWords(queryWords, food).toDouble() / queryWords.size
+        val unaskedRestaurant = isRestaurant(food) && !asksForRestaurant(queryWords, food)
+        val matched = FoodQuality.matchedWords(queryWords, food)
+        var s = matched.toDouble() / queryWords.size
         val first = words(food.name).firstOrNull()
         if (first != null && (first.startsWith(queryWords.first()) || singular(first) == singular(queryWords.first()))) s += 0.10
-        if (sameWords(food.name, query)) s += 0.20
-        return s + 0.15 * wholeWords(queryWords, food) / queryWords.size + 0.25 * nameFit(queryWords, food)
+        if (!unaskedRestaurant && sameWords(food.name, query)) s += 0.20
+        val total = s + 0.15 * wholeWords(queryWords, food) / queryWords.size + 0.25 * nameFit(queryWords, food) -
+            (if (matched < queryWords.size) 0.25 else 0.0)
+        return maxOf(0.0, total)
+    }
+
+    /** Best [textScore] across the original query and any synonym or typing-correction variants. */
+    fun bestTextScore(queries: List<String>, food: Food): Double {
+        var best = 0.0
+        for (q in queries) {
+            val qw = words(q)
+            if (qw.isEmpty()) continue
+            val s = textScore(qw, food, q)
+            if (s > best) best = s
+        }
+        return best
     }
 
     /**
@@ -123,33 +177,46 @@ object SearchRank {
 
     fun score(
         food: Food, queryWords: List<String>, query: String, usage: FoodUsage?, meal: Int?,
-        favorite: Boolean, country: String?, corrected: Boolean,
+        favorite: Boolean, country: String?, corrected: Boolean, variants: List<String> = emptyList(),
     ): Double {
         val u = usage?.score ?: 0.0
         val share = if (meal != null && usage != null) usage.mealShare(meal) else 0.0
-        return textScore(queryWords, food, query) +
+        var bestText = textScore(queryWords, food, query)
+        var bestWords = queryWords
+        for (v in variants) {
+            if (v == query) continue
+            val vw = words(v)
+            if (vw.isEmpty()) continue
+            val s = textScore(vw, food, v)
+            if (s > bestText) {
+                bestText = s
+                bestWords = vw
+            }
+        }
+        return bestText +
             0.35 * u + 0.15 * share * u +
             QUALITY_WEIGHT * FoodQuality.score(food) +
             (if (favorite) 0.15 else 0.0) +
             (if (country != null && country in food.countries) 0.08 else 0.0) -
             (if (corrected) 0.25 else 0.0) -
-            (if (usage != null) 0.0 else penalties(queryWords, food))
+            (if (usage != null) 0.0 else penalties(bestWords, food))
     }
 
     fun rank(
         foods: List<Food>, query: String, usage: Map<String, FoodUsage>, meal: Int?, favorites: Set<String>,
-        country: String? = null, corrected: Set<String> = emptySet(),
+        country: String? = null, corrected: Set<String> = emptySet(), variants: List<String> = emptyList(),
     ): List<Food> {
         val q = FoodQuality.words(query)
+        val distinctVariants = variants.distinct().filter { it.isNotBlank() && it != query }
         return foods.distinctBy { it.id }.withIndex()
-            .map { (i, f) -> Triple(i, f, score(f, q, query, usage[f.id], meal, f.id in favorites, country, f.id in corrected)) }
+            .map { (i, f) -> Triple(i, f, score(f, q, query, usage[f.id], meal, f.id in favorites, country, f.id in corrected, distinctVariants)) }
             .sortedWith(compareByDescending<Triple<Int, Food, Double>> { it.third }.thenBy { it.first })
             .map { it.second }
     }
 
     private val LOCAL_SOURCES = setOf(FoodSource.CUSTOM, FoodSource.RECIPE)
     private val USDA_SOURCES = setOf(FoodSource.USDA, FoodSource.USDA_BRANDED)
-    private fun sameEnergy(a: Double, b: Double) = kotlin.math.abs(a - b) <= 0.05 * maxOf(kotlin.math.abs(a), kotlin.math.abs(b))
+    private fun sameEnergy(a: Double, b: Double) = kotlin.math.abs(a - b) <= maxOf(0.05 * maxOf(kotlin.math.abs(a), kotlin.math.abs(b)), 8.0)
     private fun productKey(f: Food) =
         words(FoodNames.display(f.name, f.brand)).joinToString(" ") { singular(it) } + "|" + words(f.brand.orEmpty()).joinToString(" ")
 

@@ -41,18 +41,36 @@ function rng(seed: number) {
 const gauss = (r: () => number) => Math.sqrt(-2 * Math.log(r() || 1e-9)) * Math.cos(2 * Math.PI * r());
 
 /** A synthetic person: true burn, intake, scale noise, missed logs and weigh-ins. */
-function person(o: { seed: number; days: number; burn: (d: number) => number; intake: number; weighShare: number; logShare: number; bias?: number; outlier?: number }) {
+function person(o: {
+  seed: number;
+  days: number;
+  burn: (d: number) => number;
+  intake: number;
+  weighShare: number;
+  logShare: number;
+  bias?: number;
+  outlier?: number;
+  halfLoggedDays?: number[];
+  sodiumSpikeDay?: number;
+}) {
   const r = rng(o.seed);
   const today = "2026-06-30";
   const start = addDays(today, -(o.days - 1));
   let w = 80;
   const logs: DayLog[] = [];
   const weights: WeighIn[] = [];
+  const halfSet = new Set(o.halfLoggedDays ?? []);
   for (let d = 0; d < o.days; d++) {
     const date = addDays(start, d);
-    if (r() < o.weighShare || d === 0) weights.push({ date, kg: +(w + 0.5 * gauss(r) + (o.outlier === d ? 3 : 0)).toFixed(2) });
+    const waterBump = o.sodiumSpikeDay != null && d > o.sodiumSpikeDay && d <= o.sodiumSpikeDay + 2 ? 1.4 : 0;
+    if (r() < o.weighShare || d === 0) weights.push({ date, kg: +(w + waterBump + 0.5 * gauss(r) + (o.outlier === d ? 3 : 0)).toFixed(2) });
     const eaten = o.intake + 150 * gauss(r);
-    if (r() < o.logShare) logs.push({ date, kcal: Math.round(eaten * (1 + (o.bias ?? 0))), carbsG: Math.round(250 + 20 * gauss(r)) });
+    if (halfSet.has(d)) {
+      logs.push({ date, kcal: Math.round(0.55 * 2448), carbsG: 150, sodiumMg: 1800 });
+    } else if (r() < o.logShare) {
+      const sod = o.sodiumSpikeDay === d ? 5200 : o.sodiumSpikeDay != null ? Math.round(2200 + 200 * gauss(r)) : undefined;
+      logs.push({ date, kcal: Math.round(eaten * (1 + (o.bias ?? 0))), carbsG: Math.round(250 + 20 * gauss(r)), ...(sod != null ? { sodiumMg: sod } : {}) });
+    }
     w += (eaten - o.burn(d)) / 7700;
   }
   return { today, logs, weights };
@@ -68,6 +86,8 @@ const cases: Omit<Vector, "expect">[] = [
   { name: "burn drops by 200 on day 30", age: 35, profile: base, truth: { burnKcal: 2400, tolerance: 100 }, ...person({ seed: 4, days: 60, burn: (d) => (d < 30 ? 2600 : 2400), intake: 2300, weighShare: 1, logShare: 1 }) },
   { name: "one weigh-in 3 kg off", age: 35, profile: base, truth: { burnKcal: 2500, tolerance: 60 }, ...person({ seed: 5, days: 42, burn: () => 2500, intake: 2200, weighShare: 1, logShare: 1, outlier: 30 }) },
   { name: "short history (learning)", age: 50, profile: { ...base, sex: "FEMALE", heightCm: 165, weightKg: 70 }, ...person({ seed: 6, days: 8, burn: () => 2000, intake: 1800, weighShare: 1, logShare: 1 }) },
+  { name: "half-logged days (55% target) ignored", age: 35, profile: base, truth: { burnKcal: 2500, tolerance: 100 }, ...person({ seed: 7, days: 42, burn: () => 2500, intake: 2200, weighShare: 1, logShare: 1, halfLoggedDays: [5, 12, 19, 26, 33] }) },
+  { name: "sodium spike water shift damped", age: 35, profile: base, truth: { burnKcal: 2500, tolerance: 100 }, ...person({ seed: 8, days: 42, burn: () => 2500, intake: 2200, weighShare: 1, logShare: 1, sodiumSpikeDay: 28 }) },
 ];
 
 function run(c: Omit<Vector, "expect">): Vector["expect"] {

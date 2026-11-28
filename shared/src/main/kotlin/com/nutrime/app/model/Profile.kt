@@ -59,6 +59,12 @@ data class Profile(
     /** Apply weekly check-in results without asking. */
     val autoAcceptBurn: Boolean = false,
     val favoriteFoodIds: List<String> = emptyList(),
+    /** Last edit time (ms) for non-favourite profile settings, for conflict-safe sync merging. */
+    val settingsUpdatedAt: Long = 0L,
+    /** Last edit time (ms) for favourites, for conflict-safe sync merging. */
+    val favoritesUpdatedAt: Long = 0L,
+    /** Per-food favourite change timestamps (+ms = added, -ms = removed) so concurrent favourite edits merge. */
+    val favoriteChanges: Map<String, Long> = emptyMap(),
 ) {
     val age: Int get() = (LocalDate.now().year - birthYear).coerceIn(1, 120)
 
@@ -95,10 +101,91 @@ data class Profile(
     /** True when the weekly goal would put the target below the 1,200 kcal floor. */
     val raisedToFloor: Boolean get() = calorieOverride == null && tdee + goalKcalPerDay < MIN_CALORIES
 
+    private fun settingsSignature() = copy(
+        favoriteFoodIds = emptyList(),
+        settingsUpdatedAt = 0L,
+        favoritesUpdatedAt = 0L,
+        favoriteChanges = emptyMap(),
+    )
+
     companion object {
         /** ~7700 kcal per kg of body weight change. */
         const val KCAL_PER_KG = 7700.0
         const val MIN_CALORIES = 1200.0
+
+        /**
+         * Stamp [settingsUpdatedAt], [favoritesUpdatedAt], and [favoriteChanges] based on what actually
+         * changed from [prev] to [next], so concurrent edits to settings vs. favourites can merge safely.
+         */
+        fun stampEdit(prev: Profile?, next: Profile, at: Long): Profile {
+            val prevFavs = prev?.favoriteFoodIds?.toSet().orEmpty()
+            val nextFavs = next.favoriteFoodIds.distinct()
+            val nextFavSet = nextFavs.toSet()
+            val favsChanged = if (prev == null) nextFavs.isNotEmpty() else prev.favoriteFoodIds != nextFavs
+            val settingsChanged = if (prev == null) {
+                next.settingsSignature() != Profile().settingsSignature() || !favsChanged
+            } else {
+                prev.settingsSignature() != next.settingsSignature()
+            }
+            val changes = LinkedHashMap<String, Long>(prev?.favoriteChanges ?: next.favoriteChanges)
+            if (favsChanged) {
+                for (id in nextFavSet) if (id !in prevFavs) changes[id] = at
+                for (id in prevFavs) if (id !in nextFavSet) changes[id] = -at
+            }
+            val sAt = if (settingsChanged) maxOf(at, prev?.settingsUpdatedAt ?: 0L) else (prev?.settingsUpdatedAt ?: next.settingsUpdatedAt)
+            val fAt = if (favsChanged) maxOf(at, prev?.favoritesUpdatedAt ?: 0L) else (prev?.favoritesUpdatedAt ?: next.favoritesUpdatedAt)
+            return next.copy(
+                favoriteFoodIds = nextFavs,
+                settingsUpdatedAt = sAt,
+                favoritesUpdatedAt = fAt,
+                favoriteChanges = changes,
+            )
+        }
+
+        private fun settingsTime(p: Profile, recordUpdatedAt: Long): Long = when {
+            p.settingsUpdatedAt > 0L -> p.settingsUpdatedAt
+            p.favoritesUpdatedAt > 0L -> 0L
+            else -> recordUpdatedAt
+        }
+
+        /**
+         * Merge two concurrently edited profiles without clobbering settings against favourites or
+         * concurrent favourite toggles against each other.
+         */
+        fun merge(a: Profile, aUpdatedAt: Long, b: Profile, bUpdatedAt: Long): Profile {
+            val sa = settingsTime(a, aUpdatedAt)
+            val sb = settingsTime(b, bUpdatedAt)
+            val base = when {
+                sb > sa -> b
+                sa > sb -> a
+                bUpdatedAt > aUpdatedAt -> b
+                else -> a
+            }
+            val mergedChanges = LinkedHashMap<String, Long>(a.favoriteChanges)
+            for ((id, tb) in b.favoriteChanges) {
+                val ta = mergedChanges[id]
+                if (ta == null || kotlin.math.abs(tb) > kotlin.math.abs(ta) || (kotlin.math.abs(tb) == kotlin.math.abs(ta) && tb > ta)) {
+                    mergedChanges[id] = tb
+                }
+            }
+            val legacyFavs = when {
+                b.favoritesUpdatedAt > a.favoritesUpdatedAt -> b.favoriteFoodIds
+                a.favoritesUpdatedAt > b.favoritesUpdatedAt -> a.favoriteFoodIds
+                else -> (a.favoriteFoodIds + b.favoriteFoodIds).distinct()
+            }
+            val favs = LinkedHashSet<String>()
+            for (id in legacyFavs) {
+                val ts = mergedChanges[id]
+                if (ts == null || ts > 0L) favs += id
+            }
+            mergedChanges.entries.filter { it.value > 0L }.sortedBy { it.value }.forEach { favs += it.key }
+            return base.copy(
+                favoriteFoodIds = favs.toList(),
+                settingsUpdatedAt = maxOf(a.settingsUpdatedAt, b.settingsUpdatedAt),
+                favoritesUpdatedAt = maxOf(a.favoritesUpdatedAt, b.favoritesUpdatedAt),
+                favoriteChanges = mergedChanges,
+            )
+        }
     }
 }
 

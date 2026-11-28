@@ -43,6 +43,9 @@ export interface Profile {
   calorieSchedule?: number[] | null;
   autoAcceptBurn: boolean;
   favoriteFoodIds: string[];
+  settingsUpdatedAt?: number;
+  favoritesUpdatedAt?: number;
+  favoriteChanges?: Record<string, number>;
   [extra: string]: unknown;
 }
 
@@ -65,6 +68,9 @@ export const DEFAULT_PROFILE: Profile = {
   proteinGPerKg: 1.8,
   autoAcceptBurn: false,
   favoriteFoodIds: [],
+  settingsUpdatedAt: 0,
+  favoritesUpdatedAt: 0,
+  favoriteChanges: {},
 };
 
 export const LB_PER_KG = 2.20462;
@@ -74,7 +80,15 @@ export function parseProfile(json: string | undefined): Profile {
   if (!json) return { ...DEFAULT_PROFILE };
   try {
     const p = JSON.parse(json);
-    return { ...DEFAULT_PROFILE, ...p, targetOverrides: p.targetOverrides ?? {}, favoriteFoodIds: p.favoriteFoodIds ?? [] };
+    return {
+      ...DEFAULT_PROFILE,
+      ...p,
+      targetOverrides: p.targetOverrides ?? {},
+      favoriteFoodIds: p.favoriteFoodIds ?? [],
+      settingsUpdatedAt: p.settingsUpdatedAt ?? 0,
+      favoritesUpdatedAt: p.favoritesUpdatedAt ?? 0,
+      favoriteChanges: p.favoriteChanges ?? {},
+    };
   } catch {
     return { ...DEFAULT_PROFILE };
   }
@@ -87,6 +101,87 @@ export function encodeProfile(p: Profile): string {
     if (out[k] == null) delete out[k];
   }
   return JSON.stringify(out);
+}
+
+function settingsSignature(p: Profile): string {
+  const copy: Record<string, unknown> = { ...p };
+  delete copy.favoriteFoodIds;
+  delete copy.settingsUpdatedAt;
+  delete copy.favoritesUpdatedAt;
+  delete copy.favoriteChanges;
+  for (const k of ["calorieOverride", "adaptiveBurnKcal", "adaptiveBurnDate", "manualBurnKcal", "goalWeightKg", "calorieSchedule"]) {
+    if (copy[k] == null) delete copy[k];
+  }
+  return JSON.stringify(copy, Object.keys(copy).sort());
+}
+
+/**
+ * Stamp settingsUpdatedAt, favoritesUpdatedAt, and favoriteChanges based on what actually changed
+ * from prev to next, matching Profile.stampEdit in Kotlin.
+ */
+export function stampProfileEdit(prev: Profile | undefined, next: Profile, at: number): Profile {
+  const prevFavs = new Set(prev?.favoriteFoodIds ?? []);
+  const nextFavs = [...new Set(next.favoriteFoodIds ?? [])];
+  const nextFavSet = new Set(nextFavs);
+  const favsChanged = !prev
+    ? nextFavs.length > 0
+    : prev.favoriteFoodIds.length !== nextFavs.length || prev.favoriteFoodIds.some((id, i) => id !== nextFavs[i]);
+  const settingsChanged = !prev
+    ? settingsSignature(next) !== settingsSignature(DEFAULT_PROFILE) || !favsChanged
+    : settingsSignature(prev) !== settingsSignature(next);
+  const changes: Record<string, number> = { ...(prev?.favoriteChanges ?? next.favoriteChanges ?? {}) };
+  if (favsChanged) {
+    for (const id of nextFavSet) if (!prevFavs.has(id)) changes[id] = at;
+    for (const id of prevFavs) if (!nextFavSet.has(id)) changes[id] = -at;
+  }
+  const sAt = settingsChanged ? Math.max(at, prev?.settingsUpdatedAt ?? 0) : (prev?.settingsUpdatedAt ?? next.settingsUpdatedAt ?? 0);
+  const fAt = favsChanged ? Math.max(at, prev?.favoritesUpdatedAt ?? 0) : (prev?.favoritesUpdatedAt ?? next.favoritesUpdatedAt ?? 0);
+  return {
+    ...next,
+    favoriteFoodIds: nextFavs,
+    settingsUpdatedAt: sAt,
+    favoritesUpdatedAt: fAt,
+    favoriteChanges: changes,
+  };
+}
+
+function settingsTime(p: Profile, recordUpdatedAt: number): number {
+  if ((p.settingsUpdatedAt ?? 0) > 0) return p.settingsUpdatedAt!;
+  if ((p.favoritesUpdatedAt ?? 0) > 0) return 0;
+  return recordUpdatedAt;
+}
+
+/** Merge two concurrently edited profiles without clobbering settings against favourites (mirrors Profile.merge). */
+export function mergeProfiles(a: Profile, aUpdatedAt: number, b: Profile, bUpdatedAt: number): Profile {
+  const sa = settingsTime(a, aUpdatedAt);
+  const sb = settingsTime(b, bUpdatedAt);
+  const base = sb > sa ? b : sa > sb ? a : bUpdatedAt > aUpdatedAt ? b : a;
+  const mergedChanges: Record<string, number> = { ...(a.favoriteChanges ?? {}) };
+  for (const [id, tb] of Object.entries(b.favoriteChanges ?? {})) {
+    const ta = mergedChanges[id];
+    if (ta === undefined || Math.abs(tb) > Math.abs(ta) || (Math.abs(tb) === Math.abs(ta) && tb > ta)) {
+      mergedChanges[id] = tb;
+    }
+  }
+  const fa = a.favoritesUpdatedAt ?? 0;
+  const fb = b.favoritesUpdatedAt ?? 0;
+  const legacyFavs = fb > fa ? b.favoriteFoodIds : fa > fb ? a.favoriteFoodIds : [...new Set([...a.favoriteFoodIds, ...b.favoriteFoodIds])];
+  const favs = new Set<string>();
+  for (const id of legacyFavs) {
+    const ts = mergedChanges[id];
+    if (ts === undefined || ts > 0) favs.add(id);
+  }
+  Object.entries(mergedChanges)
+    .filter(([, ts]) => ts > 0)
+    .sort((x, y) => x[1] - y[1])
+    .forEach(([id]) => favs.add(id));
+  return {
+    ...base,
+    favoriteFoodIds: [...favs],
+    settingsUpdatedAt: Math.max(a.settingsUpdatedAt ?? 0, b.settingsUpdatedAt ?? 0),
+    favoritesUpdatedAt: Math.max(fa, fb),
+    favoriteChanges: mergedChanges,
+  };
 }
 
 export const age = (p: Profile) => Math.min(120, Math.max(1, new Date().getFullYear() - p.birthYear));

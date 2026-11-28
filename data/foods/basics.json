@@ -2857,6 +2857,336 @@
         "fdc": 169146
       },
       "basis": "USDA SR Legacy 169146: \"Beets, cooked, boiled, drained\". Boiled."
+    },
+    {
+      "key": "banana-raw",
+      "name": "Bananas, raw",
+      "category": "Fruit",
+      "aliases": [
+        "banana",
+        "bananas",
+        "yellow banana"
+      ],
+      "from": {
+        "fdc": 173944
+      },
+      "basis": "USDA SR Legacy 173944: \"Bananas, raw\".",
+      "servings": [
+        {
+          "label": "1 medium (7\" to 7-7/8\" long)",
+          "g": 118
+        }
+      ]
+    },
+    {
+      "key": "strawberries-raw",
+      "name": "Strawberries, raw",
+      "category": "Fruit",
+      "aliases": [
+        "strawberry",
+        "strawberries",
+        "fresh strawberries"
+      ],
+      "from": {
+        "fdc": 167762
+      },
+      "basis": "USDA SR Legacy 167762: \"Strawberries, raw\".",
+      "servings": [
+        {
+          "label": "1 cup, halves",
+          "g": 152
+        },
+        {
+          "label": "1 medium",
+          "g": 12
+        }
+      ]
+    },
+    {
+      "key": "blueberries-raw",
+      "name": "Blueberries, raw",
+      "category": "Fruit",
+      "aliases": [
+        "blueberry",
+        "blueberries",
+        "fresh blueberries"
+      ],
+      "from": {
+        "fdc": 171711
+      },
+      "basis": "USDA SR Legacy 171711: \"Blueberries, raw\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 148
+        }
+      ]
+    },
+    {
+      "key": "almonds-raw",
+      "name": "Almonds, raw",
+      "category": "Nuts and seeds",
+      "aliases": [
+        "almonds",
+        "almond",
+        "raw almonds"
+      ],
+      "from": {
+        "fdc": 170567
+      },
+      "basis": "USDA SR Legacy 170567: \"Nuts, almonds\".",
+      "servings": [
+        {
+          "label": "1 oz (about 23 almonds)",
+          "g": 28.35
+        },
+        {
+          "label": "1 cup, whole",
+          "g": 143
+        }
+      ]
+    },
+    {
+      "key": "walnuts-raw",
+      "name": "Walnuts, raw",
+      "category": "Nuts and seeds",
+      "aliases": [
+        "walnuts",
+        "walnut",
+        "english walnuts",
+        "raw walnuts"
+      ],
+      "from": {
+        "fdc": 170187
+      },
+      "basis": "USDA SR Legacy 170187: \"Nuts, walnuts, english\".",
+      "servings": [
+        {
+          "label": "1 oz (about 14 halves)",
+          "g": 28.35
+        },
+        {
+          "label": "1 cup, chopped",
+          "g": 117
+        }
+      ]
+    },
+    {
+      "key": "olive-oil",
+      "name": "Olive oil",
+      "category": "Fats and oils",
+      "aliases": [
+        "olive oil",
+        "extra virgin olive oil",
+        "evoo"
+      ],
+      "from": {
+        "fdc": 171413
+      },
+      "basis": "USDA SR Legacy 171413: \"Oil, olive, salad or cooking\".",
+      "servings": [
+        {
+          "label": "1 tbsp",
+          "g": 13.5
+        },
+        {
+          "label": "1 tsp",
+          "g": 4.5
+        }
+      ]
+    },
+    {
+      "key": "peanut-butter-smooth",
+      "name": "Peanut butter, smooth",
+      "category": "Nuts and seeds",
+      "aliases": [
+        "peanut butter",
+        "pb",
+        "creamy peanut butter",
+        "smooth peanut butter"
+      ],
+      "from": {
+        "fdc": 174294
+      },
+      "basis": "USDA SR Legacy 174294: \"Peanut Butter, smooth\".",
+      "servings": [
+        {
+          "label": "2 tbsp",
+          "g": 32
+        },
+        {
+          "label": "1 tbsp",
+          "g": 16
+        }
+      ]
+    },
+    {
+      "key": "almond-milk-unsweetened",
+      "name": "Almond milk, unsweetened",
+      "category": "Dairy",
+      "aliases": [
+        "almond milk",
+        "unsweetened almond milk",
+        "plain almond milk"
+      ],
+      "from": {
+        "fdc": 2705409
+      },
+      "basis": "USDA FNDDS 2021-2023 2705409: \"Almond milk, unsweetened\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 244
+        }
+      ]
+    },
+    {
+      "key": "oat-milk",
+      "name": "Oat milk",
+      "category": "Dairy",
+      "aliases": [
+        "oat milk",
+        "plain oat milk"
+      ],
+      "from": {
+        "fdc": 2705412
+      },
+      "basis": "USDA FNDDS 2021-2023 2705412: \"Oat milk\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 244
+        }
+      ]
+    },
+    {
+      "key": "soy-milk-unsweetened",
+      "name": "Soy milk, unsweetened",
+      "category": "Dairy",
+      "aliases": [
+        "soy milk",
+        "soymilk",
+        "unsweetened soy milk"
+      ],
+      "from": {
+        "fdc": 2705405
+      },
+      "basis": "USDA FNDDS 2021-2023 2705405: \"Soy milk, unsweetened\".",
+      "servings": [
+        {
+          "label": "1 cup",
+          "g": 244
+        }
+      ]
+    },
+    {
+      "key": "orange-juice",
+      "name": "Orange juice, 100%",
+      "category": "Beverages",
+      "aliases": [
+        "orange juice",
+        "oj",
+        "fresh orange juice"
+      ],
+      "from": {
+        "fdc": 169098
+      },
+      "basis": "USDA SR Legacy 169098: \"Orange juice, raw\".",
+      "servings": [
+        {
+          "label": "1 cup (8 fl oz)",
+          "g": 248
+        }
+      ]
+    },
+    {
+      "key": "ketchup",
+      "name": "Ketchup",
+      "category": "Condiments and sauces",
+      "aliases": [
+        "ketchup",
+        "catsup",
+        "tomato ketchup"
+      ],
+      "from": {
+        "fdc": 168556
+      },
+      "basis": "USDA SR Legacy 168556: \"Catsup\".",
+      "servings": [
+        {
+          "label": "1 tbsp",
+          "g": 17
+        },
+        {
+          "label": "1 packet",
+          "g": 9
+        }
+      ]
+    },
+    {
+      "key": "mayonnaise",
+      "name": "Mayonnaise, regular",
+      "category": "Condiments and sauces",
+      "aliases": [
+        "mayonnaise",
+        "mayo",
+        "regular mayo"
+      ],
+      "from": {
+        "fdc": 171009
+      },
+      "basis": "USDA SR Legacy 171009: \"Salad dressing, mayonnaise, regular\".",
+      "servings": [
+        {
+          "label": "1 tbsp",
+          "g": 13.8
+        }
+      ]
+    },
+    {
+      "key": "mustard-yellow",
+      "name": "Yellow mustard",
+      "category": "Condiments and sauces",
+      "aliases": [
+        "mustard",
+        "yellow mustard",
+        "prepared mustard"
+      ],
+      "from": {
+        "fdc": 172234
+      },
+      "basis": "USDA SR Legacy 172234: \"Mustard, prepared, yellow\".",
+      "servings": [
+        {
+          "label": "1 tsp",
+          "g": 5
+        },
+        {
+          "label": "1 tbsp",
+          "g": 15
+        }
+      ]
+    },
+    {
+      "key": "whey-protein-powder",
+      "name": "Whey protein powder",
+      "category": "Protein supplements",
+      "aliases": [
+        "whey protein",
+        "protein powder",
+        "whey",
+        "whey isolate"
+      ],
+      "from": {
+        "fdc": 173180
+      },
+      "basis": "USDA SR Legacy 173180: \"Beverages, Protein powder whey based\".",
+      "servings": [
+        {
+          "label": "1 scoop",
+          "g": 30
+        }
+      ]
     }
   ]
 }

@@ -221,20 +221,35 @@ fun sync(db: Database, uid: String, req: SyncRequest): SyncResponse {
         // Lock the user row so concurrent syncs get distinct, ordered sequence numbers.
         var seq = Users.selectAll().where { Users.id eq uid }.forUpdate().single()[Users.seq]
         for (c in req.changes) {
-            val data = c.data?.let { json.encodeToString(JsonElement.serializer(), it) } ?: "null"
+            var data = c.data?.let { json.encodeToString(JsonElement.serializer(), it) } ?: "null"
             if (data.length > MAX_RECORD_BYTES) throw ApiException(HttpStatusCode.PayloadTooLarge, "Record too large")
+            var updatedAt = c.updatedAt
             val existing = Records.selectAll().where {
                 (Records.userId eq uid) and (Records.collection eq c.collection) and (Records.recordId eq c.id)
             }.singleOrNull()
-            // Last writer wins, by the client's modification time.
-            if (existing != null && existing[Records.updatedAt] > c.updatedAt) continue
+            if (c.collection == "profile" && existing != null && !existing[Records.deleted] && !c.deleted &&
+                (req.since < existing[Records.seq] || existing[Records.updatedAt] > c.updatedAt)
+            ) {
+                val merged = mergeProfileRecord(existing[Records.data], existing[Records.updatedAt], data, c.updatedAt)
+                if (merged != null) {
+                    val (mergedData, mergedUpdatedAt, changed) = merged
+                    if (!changed) continue
+                    data = mergedData
+                    updatedAt = mergedUpdatedAt
+                } else if (existing[Records.updatedAt] > c.updatedAt) {
+                    continue
+                }
+            } else if (existing != null && existing[Records.updatedAt] > c.updatedAt) {
+                // Last writer wins, by the client's modification time.
+                continue
+            }
             seq += 1
             Records.upsert {
                 it[userId] = uid
                 it[collection] = c.collection
                 it[recordId] = c.id
                 it[Records.data] = data
-                it[updatedAt] = c.updatedAt
+                it[Records.updatedAt] = updatedAt
                 it[deleted] = c.deleted
                 it[Records.seq] = seq
             }
@@ -261,4 +276,29 @@ fun sync(db: Database, uid: String, req: SyncRequest): SyncResponse {
             hasMore = rows.size > PAGE_SIZE,
         )
     }
+}
+
+/**
+ * Merge a concurrent profile record push with the server's stored profile record so edits to
+ * `favoriteFoodIds` and other profile settings never overwrite each other.
+ * Returns (mergedRecordJson, mergedUpdatedAt, changed) or null if either record cannot be decoded.
+ */
+private fun mergeProfileRecord(
+    existingData: String,
+    existingUpdatedAt: Long,
+    incomingData: String,
+    incomingUpdatedAt: Long,
+): Triple<String, Long, Boolean>? {
+    val exRec = runCatching { json.decodeFromString(com.nutrime.server.ai.ProfileRecord.serializer(), existingData) }.getOrNull() ?: return null
+    val inRec = runCatching { json.decodeFromString(com.nutrime.server.ai.ProfileRecord.serializer(), incomingData) }.getOrNull() ?: return null
+    val exProfile = runCatching { json.decodeFromString(com.nutrime.app.model.Profile.serializer(), exRec.json) }.getOrNull() ?: return null
+    val inProfile = runCatching { json.decodeFromString(com.nutrime.app.model.Profile.serializer(), inRec.json) }.getOrNull() ?: return null
+    val merged = com.nutrime.app.model.Profile.merge(exProfile, existingUpdatedAt, inProfile, incomingUpdatedAt)
+    if (merged == exProfile && existingUpdatedAt >= incomingUpdatedAt) {
+        return Triple(existingData, existingUpdatedAt, false)
+    }
+    val nextUpdatedAt = if (merged == inProfile) maxOf(existingUpdatedAt, incomingUpdatedAt) else maxOf(existingUpdatedAt, incomingUpdatedAt) + 1
+    val mergedJson = json.encodeToString(com.nutrime.app.model.Profile.serializer(), merged)
+    val mergedRec = exRec.copy(json = mergedJson, updatedAt = nextUpdatedAt, deleted = false)
+    return Triple(json.encodeToString(com.nutrime.server.ai.ProfileRecord.serializer(), mergedRec), nextUpdatedAt, true)
 }

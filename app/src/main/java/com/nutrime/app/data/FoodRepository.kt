@@ -30,8 +30,10 @@ data class Recipe(
     val name: String,
     val servings: Double,
     val ingredients: List<RecipeIngredient>,
+    val cookedGrams: Double? = null,
 ) {
     val totalGrams: Double get() = ingredients.sumOf { it.grams }
+    val finishedGrams: Double get() = cookedGrams?.takeIf { it > 0 } ?: totalGrams
     val totalNutrients: NutrientMap get() = sumNutrients(ingredients.map { it.nutrients.forGrams(it.grams) })
 }
 
@@ -51,23 +53,48 @@ class FoodRepository(
     /** Online foods (USDA branded/FNDDS, Open Food Facts) saved when they were first logged. */
     fun observeSaved(): Flow<List<Food>> = db.foods().observeSaved().map { list -> list.map { it.toFood() } }
 
-    data class LocalResults(val foods: List<Food>, val corrected: Set<String> = emptySet(), val correctedQuery: String? = null)
+    data class LocalResults(
+        val foods: List<Food>,
+        val corrected: Set<String> = emptySet(),
+        val correctedQuery: String? = null,
+        val variants: List<String> = emptyList(),
+    )
+
+    /** Token-based match across name and brand (matching web's searchMine), with stop words stripped and plurals normalized. */
+    private suspend fun searchMine(query: String): List<Food> {
+        val tokens = com.nutrime.app.model.FoodSearchEngine.tokens(query)
+        if (tokens.isEmpty()) return emptyList()
+        val pairs = tokens.map { it to com.nutrime.app.model.FoodQuality.singular(it) }
+        return db.foods().all()
+            .filter { f ->
+                val hay = "${f.name} ${f.brand.orEmpty()}".lowercase()
+                pairs.all { (t, st) -> hay.contains(t) || hay.contains(st) }
+            }
+            .sortedWith(compareByDescending<FoodEntity> { it.kind == "custom" || it.kind == "recipe" }.thenBy { it.name.length })
+            .take(30)
+            .map { it.toFood() }
+    }
 
     /** My foods and bundled foods, with synonyms and typing correction (see BundledFoodDb.searchDetailed). */
     suspend fun searchLocalDetailed(query: String): LocalResults {
         val q = query.trim()
         if (q.isEmpty()) return LocalResults(emptyList())
         val bundledResults = bundled.searchDetailed(q)
-        val mine = db.foods().search(q).map { it.toFood() }
-        val mineFixed = bundledResults.correctedQuery?.let { cq -> db.foods().search(cq).map { it.toFood() } }.orEmpty()
+        val mine = searchMine(q)
+        val mineFixed = bundledResults.correctedQuery?.let { cq -> searchMine(cq) }.orEmpty()
         val foods = (mine + bundledResults.foods + mineFixed).distinctBy { it.id }
-        return LocalResults(foods, bundledResults.corrected + mineFixed.map { it.id }.filter { id -> mine.none { it.id == id } }, bundledResults.correctedQuery)
+        return LocalResults(
+            foods,
+            bundledResults.corrected + mineFixed.map { it.id }.filter { id -> mine.none { it.id == id } },
+            bundledResults.correctedQuery,
+            bundledResults.variants,
+        )
     }
 
     suspend fun searchLocal(query: String): List<Food> {
         val q = query.trim()
         if (q.isEmpty()) return emptyList()
-        val mine = db.foods().search(q).map { it.toFood() }
+        val mine = searchMine(q)
         val usdaLocal = bundled.search(q)
         return (mine + usdaLocal).distinctBy { it.id }
     }
@@ -145,24 +172,41 @@ class FoodRepository(
     suspend fun getRecipe(id: String): Recipe? {
         val e = db.foods().get(id)?.takeIf { it.kind == "recipe" && !it.deleted } ?: return null
         val ings = e.ingredientsJson?.let { runCatching { Http.json.decodeFromString(ingredientsSerializer, it) }.getOrNull() }.orEmpty()
-        return Recipe(e.id, e.name, e.recipeServings ?: 1.0, ings)
+        val rawTotal = ings.sumOf { it.grams }
+        val whole = runCatching { Http.json.decodeFromString(servingsSerializer, e.servingsJson) }
+            .getOrDefault(emptyList())
+            .firstOrNull { it.label == "whole recipe" }?.grams
+        val cooked = whole?.takeIf { it > 0 && rawTotal > 0 && kotlin.math.abs(it - rawTotal) > 0.5 }
+        return Recipe(e.id, e.name, e.recipeServings ?: 1.0, ings, cooked)
     }
 
     suspend fun getRaw(id: String): FoodEntity? = db.foods().get(id)
 
-    suspend fun saveRecipe(id: String?, name: String, servings: Double, ingredients: List<RecipeIngredient>): String {
+    suspend fun saveRecipe(
+        id: String?,
+        name: String,
+        servings: Double,
+        ingredients: List<RecipeIngredient>,
+        cookedGrams: Double? = null,
+    ): String {
         val rid = id ?: "custom:${newId()}"
-        val recipe = Recipe(rid, name, servings, ingredients)
-        val total = recipe.totalGrams.coerceAtLeast(0.0001)
-        val per100 = recipe.totalNutrients.mapValues { it.value * 100.0 / total }
-        val perServing = total / servings.coerceAtLeast(0.0001)
+        val recipe = Recipe(rid, name, servings, ingredients, cookedGrams?.takeIf { it > 0 })
+        val rawTotal = recipe.totalGrams
+        val finished = recipe.finishedGrams.coerceAtLeast(0.0001)
+        val per100 = recipe.totalNutrients.mapValues { it.value * 100.0 / finished }.toMutableMap()
+        // Water lost or gained in cooking changes only the water (matching tools/update_food_db.py).
+        if (com.nutrime.app.model.N.WATER in per100 || finished != rawTotal) {
+            per100[com.nutrime.app.model.N.WATER] =
+                ((per100[com.nutrime.app.model.N.WATER] ?: 0.0) + (finished - rawTotal) * 100.0 / finished).coerceAtLeast(0.0)
+        }
+        val perServing = finished / servings.coerceAtLeast(0.0001)
         db.foods().upsert(
             FoodEntity(
                 id = rid, kind = "recipe", name = name,
                 nutrientsJson = encodeNutrients(per100),
                 servingsJson = Http.json.encodeToString(
                     servingsSerializer,
-                    listOf(Serving("serving", perServing), Serving("whole recipe", total)),
+                    listOf(Serving("serving", perServing), Serving("whole recipe", finished)),
                 ),
                 ingredientsJson = Http.json.encodeToString(ingredientsSerializer, ingredients),
                 recipeServings = servings,

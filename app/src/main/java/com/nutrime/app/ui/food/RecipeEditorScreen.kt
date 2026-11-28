@@ -63,15 +63,18 @@ import java.time.LocalDate
 class RecipeEditorViewModel(private val c: AppContainer, private val id: String?) : ViewModel() {
     val name = MutableStateFlow("")
     val servings = MutableStateFlow("1")
+    val cookedWeight = MutableStateFlow("")
     val ingredients = MutableStateFlow<List<RecipeIngredient>>(emptyList())
     private var loaded = false
 
     init {
         IngredientPicker.picked.value = null
+        IngredientPicker.editing.value = null
         if (id != null) viewModelScope.launch {
             c.foods.getRecipe(id)?.let { r ->
                 name.value = r.name
                 servings.value = formatQty(r.servings)
+                cookedWeight.value = r.cookedGrams?.let(::formatQty).orEmpty()
                 ingredients.value = r.ingredients
             }
             loaded = true
@@ -81,15 +84,23 @@ class RecipeEditorViewModel(private val c: AppContainer, private val id: String?
     fun consumePicked() {
         val p = IngredientPicker.picked.value ?: return
         IngredientPicker.picked.value = null
-        ingredients.value = ingredients.value + p
+        val edit = IngredientPicker.editing.value
+        IngredientPicker.editing.value = null
+        if (edit != null && edit.first in ingredients.value.indices) {
+            ingredients.value = ingredients.value.mapIndexed { i, old -> if (i == edit.first) p else old }
+        } else {
+            ingredients.value = ingredients.value + p
+        }
     }
 
     fun remove(index: Int) { ingredients.value = ingredients.value.filterIndexed { i, _ -> i != index } }
 
     suspend fun save(): Boolean {
         val s = servings.value.replace(',', '.').toDoubleOrNull() ?: return false
+        val cwText = cookedWeight.value.trim()
+        val cw = if (cwText.isEmpty()) null else cwText.replace(',', '.').toDoubleOrNull()?.takeIf { it > 0 } ?: return false
         if (name.value.isBlank() || ingredients.value.isEmpty() || s <= 0) return false
-        c.foods.saveRecipe(id, name.value.trim(), s, ingredients.value)
+        c.foods.saveRecipe(id, name.value.trim(), s, ingredients.value, cw)
         return true
     }
 
@@ -102,6 +113,7 @@ fun RecipeEditorScreen(nav: NavController, id: String?) {
     val vm: RecipeEditorViewModel = viewModel { RecipeEditorViewModel(c, id) }
     val name by vm.name.collectAsStateWithLifecycle()
     val servingsText by vm.servings.collectAsStateWithLifecycle()
+    val cookedWeightText by vm.cookedWeight.collectAsStateWithLifecycle()
     val ingredients by vm.ingredients.collectAsStateWithLifecycle()
     val picked by IngredientPicker.picked.collectAsStateWithLifecycle()
     val profile by c.profiles.observe().collectAsStateWithLifecycle(initialValue = Profile())
@@ -112,9 +124,12 @@ fun RecipeEditorScreen(nav: NavController, id: String?) {
     LaunchedEffect(picked) { vm.consumePicked() }
 
     val servings = servingsText.replace(',', '.').toDoubleOrNull()
-    val recipe = Recipe(id ?: "", name, servings ?: 1.0, ingredients)
+    val cookedBlank = cookedWeightText.trim().isEmpty()
+    val cookedGrams = if (cookedBlank) null else cookedWeightText.replace(',', '.').toDoubleOrNull()
+    val cookedInvalid = !cookedBlank && (cookedGrams == null || cookedGrams <= 0)
+    val recipe = Recipe(id ?: "", name, servings ?: 1.0, ingredients, cookedGrams?.takeIf { it > 0 })
     val perServing = recipe.totalNutrients.scaled(1.0 / recipe.servings.coerceAtLeast(0.0001))
-    val valid = name.isNotBlank() && ingredients.isNotEmpty() && (servings ?: 0.0) > 0
+    val valid = name.isNotBlank() && ingredients.isNotEmpty() && (servings ?: 0.0) > 0 && !cookedInvalid
 
     SubPage(
         title = if (id == null) "New recipe" else "Edit recipe",
@@ -134,15 +149,30 @@ fun RecipeEditorScreen(nav: NavController, id: String?) {
                 Column(verticalArrangement = Arrangement.spacedBy(Space.S3)) {
                     NTextField(name, { vm.name.value = it }, Modifier.fillMaxWidth(), label = "Name", placeholder = "e.g. Overnight oats")
                     NTextField(servingsText, { vm.servings.value = it }, Modifier.fillMaxWidth(), label = "Servings", keyboardType = KeyboardType.Decimal, isError = (servings ?: 0.0) <= 0)
+                    NTextField(
+                        cookedWeightText,
+                        { vm.cookedWeight.value = it },
+                        Modifier.fillMaxWidth(),
+                        label = "Cooked weight (g, optional)",
+                        placeholder = if (ingredients.isNotEmpty()) "Same as ingredients (%,.0f g)".format(recipe.totalGrams) else "Leave blank if unchanged",
+                        keyboardType = KeyboardType.Decimal,
+                        isError = cookedInvalid,
+                    )
                 }
             }
             NCard(padding = PaddingValues(bottom = Space.S1)) {
                 CardHeader(
                     "Ingredients",
                     Modifier.padding(start = Space.S4, end = Space.S2, top = Space.S3),
-                    meta = if (ingredients.isNotEmpty()) "%,.0f g total".format(recipe.totalGrams) else null,
+                    meta = if (ingredients.isNotEmpty()) {
+                        if (recipe.cookedGrams != null) "%,.0f g raw · %,.0f g cooked".format(recipe.totalGrams, recipe.finishedGrams)
+                        else "%,.0f g total".format(recipe.totalGrams)
+                    } else null,
                     action = {
-                        NButton("Add", { nav.navigate(Routes.search(LocalDate.now().toString(), 0, PickMode.INGREDIENT)) }, kind = ButtonKind.Ghost, size = ButtonSize.Sm, icon = Lucide.Plus)
+                        NButton("Add", {
+                            IngredientPicker.editing.value = null
+                            nav.navigate(Routes.search(LocalDate.now().toString(), 0, PickMode.INGREDIENT))
+                        }, kind = ButtonKind.Ghost, size = ButtonSize.Sm, icon = Lucide.Plus)
                     },
                 )
                 if (ingredients.isEmpty()) {
@@ -154,6 +184,10 @@ fun RecipeEditorScreen(nav: NavController, id: String?) {
                         ing.name,
                         subtitle = servingText(ing.servingLabel, ing.quantity),
                         icon = Lucide.Apple, iconTint = colors.energy,
+                        onClick = {
+                            IngredientPicker.editing.value = i to ing
+                            nav.navigate(Routes.food(ing.foodId, mode = PickMode.INGREDIENT, qty = ing.quantity, serving = ing.servingLabel))
+                        },
                     ) {
                         Text("%.0f".format(ing.nutrients.forGrams(ing.grams)[N.ENERGY] ?: 0.0), style = NutriTheme.type.numeric, color = colors.text)
                         NIconButton(Lucide.X, "Remove", { vm.remove(i) }, size = 32.dp, tint = colors.textTertiary)
@@ -162,7 +196,7 @@ fun RecipeEditorScreen(nav: NavController, id: String?) {
             }
             if (ingredients.isNotEmpty()) {
                 NCard {
-                    CardHeader("Per serving", meta = "%.0f g".format(recipe.totalGrams / recipe.servings.coerceAtLeast(0.0001)))
+                    CardHeader("Per serving", meta = "%.0f g".format(recipe.finishedGrams / recipe.servings.coerceAtLeast(0.0001)))
                     com.nutrime.app.ui.components.Hero("Energy", "%,.0f".format(perServing[N.ENERGY] ?: 0.0), "kcal")
                     Spacer(Modifier.height(Space.S4))
                     com.nutrime.app.ui.components.MacroTiles(perServing)

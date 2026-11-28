@@ -122,7 +122,10 @@ class ProfileRepository(private val db: AppDatabase, private val onChange: () ->
     suspend fun get(): Profile = db.profile().get().toProfile()
 
     suspend fun save(p: Profile) {
-        db.profile().upsert(ProfileEntity(json = Http.json.encodeToString(Profile.serializer(), p), updatedAt = now()))
+        val prev = db.profile().get()?.let { runCatching { Http.json.decodeFromString(Profile.serializer(), it.json) }.getOrNull() }
+        val t = now()
+        val stamped = Profile.stampEdit(prev, p, t)
+        db.profile().upsert(ProfileEntity(json = Http.json.encodeToString(Profile.serializer(), stamped), updatedAt = t))
         onChange()
     }
 
@@ -214,7 +217,7 @@ class BurnRepository(private val db: AppDatabase, private val profiles: ProfileR
                 val date = runCatching { LocalDate.parse(d) }.getOrNull() ?: return@mapNotNull null
                 val list = byDate[d].orEmpty()
                 val t = sumNutrients(list.map { decodeNutrients(it.nutrientsJson).forGrams(it.grams) })
-                DayLog(date, t[N.ENERGY] ?: 0.0, t[N.CARBS] ?: 0.0, d in complete, list.isNotEmpty())
+                DayLog(date, t[N.ENERGY] ?: 0.0, t[N.CARBS] ?: 0.0, d in complete, list.isNotEmpty(), t[N.SODIUM] ?: 0.0)
             }
             val w = weights.groupBy { it.date }.mapNotNull { (d, l) ->
                 runCatching { WeighIn(LocalDate.parse(d), l.maxBy { it.updatedAt }.weightKg) }.getOrNull()

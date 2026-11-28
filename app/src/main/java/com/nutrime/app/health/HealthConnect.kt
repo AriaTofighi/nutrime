@@ -73,7 +73,7 @@ object HealthConnect {
         )
         val existing = app.container.db.weights().observeAll().first()
         val ownDates = existing.filter { !it.id.startsWith("hc:") }.map { it.date }.toSet()
-        val known = existing.map { it.id }.toSet()
+        val known = app.container.db.weights().allIds().toSet()
         // The first weigh-in of each day (mornings are the most comparable).
         return response.records
             .groupBy { it.time.atZone(zone).toLocalDate() }

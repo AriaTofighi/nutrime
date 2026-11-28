@@ -1,7 +1,8 @@
 import { del, get, set } from "idb-keyval";
 import { useSyncExternalStore } from "react";
 import * as api from "./api";
-import { COLLECTION_NAMES, type CollectionName, type Collections } from "./types";
+import { encodeProfile, mergeProfiles, parseProfile, stampProfileEdit } from "./profile";
+import { COLLECTION_NAMES, type CollectionName, type Collections, type ProfileRecord } from "./types";
 
 /**
  * Local-first store with the same sync semantics as the Android app: local edits are marked dirty,
@@ -148,7 +149,15 @@ class Store {
 
   /** Save a record (stamping updatedAt) and sync shortly after. */
   put<K extends CollectionName>(c: K, record: Collections[K], updatedAt = Date.now()) {
-    const r = clean({ ...record, updatedAt }) as Collections[K];
+    let next = record;
+    if (c === "profile" && !record.deleted) {
+      const rec = record as ProfileRecord;
+      const existing = this.tables.profile.get(rec.id);
+      const prev = existing && !existing.deleted ? parseProfile(existing.json) : undefined;
+      const stamped = stampProfileEdit(prev, parseProfile(rec.json), updatedAt);
+      next = { ...rec, json: encodeProfile(stamped) } as Collections[K];
+    }
+    const r = clean({ ...next, updatedAt }) as Collections[K];
     (this.tables[c] as Map<string, Collections[K]>).set(r.id, r);
     this.dirty[c].add(r.id);
     this.changed();
@@ -270,8 +279,26 @@ class Store {
       if (!COLLECTION_NAMES.includes(ch.collection as CollectionName) || !ch.data || typeof ch.data !== "object") continue;
       const c = ch.collection as CollectionName;
       const local = this.tables[c].get(ch.id);
-      if (local && this.dirty[c].has(ch.id) && local.updatedAt > ch.updatedAt) continue;
       const incoming = { ...(ch.data as object), id: ch.id, updatedAt: ch.updatedAt, deleted: ch.deleted } as Collections[typeof c];
+      if (c === "profile" && local && this.dirty.profile.has(ch.id) && !local.deleted && !ch.deleted) {
+        const lp = parseProfile((local as ProfileRecord).json);
+        const ip = parseProfile((incoming as ProfileRecord).json);
+        const merged = mergeProfiles(lp, local.updatedAt, ip, ch.updatedAt);
+        const mergedJson = encodeProfile(merged);
+        if (mergedJson === encodeProfile(ip)) {
+          this.tables.profile.set(ch.id, incoming as ProfileRecord);
+          this.dirty.profile.delete(ch.id);
+        } else {
+          this.tables.profile.set(ch.id, {
+            id: "profile",
+            json: mergedJson,
+            updatedAt: Math.max(local.updatedAt, ch.updatedAt) + 1,
+            deleted: false,
+          });
+        }
+        continue;
+      }
+      if (local && this.dirty[c].has(ch.id) && local.updatedAt > ch.updatedAt) continue;
       (this.tables[c] as Map<string, Collections[typeof c]>).set(ch.id, incoming);
       this.dirty[c].delete(ch.id);
     }

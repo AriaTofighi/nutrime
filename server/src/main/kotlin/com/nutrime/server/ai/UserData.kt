@@ -176,7 +176,7 @@ class UserData(private val db: Database, val userId: String) {
         val logs = dates.mapNotNull { d ->
             val date = runCatching { LocalDate.parse(d) }.getOrNull() ?: return@mapNotNull null
             val t = totals(byDate[d].orEmpty())
-            DayLog(date, t.kcal(), t[N.CARBS] ?: 0.0, days[d]?.complete == true, byDate[d].orEmpty().isNotEmpty())
+            DayLog(date, t.kcal(), t[N.CARBS] ?: 0.0, days[d]?.complete == true, byDate[d].orEmpty().isNotEmpty(), t[N.SODIUM] ?: 0.0)
         }
         val w = weights.groupBy { it.date }.mapNotNull { (d, l) ->
             runCatching { WeighIn(LocalDate.parse(d), l.maxBy { it.updatedAt }.weightKg) }.getOrNull()

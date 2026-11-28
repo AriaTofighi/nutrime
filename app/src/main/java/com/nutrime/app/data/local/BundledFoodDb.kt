@@ -45,8 +45,13 @@ class BundledFoodDb(private val context: Context) {
      */
     suspend fun search(query: String, limit: Int = CANDIDATES): List<Food> = searchDetailed(query, limit).foods
 
-    /** Results, the ids found only through a typing correction, and the corrected query. */
-    data class Results(val foods: List<Food>, val corrected: Set<String> = emptySet(), val correctedQuery: String? = null)
+    /** Results, the ids found only through a typing correction, the corrected query, and all searched query variants. */
+    data class Results(
+        val foods: List<Food>,
+        val corrected: Set<String> = emptySet(),
+        val correctedQuery: String? = null,
+        val variants: List<String> = emptyList(),
+    )
 
     /**
      * Search with synonyms ("yoghurt" also finds "yogurt") and, when few foods match, typing-error
@@ -54,7 +59,7 @@ class BundledFoodDb(private val context: Context) {
      */
     suspend fun searchDetailed(query: String, limit: Int = CANDIDATES): Results = withContext(Dispatchers.IO) {
         val c = FoodSearchEngine.candidates(rows, query, limit)
-        Results(c.foods, c.corrected, c.correctedQuery)
+        Results(c.foods, c.corrected, c.correctedQuery, c.variants)
     }
 
     /** The bundled rows for [FoodSearchEngine]: every query word must match (no partial matches). */
@@ -118,23 +123,39 @@ class BundledFoodDb(private val context: Context) {
 
     private suspend fun match(tokens: List<String>, limit: Int): List<Food> {
         if (tokens.isEmpty()) return emptyList()
-        val match = tokens.joinToString(" ") { "$it*" }
+        val match = tokens.joinToString(" ") { FoodSearchEngine.ftsTerm(it) }
         val first = tokens.first()
+        val firstSing = com.nutrime.app.model.FoodQuality.singular(first)
         val db = open()
-        val sql = """
+        val shown = shownOnly(db)
+        val nonRestSql = """
             SELECT $COLUMNS
             FROM food f JOIN food_fts t ON t.docid = f.id
-            WHERE food_fts MATCH ?${shownOnly(db)}
+            WHERE food_fts MATCH ?$shown AND COALESCE(f.category, '') NOT IN ('Restaurant Foods', 'Fast Foods')
             ORDER BY
               (f.source = 'nutrime') DESC,
-              (LOWER(f.name) LIKE ? || '%') DESC,
+              (LOWER(f.name) LIKE ? || '%' OR LOWER(f.name) LIKE ? || '%') DESC,
               (LOWER(f.name) LIKE '%raw%') DESC,
               LENGTH(f.name)
             LIMIT ?
         """
-        return db.rawQuery(sql, arrayOf(match, first, limit.toString())).use { c ->
-            buildList { while (c.moveToNext()) add(row(c)) }
-        }
+        val restSql = """
+            SELECT $COLUMNS
+            FROM food f JOIN food_fts t ON t.docid = f.id
+            WHERE food_fts MATCH ?$shown AND f.category IN ('Restaurant Foods', 'Fast Foods')
+            ORDER BY
+              (f.source = 'nutrime') DESC,
+              (LOWER(f.name) LIKE ? || '%' OR LOWER(f.name) LIKE ? || '%') DESC,
+              LENGTH(f.name)
+            LIMIT ?
+        """
+        val args = arrayOf(match, first, firstSing, limit.toString())
+        val nonRest = db.rawQuery(nonRestSql, args).use { c -> buildList { while (c.moveToNext()) add(row(c)) } }
+        val rest = db.rawQuery(restSql, args).use { c -> buildList { while (c.moveToNext()) add(row(c)) } }
+        val restReserve = minOf(rest.size, limit / 4)
+        val nonRestTake = minOf(nonRest.size, limit - restReserve)
+        val restTake = minOf(rest.size, limit - nonRestTake)
+        return nonRest.take(nonRestTake) + rest.take(restTake)
     }
 
     /** A bundled food by app id ("usda:<fdcId>" or "nm:<key>"), hidden or not, or null if it isn't bundled. */
@@ -161,6 +182,7 @@ class BundledFoodDb(private val context: Context) {
             nutrients = nutrients,
             servings = portions.map { Serving(it.l, it.g) },
             barcode = c.getString(8),
+            keywords = c.getString(9),
         )
     }
 
@@ -169,11 +191,11 @@ class BundledFoodDb(private val context: Context) {
 
     companion object {
         /** Bump when assets/foods.db is regenerated so devices re-copy it. */
-        const val ASSET_VERSION = 10
+        const val ASSET_VERSION = 11
 
         /** Candidates per search (also in web/src/lib/foods.ts). */
         const val CANDIDATES = 100
 
-        private const val COLUMNS = "f.id, f.name, f.category, f.source, f.nutrients, f.portions, f.ref, f.brand, f.barcode"
+        private const val COLUMNS = "f.id, f.name, f.category, f.source, f.nutrients, f.portions, f.ref, f.brand, f.barcode, f.keywords"
     }
 }

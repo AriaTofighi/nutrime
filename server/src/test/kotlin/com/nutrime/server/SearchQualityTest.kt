@@ -48,6 +48,12 @@ class SearchQualityTest {
             c["confidence"]?.jsonPrimitive?.content?.let { want ->
                 if (r.confidence != want) failures += "$query: confidence ${r.confidence}, expected $want"
             }
+            if (c["first_not_restaurant"]?.jsonPrimitive?.content == "true") {
+                val first = r.foods.firstOrNull()
+                if (first == null || com.nutrime.app.model.SearchRank.isRestaurant(first)) {
+                    failures += "$query: first result must not be a restaurant item, got ${first?.name} [${first?.brand}] (${first?.category})"
+                }
+            }
         }
         assertTrue(failures.isEmpty(), "${failures.size} search quality failures:\n" + failures.joinToString("\n"))
     }

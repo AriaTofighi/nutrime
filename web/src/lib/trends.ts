@@ -39,7 +39,7 @@ export function burnEstimate(profile = profileNow()): BurnEstimate | null {
   const dates = new Set([...c.totals.keys(), ...[...days.values()].filter((d) => d.complete).map((d) => d.id)]);
   const logs: DayLog[] = [...dates].map((d) => {
     const t = c.totals.get(d);
-    return { date: d, kcal: t?.[N.ENERGY] ?? 0, carbsG: t?.[N.CARBS] ?? 0, complete: days.get(d)?.complete === true, hasEntries: !!t };
+    return { date: d, kcal: t?.[N.ENERGY] ?? 0, carbsG: t?.[N.CARBS] ?? 0, complete: days.get(d)?.complete === true, hasEntries: !!t, sodiumMg: t?.[N.SODIUM] ?? 0 };
   });
   const byDate = new Map<string, { kg: number; t: number }>();
   for (const w of store.all("weights")) {

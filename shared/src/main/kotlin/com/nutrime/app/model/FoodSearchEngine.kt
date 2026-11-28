@@ -34,21 +34,63 @@ object FoodSearchEngine {
         val correctedQuery: String? = null,
         /** How many of [foods] have every word of the query (or of a synonym variant). */
         val complete: Int = foods.size,
+        /** All searched query variants (original, synonym variants, corrected query) for ranking. */
+        val variants: List<String> = emptyList(),
     )
 
     /** Fewer foods with every word than this, and words not in the word list are corrected. */
     const val FEW = 5
 
-    fun tokens(q: String): List<String> = q.lowercase().split(Regex("[^\\p{L}\\p{N}]+")).filter { it.isNotBlank() }
+    fun tokens(q: String): List<String> {
+        val all = q.lowercase().split(Regex("[^\\p{L}\\p{N}]+")).filter { it.isNotBlank() }
+        val kept = all.filter { it !in FoodQuality.STOP_WORDS }
+        return kept.ifEmpty { all }
+    }
+
+    /** FTS4 match term for a single token: singular prefix when safe, or common stem / OR for -ies plurals. */
+    fun ftsTerm(t: String): String {
+        val s = FoodQuality.singular(t)
+        if (s == t) return "$t*"
+        if (t.startsWith(s)) return "$s*"
+        return "($t* OR $s*)"
+    }
 
     /** The query with one word or two-word phrase replaced by a synonym (at most 4 variants). */
     suspend fun synonymVariants(rows: FoodRows, tokens: List<String>): List<List<String>> {
         val out = ArrayList<List<String>>()
         for (n in 1..2) for (i in 0..tokens.size - n) {
-            val phrase = tokens.subList(i, i + n).joinToString(" ")
-            rows.synonyms(phrase).forEach { same -> out += tokens.subList(0, i) + tokens(same) + tokens.subList(i + n, tokens.size) }
+            val sub = tokens.subList(i, i + n)
+            val phrase = sub.joinToString(" ")
+            var syns = rows.synonyms(phrase)
+            if (syns.isEmpty()) {
+                val sing = sub.joinToString(" ") { FoodQuality.singular(it) }
+                if (sing != phrase) syns = rows.synonyms(sing)
+            }
+            syns.forEach { same -> out += tokens.subList(0, i) + tokens(same) + tokens.subList(i + n, tokens.size) }
         }
         return out.distinct().filter { it != tokens }.take(4)
+    }
+
+    private fun mergeBalanced(lists: List<List<Food>>, cap: Int, seen: MutableSet<String>): List<Food> {
+        if (cap <= 0 || lists.isEmpty()) return emptyList()
+        val out = ArrayList<Food>(cap)
+        var idx = 0
+        while (out.size < cap) {
+            var any = false
+            for (list in lists) {
+                if (idx < list.size) {
+                    any = true
+                    val f = list[idx]
+                    if (seen.add(f.id)) {
+                        out += f
+                        if (out.size == cap) return out
+                    }
+                }
+            }
+            if (!any) break
+            idx++
+        }
+        return out
     }
 
     /**
@@ -58,30 +100,52 @@ object FoodSearchEngine {
     suspend fun candidates(rows: FoodRows, query: String, limit: Int): Candidates {
         val tokens = tokens(query)
         if (tokens.isEmpty()) return Candidates(emptyList())
-        val found = LinkedHashMap<String, Food>()
-        var complete = 0
-        suspend fun collect(variants: List<List<String>>, onNew: (Food) -> Unit = {}) {
+        val completeIds = LinkedHashSet<String>()
+        val completeLists = ArrayList<List<Food>>()
+        val partialLists = ArrayList<List<Food>>()
+        val searchedVariants = LinkedHashSet<String>()
+        val seenBeforeCorrection = HashSet<String>()
+        suspend fun collect(variants: List<List<String>>, trackNew: MutableSet<String>? = null) {
             variants.forEach { v ->
+                searchedVariants += v.joinToString(" ")
                 val m = rows.match(v, limit)
-                m.foods.forEachIndexed { i, f ->
-                    if (found.putIfAbsent(f.id, f) == null) {
-                        if (i < m.complete) complete++
-                        onNew(f)
-                    }
+                val comp = m.foods.take(m.complete)
+                val part = m.foods.drop(m.complete)
+                if (comp.isNotEmpty()) completeLists += comp
+                if (part.isNotEmpty()) partialLists += part
+                comp.forEach { completeIds += it.id }
+                if (trackNew != null) {
+                    m.foods.forEach { if (it.id !in seenBeforeCorrection) trackNew += it.id }
+                } else {
+                    m.foods.forEach { seenBeforeCorrection += it.id }
                 }
             }
         }
+        fun merge(): List<Food> {
+            val seen = HashSet<String>()
+            val top = mergeBalanced(completeLists, limit, seen)
+            return if (top.size >= limit) top else top + mergeBalanced(partialLists, limit - top.size, seen)
+        }
         collect(listOf(tokens) + synonymVariants(rows, tokens))
-        if (complete >= FEW) return Candidates(found.values.take(limit), complete = complete)
+        if (completeIds.size >= FEW) return Candidates(merge(), complete = completeIds.size, variants = searchedVariants.toList())
         var changed = false
         val fixed = tokens.map { t ->
-            if (t.length < 4 || rows.hasPrefix(t)) t
+            val st = FoodQuality.singular(t)
+            if (t.length < 4 || rows.hasPrefix(t) || (st != t && rows.hasPrefix(st))) t
             else Fuzzy.corrections(t, rows.nearWords(t)).firstOrNull()?.also { changed = true } ?: t
         }
-        if (!changed) return Candidates(found.values.take(limit), complete = complete)
+        if (!changed) return Candidates(merge(), complete = completeIds.size, variants = searchedVariants.toList())
         val corrected = LinkedHashSet<String>()
-        collect(listOf(fixed) + synonymVariants(rows, fixed)) { corrected += it.id }
-        return Candidates(found.values.take(limit), corrected, fixed.joinToString(" ").takeIf { corrected.isNotEmpty() }, complete)
+        collect(listOf(fixed) + synonymVariants(rows, fixed), corrected)
+        val merged = merge()
+        val keptCorrected = corrected.intersect(merged.map { it.id }.toSet())
+        return Candidates(
+            merged,
+            keptCorrected,
+            fixed.joinToString(" ").takeIf { keptCorrected.isNotEmpty() },
+            completeIds.size,
+            searchedVariants.toList(),
+        )
     }
 
     /**
@@ -91,10 +155,11 @@ object FoodSearchEngine {
     fun rank(
         foods: List<Food>, query: String, usage: Map<String, FoodUsage>, meal: Int?, favorites: Set<String>,
         country: String? = null, corrected: Set<String> = emptySet(), aliases: Map<String, String> = emptyMap(),
+        variants: List<String> = emptyList(),
     ): List<Food> {
         val u = SearchRank.withAliases(usage, aliases)
         val favs = SearchRank.withAliases(favorites, aliases)
-        return SearchRank.collapse(SearchRank.rank(foods, query, u, meal, favs, country, corrected), u.keys, favs, country)
+        return SearchRank.collapse(SearchRank.rank(foods, query, u, meal, favs, country, corrected, variants), u.keys, favs, country)
     }
 
     /** Usage per food from diary entries: (food id, epoch day, meal, serving label, grams, quantity), newest last or any order. */

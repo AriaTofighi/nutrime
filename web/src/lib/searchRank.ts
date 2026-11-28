@@ -14,9 +14,15 @@ const STOP = new Set(["and", "with", "in", "of", "the", "a", "an", "or", "to"]);
 
 export const words = (s: string) => s.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter((w) => w && !STOP.has(w));
 
-/** A simple singular form, kept conservative: "tenderloins" → "tenderloin", "tomatoes" → "tomato", "hummus" stays. */
+const IE_PLURAL = new Set([
+  "cookies", "brownies", "smoothies", "veggies", "calories",
+  "fries", "perogies", "pierogies", "smarties", "timmies", "smokies", "krispies",
+]);
+
+/** A simple singular form, kept conservative: "tenderloins" → "tenderloin", "strawberries" → "strawberry", "cookies" → "cookie", "hummus" stays. */
 export function singular(w: string): string {
-  if (w.length < 4) return w;
+  if (w.length < 4 || w === "species") return w;
+  if (w.length >= 5 && w.endsWith("ies") && !IE_PLURAL.has(w)) return w.slice(0, -3) + "y";
   if (w.length >= 5 && /(x|z|ch|sh|o)es$/.test(w)) return w.slice(0, -2);
   if (w.endsWith("s") && !w.endsWith("ss") && !w.endsWith("us") && !w.endsWith("is")) return w.slice(0, -1);
   return w;
@@ -29,17 +35,29 @@ export function wordMatches(t: string, w: string): boolean {
   return sw.startsWith(st) || (sw.length >= 4 && st.startsWith(sw));
 }
 
+const RESTAURANT_CATEGORIES = new Set(["Restaurant Foods", "Fast Foods"]);
 const PRIOR: Record<string, number> = { Custom: 1, Recipe: 1, NutriMe: 0.95, USDA: 0.85, "USDA Branded": 0.45, "Open Food Facts": 0.3 };
 
 export const micronutrients = (f: Food) => Object.keys(f.nutrients).filter((k) => !LABEL.has(Number(k))).length;
 export const isComplete = (f: Food) => micronutrients(f) >= 12;
 
+export function sourcePrior(f: Food): number {
+  if ((f.source === "NutriMe" || f.source === "USDA") && f.category != null && RESTAURANT_CATEGORIES.has(f.category)) return 0.45;
+  return PRIOR[f.source] ?? 0.5;
+}
+
+export function coverage(f: Food): number {
+  const m = micronutrients(f);
+  if (m <= 25) return Math.max(0, Math.min(1, m / 25)) * 0.95;
+  return 0.95 + Math.max(0, Math.min(1, (m - 25) / 7)) * 0.05;
+}
+
 export function qualityScore(f: Food): number {
-  return 0.6 * Math.min(1, micronutrients(f) / 25) + 0.4 * (PRIOR[f.source] ?? 0.5);
+  return 0.6 * coverage(f) + 0.4 * sourcePrior(f);
 }
 
 export function matchedWords(q: string[], f: Food): number {
-  const ws = words(`${f.name} ${f.brand ?? ""}`);
+  const ws = words(`${f.name} ${f.brand ?? ""} ${f.keywords ?? ""}`);
   return q.filter((t) => ws.some((w) => wordMatches(t, w))).length;
 }
 
@@ -49,27 +67,30 @@ export const sameWord = (t: string, w: string) => singular(t) === singular(w);
 /**
  * Name words that count for the fit, each once: details in brackets are left out, and brand words and
  * descriptors that plain foods carry ("raw", "cooked", "no added fat") are left out unless the query has them.
+ * For an unasked restaurant item, brand words are kept so single-word toppings do not get a full 1.0 fit.
  */
-const NEUTRAL = new Set(["raw", "fresh", "plain", "whole", "nfs", "ns", "cooked", "boiled", "unsalted", "without", "salt", "no", "added", "fat", "prepared", "unprepared", "regular"]);
+const NEUTRAL = new Set(["raw", "fresh", "plain", "whole", "cooked", "boiled", "unsalted", "without", "salt", "no", "added", "fat", "prepared", "unprepared", "regular"]);
 /** The name without details in brackets: "Salmon (Atlantic, farmed), raw" → "Salmon, raw". */
 const withoutBrackets = (name: string) => name.replace(/\([^)]*\)/g, " ");
-function fitWords(name: string, brand: string | undefined, q: string[]): string[] {
-  const b = new Set(words(brand ?? "").map(singular));
-  const all = [...new Set(words(withoutBrackets(name)).map(singular))];
-  const kept = all.filter((w) => (!b.has(w) && !NEUTRAL.has(w)) || q.some((t) => sameWord(t, w)));
+function fitWords(f: Food, q: string[], unaskedRestaurant: boolean): string[] {
+  const b = new Set(words(f.brand ?? "").map(singular));
+  const base = words(withoutBrackets(f.name)).map(singular);
+  const all = [...new Set(unaskedRestaurant && b.size ? [...base, ...b] : base)];
+  const kept = all.filter((w) => ((!b.has(w) || unaskedRestaurant) && !NEUTRAL.has(w)) || q.some((t) => sameWord(t, w)));
   return kept.length ? kept : all;
 }
 
 /** 0..1: share of the name's words that are query words. "Chicken tenderloin" → 1; "Cracker Barrel, chicken tenderloin platter, fried" → 2/6. */
 export function nameFit(q: string[], f: Food): number {
-  const ws = fitWords(f.name, f.brand, q);
+  const unasked = q.length > 0 && isRestaurant(f) && !asksForRestaurant(q, f);
+  const ws = fitWords(f, q, unasked);
   if (!q.length || !ws.length) return 0;
   return ws.filter((w) => q.some((t) => sameWord(t, w))).length / ws.length;
 }
 
 /** Query words found as whole words (not only as the start of a longer word: "egg" in "eggplant"). */
 export function wholeWords(q: string[], f: Food): number {
-  const ws = words(`${f.name} ${f.brand ?? ""}`);
+  const ws = words(`${f.name} ${f.brand ?? ""} ${f.keywords ?? ""}`);
   return q.filter((t) => ws.some((w) => sameWord(t, w))).length;
 }
 
@@ -80,17 +101,44 @@ function sameWords(name: string, query: string): boolean {
   return x.length > 0 && x.length === y.length && x.every((w, i) => w === y[i]);
 }
 
-const RESTAURANT_CATEGORIES = new Set(["Restaurant Foods", "Fast Foods"]);
 const RESTAURANT_NAME = /\b(fast ?foods?|restaurant)/i;
+const VAGUE_SURVEY = /\b(nfs|ns as to)\b/i;
+const POSSESSIVE_S = /['’]s\b/gi;
+const GENERIC_BRAND_WORDS = new Set([
+  "burger", "pizza", "chicken", "chick", "dairy", "queen", "king", "fresh", "burrito", "coffee", "taco",
+  "bell", "olive", "garden", "italian", "grill", "caesar", "little", "border", "cracker", "barrel",
+  "five", "guy", "papa", "mary", "brown", "hut", "chain", "example",
+]);
+const SPECIALTY_QUERY_WORDS = new Set(["baby", "infant", "formula", "toddler", "native"]);
 
 /** A restaurant or fast-food item: the USDA categories, or a name that says so ("…, from fast food"). */
 export const isRestaurant = (f: Food) => (f.category != null && RESTAURANT_CATEGORIES.has(f.category)) || RESTAURANT_NAME.test(f.name);
 
-/** True when the query names the restaurant: a word of a SHOUTED leading brand ("CRACKER BARREL, …") or of the brand, or "restaurant"/"fast". */
-function asksForRestaurant(q: string[], f: Food): boolean {
+/** Vague FNDDS survey placeholders ("Rice, NFS", "Yogurt, Greek, NS as to type of milk"). */
+export const isVagueSurvey = (f: Food) => VAGUE_SURVEY.test(f.name);
+
+/** Baby food, infant formula, and specialty Native database categories. */
+export function isSpecialtyCategory(f: Food): boolean {
+  const cat = f.category;
+  if (!cat) return false;
+  return cat === "Baby Foods" || cat.startsWith("Baby ") || cat.startsWith("Formula,") || cat === "American Indian/Alaska Native Foods";
+}
+
+const asksForSpecialty = (q: string[]) => q.some((t) => SPECIALTY_QUERY_WORDS.has(singular(t)));
+const brandTokens = (s: string) => words(s.replace(POSSESSIVE_S, ""));
+function brandMatches(q: string[], bWords: string[]): boolean {
+  if (!bWords.length) return false;
+  if (bWords.length >= 2 && bWords.every((bw) => q.some((t) => sameWord(t, bw)))) return true;
+  return bWords.some((bw) => !GENERIC_BRAND_WORDS.has(singular(bw)) && q.some((t) => sameWord(t, bw)));
+}
+
+/** True when the query names the restaurant: full multi-word brand, a distinctive brand token, or "restaurant"/"fast". */
+export function asksForRestaurant(q: string[], f: Food): boolean {
+  if (q.some((t) => sameWord(t, "restaurant") || sameWord(t, "fast"))) return true;
+  if (brandMatches(q, brandTokens(f.brand ?? ""))) return true;
   const lead = f.name.split(",")[0];
-  const part = [...(isShouted(lead) ? words(lead) : []), ...words(f.brand ?? ""), "restaurant", "fast"];
-  return q.some((t) => part.some((w) => wordMatches(t, w)));
+  if (isShouted(lead) && brandMatches(q, brandTokens(lead))) return true;
+  return false;
 }
 
 export interface FoodUsage {
@@ -123,11 +171,26 @@ export function foodUsage(entries: DiaryEntry[], today: string): Map<string, Foo
 /** Name match: share of query words found, the first word leading, the same words, and how much of the name the query covers. */
 export function textScore(q: string[], f: Food, query: string): number {
   if (!q.length) return 0;
-  let s = matchedWords(q, f) / q.length;
+  const unaskedRestaurant = isRestaurant(f) && !asksForRestaurant(q, f);
+  const matched = matchedWords(q, f);
+  let s = matched / q.length;
   const first = words(f.name)[0];
   if (first != null && (first.startsWith(q[0]) || singular(first) === singular(q[0]))) s += 0.1;
-  if (sameWords(f.name, query)) s += 0.2;
-  return s + 0.15 * wholeWords(q, f) / q.length + 0.25 * nameFit(q, f);
+  if (!unaskedRestaurant && sameWords(f.name, query)) s += 0.2;
+  const total = s + 0.15 * wholeWords(q, f) / q.length + 0.25 * nameFit(q, f) - (matched < q.length ? 0.25 : 0);
+  return Math.max(0, total);
+}
+
+/** Best textScore across the original query and any synonym or typing-correction variants. */
+export function bestTextScore(queries: string[], f: Food): number {
+  let best = 0;
+  for (const q of queries) {
+    const qw = words(q);
+    if (!qw.length) continue;
+    const s = textScore(qw, f, q);
+    if (s > best) best = s;
+  }
+  return best;
 }
 
 export interface RankOptions {
@@ -137,41 +200,60 @@ export interface RankOptions {
   /** Open Food Facts country name ("canada"), see countryName(). */
   country?: string;
   corrected?: Set<string>;
+  variants?: string[];
 }
 
 /** Weight of data quality in the ranking. */
 export const QUALITY_WEIGHT = 0.2;
 
 /**
- * Penalties that are not about the words: restaurant items the query did not ask for, and products
- * without a brand. Foods the user has logged get none.
+ * Penalties that are not about the words: restaurant items the query did not ask for, vague FNDDS
+ * NFS/NS rows, baby/specialty categories not requested, and products without a brand.
+ * Foods the user has logged get none.
  */
 export function penalties(q: string[], f: Food): number {
-  return (q.length && isRestaurant(f) && !asksForRestaurant(q, f) ? 0.2 : 0) + (f.source === "Open Food Facts" && !f.brand?.trim() ? 0.1 : 0);
+  return (q.length && isRestaurant(f) && !asksForRestaurant(q, f) ? 0.4 : 0) +
+    (isVagueSurvey(f) ? 0.12 : 0) +
+    (q.length && isSpecialtyCategory(f) && !asksForSpecialty(q) ? 0.35 : 0) +
+    (f.source === "Open Food Facts" && !f.brand?.trim() ? 0.1 : 0);
 }
 
 export function score(f: Food, q: string[], query: string, o: RankOptions): number {
   const u = o.usage.get(f.id);
   const us = u ? usageScore(u) : 0;
   const share = u && o.meal != null ? mealShare(u, o.meal) : 0;
-  return textScore(q, f, query) + 0.35 * us + 0.15 * share * us + QUALITY_WEIGHT * qualityScore(f) +
+  let bestText = textScore(q, f, query);
+  let bestWords = q;
+  for (const v of o.variants ?? []) {
+    if (v === query) continue;
+    const vw = words(v);
+    if (!vw.length) continue;
+    const s = textScore(vw, f, v);
+    if (s > bestText) {
+      bestText = s;
+      bestWords = vw;
+    }
+  }
+  return bestText + 0.35 * us + 0.15 * share * us + QUALITY_WEIGHT * qualityScore(f) +
     (o.favorites.has(f.id) ? 0.15 : 0) + (o.country && f.countries?.includes(o.country) ? 0.08 : 0) -
-    (o.corrected?.has(f.id) ? 0.25 : 0) - (u ? 0 : penalties(q, f));
+    (o.corrected?.has(f.id) ? 0.25 : 0) - (u ? 0 : penalties(bestWords, f));
 }
 
 export function rank(foods: Food[], query: string, o: RankOptions): Food[] {
   const q = words(query);
+  const distinctVariants = o.variants ? [...new Set(o.variants)].filter((v) => v.trim() && v !== query) : undefined;
+  const opts = distinctVariants ? { ...o, variants: distinctVariants } : o;
   const seen = new Set<string>();
   return foods
     .filter((f) => (seen.has(f.id) ? false : (seen.add(f.id), true)))
-    .map((f, i) => ({ f, i, s: score(f, q, query, o) }))
+    .map((f, i) => ({ f, i, s: score(f, q, query, opts) }))
     .sort((a, b) => b.s - a.s || a.i - b.i)
     .map((x) => x.f);
 }
 
 const LOCAL_SOURCES = new Set(["Custom", "Recipe"]);
 const USDA_SOURCES = new Set(["USDA", "USDA Branded"]);
-const sameEnergy = (a: number, b: number) => Math.abs(a - b) <= 0.05 * Math.max(Math.abs(a), Math.abs(b));
+const sameEnergy = (a: number, b: number) => Math.abs(a - b) <= Math.max(0.05 * Math.max(Math.abs(a), Math.abs(b)), 8);
 const productKey = (f: Food) => words(displayName(f.name, f.brand)).map(singular).join(" ") + "|" + words(f.brand ?? "").join(" ");
 
 export interface CollapseOptions {

@@ -70,9 +70,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
-/** Hand-off of a chosen ingredient from the food picker back to the recipe editor. */
+/** Hand-off of a chosen or edited ingredient from the food picker back to the recipe editor. */
 object IngredientPicker {
     val picked = MutableStateFlow<RecipeIngredient?>(null)
+    val editing = MutableStateFlow<Pair<Int, RecipeIngredient>?>(null)
 }
 
 @Composable
@@ -90,6 +91,7 @@ fun FoodDetailScreen(
     var selectedMeal by remember { mutableStateOf(Meal.entries[meal.coerceIn(0, 3)]) }
     val profile by c0.profiles.observe().collectAsStateWithLifecycle(initialValue = Profile())
     var lastTime by remember { mutableStateOf(false) }
+    val editingIngredient = if (mode == PickMode.INGREDIENT) IngredientPicker.editing.value?.second else null
 
     LaunchedEffect(foodId, entryId) {
         val e = entryId?.let { c0.diary.get(it) }
@@ -98,6 +100,11 @@ fun FoodDetailScreen(
             // Food no longer available (e.g. deleted custom food): rebuild from the diary snapshot.
             f = Food(e.foodId, FoodSource.CUSTOM, e.foodName, e.brand, decodeNutrients(e.nutrientsJson),
                 listOf(Serving(e.servingLabel, e.servingGrams)))
+        } else if (f == null && editingIngredient != null && editingIngredient.foodId == foodId) {
+            f = Food(
+                editingIngredient.foodId, FoodSource.CUSTOM, editingIngredient.name, null, editingIngredient.nutrients,
+                listOf(Serving(editingIngredient.servingLabel, editingIngredient.servingGrams)),
+            )
         }
         food = f
         entry = e
@@ -110,7 +117,9 @@ fun FoodDetailScreen(
             val last = if (mode == PickMode.LOG) c0.diary.lastOf(f.id) else null
             when {
                 initialQty != null -> {
-                    serving = f.allServings.firstOrNull { it.label == initialServing } ?: if (initialServing == "g") Serving("g", 1.0) else f.defaultServing
+                    serving = f.allServings.firstOrNull { it.label == initialServing }
+                        ?: editingIngredient?.takeIf { it.servingLabel == initialServing }?.let { Serving(it.servingLabel, it.servingGrams) }
+                        ?: if (initialServing == "g") Serving("g", 1.0) else f.defaultServing
                     qtyText = formatQty(Math.round(initialQty * 100) / 100.0)
                 }
                 last != null -> {
@@ -165,6 +174,7 @@ fun FoodDetailScreen(
     SubPage(
         title = when {
             entry != null -> "Edit entry"
+            editingIngredient != null -> "Edit ingredient"
             mode == PickMode.INGREDIENT -> "Add ingredient"
             else -> "Add food"
         },
@@ -186,12 +196,13 @@ fun FoodDetailScreen(
                 BottomAction {
                     NButton(
                         when {
+                            editingIngredient != null -> "Save ingredient"
                             mode == PickMode.INGREDIENT -> "Add ingredient"
                             entry != null -> "Save changes"
                             else -> "Add"
                         },
                         ::submit,
-                        kind = ButtonKind.Primary, size = ButtonSize.Lg, fill = true, icon = if (entry != null) Lucide.Check else Lucide.Plus,
+                        kind = ButtonKind.Primary, size = ButtonSize.Lg, fill = true, icon = if (entry != null || editingIngredient != null) Lucide.Check else Lucide.Plus,
                         enabled = qty != null && qty > 0,
                     )
                 }
@@ -216,12 +227,13 @@ fun FoodDetailScreen(
             val next = (((qty ?: 0.0) + d) / step).let { Math.round(it) * step }.coerceAtLeast(step)
             qtyText = formatQty(Math.round(next * 100) / 100.0)
         }
+        val sourceDisplay = if (f.source == FoodSource.NUTRIME && com.nutrime.app.model.SearchRank.isRestaurant(f)) "Restaurant" else f.source.label
         Column(
             Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(top = Space.S1, bottom = Space.S4),
         ) {
             Card {
                 Text(com.nutrime.app.model.FoodNames.display(f), style = NutriTheme.type.title, color = c.text)
-                Text(listOfNotNull(f.brand, f.source.label, f.category).joinToString(" · "), style = NutriTheme.type.small, color = c.textTertiary, modifier = Modifier.padding(top = 2.dp))
+                Text(listOfNotNull(f.brand, sourceDisplay, f.category).joinToString(" · "), style = NutriTheme.type.small, color = c.textTertiary, modifier = Modifier.padding(top = 2.dp))
                 Spacer(Modifier.height(Space.S4))
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Space.S2)) {
                     NIconButton(Lucide.Minus, "Less", { stepBy(-step) }, size = Control.HeightLg + 4.dp, bordered = true, tint = c.text)

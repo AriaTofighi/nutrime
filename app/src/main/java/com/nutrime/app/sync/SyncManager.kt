@@ -154,6 +154,27 @@ class SyncManager(
         val data = change.data ?: return
         val incoming = runCatching { Http.json.decodeFromJsonElement(c.serializer, data) }.getOrNull() ?: return
         val local = c.get(change.id)
+        if (change.collection == "profile" && local is ProfileEntity && incoming is ProfileEntity && local.dirty && !local.deleted && !incoming.deleted) {
+            val lp = runCatching { Http.json.decodeFromString(com.nutrime.app.model.Profile.serializer(), local.json) }.getOrNull()
+            val ip = runCatching { Http.json.decodeFromString(com.nutrime.app.model.Profile.serializer(), incoming.json) }.getOrNull()
+            if (lp != null && ip != null) {
+                val merged = com.nutrime.app.model.Profile.merge(lp, local.updatedAt, ip, incoming.updatedAt)
+                if (merged == ip) {
+                    db.profile().upsert(incoming.copy(dirty = false))
+                } else {
+                    db.profile().upsert(
+                        ProfileEntity(
+                            id = incoming.id,
+                            json = Http.json.encodeToString(com.nutrime.app.model.Profile.serializer(), merged),
+                            updatedAt = maxOf(local.updatedAt, incoming.updatedAt) + 1,
+                            deleted = false,
+                            dirty = true,
+                        )
+                    )
+                }
+                return
+            }
+        }
         if (local != null && c.isDirty(local) && c.updatedAt(local) > change.updatedAt) return
         c.save(incoming)
     }

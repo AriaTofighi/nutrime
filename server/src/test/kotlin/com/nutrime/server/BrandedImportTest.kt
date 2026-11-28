@@ -2,7 +2,10 @@ package com.nutrime.server
 
 import com.nutrime.app.model.FoodSource
 import com.nutrime.server.food.BrandedImport
+import com.nutrime.server.food.CatalogQueries
 import com.nutrime.server.food.CatalogStore
+import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
 import java.io.File
 import java.util.UUID
 import java.util.zip.GZIPOutputStream
@@ -42,5 +45,31 @@ class BrandedImportTest {
         assertNull(CatalogStore(db).get("usda:1006"))
         // Repeatable: a second run updates in place.
         assertEquals(1, BrandedImport.run(db, f) {}.imported)
+    }
+
+    @Test
+    fun catalogSearchHandlesWholeWordsShortTokensPluralsAndFiniteTtl() {
+        val db = db()
+        val store = CatalogStore(db)
+        val claim = store.claim("usda:search:test")
+        val foods = listOf(
+            com.nutrime.app.model.Food("usda:1", FoodSource.USDA_BRANDED, "White Rice", "Brand", mapOf(1008 to 130.0)),
+            com.nutrime.app.model.Food("usda:2", FoodSource.USDA_BRANDED, "Ice Cream Vanilla", "Brand", mapOf(1008 to 200.0)),
+            com.nutrime.app.model.Food("usda:3", FoodSource.USDA_BRANDED, "2% Milk", "Fairlife", mapOf(1008 to 50.0)),
+            com.nutrime.app.model.Food("usda:4", FoodSource.USDA_BRANDED, "Whole Milk", "Fairlife", mapOf(1008 to 62.0)),
+            com.nutrime.app.model.Food("usda:5", FoodSource.USDA_BRANDED, "Strawberry Yogurt", "Chobani", mapOf(1008 to 70.0)),
+        )
+        store.complete(claim, foods)
+        // "ice" must not match "rice"
+        assertEquals(listOf("usda:2"), store.search("ice", 10).map { it.id })
+        // Short token "2%" must match "2% Milk" and not "Whole Milk"
+        assertEquals(listOf("usda:3"), store.search("2% milk", 10).map { it.id })
+        // Plural "strawberries" must match "Strawberry"
+        assertEquals(listOf("usda:5"), store.search("strawberries", 10).map { it.id })
+        // Finite TTL on CatalogQueries (not Long.MAX_VALUE)
+        val expiresAt = transaction(db) {
+            CatalogQueries.selectAll().single()[CatalogQueries.expiresAt]
+        }
+        kotlin.test.assertTrue(expiresAt < Long.MAX_VALUE && expiresAt > System.currentTimeMillis())
     }
 }

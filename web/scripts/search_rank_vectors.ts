@@ -14,28 +14,28 @@ import { collapse, matchedWords, rank, splitMoreResults, words, type FoodUsage }
 
 const FILE = join(dirname(fileURLToPath(import.meta.url)), "../../shared/testdata/search_rank.json");
 
-interface VFood { id: string; source: string; name: string; brand?: string; category?: string; kcal: number; micros: number; servings?: [string, number][]; countries?: string[] }
-interface VCase { query: string; country?: string; usage?: Record<string, number>; favorites?: string[]; first?: string; before?: [string, string][]; hidden?: string[]; shown?: string[]; moreResults?: string[] }
+interface VFood { id: string; source: string; name: string; brand?: string; category?: string; keywords?: string; kcal: number; micros: number; servings?: [string, number][]; countries?: string[] }
+interface VCase { query: string; variants?: string[]; country?: string; usage?: Record<string, number>; favorites?: string[]; first?: string; before?: [string, string][]; hidden?: string[]; shown?: string[]; moreResults?: string[] }
 
 const SOURCES: Record<string, FoodSource> = { USDA: "USDA", NUTRIME: "NutriMe", USDA_BRANDED: "USDA Branded", OPEN_FOOD_FACTS: "Open Food Facts", CUSTOM: "Custom", RECIPE: "Recipe" };
 /** Vitamin and mineral ids (not label nutrients), in a fixed order. */
-const MICROS = [1051, 1057, 1018, 1292, 1293, 1404, 1278, 1272, 1316, 1106, 1162, 1114, 1109, 1185, 1165, 1166, 1167, 1170, 1175, 1190, 1178, 1180, 1087, 1098, 1089, 1090, 1101, 1091, 1092, 1103];
+const MICROS = [1051, 1057, 1018, 1292, 1293, 1404, 1278, 1272, 1316, 1106, 1162, 1114, 1109, 1185, 1165, 1166, 1167, 1170, 1175, 1190, 1178, 1180, 1087, 1098, 1089, 1090, 1101, 1091, 1092, 1103, 1095];
 
 export function toFood(v: VFood): Food {
   const nutrients: Record<number, number> = { 1008: v.kcal };
   MICROS.slice(0, v.micros).forEach((id) => (nutrients[id] = 1));
-  return { id: v.id, source: SOURCES[v.source], name: v.name, brand: v.brand, category: v.category, nutrients, servings: (v.servings ?? []).map(([label, grams]) => ({ label, grams })), countries: v.countries };
+  return { id: v.id, source: SOURCES[v.source], name: v.name, brand: v.brand, category: v.category, keywords: v.keywords, nutrients, servings: (v.servings ?? []).map(([label, grams]) => ({ label, grams })), countries: v.countries };
 }
 
 const data = JSON.parse(readFileSync(FILE, "utf8")) as { foods: VFood[]; cases: VCase[] };
 const foods = data.foods.map(toFood);
 let failures = 0;
 for (const c of data.cases) {
-  const q = words(c.query);
+  const queries = [c.query, ...(c.variants ?? [])].map(words).filter((w) => w.length > 0);
   const usage = new Map<string, FoodUsage>(Object.entries(c.usage ?? {}).map(([id, n]) => [id, { foodId: id, count: n, daysSince: 1, byMeal: [n, 0, 0, 0], last: undefined as never }]));
   const favorites = new Set(c.favorites ?? []);
-  const candidates = foods.filter((f) => matchedWords(q, f) > 0);
-  const ranked = collapse(rank(candidates, c.query, { usage, favorites, country: c.country }), { used: usage, favorites, country: c.country });
+  const candidates = foods.filter((f) => queries.some((q) => matchedWords(q, f) > 0));
+  const ranked = collapse(rank(candidates, c.query, { usage, favorites, country: c.country, variants: c.variants }), { used: usage, favorites, country: c.country });
   const { main, more } = splitMoreResults(ranked, usage, favorites);
   const ids = ranked.map((f) => f.id);
   const errs: string[] = [];

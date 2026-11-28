@@ -85,13 +85,6 @@ interface FoodDao {
     @Query("SELECT * FROM foods WHERE deleted = 0 AND kind NOT IN ('custom','recipe') ORDER BY name COLLATE NOCASE")
     fun observeSaved(): Flow<List<FoodEntity>>
 
-    @Query(
-        """SELECT * FROM foods WHERE deleted = 0 AND
-           (name LIKE '%' || :q || '%' OR brand LIKE '%' || :q || '%')
-           ORDER BY (kind IN ('custom','recipe')) DESC, LENGTH(name) LIMIT 30"""
-    )
-    suspend fun search(q: String): List<FoodEntity>
-
     @Upsert
     suspend fun upsert(food: FoodEntity)
 
@@ -112,6 +105,10 @@ interface FoodDao {
 interface WeightDao {
     @Query("SELECT * FROM weights WHERE deleted = 0 ORDER BY date DESC")
     fun observeAll(): Flow<List<WeightEntity>>
+
+    /** All weight ids including soft-deleted tombstones, so Health Connect does not re-import deleted weigh-ins. */
+    @Query("SELECT id FROM weights")
+    suspend fun allIds(): List<String>
 
     @Query("SELECT * FROM weights WHERE date = :date AND deleted = 0")
     suspend fun onDate(date: String): List<WeightEntity>

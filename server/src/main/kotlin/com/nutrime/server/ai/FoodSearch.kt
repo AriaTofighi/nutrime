@@ -98,7 +98,8 @@ class FoodSearch(foodsDbPath: String?, private val online: Boolean, private val 
         val local = bundledCandidates(text)
         val stored = catalog.stored(query, CANDIDATES / 2)
         stored.forEach { cache[it.id] = it }
-        fun complete(f: Food) = matchedTokens(tokens, f).size == tokens.size
+        val variantTokens = (listOf(tokens) + local.variants.map { tokens(it) }.filter { it.isNotEmpty() }).distinct()
+        fun complete(f: Food) = variantTokens.any { vt -> matchedTokens(vt, f).size == vt.size }
         val weak = (own + local.foods + stored).none(::complete)
         val onlineResult = if (!online || !weak) null else withTimeoutOrNull(ONLINE_TIMEOUT_MS) { catalog.search(query) }
         val timedOut = online && weak && onlineResult == null
@@ -107,10 +108,9 @@ class FoodSearch(foodsDbPath: String?, private val online: Boolean, private val 
         val favorites = data.profile.favoriteFoodIds.toSet()
         val ranked = FoodSearchEngine.rank(
             (own + local.foods + stored + onlineResult?.foods.orEmpty()).distinctBy { it.id }, text, usage, null, favorites,
-            country, local.corrected, aliases,
+            country, local.corrected, aliases, local.variants,
         ).take(limit)
-        val queryWords = FoodQuality.words(text)
-        val matches = ranked.associate { f -> f.id to quality(tokens, queryWords, f, f.id in local.corrected) }
+        val matches = ranked.associate { f -> f.id to quality(variantTokens, f, f.id in local.corrected) }
         val confidence = when {
             ranked.take(3).any { matches[it.id] == MatchQuality.EXACT } -> "high"
             ranked.any { matches[it.id] != MatchQuality.WEAK || 2 * matchedTokens(tokens, it).size > tokens.size } -> "low"
@@ -124,11 +124,11 @@ class FoodSearch(foodsDbPath: String?, private val online: Boolean, private val 
     }
 
     /** Exact: every word, and the query covers most of the name. Close: every word (or a typing correction). Weak: some words. */
-    private fun quality(tokens: List<String>, queryWords: List<String>, f: Food, corrected: Boolean): MatchQuality = when {
-        corrected -> MatchQuality.CLOSE
-        matchedTokens(tokens, f).size < tokens.size -> MatchQuality.WEAK
-        SearchRank.nameFit(queryWords, f) >= EXACT_FIT -> MatchQuality.EXACT
-        else -> MatchQuality.CLOSE
+    private fun quality(variantTokens: List<List<String>>, f: Food, corrected: Boolean): MatchQuality {
+        if (corrected) return MatchQuality.CLOSE
+        val matchedVariant = variantTokens.firstOrNull { vt -> matchedTokens(vt, f).size == vt.size } ?: return MatchQuality.WEAK
+        val qw = FoodQuality.words(matchedVariant.joinToString(" "))
+        return if (SearchRank.nameFit(qw, f) >= EXACT_FIT) MatchQuality.EXACT else MatchQuality.CLOSE
     }
 
     /** How the user logged each food in the last 180 days (the app's [FoodUsage]), from the synced diary. */
@@ -166,37 +166,61 @@ class FoodSearch(foodsDbPath: String?, private val online: Boolean, private val 
         }
 
     /**
-     * The bundled rows for [FoodSearchEngine], in one statement per query: foods with every word, then
-     * foods missing one word ("yukon gold potatoes" also finds "gold potatoes"), most words first.
+     * The bundled rows for [FoodSearchEngine]: foods with every word, then foods missing one word
+     * ("yukon gold potatoes" also finds "gold potatoes"). Non-restaurant foods and restaurant foods are
+     * queried separately so Restaurant Foods never starve plain curated or USDA candidates.
      */
     private val rows = object : FoodRows {
         override suspend fun match(tokens: List<String>, limit: Int): FoodRows.Match {
             val words = tokens.filter { it.isNotBlank() }.take(MAX_WORDS)
             if (words.isEmpty()) return FoodRows.Match(emptyList())
             val groups = listOf(words) + if (words.size > 1) words.indices.map { skip -> words.filterIndexed { i, _ -> i != skip } } else emptyList()
-            val matchExpr = groups.joinToString(" OR ") { g -> "(" + g.joinToString(" ") { "$it*" } + ")" }
-            val hits = words.joinToString(" + ") { "(instr(LOWER(f.name || ' ' || COALESCE(f.brand, '') || ' ' || COALESCE(f.keywords, '')), ?) > 0)" }
-            val foods = withConnection(emptyList<Food>()) { conn ->
-                conn.prepareStatement(
-                    """
+            val matchExpr = groups.joinToString(" OR ") { g -> "(" + g.joinToString(" ") { FoodSearchEngine.ftsTerm(it) } + ")" }
+            val hits = words.joinToString(" + ") {
+                "(instr(LOWER(f.name || ' ' || COALESCE(f.brand, '') || ' ' || COALESCE(f.keywords, '')), ?) > 0 OR " +
+                    "instr(LOWER(f.name || ' ' || COALESCE(f.brand, '') || ' ' || COALESCE(f.keywords, '')), ?) > 0)"
+            }
+            val first = words.first()
+            val firstSing = FoodQuality.singular(first)
+            fun queryPart(conn: Connection, categoryFilter: String, preferRaw: Boolean): List<Food> {
+                val rawOrder = if (preferRaw) "(LOWER(f.name) LIKE '%raw%') DESC, " else ""
+                val sql = """
                     SELECT $COLUMNS, $hits AS hits
                     FROM food f JOIN food_fts t ON t.docid = f.id
-                    WHERE food_fts MATCH ?$shownOnly
-                    ORDER BY hits DESC, (f.source = 'nutrime') DESC, (LOWER(f.name) LIKE ? || '%') DESC, (LOWER(f.name) LIKE '%raw%') DESC, LENGTH(f.name)
+                    WHERE food_fts MATCH ?$shownOnly AND $categoryFilter
+                    ORDER BY hits DESC, (f.source = 'nutrime') DESC,
+                      (LOWER(f.name) LIKE ? || '%' OR LOWER(f.name) LIKE ? || '%') DESC,
+                      ${rawOrder}LENGTH(f.name)
                     LIMIT ?
-                    """.trimIndent()
-                ).use { st ->
+                """.trimIndent()
+                return conn.prepareStatement(sql).use { st ->
                     var i = 1
-                    words.forEach { st.setString(i++, it) }
+                    words.forEach { w -> st.setString(i++, w); st.setString(i++, FoodQuality.singular(w)) }
                     st.setString(i++, matchExpr)
-                    st.setString(i++, words.first())
+                    st.setString(i++, first)
+                    st.setString(i++, firstSing)
                     st.setInt(i, limit)
                     st.executeQuery().use { rs -> buildList { while (rs.next()) add(bundledRow(rs)) } }
                 }
             }
-            // The SQL count is a substring test; word prefixes decide which foods have every word.
-            val (all, some) = foods.partition { matchedTokens(words, it).size == words.size }
-            return FoodRows.Match(all + some, all.size)
+            val (nonRest, rest) = withConnection(emptyList<Food>() to emptyList<Food>()) { conn ->
+                val nr = queryPart(conn, "COALESCE(f.category, '') NOT IN ('Restaurant Foods', 'Fast Foods')", true)
+                val r = queryPart(conn, "f.category IN ('Restaurant Foods', 'Fast Foods')", false)
+                nr to r
+            }
+            // The SQL count is a substring test; word matching decides which foods have every word.
+            val (nrAll, nrSome) = nonRest.partition { matchedTokens(words, it).size == words.size }
+            val (rAll, rSome) = rest.partition { matchedTokens(words, it).size == words.size }
+            fun merge(primary: List<Food>, secondary: List<Food>, cap: Int): List<Food> {
+                if (cap <= 0) return emptyList()
+                val secReserve = minOf(secondary.size, cap / 4)
+                val priTake = minOf(primary.size, cap - secReserve)
+                val secTake = minOf(secondary.size, cap - priTake)
+                return primary.take(priTake) + secondary.take(secTake)
+            }
+            val completeFoods = merge(nrAll, rAll, limit)
+            val partialFoods = merge(nrSome, rSome, limit - completeFoods.size)
+            return FoodRows.Match(completeFoods + partialFoods, completeFoods.size)
         }
 
         override suspend fun synonyms(phrase: String): List<String> = withConnection(emptyList()) { conn ->
@@ -239,12 +263,13 @@ class FoodSearch(foodsDbPath: String?, private val online: Boolean, private val 
     /** True for foods in the bundled database (USDA and NutriMe curated), which every device already has. */
     suspend fun isBundled(id: String): Boolean = bundledById(id) != null
 
-    private fun tokens(q: String) = q.lowercase().split(Regex("[^\\p{L}\\p{N}]+")).filter { it.isNotBlank() && it !in STOP_WORDS }
+    private fun tokens(q: String) = FoodSearchEngine.tokens(q)
 
-    /** Query words found in the food's name or brand, matching word prefixes and simple plurals. */
+    /** Query words found in the food's name, brand, or aliases, matching word prefixes and plurals. */
     private fun matchedTokens(tokens: List<String>, f: Food): List<String> {
-        val words = "${f.name} ${f.brand.orEmpty()} ${keywords[f.id].orEmpty()}".lowercase().split(Regex("[^\\p{L}\\p{N}]+")).filter { it.isNotBlank() }
-        return tokens.filter { t -> words.any { w -> w.startsWith(t) || (w.length >= 4 && t.startsWith(w)) } }
+        val kw = f.keywords ?: keywords[f.id].orEmpty()
+        val words = "${f.name} ${f.brand.orEmpty()} $kw".lowercase().split(Regex("[^\\p{L}\\p{N}]+")).filter { it.isNotBlank() }
+        return tokens.filter { t -> words.any { w -> FoodQuality.wordMatches(t, w) } }
     }
 
     private fun matched(tokens: List<String>, f: Food): Double = matchedTokens(tokens, f).size.toDouble() / tokens.size
@@ -283,7 +308,7 @@ class FoodSearch(foodsDbPath: String?, private val online: Boolean, private val 
     private fun bundledRow(rs: java.sql.ResultSet): Food {
         val portions = recordJson.decodeFromString(ListSerializer(Portion.serializer()), rs.getString(6))
         val id = rs.getString(7) ?: "usda:${rs.getLong(1)}"
-        rs.getString(10)?.let { keywords[id] = it }
+        val kw = rs.getString(10)?.also { keywords[id] = it }
         return Food(
             id = id,
             source = if (rs.getString(4) == "nutrime") FoodSource.NUTRIME else FoodSource.USDA,
@@ -293,6 +318,7 @@ class FoodSearch(foodsDbPath: String?, private val online: Boolean, private val 
             nutrients = decodeNutrients(rs.getString(5)),
             servings = portions.map { Serving(it.l, it.g) },
             barcode = rs.getString(9),
+            keywords = kw,
         )
     }
 

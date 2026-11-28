@@ -52,7 +52,9 @@ class FoodCatalog(config: Config, private val db: Database) {
         // for single foods that are not stored ([get]). Open Food Facts stays live for "More results".
         if (source == "usda" && brandedImported()) return@withContext FoodResults(store.search(query, 60, source))
         val saved = store.search(query, 30, source)
-        if (!online || saved.size >= 10) return@withContext FoodResults(saved)
+        val queryWords = com.nutrime.app.model.FoodQuality.words(query)
+        val strong = if (queryWords.isEmpty()) 0 else saved.count { com.nutrime.app.model.SearchRank.wholeWords(queryWords, it) == queryWords.size }
+        if (!online || strong >= 10) return@withContext FoodResults(saved)
         fetch("$source:search:$query", source, if (source == "off") "off-search" else "usda", saved) {
             if (source == "off") providers.searchOff(query, 25) else providers.searchUsda(query, 30)
         }

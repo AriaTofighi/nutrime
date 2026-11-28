@@ -54,7 +54,17 @@ class AppIntegrationTest {
         assertEquals(com.nutrime.app.model.FoodSource.NUTRIME, basmati.source)
         assertTrue(basmati.id.startsWith("nm:"))
         assertEquals(basmati.name, db.get(basmati.id)?.name)
-        assertEquals("nm:lentils-cooked", db.search("dal").first().id)
+        val dalResults = db.search("dal")
+        assertEquals("nm:dal", dalResults.first().id)
+        assertTrue(dalResults.any { it.id == "nm:lentils-cooked" })
+        // Generic coffee should not be starved by restaurant drinks.
+        val coffee = db.search("coffee")
+        assertTrue("expected non-restaurant coffee", coffee.take(5).any { it.category != "Restaurant Foods" })
+        // Plurals, -ies singularization, stop words, and synonyms find matches.
+        assertTrue(db.search("boiled eggs").isNotEmpty())
+        assertTrue(db.search("strawberries").take(5).any { it.name.contains("Strawberr", ignoreCase = true) })
+        assertTrue(db.search("chips and salsa").isNotEmpty())
+        assertTrue(db.search("courgette").isNotEmpty())
         // FNDDS prepared foods are bundled too.
         assertTrue(db.search("chicken breast grilled").any { it.name.startsWith("Chicken breast, grilled") })
         assertTrue(db.search("   ").isEmpty())
@@ -76,6 +86,10 @@ class AppIntegrationTest {
         diary.add(today, Meal.SNACKS, bar, bar.defaultServing, 1.0)
         assertEquals(id, foods.byBarcode("123456")!!.id)
 
+        // Token-based searchMine matches brand + name and plurals.
+        assertTrue(foods.searchLocal("acme protein bars").any { it.id == id })
+        assertTrue(foods.searchLocal("protein bars acme").any { it.id == id })
+
         val items = diary.observeDay(today).first()
         assertEquals(2, items.size)
         assertEquals(240.0, items.first { it.entity.foodId == id }.kcal, 0.01)
@@ -90,6 +104,23 @@ class AppIntegrationTest {
         val perServing = recipe.nutrients[N.ENERGY]!! * recipe.defaultServing.grams / 100
         assertEquals((oats.kcalPer100g + 240) / 2, perServing, 0.01)
 
+        // Recipe with optional cooked weight: 100 g dry rice -> 300 g cooked (water adjusted).
+        val dryRice = mapOf(N.ENERGY to 360.0, N.CARBS to 80.0, N.WATER to 12.0)
+        val cookedId = foods.saveRecipe(
+            null,
+            "Cooked rice batch",
+            2.0,
+            listOf(RecipeIngredient("dry:rice", "Dry rice", "g", 1.0, 100.0, dryRice)),
+            cookedGrams = 300.0,
+        )
+        val cookedFood = foods.get(cookedId)!!
+        assertEquals(120.0, cookedFood.nutrients[N.ENERGY]!!, 0.01)
+        assertEquals(150.0, cookedFood.defaultServing.grams, 0.01)
+        assertEquals(180.0, cookedFood.nutrients[N.ENERGY]!! * cookedFood.defaultServing.grams / 100.0, 0.01)
+        assertEquals((12.0 + 200.0) / 3.0, cookedFood.nutrients[N.WATER]!!, 0.05)
+        val loadedRecipe = foods.getRecipe(cookedId)!!
+        assertEquals(300.0, loadedRecipe.cookedGrams!!, 0.01)
+
         // Edit + delete + copy day
         val entry = items.first { it.entity.foodId == id }
         diary.update(entry.id, Meal.LUNCH, bar.defaultServing, 2.0)
@@ -101,7 +132,17 @@ class AppIntegrationTest {
 
         foods.delete(id)
         assertNull(foods.get(id))
-        assertEquals(1, foods.observeMine().first().size)
+        assertEquals(2, foods.observeMine().first().size)
+    }
+
+    @Test
+    fun weightDaoAllIdsIncludesSoftDeletedTombstones() = runBlocking {
+        val db = memDb()
+        val now = System.currentTimeMillis()
+        db.weights().upsert(com.nutrime.app.data.local.WeightEntity(id = "hc:rec-1", date = "2026-04-01", weightKg = 75.0, updatedAt = now, deleted = true))
+        db.weights().upsert(com.nutrime.app.data.local.WeightEntity(id = "hc:rec-2", date = "2026-04-02", weightKg = 74.8, updatedAt = now, deleted = false))
+        assertEquals(listOf("hc:rec-2"), db.weights().observeAll().first().map { it.id })
+        assertEquals(setOf("hc:rec-1", "hc:rec-2"), db.weights().allIds().toSet())
     }
 
     /** Runs against a live server when SYNC_TEST_URL is set (e.g. the docker compose stack). */
@@ -122,7 +163,7 @@ class AppIntegrationTest {
         }
         // Device A logs food and sets a profile.
         val (dbA, settings, syncA) = device()
-        settings.setLogin(url, email, auth.token, auth.userId)
+        settings.setLogin(url, invitedEmail, auth.token, auth.userId)
         val foodsA = FoodRepository(dbA, BundledFoodDb(ctx), FoodCatalogClient(SettingsStore(ctx))) {}
         val diaryA = DiaryRepository(dbA) {}
         val custom = foodsA.saveCustomFood(null, "Smoothie", null, null, mapOf(N.ENERGY to 80.0), listOf(Serving("glass", 300.0)))
@@ -133,7 +174,7 @@ class AppIntegrationTest {
 
         // Device B (fresh) pulls everything.
         val dbB = memDb()
-        settings.setLogin(url, email, auth.token, auth.userId) // same store; reset cursor for B
+        settings.setLogin(url, invitedEmail, auth.token, auth.userId) // same store; reset cursor for B
         settings.setSynced(0, 0)
         val syncB = SyncManager(ctx, dbB, settings, client)
         assertNull(syncB.syncNow())

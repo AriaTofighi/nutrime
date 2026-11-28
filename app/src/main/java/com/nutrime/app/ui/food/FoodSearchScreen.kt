@@ -160,7 +160,7 @@ class FoodSearchViewModel(private val c: AppContainer, val meal: Int) : ViewMode
         val favs = SearchRank.withAliases(p?.favoriteFoodIds.orEmpty().toSet(), aliases.value)
         val text = QueryAmount.parse(query.value)?.query ?: query.value
         // u and favs already count hidden duplicates for the food shown in their place.
-        val collapsed = FoodSearchEngine.rank(l.foods + o.orEmpty(), text, u, meal, favs, country, corrected = l.corrected)
+        val collapsed = FoodSearchEngine.rank(l.foods + o.orEmpty(), text, u, meal, favs, country, corrected = l.corrected, variants = l.variants)
         val filtered = when (f) {
             SearchFilter.ALL -> collapsed
             SearchFilter.MINE -> collapsed.filter { it.source == FoodSource.CUSTOM || it.source == FoodSource.RECIPE || it.id in u }
@@ -177,8 +177,8 @@ class FoodSearchViewModel(private val c: AppContainer, val meal: Int) : ViewMode
             local.collect { l ->
                 val text = (QueryAmount.parse(query.value)?.query ?: query.value).trim()
                 if (!loggedIn.value || text.length < 3 || online.value != null) return@collect
-                val words = com.nutrime.app.model.FoodQuality.words(text)
-                val strong = l.foods.count { SearchRank.textScore(words, it, text) >= 1.0 }
+                val queries = (listOf(text) + l.variants).distinct()
+                val strong = l.foods.count { SearchRank.bestTextScore(queries, it) >= 1.0 }
                 if (strong >= 5) return@collect
                 onlineJob?.cancel()
                 onlineJob = launch {
@@ -507,6 +507,8 @@ private fun Header(text: String) {
 @Composable
 private fun FoodResult(f: Food, onAdd: (() -> Unit)? = null, onClick: () -> Unit) {
     val c = NutriTheme.colors
+    val complete = FoodQuality.isComplete(f)
+    val sourceLabel = if (f.source == FoodSource.NUTRIME && SearchRank.isRestaurant(f)) "Restaurant" else f.source.shortLabel
     Row(verticalAlignment = Alignment.CenterVertically) {
         Row(
             Modifier.weight(1f).clickable(onClick = onClick).padding(horizontal = Space.S4, vertical = 10.dp),
@@ -517,7 +519,12 @@ private fun FoodResult(f: Food, onAdd: (() -> Unit)? = null, onClick: () -> Unit
                 Text(FoodNames.servingLine(f), style = NutriTheme.type.caption, color = c.textTertiary, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             Spacer(Modifier.width(Space.S3))
-            Text(f.source.shortLabel, style = NutriTheme.type.caption, color = c.textTertiary, maxLines = 1)
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                if (complete) {
+                    Icon(Lucide.CircleCheck, contentDescription = "Complete nutrient data", tint = c.accent, modifier = Modifier.size(12.dp))
+                }
+                Text(sourceLabel, style = NutriTheme.type.caption, color = if (complete) c.textSecondary else c.textTertiary, maxLines = 1)
+            }
         }
         if (onAdd != null) NIconButton(Lucide.Plus, "Add ${f.name}", onAdd, tint = c.accent, modifier = Modifier.padding(end = Space.S2))
     }

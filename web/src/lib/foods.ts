@@ -1,5 +1,6 @@
 import { browserCountry } from "./assistant";
 import { N, encodeNutrients, forGrams, parseNutrients, sum, type NutrientMap } from "./nutrients";
+import { corrections, isRestaurant, singular } from "./searchRank";
 import { newId, store } from "./store";
 import type { DiaryEntry, FoodKind, FoodRecord, RecipeIngredient, Serving } from "./types";
 
@@ -15,6 +16,12 @@ export const SOURCE_SHORT: Record<FoodSource, string> = {
   Recipe: "Recipe",
 };
 
+/** Short source label on a result row: curated restaurant items show "Restaurant" instead of "NutriMe". */
+export function sourceShortLabel(f: Food): string {
+  if (f.source === "NutriMe" && isRestaurant(f)) return "Restaurant";
+  return SOURCE_SHORT[f.source] ?? f.source;
+}
+
 export interface Food {
   /** "usda:<fdcId>", "nm:<key>" (curated), "off:<barcode>", or "custom:<uuid>" — same ids as the Android app. */
   id: string;
@@ -28,6 +35,8 @@ export interface Food {
   category?: string;
   /** Where a branded product is sold, as Open Food Facts country names ("canada"). From the server catalog. */
   countries?: string[];
+  /** Search aliases for curated foods (from foods.json), used for matching and ranking. */
+  keywords?: string;
 }
 
 /** Nutrients a nutrition label prints; anything else is a vitamin or mineral from a lab analysis. Mirrors FoodQuality.kt. */
@@ -138,30 +147,55 @@ function bundledToFood(r: BundledRow): Food {
     nutrients,
     servings: r[4].map(([label, grams]) => ({ label, grams })),
     barcode: r[8] || undefined,
+    keywords: r[7] || undefined,
   };
 }
 
 /** Candidates per search for the ranking (also BundledFoodDb.CANDIDATES in the app). */
 const CANDIDATES = 100;
+const STOP_WORDS = new Set(["and", "with", "in", "of", "the", "a", "an", "or", "to"]);
+const RESTAURANT_CATEGORIES = new Set(["Restaurant Foods", "Fast Foods"]);
 
 const tokenize = (q: string) => q.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+function searchTokens(q: string): string[] {
+  const all = tokenize(q);
+  const kept = all.filter((w) => !STOP_WORDS.has(w));
+  return kept.length ? kept : all;
+}
 
-/** Prefix match on every word, ranked like the app: curated first, then name starts with the first word, then "raw", then shorter. */
+/**
+ * Prefix/singular match on every non-stop word. Non-restaurant foods (curated first, then USDA) and
+ * restaurant foods are selected separately so Restaurant Foods never starve generic candidates.
+ */
 export async function searchBundled(query: string, limit = CANDIDATES): Promise<Food[]> {
-  const tokens = tokenize(query);
+  const tokens = searchTokens(query);
   if (!tokens.length) return [];
+  const tokenPairs = tokens.map((t) => [t, singular(t)] as const);
+  const [first, firstSing] = tokenPairs[0];
   const db = await loadBundled();
-  const hits: { row: BundledRow; score: number }[] = [];
+  const nonRest: { row: BundledRow; score: number }[] = [];
+  const rest: { row: BundledRow; score: number }[] = [];
   for (let i = 0; i < db.rows.length; i++) {
-    if (db.rows[i][9]) continue;
+    const row = db.rows[i];
+    if (row[9]) continue;
     const words = db.words[i];
-    if (!tokens.every((t) => words.some((w) => w.startsWith(t)))) continue;
-    const name = db.rows[i][1].toLowerCase();
-    const score = (db.rows[i][5] ? 0 : 100000) + (name.startsWith(tokens[0]) ? 0 : 10000) + (name.includes("raw") ? 0 : 1000) + name.length;
-    hits.push({ row: db.rows[i], score });
+    if (!tokenPairs.every(([t, st]) => words.some((w) => w.startsWith(t) || w.startsWith(st)))) continue;
+    const name = row[1].toLowerCase();
+    const startsFirst = name.startsWith(first) || name.startsWith(firstSing);
+    if (RESTAURANT_CATEGORIES.has(row[2])) {
+      const score = (row[5] ? 0 : 100000) + (startsFirst ? 0 : 10000) + name.length;
+      rest.push({ row, score });
+    } else {
+      const score = (row[5] ? 0 : 100000) + (startsFirst ? 0 : 10000) + (name.includes("raw") ? 0 : 1000) + name.length;
+      nonRest.push({ row, score });
+    }
   }
-  hits.sort((a, b) => a.score - b.score);
-  return hits.slice(0, limit).map((h) => bundledToFood(h.row));
+  nonRest.sort((a, b) => a.score - b.score);
+  rest.sort((a, b) => a.score - b.score);
+  const restReserve = Math.min(rest.length, Math.floor(limit / 4));
+  const nonRestTake = Math.min(nonRest.length, limit - restReserve);
+  const restTake = Math.min(rest.length, limit - nonRestTake);
+  return [...nonRest.slice(0, nonRestTake), ...rest.slice(0, restTake)].map((h) => bundledToFood(h.row));
 }
 
 /** Synonym pairs and the word list from foods-search.json (made with foods.json; see scripts/export_foods.py). */
@@ -196,8 +230,16 @@ export async function bundledAliases(): Promise<Map<string, string>> {
 function synonymVariants(tokens: string[], syn: Map<string, string[]>): string[][] {
   const out: string[][] = [];
   for (let n = 1; n <= 2; n++)
-    for (let i = 0; i + n <= tokens.length; i++)
-      for (const same of syn.get(tokens.slice(i, i + n).join(" ")) ?? []) out.push([...tokens.slice(0, i), ...tokenize(same), ...tokens.slice(i + n)]);
+    for (let i = 0; i + n <= tokens.length; i++) {
+      const sub = tokens.slice(i, i + n);
+      const phrase = sub.join(" ");
+      let syns = syn.get(phrase);
+      if (!syns?.length) {
+        const sing = sub.map(singular).join(" ");
+        if (sing !== phrase) syns = syn.get(sing);
+      }
+      for (const same of syns ?? []) out.push([...tokens.slice(0, i), ...searchTokens(same), ...tokens.slice(i + n)]);
+    }
   const seen = new Set<string>();
   return out.filter((v) => (seen.has(v.join(" ")) ? false : (seen.add(v.join(" ")), true))).slice(0, 4);
 }
@@ -206,43 +248,85 @@ export interface BundledResults {
   foods: Food[];
   corrected: Set<string>;
   correctedQuery?: string;
+  variants: string[];
+}
+
+function mergeBalanced(lists: Food[][], cap: number): Food[] {
+  if (cap <= 0 || !lists.length) return [];
+  const seen = new Set<string>();
+  const out: Food[] = [];
+  for (let idx = 0; out.length < cap; idx++) {
+    let any = false;
+    for (const list of lists) {
+      if (idx < list.length) {
+        any = true;
+        const f = list[idx];
+        if (!seen.has(f.id)) {
+          seen.add(f.id);
+          out.push(f);
+          if (out.length === cap) return out;
+        }
+      }
+    }
+    if (!any) break;
+  }
+  return out;
 }
 
 /** Like the app: synonyms always, and typing-error correction when fewer than 5 foods match. */
 export async function searchBundledDetailed(query: string, limit = CANDIDATES): Promise<BundledResults> {
-  const tokens = tokenize(query);
-  if (!tokens.length) return { foods: [], corrected: new Set() };
+  const tokens = searchTokens(query);
+  if (!tokens.length) return { foods: [], corrected: new Set(), variants: [] };
   const words = await loadSearchWords();
-  const found = new Map<string, Food>();
-  for (const v of [tokens, ...synonymVariants(tokens, words.syn)]) for (const f of await searchBundled(v.join(" "), limit)) if (!found.has(f.id)) found.set(f.id, f);
-  if (found.size >= 5 || !words.vocab.length) return { foods: [...found.values()].slice(0, limit), corrected: new Set() };
-  const { corrections } = await import("./searchRank");
+  const lists: Food[][] = [];
+  const seenBase = new Set<string>();
+  const searchedVariants = new Set<string>();
+  for (const v of [tokens, ...synonymVariants(tokens, words.syn)]) {
+    const text = v.join(" ");
+    searchedVariants.add(text);
+    const hits = await searchBundled(text, limit);
+    if (hits.length) lists.push(hits);
+    for (const f of hits) seenBase.add(f.id);
+  }
+  if (seenBase.size >= 5 || !words.vocab.length) {
+    return { foods: mergeBalanced(lists, limit), corrected: new Set(), variants: [...searchedVariants] };
+  }
   let changed = false;
   const fixed = tokens.map((t) => {
-    if (t.length < 4 || words.vocab.some(([w]) => w.startsWith(t))) return t;
+    const st = singular(t);
+    if (t.length < 4 || words.vocab.some(([w]) => w.startsWith(t) || (st !== t && w.startsWith(st)))) return t;
     const c = corrections(t, words.vocab)[0];
     if (c) changed = true;
     return c ?? t;
   });
-  if (!changed) return { foods: [...found.values()].slice(0, limit), corrected: new Set() };
-  const corrected = new Set<string>();
-  for (const v of [fixed, ...synonymVariants(fixed, words.syn)])
-    for (const f of await searchBundled(v.join(" "), limit))
-      if (!found.has(f.id)) {
-        found.set(f.id, f);
-        corrected.add(f.id);
-      }
-  return { foods: [...found.values()].slice(0, limit), corrected, correctedQuery: corrected.size ? fixed.join(" ") : undefined };
+  if (!changed) return { foods: mergeBalanced(lists, limit), corrected: new Set(), variants: [...searchedVariants] };
+  const correctedAll = new Set<string>();
+  for (const v of [fixed, ...synonymVariants(fixed, words.syn)]) {
+    const text = v.join(" ");
+    searchedVariants.add(text);
+    const hits = await searchBundled(text, limit);
+    if (hits.length) lists.push(hits);
+    for (const f of hits) if (!seenBase.has(f.id)) correctedAll.add(f.id);
+  }
+  const merged = mergeBalanced(lists, limit);
+  const corrected = new Set(merged.filter((f) => correctedAll.has(f.id)).map((f) => f.id));
+  return {
+    foods: merged,
+    corrected,
+    correctedQuery: corrected.size ? fixed.join(" ") : undefined,
+    variants: [...searchedVariants],
+  };
 }
 
 export function searchMine(query: string): Food[] {
-  const tokens = tokenize(query);
+  const tokens = searchTokens(query);
   if (!tokens.length) return [];
+  const tokenPairs = tokens.map((t) => [t, singular(t)] as const);
   return store
     .all("foods")
     .filter((f) => {
       const hay = `${f.name} ${f.brand ?? ""}`.toLowerCase();
-      return tokens.every((t) => hay.includes(t));
+      return tokenPairs.every(([t, st]) => hay.includes(t) || hay.includes(st));
     })
     .map(recordToFood);
 }
@@ -426,23 +510,41 @@ export function recipeIngredients(r: FoodRecord): RecipeIngredient[] {
   }
 }
 
+export function recipeCookedGrams(r: FoodRecord): number | undefined {
+  const ings = recipeIngredients(r);
+  const rawTotal = ings.reduce((g, i) => g + i.servingGrams * i.quantity, 0);
+  const whole = parseServings(r.servingsJson).find((s) => s.label === "whole recipe")?.grams;
+  return whole != null && whole > 0 && rawTotal > 0 && Math.abs(whole - rawTotal) > 0.5 ? whole : undefined;
+}
+
 export const ingredientNutrients = (i: RecipeIngredient) =>
   forGrams(parseNutrients(JSON.stringify(i.nutrients)), i.servingGrams * i.quantity);
 
-export function saveRecipe(id: string | undefined, name: string, servings: number, ingredients: RecipeIngredient[]): string {
+export function saveRecipe(
+  id: string | undefined,
+  name: string,
+  servings: number,
+  ingredients: RecipeIngredient[],
+  cookedGrams?: number,
+): string {
   const rid = id ?? `custom:${newId()}`;
-  const total = Math.max(0.0001, ingredients.reduce((g, i) => g + i.servingGrams * i.quantity, 0));
+  const rawTotal = ingredients.reduce((g, i) => g + i.servingGrams * i.quantity, 0);
+  const finished = Math.max(0.0001, cookedGrams && cookedGrams > 0 ? cookedGrams : rawTotal);
   const totals = sum(ingredients.map(ingredientNutrients));
   const per100: NutrientMap = {};
-  for (const k in totals) per100[k] = (totals[k] * 100) / total;
+  for (const k in totals) per100[k] = (totals[k] * 100) / finished;
+  // Water lost or gained in cooking changes only the water (matching tools/update_food_db.py).
+  if (N.WATER in per100 || finished !== rawTotal) {
+    per100[N.WATER] = Math.max(0, (per100[N.WATER] ?? 0) + ((finished - rawTotal) * 100) / finished);
+  }
   store.put("foods", {
     id: rid,
     kind: "recipe",
     name,
     nutrientsJson: encodeNutrients(per100),
     servingsJson: JSON.stringify([
-      { label: "serving", grams: total / Math.max(0.0001, servings) },
-      { label: "whole recipe", grams: total },
+      { label: "serving", grams: finished / Math.max(0.0001, servings) },
+      { label: "whole recipe", grams: finished },
     ]),
     ingredientsJson: JSON.stringify(ingredients),
     recipeServings: servings,

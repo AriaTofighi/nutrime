@@ -218,4 +218,40 @@ class ServerTest {
         }
         assertEquals(HttpStatusCode.BadRequest, bad.status)
     }
+
+    @Test
+    fun profileSyncMergesConcurrentSettingsAndFavorites() = run {
+        val c = jsonClient()
+        val auth = c.post("/api/auth/register") {
+            contentType(ContentType.Application.Json); setBody(invitedAuthRequest(db, "prof@example.com", "password123"))
+        }.body<AuthResponse>()
+        val pJson = kotlinx.serialization.json.Json { ignoreUnknownKeys = true; explicitNulls = false; encodeDefaults = true }
+        fun profChange(p: com.nutrime.app.model.Profile, t: Long) = SyncChange(
+            collection = "profile", id = "profile", updatedAt = t, deleted = false,
+            data = buildJsonObject {
+                put("id", "profile")
+                put("json", pJson.encodeToString(com.nutrime.app.model.Profile.serializer(), p))
+                put("updatedAt", t)
+                put("deleted", false)
+            },
+        )
+        val p0 = com.nutrime.app.model.Profile.stampEdit(null, com.nutrime.app.model.Profile(weightKg = 80.0, goalKgPerWeek = 0.0, favoriteFoodIds = listOf("nm:a")), 100L)
+        val r0 = c.post("/api/sync") {
+            bearerAuth(auth.token); contentType(ContentType.Application.Json); setBody(SyncRequest(0, listOf(profChange(p0, 100L))))
+        }.body<SyncResponse>()
+        // Device B adds favourite at t=210 and syncs first.
+        val pB = com.nutrime.app.model.Profile.stampEdit(p0, p0.copy(favoriteFoodIds = listOf("nm:a", "nm:b")), 210L)
+        c.post("/api/sync") {
+            bearerAuth(auth.token); contentType(ContentType.Application.Json); setBody(SyncRequest(r0.cursor, listOf(profChange(pB, 210L))))
+        }.body<SyncResponse>()
+        // Device A edits goal at t=200 (older timestamp, stale cursor) and syncs second: neither edit is lost!
+        val pA = com.nutrime.app.model.Profile.stampEdit(p0, p0.copy(goalKgPerWeek = -0.5), 200L)
+        val rA = c.post("/api/sync") {
+            bearerAuth(auth.token); contentType(ContentType.Application.Json); setBody(SyncRequest(r0.cursor, listOf(profChange(pA, 200L))))
+        }.body<SyncResponse>()
+        val mergedJson = rA.changes.last().data!!.jsonObject["json"]!!.jsonPrimitive.content
+        val merged = pJson.decodeFromString(com.nutrime.app.model.Profile.serializer(), mergedJson)
+        assertEquals(-0.5, merged.goalKgPerWeek, 1e-9)
+        assertEquals(listOf("nm:a", "nm:b"), merged.favoriteFoodIds)
+    }
 }

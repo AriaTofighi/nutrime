@@ -30,6 +30,8 @@ data class Food(
     val category: String? = null,
     /** Where a branded product is sold, as Open Food Facts country names ("canada", "united-states"). Empty when unknown. */
     val countries: List<String> = emptyList(),
+    /** Search aliases for curated foods (from foods.db `keywords`), used for matching and ranking. */
+    val keywords: String? = null,
 ) {
     /**
      * True for a curated food whose source gives no weight (a restaurant's "1 donut" or "Medium"): its id ends in

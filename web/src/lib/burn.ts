@@ -13,6 +13,7 @@ export interface DayLog {
   /** The user marked the day's log complete (this includes a day with no food). */
   complete?: boolean;
   hasEntries?: boolean;
+  sodiumMg?: number;
 }
 
 export interface WeighIn {
@@ -65,7 +66,7 @@ export function isKnown(log: DayLog | undefined, target: number, today: string):
   if (!log) return false;
   if (log.complete) return true;
   const hasEntries = log.hasEntries ?? log.kcal > 0;
-  return log.date < today && hasEntries && log.kcal >= 0.5 * target;
+  return log.date < today && hasEntries && log.kcal >= 0.65 * target;
 }
 
 export const measurementSd = (kg: number) => Math.max(0.4, 0.008 * kg);
@@ -109,12 +110,14 @@ export function estimate(profile: Profile, logs: DayLog[], weights: WeighIn[], t
   const known = new Array<boolean>(n).fill(false);
   const intake = new Array<number>(n).fill(0);
   const carbs = new Array<number>(n).fill(NaN);
+  const sodium = new Array<number>(n).fill(NaN);
   for (let i = 0; i < n; i++) {
     const log = logByDate.get(dates[i]);
     if (isKnown(log, calorieTargetOn(profile, dates[i]), today)) {
       known[i] = true;
       intake[i] = log!.kcal;
       carbs[i] = log!.carbsG ?? 0;
+      sodium[i] = log!.sodiumMg ?? 0;
     }
   }
   const rBoost = new Array<number>(n + 4).fill(1);
@@ -122,8 +125,21 @@ export function estimate(profile: Profile, logs: DayLog[], weights: WeighIn[], t
     if (!known[i]) continue;
     let sum = 0;
     let cnt = 0;
-    for (let j = Math.max(0, i - 7); j < i; j++) if (known[j]) { sum += carbs[j]; cnt++; }
-    if (cnt >= 3 && Math.abs(carbs[i] - sum / cnt) > 100) for (let k = 1; k <= 3; k++) rBoost[i + k] = 4;
+    let sodSum = 0;
+    let sodCnt = 0;
+    for (let j = Math.max(0, i - 7); j < i; j++) {
+      if (known[j]) {
+        sum += carbs[j];
+        cnt++;
+        if (sodium[j] > 0) {
+          sodSum += sodium[j];
+          sodCnt++;
+        }
+      }
+    }
+    const carbSpike = cnt >= 3 && Math.abs(carbs[i] - sum / cnt) > 100;
+    const sodSpike = sodium[i] > 0 && sodCnt >= 3 && Math.abs(sodium[i] - sodSum / sodCnt) > 1500;
+    if (carbSpike || sodSpike) for (let k = 1; k <= 3; k++) rBoost[i + k] = 4;
   }
 
   const xf: number[][] = [];

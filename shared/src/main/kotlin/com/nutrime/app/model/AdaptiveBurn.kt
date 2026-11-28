@@ -13,6 +13,7 @@ data class DayLog(
     /** The user marked the day's log complete (this includes a day with no food). */
     val complete: Boolean = false,
     val hasEntries: Boolean = kcal > 0,
+    val sodiumMg: Double = 0.0,
 )
 
 data class WeighIn(val date: LocalDate, val kg: Double)
@@ -78,11 +79,11 @@ object AdaptiveBurn {
     const val MIN_WEIGH_INS = 6
     const val MIN_KNOWN = 10
 
-    /** Whether a day's intake is trusted: marked complete, or a past day with at least half the target. */
+    /** Whether a day's intake is trusted: marked complete, or a past day with at least 65% of the target. */
     fun isKnown(log: DayLog?, target: Double, today: LocalDate): Boolean {
         if (log == null) return false
         if (log.complete) return true
-        return log.date.isBefore(today) && log.hasEntries && log.kcal >= 0.5 * target
+        return log.date.isBefore(today) && log.hasEntries && log.kcal >= 0.65 * target
     }
 
     fun estimate(profile: Profile, logs: List<DayLog>, weights: List<WeighIn>, today: LocalDate): BurnEstimate? {
@@ -98,10 +99,11 @@ object AdaptiveBurn {
         val w0 = scale[start]!!
         val formula0 = profile.copy(weightKg = w0).formulaTdee
 
-        // Per day: intake used (null = not known), carbohydrate for the water-shift guard.
+        // Per day: intake used (null = not known), carbohydrate and sodium for the water-shift guard.
         val known = BooleanArray(n)
         val intake = DoubleArray(n)
         val carbs = DoubleArray(n) { Double.NaN }
+        val sodium = DoubleArray(n) { Double.NaN }
         for (i in 0 until n) {
             val d = start.plusDays(i.toLong())
             val log = logByDate[d]
@@ -109,15 +111,22 @@ object AdaptiveBurn {
                 known[i] = true
                 intake[i] = log!!.kcal
                 carbs[i] = log.carbsG
+                sodium[i] = log.sodiumMg
             }
         }
-        // Water-shift guard: a large change in carbohydrate makes the next 3 weigh-ins less certain.
+        // Water-shift guard: a large change in carbohydrate or sodium makes the next 3 weigh-ins less certain.
         val rBoost = DoubleArray(n + 4) { 1.0 }
         for (i in 0 until n) {
             if (!known[i]) continue
             var sum = 0.0; var cnt = 0
-            for (j in maxOf(0, i - 7) until i) if (known[j]) { sum += carbs[j]; cnt++ }
-            if (cnt >= 3 && abs(carbs[i] - sum / cnt) > 100.0) for (k in 1..3) rBoost[i + k] = 4.0
+            var sodSum = 0.0; var sodCnt = 0
+            for (j in maxOf(0, i - 7) until i) if (known[j]) {
+                sum += carbs[j]; cnt++
+                if (sodium[j] > 0.0) { sodSum += sodium[j]; sodCnt++ }
+            }
+            val carbSpike = cnt >= 3 && abs(carbs[i] - sum / cnt) > 100.0
+            val sodSpike = sodium[i] > 0.0 && sodCnt >= 3 && abs(sodium[i] - sodSum / sodCnt) > 1500.0
+            if (carbSpike || sodSpike) for (k in 1..3) rBoost[i + k] = 4.0
         }
 
         // Filter storage for the smoother.

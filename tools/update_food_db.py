@@ -350,7 +350,7 @@ def name_changes(db):
 
 
 # ---------------------------------------------------------------------------------------------
-# Duplicates: hidden rows and aliases
+# Duplicates: hidden rows, portion cleanup, and aliases
 # ---------------------------------------------------------------------------------------------
 
 import re  # noqa: E402
@@ -360,13 +360,74 @@ NS = re.compile(r"^(ns as to .*|nfs)$")
 # Nutrients that must be equal (within 1%) for an "NS as to" / "NFS" row to count as a copy of its sibling.
 KEY_NUTRIENTS = (1008, 1003, 1004, 1005, 1093)
 
+IE_PLURAL = {
+    "cookies", "brownies", "smoothies", "veggies", "calories",
+    "fries", "perogies", "pierogies", "smarties", "timmies", "smokies", "krispies",
+}
+ES_PLURAL = re.compile(r"(x|z|ch|sh|o)es$")
+NLEA_PAREN = re.compile(r"\s*\(\s*(?:1\s+)?nlea\s+serving(?:\s+size)?(?:\s+for\s+adults)?\s*\)", re.IGNORECASE)
+
+
+def singular(w):
+    if len(w) < 4 or w == "species":
+        return w
+    if len(w) >= 5 and w.endswith("ies") and w not in IE_PLURAL:
+        return w[:-3] + "y"
+    if len(w) >= 5 and ES_PLURAL.search(w):
+        return w[:-2]
+    if w.endswith("s") and not w.endswith(("ss", "us", "is")):
+        return w[:-1]
+    return w
+
+
+def clean_portion_label(label):
+    """Remove ugly 'NLEA serving' phrasing from USDA portion labels when safe and clear."""
+    if "nlea" not in label.lower():
+        return label
+    s = label.strip()
+    if re.fullmatch(r"(?:1\s+)?nlea\s+serving", s, re.IGNORECASE) or re.fullmatch(r"serving,\s*nlea", s, re.IGNORECASE):
+        return "serving"
+    s = NLEA_PAREN.sub("", s)
+    s = re.sub(r"\(\s*(?:1\s+)?nlea\s+serving(?:\s+size)?\s*(?:[-=]\s*)", "(", s, flags=re.IGNORECASE)
+    s = re.sub(r"\s+1\s+nlea\s+serving\b", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^nlea\s+serving\b", "serving", s, flags=re.IGNORECASE)
+    s = re.sub(r"\s+,", ",", s)
+    s = re.sub(r"\s{2,}", " ", s).strip()
+    return s or "serving"
+
+
+def clean_portions(portions):
+    out, seen = [], set()
+    for p in portions:
+        lbl = clean_portion_label(p["l"])
+        key = same(lbl)
+        if key not in seen:
+            seen.add(key)
+            out.append({"l": lbl, "g": p["g"]})
+    return out
+
+
+def portion_changes(db):
+    """[(id, cleaned_portions_json)] for USDA rows whose portion labels contain ugly NLEA phrasing."""
+    out = []
+    for fid, p_json in db.execute("SELECT id, portions FROM food WHERE source != 'nutrime' AND portions LIKE '%NLEA%'"):
+        orig = json.loads(p_json)
+        cleaned = clean_portions(orig)
+        if cleaned != orig:
+            out.append((fid, json.dumps(cleaned, separators=(",", ":"))))
+    return out
+
 
 def norm_name(name):
-    return " ".join(re.findall(r"[a-z0-9]+", name.replace(FDP, "").lower()))
+    return " ".join(singular(w) for w in re.findall(r"[a-z0-9]+", name.replace(FDP, "").lower()))
 
 
 def within(a, b, share):
     return abs(a - b) <= share * max(abs(a), abs(b))
+
+
+def same_energy(a, b):
+    return abs(a - b) <= max(0.05 * max(abs(a), abs(b)), 8.0)
 
 
 def word_set(s):
@@ -379,10 +440,11 @@ def plan_hidden(db, curated):
     1. A USDA row that a curated entry copies (`from` without `override`) is hidden behind the curated food.
        When several curated entries copy the same row, the alias goes to the one whose name shares the most
        words with the USDA name; on a tie there is no alias (the row is still hidden).
-    2. USDA rows with the same name (lowercase, letters and digits only) and energy within 5% of the kept
-       row are one food across layers. The kept row is Foundation, then SR Legacy, then FNDDS; it gets the
-       household portions of the others that it lacks. If a curated entry copies any row of the group, or a
-       curated food has the same name and energy within 5%, the whole group is hidden behind that curated food.
+    2. USDA rows with the same singularized name and energy within max(5%, 8 kcal) of the kept row are one
+       food across layers. The kept row is Foundation, then SR Legacy, then FNDDS; it gets the household
+       portions of the others that it lacks (so Foundation Foods lacking portions inherit them). If a curated
+       entry copies any row of the group, or a curated food has the same name and energy, the whole group is
+       hidden behind that curated food.
     3. An FNDDS "NS as to …" / "NFS" row is hidden only when exactly one sibling has the same name with that
        part made specific ("Rice, white, cooked, NS as to fat" -> "Rice, white, cooked, no added fat") and the
        same energy, protein, fat, carbohydrate and sodium (FNDDS gives such a row its default's values).
@@ -425,7 +487,7 @@ def plan_hidden(db, curated):
         kcal_of = lambda x: x["nutrients"].get(1008, 0.0) if isinstance(x, dict) else rows[x]["n"].get(1008, 0.0)  # noqa: E731
         for i in ids:
             kcal = rows[i]["n"].get(1008, 0.0)
-            c = next((c for c in clusters if within(kcal_of(c[0]), kcal, 0.05)), None)
+            c = next((c for c in clusters if same_energy(kcal_of(c[0]), kcal)), None)
             if c is None:
                 clusters.append([i])
             else:
@@ -509,9 +571,9 @@ def duplicate_groups(db, shown_only=True):
 
 def print_duplicates(db):
     groups = duplicate_groups(db)
-    near = {k: v for k, v in groups.items() if all(within(v[0][3] or 0, x[3] or 0, 0.05) for x in v)}
+    near = {k: v for k, v in groups.items() if all(same_energy(v[0][3] or 0, x[3] or 0) for x in v)}
     print(f"{len(groups)} name groups still shown ({sum(len(v) for v in groups.values())} rows); "
-          f"{len(near)} of them with energy within 5% ({sum(len(v) for v in near.values())} rows)")
+          f"{len(near)} of them with similar energy ({sum(len(v) for v in near.values())} rows)")
     for k in sorted(groups):
         print("  " + "; ".join(f"{src} {fid} {kcal:g} kcal" if kcal is not None else f"{src} {fid}" for fid, _n, src, kcal in groups[k])
               + f"  <- {groups[k][0][1]}")
@@ -550,6 +612,9 @@ def main():
         changes = name_changes(db)
         db.executemany("UPDATE food SET name = ?, brand = ? WHERE id = ?", [(n, b, i) for i, n, b in changes])
         print(f"USDA names cleaned: {len(changes)}")
+        p_changes = portion_changes(db)
+        db.executemany("UPDATE food SET portions = ? WHERE id = ?", [(p, i) for i, p in p_changes])
+        print(f"USDA portions cleaned: {len(p_changes)}")
 
     rows, errors = curated_rows(args.curated, usda_foods(db))
     if errors:
@@ -569,6 +634,8 @@ def main():
         print(f"{len(rows)} curated foods OK and bundled")
         if name_changes(db):
             sys.exit("foods.db has USDA names that are not cleaned. Run: python3 tools/update_food_db.py")
+        if portion_changes(db):
+            sys.exit("foods.db has USDA portions that are not cleaned. Run: python3 tools/update_food_db.py")
         cols = {r[1] for r in db.execute("PRAGMA table_info(food)")}
         tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type = 'table'")}
         if "hidden" not in cols or "food_alias" not in tables:

@@ -1,4 +1,4 @@
-import { ArrowLeft, Bookmark, Database, Globe, History, LoaderCircle, Plus, RefreshCw, ScanBarcode, Search, Star, Trash2 } from "lucide-react";
+import { ArrowLeft, Bookmark, CircleCheck, Database, Globe, History, LoaderCircle, Plus, RefreshCw, ScanBarcode, Search, Star, Trash2 } from "lucide-react";
 import { RecipeIcon } from "./icons";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -13,7 +13,7 @@ import {
   searchMine,
   type BundledResults,
   searchOnline,
-  SOURCE_SHORT,
+  sourceShortLabel,
   type Food,
 } from "../lib/foods";
 import { N, fmtNum, forGrams, parseNutrients } from "../lib/nutrients";
@@ -21,7 +21,7 @@ import { store, useStore } from "../lib/store";
 import type { DiaryEntry, Serving } from "../lib/types";
 import { fmtQty, isoDate, toNum } from "../lib/util";
 import { encodeProfile, parseProfile } from "../lib/profile";
-import { amountLabel, collapse, foodUsage, idsWithAliases, isComplete, parseQueryAmount, rank, servingFor, splitMoreResults, textScore, usageWithAliases, usualFor, words } from "../lib/searchRank";
+import { amountLabel, bestTextScore, collapse, foodUsage, idsWithAliases, isComplete, parseQueryAmount, rank, servingFor, splitMoreResults, usageWithAliases, usualFor } from "../lib/searchRank";
 import { countryName, nameWithBrand, servingLine } from "../lib/foodNames";
 import { browserCountry } from "../lib/assistant";
 import { savedMeals, type SavedMeal } from "../lib/days";
@@ -37,13 +37,17 @@ import { NativeSelect } from "@/components/shadcn/native-select";
  * them for the amount chosen. Usage and favourites still order the results.
  */
 export function FoodRow({ food, onPick }: { food: Food; onPick: (f: Food) => void }) {
+  const complete = isComplete(food);
   return (
     <button className="food-row" onClick={() => onPick(food)}>
       <span className="food-main">
         <span className="food-name">{nameWithBrand(food.name, food.brand)}</span>
         <span className="food-meta"><span>{servingLine(food.servings, servingOnly(food))}</span></span>
       </span>
-      <span className="food-source">{SOURCE_SHORT[food.source] ?? food.source}</span>
+      <span className={`food-source${complete ? " food-source-complete" : ""}`} title={complete ? "Full vitamin and mineral data" : undefined}>
+        {complete && <CircleCheck size={12} className="food-complete-icon" aria-label="Complete nutrient data" />}
+        {sourceShortLabel(food)}
+      </span>
     </button>
   );
 }
@@ -101,7 +105,7 @@ export function FoodSearch({
 }) {
   const { version } = useStore();
   const [query, setQuery] = useState("");
-  const [local, setLocal] = useState<BundledResults>({ foods: [], corrected: new Set() });
+  const [local, setLocal] = useState<BundledResults>({ foods: [], corrected: new Set(), variants: [] });
   const [online, setOnline] = useState<{ foods: Food[]; errors: string[]; q: string } | null>(null);
   const [loading, setLoading] = useState(false);
   const [onlineLoading, setOnlineLoading] = useState(false);
@@ -124,7 +128,7 @@ export function FoodSearch({
 
   useEffect(() => {
     setOnline(null);
-    if (!q || barcodeMode) return setLocal({ foods: [], corrected: new Set() });
+    if (!q || barcodeMode) return setLocal({ foods: [], corrected: new Set(), variants: [] });
     const n = ++seq.current;
     setLoading(true);
     const t = window.setTimeout(async () => {
@@ -138,15 +142,15 @@ export function FoodSearch({
         setLocal(all);
         setDbError(undefined);
         // Weak offline results: search online after a short pause, without a button press.
-        const qw = words(q);
-        const strong = all.foods.filter((f) => textScore(qw, f, q) >= 1).length;
+        const queries = [...new Set([q, ...all.variants])];
+        const strong = all.foods.filter((f) => bestTextScore(queries, f) >= 1).length;
         if (q.length >= 3 && strong < 5) {
           window.setTimeout(() => {
             if (n === seq.current) void goOnline(q, n);
           }, 500);
         }
       } catch (e) {
-        setLocal({ foods: searchMine(q), corrected: new Set() });
+        setLocal({ foods: searchMine(q), corrected: new Set(), variants: [q] });
         setDbError((e as Error).message);
       } finally {
         if (n === seq.current) setLoading(false);
@@ -198,7 +202,7 @@ export function FoodSearch({
   const country = useMemo(() => countryName(browserCountry()), []);
   const { main: results, more: moreResults } = useMemo(
     () => {
-      const ranked = rank([...local.foods, ...(online?.q === q ? online.foods : [])], q, { usage: rankUsage, meal, favorites: rankFavorites, country, corrected: local.corrected });
+      const ranked = rank([...local.foods, ...(online?.q === q ? online.foods : [])], q, { usage: rankUsage, meal, favorites: rankFavorites, country, corrected: local.corrected, variants: local.variants });
       return splitMoreResults(applyFilter(collapse(ranked, { used: rankUsage, favorites: rankFavorites, country })), rankUsage, rankFavorites);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -412,7 +416,7 @@ export function AmountForm({
       }}
     >
       <div className="amount-meta">
-        <span className={`tag tag-${SOURCE_SHORT[food.source]?.toLowerCase()}`}>{SOURCE_SHORT[food.source] ?? food.source}</span>
+        <span className={`tag tag-${sourceShortLabel(food).toLowerCase()}`}>{sourceShortLabel(food)}</span>
         {food.brand && <span>{food.brand}</span>}
         {food.category && <span>{food.category}</span>}
         {usual && <span className="dim">Last time's amount</span>}

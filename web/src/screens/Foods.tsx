@@ -4,8 +4,8 @@ import { useState } from "react";
 import { deleteMeal, saveMeal, savedMeals, type SavedMeal } from "../lib/days";
 import { AmountForm, FoodRow, FoodSearch } from "../components/FoodPicker";
 import { Card, Empty, Modal, NutrientGrid, Segmented } from "../components/ui";
-import { ingredientNutrients, recipeIngredients, recordToFood, saveCustomFood, saveRecipe, type Food } from "../lib/foods";
-import { LABEL_NUTRIENTS, N, NUTRIENTS, NUTRIENT_BY_ID, fmtNum, sum } from "../lib/nutrients";
+import { getFood, ingredientNutrients, recipeCookedGrams, recipeIngredients, recordToFood, saveCustomFood, saveRecipe, type Food } from "../lib/foods";
+import { LABEL_NUTRIENTS, N, NUTRIENTS, NUTRIENT_BY_ID, fmtNum, parseNutrients, sum } from "../lib/nutrients";
 import { store, useStore } from "../lib/store";
 import type { FoodRecord, RecipeIngredient } from "../lib/types";
 import { fmtQty, toNum } from "../lib/util";
@@ -241,13 +241,59 @@ function CustomFoodEditor({ record, onClose }: { record?: FoodRecord; onClose: (
 function RecipeEditor({ record, onClose }: { record?: FoodRecord; onClose: () => void }) {
   const [name, setName] = useState(record?.name ?? "");
   const [servings, setServings] = useState(fmtQty(record?.recipeServings ?? 1));
+  const [cookedWeight, setCookedWeight] = useState(() => {
+    const cg = record ? recipeCookedGrams(record) : undefined;
+    return cg != null ? fmtQty(cg) : "";
+  });
   const [ingredients, setIngredients] = useState<RecipeIngredient[]>(() => (record ? recipeIngredients(record) : []));
   const [adding, setAdding] = useState<Food | "search" | null>(null);
+  const [editing, setEditing] = useState<{ idx: number; food: Food; ingredient: RecipeIngredient } | null>(null);
   const n = toNum(servings) ?? 0;
+  const cookedBlank = cookedWeight.trim() === "";
+  const cookedNum = cookedBlank ? undefined : toNum(cookedWeight);
+  const cookedInvalid = !cookedBlank && !(cookedNum != null && cookedNum > 0);
+  const rawTotal = ingredients.reduce((g, i) => g + i.servingGrams * i.quantity, 0);
+  const finished = cookedNum && cookedNum > 0 ? cookedNum : rawTotal;
   const totals = sum(ingredients.map(ingredientNutrients));
   const perServing: Record<number, number> = {};
   for (const k in totals) perServing[k] = totals[k] / Math.max(n, 0.0001);
-  const valid = name.trim() && n > 0 && ingredients.length > 0;
+  const valid = name.trim() && n > 0 && ingredients.length > 0 && !cookedInvalid;
+
+  async function openEditIngredient(idx: number, ing: RecipeIngredient) {
+    const loaded = await getFood(ing.foodId);
+    const food: Food = loaded ?? {
+      id: ing.foodId,
+      source: "Custom",
+      name: ing.name,
+      nutrients: parseNutrients(JSON.stringify(ing.nutrients)),
+      servings: [{ label: ing.servingLabel, grams: ing.servingGrams }],
+    };
+    setEditing({ idx, food, ingredient: ing });
+  }
+
+  if (editing) {
+    return (
+      <Modal title={`Edit ${editing.ingredient.name}`} onClose={() => setEditing(null)} wide>
+        <AmountForm
+          food={editing.food}
+          initialServing={{ label: editing.ingredient.servingLabel, grams: editing.ingredient.servingGrams }}
+          initialQuantity={editing.ingredient.quantity}
+          submitLabel="Save ingredient"
+          onBack={() => setEditing(null)}
+          onSubmit={(s, q) => {
+            setIngredients(
+              ingredients.map((old, j) =>
+                j === editing.idx
+                  ? { foodId: editing.food.id, name: editing.food.name, servingLabel: s.label, servingGrams: s.grams, quantity: q, nutrients: { ...editing.food.nutrients } }
+                  : old,
+              ),
+            );
+            setEditing(null);
+          }}
+        />
+      </Modal>
+    );
+  }
 
   if (adding) {
     return (
@@ -279,7 +325,7 @@ function RecipeEditor({ record, onClose }: { record?: FoodRecord; onClose: () =>
         onSubmit={(e) => {
           e.preventDefault();
           if (!valid) return;
-          saveRecipe(record?.id, name.trim(), n, ingredients);
+          saveRecipe(record?.id, name.trim(), n, ingredients, cookedNum && cookedNum > 0 ? cookedNum : undefined);
           onClose();
         }}
       >
@@ -293,17 +339,40 @@ function RecipeEditor({ record, onClose }: { record?: FoodRecord; onClose: () =>
             <Input inputMode="decimal" value={servings} onChange={(e) => setServings(e.target.value)} />
           </label>
         </div>
-        <div className="eyebrow">Ingredients</div>
+        <label className="field">
+          <span>Cooked weight, g (optional)</span>
+          <Input
+            inputMode="decimal"
+            placeholder={rawTotal > 0 ? `Same as ingredients (${Math.round(rawTotal)} g)` : "Leave blank if unchanged"}
+            value={cookedWeight}
+            onChange={(e) => setCookedWeight(e.target.value)}
+            aria-invalid={cookedInvalid}
+          />
+        </label>
+        <div className="eyebrow">
+          Ingredients
+          {rawTotal > 0 && (
+            <span className="dim" style={{ marginLeft: 8, textTransform: "none", fontWeight: 400 }}>
+              {cookedNum && cookedNum > 0 ? `${fmtNum(rawTotal)} g raw → ${fmtNum(finished)} g cooked` : `${fmtNum(rawTotal)} g total`}
+            </span>
+          )}
+        </div>
         {ingredients.length === 0 && <p className="hint">No ingredients yet.</p>}
         <div className="ingredients">
           {ingredients.map((i, idx) => (
             <div key={idx} className="ingredient">
-              <span className="food-main">
+              <button
+                type="button"
+                className="food-main"
+                style={{ background: "none", border: 0, padding: 0, textAlign: "left", cursor: "pointer", color: "inherit" }}
+                onClick={() => void openEditIngredient(idx, i)}
+                title="Edit quantity or serving"
+              >
                 <span className="food-name">{i.name}</span>
                 <span className="food-meta">
                   {fmtQty(i.quantity)} × {i.servingLabel} · {fmtNum(i.servingGrams * i.quantity)} g
                 </span>
-              </span>
+              </button>
               <span className="food-kcal num">
                 {Math.round(ingredientNutrients(i)[N.ENERGY] ?? 0)}
                 <small>kcal</small>
@@ -319,7 +388,7 @@ function RecipeEditor({ record, onClose }: { record?: FoodRecord; onClose: () =>
         </Button>
         {ingredients.length > 0 && (
           <div className="summary-strip">
-            <span className="dim">Per serving</span>
+            <span className="dim">Per serving{n > 0 ? ` · ${fmtNum(finished / n)} g` : ""}</span>
             <span className="num">
               <b>{Math.round(perServing[N.ENERGY] ?? 0)}</b> kcal
             </span>

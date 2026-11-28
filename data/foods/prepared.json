@@ -1012,6 +1012,57 @@
         }
       ],
       "basis": "Recipe: USDA Foundation Foods 2346396: \"Oats, whole grain, rolled, old fashioned\" 40 g; USDA FNDDS 2021-2023 2705386: \"Milk, reduced fat (2%)\" 122 g; USDA FNDDS 2021-2023 2705424: \"Yogurt, Greek, nonfat milk, plain\" 113 g. No cooking, so no weight change."
+    },
+    {
+      "key": "coffee-black-brewed",
+      "name": "Coffee, brewed, black",
+      "category": "Beverages",
+      "aliases": [
+        "coffee",
+        "black coffee",
+        "brewed coffee",
+        "drip coffee",
+        "filter coffee"
+      ],
+      "from": {
+        "fdc": 171890
+      },
+      "basis": "USDA SR Legacy 171890: \"Beverages, coffee, brewed, prepared with tap water\".",
+      "servings": [
+        {
+          "label": "1 cup (8 fl oz)",
+          "g": 237
+        },
+        {
+          "label": "1 mug (12 fl oz)",
+          "g": 355
+        }
+      ]
+    },
+    {
+      "key": "espresso",
+      "name": "Espresso",
+      "category": "Beverages",
+      "aliases": [
+        "espresso",
+        "espresso shot",
+        "double espresso",
+        "coffee espresso"
+      ],
+      "from": {
+        "fdc": 171891
+      },
+      "basis": "USDA SR Legacy 171891: \"Beverages, coffee, brewed, espresso, restaurant-prepared\".",
+      "servings": [
+        {
+          "label": "1 shot (1 fl oz)",
+          "g": 30
+        },
+        {
+          "label": "1 double shot (2 fl oz)",
+          "g": 60
+        }
+      ]
     }
   ]
 }

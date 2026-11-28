@@ -126,9 +126,19 @@
 }
 .food-source {
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   white-space: nowrap;
   font-size: var(--text-xs);
   color: var(--text-tertiary);
+}
+.food-source-complete {
+  color: var(--text-secondary);
+}
+.food-complete-icon {
+  color: var(--accent);
+  flex: none;
 }
 .tag {
   display: inline-flex;

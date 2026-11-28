@@ -39,7 +39,7 @@ import kotlin.test.assertTrue
 /** Logic in shared/ that the app, the web app (as a TypeScript copy) and the assistant use. */
 class SharedLogicTest {
     @Serializable private data class VProfile(val sex: String = "MALE", val heightCm: Double = 175.0, val weightKg: Double = 75.0, val activity: String = "LIGHT")
-    @Serializable private data class VLog(val date: String, val kcal: Double, val carbsG: Double? = null, val complete: Boolean? = null, val hasEntries: Boolean? = null)
+    @Serializable private data class VLog(val date: String, val kcal: Double, val carbsG: Double? = null, val complete: Boolean? = null, val hasEntries: Boolean? = null, val sodiumMg: Double? = null)
     @Serializable private data class VWeight(val date: String, val kg: Double)
     @Serializable private data class VTruth(val burnKcal: Int, val tolerance: Int)
     @Serializable private data class VExpect(
@@ -66,7 +66,7 @@ class SharedLogicTest {
                 sex = Sex.valueOf(v.profile.sex), birthYear = year - v.age, heightCm = v.profile.heightCm,
                 weightKg = v.profile.weightKg, activity = ActivityLevel.valueOf(v.profile.activity),
             )
-            val logs = v.logs.map { l -> DayLog(LocalDate.parse(l.date), l.kcal, l.carbsG ?: 0.0, l.complete ?: false, l.hasEntries ?: (l.kcal > 0)) }
+            val logs = v.logs.map { l -> DayLog(LocalDate.parse(l.date), l.kcal, l.carbsG ?: 0.0, l.complete ?: false, l.hasEntries ?: (l.kcal > 0), l.sodiumMg ?: 0.0) }
             val weights = v.weights.map { WeighIn(LocalDate.parse(it.date), it.kg) }
             val e = AdaptiveBurn.estimate(p, logs, weights, LocalDate.parse(v.today))
             val want = v.expect
@@ -94,6 +94,8 @@ class SharedLogicTest {
         val today = LocalDate.of(2026, 6, 30)
         val y = today.minusDays(1)
         assertTrue(AdaptiveBurn.isKnown(DayLog(y, 1500.0), 2000.0, today))
+        assertTrue(AdaptiveBurn.isKnown(DayLog(y, 1300.0), 2000.0, today))
+        assertTrue(!AdaptiveBurn.isKnown(DayLog(y, 1100.0), 2000.0, today), "55% of target is treated as half-logged")
         assertTrue(!AdaptiveBurn.isKnown(DayLog(y, 600.0), 2000.0, today))
         assertTrue(AdaptiveBurn.isKnown(DayLog(y, 0.0, complete = true), 2000.0, today), "a complete fasting day counts")
         assertTrue(!AdaptiveBurn.isKnown(DayLog(today, 2500.0), 2000.0, today), "today is still going")
@@ -181,11 +183,11 @@ class SharedLogicTest {
 
     @Serializable private data class RFood(
         val id: String, val source: String, val name: String, val brand: String? = null, val category: String? = null,
-        val kcal: Double, val micros: Int, val servings: List<List<kotlinx.serialization.json.JsonPrimitive>> = emptyList(),
+        val keywords: String? = null, val kcal: Double, val micros: Int, val servings: List<List<kotlinx.serialization.json.JsonPrimitive>> = emptyList(),
         val countries: List<String> = emptyList(),
     )
     @Serializable private data class RCase(
-        val query: String, val country: String? = null, val usage: Map<String, Int> = emptyMap(), val favorites: List<String> = emptyList(),
+        val query: String, val variants: List<String> = emptyList(), val country: String? = null, val usage: Map<String, Int> = emptyMap(), val favorites: List<String> = emptyList(),
         val first: String? = null, val before: List<List<String>> = emptyList(), val hidden: List<String> = emptyList(),
         val shown: List<String> = emptyList(), val moreResults: List<String> = emptyList(),
     )
@@ -197,21 +199,21 @@ class SharedLogicTest {
         val file = listOf("../shared/testdata/search_rank.json", "shared/testdata/search_rank.json").map(::File).first { it.exists() }
         val data = Json { ignoreUnknownKeys = true }.decodeFromString(RVectors.serializer(), file.readText())
         // Vitamin and mineral ids (not label nutrients), in the same order as the TypeScript script.
-        val micros = listOf(1051, 1057, 1018, 1292, 1293, 1404, 1278, 1272, 1316, 1106, 1162, 1114, 1109, 1185, 1165, 1166, 1167, 1170, 1175, 1190, 1178, 1180, 1087, 1098, 1089, 1090, 1101, 1091, 1092, 1103)
+        val micros = listOf(1051, 1057, 1018, 1292, 1293, 1404, 1278, 1272, 1316, 1106, 1162, 1114, 1109, 1185, 1165, 1166, 1167, 1170, 1175, 1190, 1178, 1180, 1087, 1098, 1089, 1090, 1101, 1091, 1092, 1103, 1095)
         val foods = data.foods.map { v ->
             Food(
                 v.id, FoodSource.valueOf(v.source), v.name, v.brand,
                 nutrients = mapOf(N.ENERGY to v.kcal) + micros.take(v.micros).associateWith { 1.0 },
                 servings = v.servings.map { Serving(it[0].content, it[1].content.toDouble()) },
-                category = v.category, countries = v.countries,
+                category = v.category, countries = v.countries, keywords = v.keywords,
             )
         }
         data.cases.forEach { c ->
-            val q = com.nutrime.app.model.FoodQuality.words(c.query)
+            val queries = (listOf(c.query) + c.variants).map { com.nutrime.app.model.FoodQuality.words(it) }.filter { it.isNotEmpty() }
             val usage = c.usage.mapValues { (id, n) -> FoodUsage(id, n, 1.0, listOf(n, 0, 0, 0)) }
             val favorites = c.favorites.toSet()
-            val candidates = foods.filter { com.nutrime.app.model.FoodQuality.matchedWords(q, it) > 0 }
-            val ranked = SearchRank.collapse(SearchRank.rank(candidates, c.query, usage, null, favorites, c.country), usage.keys, favorites, c.country)
+            val candidates = foods.filter { f -> queries.any { q -> com.nutrime.app.model.FoodQuality.matchedWords(q, f) > 0 } }
+            val ranked = SearchRank.collapse(SearchRank.rank(candidates, c.query, usage, null, favorites, c.country, variants = c.variants), usage.keys, favorites, c.country)
             val (main, more) = SearchRank.splitMoreResults(ranked, usage.keys, favorites)
             val ids = ranked.map { it.id }
             val label = c.query + (if (c.usage.isNotEmpty()) " (with usage)" else "") + (if (c.favorites.isNotEmpty()) " (with favourite)" else "")
@@ -225,6 +227,35 @@ class SharedLogicTest {
             c.shown.forEach { assertTrue(it in ids, "$label: $it must be shown") }
             c.moreResults.forEach { m -> assertTrue(more.any { it.id == m }, "$label: $m must be under More results") }
         }
+    }
+
+    @Test
+    fun singularHandlesIesAndSafeExceptions() {
+        val fq = com.nutrime.app.model.FoodQuality
+        assertEquals("strawberry", fq.singular("strawberries"))
+        assertEquals("blueberry", fq.singular("blueberries"))
+        assertEquals("cherry", fq.singular("cherries"))
+        assertEquals("berry", fq.singular("berries"))
+        assertEquals("anchovy", fq.singular("anchovies"))
+        assertEquals("cookie", fq.singular("cookies"))
+        assertEquals("brownie", fq.singular("brownies"))
+        assertEquals("smoothie", fq.singular("smoothies"))
+        assertEquals("veggie", fq.singular("veggies"))
+        assertEquals("calorie", fq.singular("calories"))
+        assertEquals("species", fq.singular("species"))
+    }
+
+    @Test
+    fun profileMergePreservesConcurrentSettingsAndFavorites() {
+        val p0 = Profile.stampEdit(null, Profile(weightKg = 75.0, goalKgPerWeek = 0.0, favoriteFoodIds = listOf("a")), 100L)
+        val editSettings = Profile.stampEdit(p0, p0.copy(goalKgPerWeek = -0.5), 200L)
+        val editFavs = Profile.stampEdit(p0, p0.copy(favoriteFoodIds = listOf("a", "b")), 210L)
+        val m1 = Profile.merge(editSettings, 200L, editFavs, 210L)
+        val m2 = Profile.merge(editFavs, 210L, editSettings, 200L)
+        assertEquals(-0.5, m1.goalKgPerWeek, 1e-9)
+        assertEquals(listOf("a", "b"), m1.favoriteFoodIds)
+        assertEquals(-0.5, m2.goalKgPerWeek, 1e-9)
+        assertEquals(listOf("a", "b"), m2.favoriteFoodIds)
     }
 
     @Test

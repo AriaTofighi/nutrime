@@ -64,7 +64,28 @@
     { "id": "nm:burger-homemade", "source": "NUTRIME", "name": "Beef burger, homemade, on bun", "category": "Mixed dishes", "kcal": 260, "micros": 20 },
     { "id": "nm:aw-teen-burger", "source": "NUTRIME", "name": "Teen Burger", "brand": "A&W", "category": "Restaurant Foods", "kcal": 270, "micros": 4 },
     { "id": "nm:latte", "source": "NUTRIME", "name": "Latte, with 2% milk", "category": "Beverages", "kcal": 55, "micros": 20 },
-    { "id": "nm:starbucks-caffe-latte-grande", "source": "NUTRIME", "name": "Caffè Latte, Grande", "brand": "Starbucks", "category": "Restaurant Foods", "kcal": 40, "micros": 5 }
+    { "id": "nm:starbucks-caffe-latte-grande", "source": "NUTRIME", "name": "Caffè Latte, Grande", "brand": "Starbucks", "category": "Restaurant Foods", "kcal": 40, "micros": 5 },
+
+    { "id": "nm:chipotle-chicken", "source": "NUTRIME", "name": "Chicken", "brand": "Chipotle", "category": "Restaurant Foods", "kcal": 180, "micros": 3 },
+    { "id": "nm:chipotle-steak", "source": "NUTRIME", "name": "Steak", "brand": "Chipotle", "category": "Restaurant Foods", "kcal": 150, "micros": 3 },
+    { "id": "usda:171790", "source": "USDA", "name": "Beef, top sirloin, steak, separable lean only, raw", "category": "Beef Products", "kcal": 131, "micros": 31 },
+    { "id": "nm:dq-mayo", "source": "NUTRIME", "name": "Mayo", "brand": "Dairy Queen", "category": "Restaurant Foods", "kcal": 700, "micros": 0 },
+    { "id": "nm:mayonnaise", "source": "NUTRIME", "name": "Mayonnaise, regular", "category": "Condiments and sauces", "keywords": "mayo mayonnaise regular mayo", "kcal": 680, "micros": 31 },
+    { "id": "nm:dq-banana", "source": "NUTRIME", "name": "Banana", "brand": "Dairy Queen", "category": "Restaurant Foods", "kcal": 89, "micros": 0 },
+    { "id": "nm:bk-whopper", "source": "NUTRIME", "name": "Whopper", "brand": "Burger King", "category": "Restaurant Foods", "kcal": 240, "micros": 3 },
+    { "id": "nm:bk-cheeseburger", "source": "NUTRIME", "name": "Burger, cheese", "brand": "Burger King", "category": "Restaurant Foods", "kcal": 265, "micros": 3 },
+    { "id": "nm:coffee-black-brewed", "source": "NUTRIME", "name": "Coffee, brewed, black", "category": "Beverages", "keywords": "coffee black coffee brewed coffee", "kcal": 1, "micros": 31 },
+    { "id": "nm:th-coffee", "source": "NUTRIME", "name": "Coffee", "brand": "Tim Hortons", "category": "Restaurant Foods", "kcal": 2, "micros": 0 },
+    { "id": "nm:bread-white", "source": "NUTRIME", "name": "White bread", "category": "Grains and pasta", "keywords": "white bread bread", "kcal": 266, "micros": 31 },
+    { "id": "nm:subway-bread", "source": "NUTRIME", "name": "Bread", "brand": "Subway", "category": "Restaurant Foods", "kcal": 260, "micros": 2 },
+    { "id": "nm:strawberries-raw", "source": "NUTRIME", "name": "Strawberry, raw", "category": "Fruit", "kcal": 32, "micros": 31 },
+    { "id": "usda:169291", "source": "USDA", "name": "Zucchini, raw", "category": "Vegetables and Vegetable Products", "kcal": 17, "micros": 31 },
+    { "id": "usda:747447", "source": "USDA", "name": "Broccoli, raw", "category": "Vegetables and Vegetable Products", "kcal": 39, "micros": 25, "servings": [["1 cup", 91]] },
+    { "id": "usda:170379", "source": "USDA", "name": "Broccoli, raw", "category": "Vegetables and Vegetable Products", "kcal": 34, "micros": 31, "servings": [["1 cup", 91]] },
+    { "id": "usda:167600", "source": "USDA", "name": "Salmon, Chinook, raw (Alaska Native)", "category": "American Indian/Alaska Native Foods", "kcal": 180, "micros": 25 },
+    { "id": "usda:175167", "source": "USDA", "name": "Salmon, Atlantic, raw", "category": "Finfish and Shellfish Products", "kcal": 208, "micros": 31 },
+    { "id": "usda:2706400", "source": "USDA", "name": "Salmon, Atlantic, raw", "category": "Fish", "kcal": 208, "micros": 29 },
+    { "id": "usda:171001", "source": "USDA", "name": "Formula, infant, milk-based", "category": "Formula, prepared from powder", "kcal": 67, "micros": 25 }
   ],
   "cases": [
     {
@@ -98,14 +119,88 @@
       "note": "The USDA row with the same name and energy as a NutriMe food is merged into it."
     },
     {
+      "query": "chicken breasts",
+      "first": "nm:chicken-breast-raw",
+      "before": [["nm:chicken-breast-raw", "nm:chipotle-chicken"]]
+    },
+    {
+      "query": "chicken",
+      "before": [["nm:chicken-breast-raw", "nm:chipotle-chicken"], ["usda:171477", "nm:chipotle-chicken"]],
+      "note": "Plain chicken outranks single-word restaurant topping Chicken [Chipotle]."
+    },
+    {
+      "query": "steak",
+      "first": "usda:171790",
+      "before": [["usda:171790", "nm:chipotle-steak"]],
+      "note": "Plain USDA steak outranks single-word restaurant topping Steak [Chipotle]."
+    },
+    {
+      "query": "mayo",
+      "first": "nm:mayonnaise",
+      "before": [["nm:mayonnaise", "nm:dq-mayo"]],
+      "note": "Curated mayonnaise matched by alias outranks Mayo [Dairy Queen]."
+    },
+    {
+      "query": "coffee",
+      "first": "nm:coffee-black-brewed",
+      "before": [["nm:coffee-black-brewed", "nm:th-coffee"]],
+      "note": "Generic brewed black coffee outranks chain Coffee [Tim Hortons]."
+    },
+    {
+      "query": "bread",
+      "first": "nm:bread-white",
+      "before": [["nm:bread-white", "nm:subway-bread"]],
+      "note": "Generic white bread outranks Bread [Subway]."
+    },
+    {
+      "query": "burger",
+      "first": "nm:burger-homemade",
+      "before": [["nm:burger-homemade", "nm:bk-cheeseburger"]],
+      "note": "Generic burger does not trigger Burger King brand match."
+    },
+    {
+      "query": "burger king whopper",
+      "first": "nm:bk-whopper",
+      "note": "Full multi-word chain name matches Burger King."
+    },
+    {
+      "query": "boiled eggs",
+      "first": "nm:egg-boiled",
+      "before": [["nm:egg-boiled", "usda:169228"]]
+    },
+    {
+      "query": "strawberries",
+      "first": "nm:strawberries-raw",
+      "note": "-ies singularization matches Strawberry, raw."
+    },
+    {
+      "query": "courgette",
+      "variants": ["zucchini"],
+      "first": "usda:169291",
+      "note": "Synonym variant scores Zucchini, raw accurately."
+    },
+    {
+      "query": "broccoli",
+      "first": "usda:170379",
+      "hidden": ["usda:747447"],
+      "note": "Low-calorie produce within 8 kcal collapses and keeps the higher-micronutrient SR Legacy row."
+    },
+    {
+      "query": "salmon",
+      "first": "usda:175167",
+      "before": [["usda:175167", "usda:167600"]],
+      "hidden": ["usda:2706400"],
+      "note": "Specialty Native category is penalized when not requested, and 31-micro SR Legacy beats 29-micro FNDDS."
+    },
+    {
       "query": "greek yogurt",
       "first": "usda:170903",
-      "before": [["usda:171304", "usda:2705502"], ["off:0021", "off:0020"]]
+      "before": [["usda:170903", "usda:2705501"], ["usda:171304", "usda:2705502"], ["off:0021", "off:0020"]]
     },
     {
       "query": "banana",
       "first": "usda:173944",
-      "before": [["usda:173944", "usda:2709001"], ["usda:2709001", "usda:2709003"]]
+      "before": [["usda:173944", "nm:dq-banana"], ["usda:173944", "usda:2709001"], ["usda:2709001", "usda:2709003"]]
     },
     {
       "query": "egg",
@@ -114,12 +209,14 @@
     },
     {
       "query": "rice",
-      "first": "usda:2708101",
+      "first": "usda:2708102",
       "before": [
+        ["usda:2708102", "usda:2708101"],
         ["nm:rice-white-cooked", "usda:2708103"],
         ["usda:2708102", "usda:2708104"],
         ["usda:2708104", "usda:2708105"]
-      ]
+      ],
+      "note": "Specific cooked rice outranks vague FNDDS Rice, NFS."
     },
     {
       "query": "cracker barrel chicken",

@@ -110,16 +110,22 @@ fun connectDatabase(config: Config): Database {
 }
 
 /**
- * On PostgreSQL, a trigram index lets the catalog's `search_text LIKE '%word%'` use an index, so search
- * stays fast with hundreds of thousands of imported foods. pg_trgm is a trusted extension (PostgreSQL 13+),
- * so the database owner can create it. Without it (or on H2 in tests) search still works, only slower.
+ * On PostgreSQL, a full-text search GIN index (`to_tsvector('english', search_text)`) serves catalog
+ * queries with whole-word, plural, and short-token matching, and a trigram index backs the fallback
+ * when FTS returns few results. On H2 (in tests) neither is needed.
  */
 private fun createCatalogSearchIndex(db: Database) {
     if (db.vendor != "postgresql") return
+    val log = org.slf4j.LoggerFactory.getLogger("Db")
+    runCatching {
+        transaction(db) {
+            exec("CREATE INDEX IF NOT EXISTS catalog_foods_search_fts ON catalog_foods USING gin (to_tsvector('english', search_text))")
+        }
+    }.onFailure { log.warn("Catalog FTS index not created ({}); search works without it", it.javaClass.simpleName) }
     runCatching {
         transaction(db) {
             exec("CREATE EXTENSION IF NOT EXISTS pg_trgm")
             exec("CREATE INDEX IF NOT EXISTS catalog_foods_search_trgm ON catalog_foods USING gin (search_text gin_trgm_ops)")
         }
-    }.onFailure { org.slf4j.LoggerFactory.getLogger("Db").warn("Catalog search index not created ({}); search works without it", it.javaClass.simpleName) }
+    }.onFailure { log.warn("Catalog trigram index not created ({}); fallback works without it", it.javaClass.simpleName) }
 }

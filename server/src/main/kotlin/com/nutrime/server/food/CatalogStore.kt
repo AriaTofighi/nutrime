@@ -56,31 +56,98 @@ class CatalogStore(private val db: Database) {
     }
 
     /**
-     * Saved foods whose name and brand contain every word (words of 3+ letters, which the PostgreSQL
-     * trigram index can serve, when the query has any). Shorter names first, so plain products are kept
-     * when many match; the caller ranks them with the shared search ranking.
+     * Saved foods matching the query. On PostgreSQL, queries the full-text index (`to_tsvector('english', search_text)`)
+     * ordered by `ts_rank` (fixing heap sampling, substring false positives like "ice" matching "rice", plurals, and
+     * short tokens like "2%"), with a `pg_trgm` fallback when FTS returns few results. On H2 (tests), uses whole-word
+     * prefix/singular matching across every non-stop token.
      */
     fun search(query: String, limit: Int, provider: String? = null): List<Food> = transaction(db) {
-        val all = normalize(query).split(' ').filter { it.isNotEmpty() }.take(12)
-        val words = all.filter { it.length >= 3 }.ifEmpty { all }
-        if (words.isEmpty()) return@transaction emptyList()
-        val condition = words.map { word -> CatalogFoods.searchText like "%$word%" }.compoundAnd()
-        val where = if (provider == null) condition else condition and (CatalogFoods.provider eq provider)
-        val length = CatalogFoods.searchText.charLength()
+        val norm = normalize(query)
+        val all = norm.split(' ').filter { it.isNotEmpty() }.take(12)
+        if (all.isEmpty()) return@transaction emptyList()
+        val nonStop = all.filter { it !in com.nutrime.app.model.FoodQuality.STOP_WORDS }.ifEmpty { all }
         if (db.vendor != "postgresql") {
-            return@transaction CatalogFoods.selectAll().where { where }
-                .orderBy(length to SortOrder.ASC, CatalogFoods.fetchedAt to SortOrder.DESC)
-                .limit(limit).map { it.food() }
+            return@transaction searchH2(nonStop, limit, provider)
         }
-        // With hundreds of thousands of imported foods, sorting every match of a common word ("milk") is slow:
-        // order a bounded set of matches (ids and lengths only), then load the payloads of the kept ones.
-        val sample = CatalogFoods.select(CatalogFoods.id, length, CatalogFoods.fetchedAt).where { where }
-            .limit((limit * 20).coerceIn(200, POSTGRES_SAMPLE))
-            .map { Triple(it[CatalogFoods.id], it[length] ?: Int.MAX_VALUE, it[CatalogFoods.fetchedAt]) }
-        val ids = sample.sortedWith(compareBy<Triple<String, Int, Long>> { it.second }.thenByDescending { it.third }).take(limit).map { it.first }
-        if (ids.isEmpty()) return@transaction emptyList()
-        val found = CatalogFoods.selectAll().where { CatalogFoods.id inList ids }.associate { it[CatalogFoods.id] to it.food() }
-        ids.mapNotNull(found::get)
+        val fts = searchPostgresFts(norm, limit, provider)
+        if (fts.size >= minOf(limit, FTS_FALLBACK_MIN)) return@transaction fts
+        val seen = fts.mapTo(HashSet()) { it.id }
+        val fallback = searchPostgresTrgm(nonStop, limit, provider).filter { it.id !in seen }
+        (fts + fallback).take(limit)
+    }
+
+    private fun searchH2(tokens: List<String>, limit: Int, provider: String?): List<Food> {
+        val sql = buildString {
+            append("SELECT payload FROM catalog_foods WHERE ")
+            append(tokens.joinToString(" AND ") {
+                "((' ' || search_text || ' ') LIKE ? OR (' ' || search_text || ' ') LIKE ?)"
+            })
+            if (provider != null) append(" AND provider = ?")
+            append(" ORDER BY CHAR_LENGTH(search_text) ASC, fetched_at DESC LIMIT ?")
+        }
+        val conn = org.jetbrains.exposed.sql.transactions.TransactionManager.current().connection.connection as java.sql.Connection
+        return conn.prepareStatement(sql).use { st ->
+            var idx = 1
+            tokens.forEach { t ->
+                val s = com.nutrime.app.model.FoodQuality.singular(t)
+                st.setString(idx++, "% $t%")
+                st.setString(idx++, "% $s%")
+            }
+            if (provider != null) st.setString(idx++, provider)
+            st.setInt(idx, limit)
+            st.executeQuery().use { rs ->
+                buildList { while (rs.next()) add(recordJson.decodeFromString<Food>(rs.getString(1))) }
+            }
+        }
+    }
+
+    private fun searchPostgresFts(normQuery: String, limit: Int, provider: String?): List<Food> {
+        val sql = buildString {
+            append("WITH q AS (SELECT plainto_tsquery('english', ?) AS tsq) ")
+            append("SELECT c.payload FROM catalog_foods c, q ")
+            append("WHERE numnode(q.tsq) > 0 AND to_tsvector('english', c.search_text) @@ q.tsq")
+            if (provider != null) append(" AND c.provider = ?")
+            append(" ORDER BY ts_rank(to_tsvector('english', c.search_text), q.tsq) DESC, char_length(c.search_text) ASC, c.fetched_at DESC LIMIT ?")
+        }
+        val conn = org.jetbrains.exposed.sql.transactions.TransactionManager.current().connection.connection as java.sql.Connection
+        return conn.prepareStatement(sql).use { st ->
+            var idx = 1
+            st.setString(idx++, normQuery)
+            if (provider != null) st.setString(idx++, provider)
+            st.setInt(idx, limit)
+            st.executeQuery().use { rs ->
+                buildList { while (rs.next()) add(recordJson.decodeFromString<Food>(rs.getString(1))) }
+            }
+        }
+    }
+
+    private fun searchPostgresTrgm(tokens: List<String>, limit: Int, provider: String?): List<Food> {
+        val longWords = tokens.filter { it.length >= 3 }
+        val shortWords = tokens.filter { it.length < 3 }
+        val sql = buildString {
+            append("SELECT payload FROM catalog_foods WHERE ")
+            val parts = mutableListOf<String>()
+            longWords.forEach { _ -> parts += "(search_text LIKE ? AND (' ' || search_text || ' ') LIKE ?)" }
+            shortWords.forEach { _ -> parts += "(' ' || search_text || ' ') LIKE ?" }
+            append(parts.joinToString(" AND "))
+            if (provider != null) append(" AND provider = ?")
+            append(" ORDER BY char_length(search_text) ASC, fetched_at DESC LIMIT ?")
+        }
+        val conn = org.jetbrains.exposed.sql.transactions.TransactionManager.current().connection.connection as java.sql.Connection
+        return conn.prepareStatement(sql).use { st ->
+            var idx = 1
+            longWords.forEach { w ->
+                val s = com.nutrime.app.model.FoodQuality.singular(w)
+                st.setString(idx++, "%$s%")
+                st.setString(idx++, "% $s%")
+            }
+            shortWords.forEach { w -> st.setString(idx++, "% $w %") }
+            if (provider != null) st.setString(idx++, provider)
+            st.setInt(idx, limit)
+            st.executeQuery().use { rs ->
+                buildList { while (rs.next()) add(recordJson.decodeFromString<Food>(rs.getString(1))) }
+            }
+        }
     }
 
     /** Row locks and a lease also coalesce concurrent queries from separate server processes. */
@@ -128,7 +195,7 @@ class CatalogStore(private val db: Database) {
             it[expiresAt] = when {
                 error != null -> now + retryAfter.coerceAtLeast(1) * 1000L
                 foods.isEmpty() -> now + 24 * 3600_000L
-                else -> Long.MAX_VALUE
+                else -> now + QUERY_TTL_MS
             }
             it[leaseUntil] = 0
             it[CatalogQueries.error] = error
@@ -136,8 +203,10 @@ class CatalogStore(private val db: Database) {
     }
 
     companion object {
-        /** At most this many matches are ordered per search on PostgreSQL. */
-        private const val POSTGRES_SAMPLE = 2000
+        /** Fall back to pg_trgm when PostgreSQL FTS returns fewer than this many rows. */
+        private const val FTS_FALLBACK_MIN = 10
+        /** Cached provider query results expire after 60 days so updated catalogs are picked up. */
+        const val QUERY_TTL_MS = 60L * 24 * 3600_000L
 
         fun normalize(query: String) = query.lowercase(Locale.ROOT).replace(Regex("[^\\p{L}\\p{N}]+"), " ").trim()
         fun seconds(ms: Long) = ((ms.coerceAtLeast(0) + 999) / 1000).coerceAtMost(Int.MAX_VALUE.toLong()).toInt().coerceAtLeast(1)
